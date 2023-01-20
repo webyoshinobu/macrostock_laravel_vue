@@ -4,6 +4,7 @@ import top from "./components/Top.vue";
 import gallery from "./components/gallery/Gallery.vue";
 import photo from "./components/gallery/Photo.vue";
 import contact from "./components/contact/Contact.vue";
+import login from "./components/auth/Login.vue";
 import register from "./components/auth/Register.vue";
 import cart from "./components/cart/Cart.vue";
 import thanks from "./components/Thanks.vue";
@@ -40,6 +41,11 @@ const routes = [
         path: '/contact',
         name: 'contact',
         component: contact
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: login
     },
     {
         path: '/register',
