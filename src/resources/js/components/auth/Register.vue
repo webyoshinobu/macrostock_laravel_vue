@@ -47,10 +47,11 @@ export default defineComponent({
 
         // methods
 
-        const clickRegister = (data:any) => {
+        const clickRegister = () => {
             console.log('registerForm', registerForm);
+            const data = registerForm;
             // authストアのresigterアクションを呼び出す
-            register(registerForm);
+            register(data);
 
             // トップページに移動する
             // router.push('/')

@@ -11,7 +11,7 @@
         <ul class="header_nav_menu">
             <router-link to="/gallery" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange}">Gallery</router-link>
             <router-link to="/contact" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange}">Contact</router-link>
-            <li class="header_nav_menu_item"><ButtonWhite>Login</ButtonWhite></li>
+            <router-link to="/login" class="header_nav_menu_item"><ButtonWhite>Login</ButtonWhite></router-link>
             <!-- <li class="header_nav_menu_item"><ButtonBlack>Register</ButtonBlack></li> -->
             <router-link to="/register" class="header_nav_menu_item"><ButtonBlack>Register</ButtonBlack></router-link>
         </ul>
