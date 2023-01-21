@@ -8,10 +8,7 @@ import login from "./components/auth/Login.vue";
 import register from "./components/auth/Register.vue";
 import cart from "./components/cart/Cart.vue";
 import thanks from "./components/Thanks.vue";
-// const storage = gallery(); //外部ファイルに格納したデータを格納
-// const state = reactive({ //格納したオブジェクトstorageをリアクティブメソッドで値渡しにする
-// 	storage:storage
-// });
+import { auth } from '../../store/auth' // ★　追加
 
 const routes = [
     {
@@ -45,7 +42,14 @@ const routes = [
     {
         path: '/login',
         name: 'login',
-        component: login
+        component: login,
+        beforeEnter (to:any, from:any, next:any) {
+            if (auth().isLoggedIn) {
+              next('/')
+            } else {
+              next()
+            }
+        }
     },
     {
         path: '/register',
