@@ -8,13 +8,19 @@
     </h1>
 
     <nav class="header_nav">
-        <ul class="header_nav_menu">
+        <div class="header_nav_menu">
+
             <router-link to="/gallery" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange}">Gallery</router-link>
+
             <router-link to="/contact" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange}">Contact</router-link>
-            <router-link to="/login" class="header_nav_menu_item"><ButtonWhite>Login</ButtonWhite></router-link>
-            <!-- <li class="header_nav_menu_item"><ButtonBlack>Register</ButtonBlack></li> -->
-            <router-link to="/register" class="header_nav_menu_item"><ButtonBlack>Register</ButtonBlack></router-link>
-        </ul>
+
+            <router-link v-if="!isLoggedIn" to="/login" class="header_nav_menu_item"><ButtonWhite>Login</ButtonWhite></router-link>
+            <router-link v-else to="/login" class="header_nav_menu_item" @click="clickLogout"><ButtonWhite>Logout</ButtonWhite></router-link>
+
+            <router-link v-if="!isLoggedIn" to="/register" class="header_nav_menu_item"><ButtonBlack>Register</ButtonBlack></router-link>
+            <p v-else class="header_nav_menu_item"><ButtonBlack>{{ userInfo.name }} 様</ButtonBlack></p>
+
+        </div>
     </nav>
 
   </header>
@@ -23,6 +29,8 @@
 <script lang="ts">
     import { defineComponent, ref, onMounted } from "vue";
     import { useRoute, useRouter } from 'vue-router';
+    import { storeToRefs } from "pinia";
+    import { auth } from '../../../store/auth';
     import ButtonWhite from "./common/ButtonWhite.vue";
     import ButtonBlack from "./common/ButtonBlack.vue";
     export default defineComponent({
@@ -37,6 +45,9 @@
             const router = useRouter();
             const route = useRoute();
             const isChange = ref(false);
+            const authStore = auth();
+            const { userInfo, isLoggedIn } = storeToRefs(authStore);
+            const token = auth().csrf;
 
             // methods
             const addClass = () => {
@@ -54,6 +65,13 @@
                 });
             };
 
+            const clickLogout = () => {
+                authStore.logout();
+                // ログインページに移動する
+                router.push('/login');
+                console.log('clickLogout');
+            };
+
             // computed
 
             // lifecycle hooks
@@ -61,7 +79,7 @@
                 addClass();
             });
 
-            return { router, addClass, isChange };
+            return { router, addClass, clickLogout, isChange, userInfo, token, isLoggedIn, onMounted };
         },
     });
 </script>

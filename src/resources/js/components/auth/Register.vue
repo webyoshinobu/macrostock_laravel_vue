@@ -7,28 +7,28 @@
                 <input type="hidden" name="_token" :value="token">
 
                 <div class="register_form_line">
-                    <label for="register_form_username">氏名</label>
-                    <input type="text" class="register_form_line_username" id="register_form_username" v-model="registerForm.name">
+                    <label class="register_form_line_label" for="register_form_username">氏名</label>
+                    <input type="text" class="register_form_line_input" id="register_form_username" v-model="registerForm.name">
                 </div>
 
                 <div class="register_form_line">
-                    <label for="register_form_email">メールアドレス</label>
-                    <input type="text" class="register_form_line_email" id="register_form_email" v-model="registerForm.email">
+                    <label class="register_form_line_label" for="register_form_email">メールアドレス</label>
+                    <input type="text" class="register_form_line_input" id="register_form_email" v-model="registerForm.email">
                 </div>
 
                 <div class="register_form_line">
-                    <label for="register_form_pass">パスワード</label>
-                    <input type="password" class="register_form_line_pass" id="register_form_pass" v-model="registerForm.password">
+                    <label class="register_form_line_label" for="register_form_pass">パスワード</label>
+                    <input type="password" class="register_form_line_input" id="register_form_pass" v-model="registerForm.password">
                 </div>
 
                 <div class="register_form_line">
-                    <label for="register_form_passconfirmation">パスワード(確認)</label>
-                    <input type="password" class="register_form_line_passconfirmation" id="register_form_passconfirmation" v-model="registerForm.password_confirmation">
+                    <label class="register_form_line_label" for="register_form_passconfirmation">パスワード(確認)</label>
+                    <input type="password" class="register_form_line_input" id="register_form_passconfirmation" v-model="registerForm.password_confirmation">
                 </div>
 
-                <div class="register_form_line">
-                    <input id="register_form_checkbox" type="checkbox">
-                    <label for="register_form_checkbox" >Macro Stock利用規約に同意する（ご登録前に必ずご確認ください。）</label>
+                <div class="register_form_term">
+                    <input class="register_form_term_checkbox" id="register_form_checkbox" type="checkbox">
+                    <label class="register_form_term_link" for="register_form_checkbox" >Macro Stock利用規約に同意する（ご登録前に必ずご確認ください。）</label>
                 </div>
 
                 <div class="register_form_submit">
@@ -75,7 +75,7 @@ export default defineComponent({
             register(data);
 
             // トップページに移動する
-            // router.push('/')
+            router.push('/')
         }
 
         onMounted(() => {
@@ -94,9 +94,49 @@ export default defineComponent({
     padding: 170px 10% 0 10%;
     margin: 0 0 100px 0;
 
+    &_title {
+        font-size: 70px;
+        margin-bottom: 50px;
+    }
+
     &_form {
         display: flex;
         flex-flow: column;
+
+        &_line {
+            display: flex;
+            font-size: 36px;
+
+            &:not(:last-child) {
+                margin: 0 0 20px 0;
+            }
+
+            &_label {
+                width: 30%;
+            }
+
+            &_input {
+                width: 70%;
+            }
+        }
+
+        &_term {
+            margin: 0 0 20px 30%;
+            font-size: 24px;
+
+            &_checkbox {
+                transform: scale(2);
+            }
+
+            &_link {
+                margin: 0 0 0 20px;
+            }
+        }
+
+        &_submit {
+            display: flex;
+            justify-content: center;
+        }
     }
 }
 

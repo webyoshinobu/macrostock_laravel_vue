@@ -17,19 +17,35 @@ type USER = {
 
 export const auth = defineStore('auth', {
     state: () => ({
-        // user: [] as any[],
-        user: [] as USER[],
+        user: null as USER|null,
         csrf: document.querySelector('meta[name="csrf-token"]')!.getAttribute('content'),
     }),
     getters: ({
-        check: state => !! state.user,
-        username: state => state.user ? state.user : ''
+        isLoggedIn: (state) => state.user !== null,
+        userInfo: state => state.user ? state.user : null,
     }),
     actions: {
         async register (data:any) {
             this.user = data;
             const response = await axios.post('/api/register', data);
             this.user = response.data;
-        }
+        },
+
+        async login (data:any) {
+            const response = await axios.post('/api/login', data);
+            console.log('auth.ts login data', response.data);
+            this.user = response.data;
+        },
+
+        async logout () {
+            const response = await axios.post('/api/logout');
+            this.user = null;
+        },
+
+        async currentUser () {
+            const response = await axios.get('/api/user');
+            const user = response.data || null;
+            this.user = user;
+          }
     },
   })

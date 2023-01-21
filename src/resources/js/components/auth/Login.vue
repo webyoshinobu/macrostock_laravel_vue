@@ -1,7 +1,10 @@
 <template>
     <section class="login">
-        <div class="panel">
-            <form method="post" class="form">
+        <div class="">
+            <form method="post" class="form" @submit.prevent="clickLogin">
+                <!-- laravelのトークンを使用 -->
+                <input type="hidden" name="_token" :value="token">
+
                 <label for="login-email">Email</label>
                 <input type="text" class="form__item" id="login-email" v-model="loginForm.email">
                 <label for="login-password">Password</label>
@@ -18,6 +21,7 @@
 import { defineComponent, ref } from "vue";
 import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
+import { auth } from '../../../../store/auth';
 
 export default defineComponent({
     name: 'Login',
@@ -29,17 +33,24 @@ export default defineComponent({
         // data
         const router = useRouter();
         const route = useRoute();
+        const { login } = auth();
         const loginForm = {
             email: '',
             password: ''
         };
+        const token = auth().csrf;
 
         // methods
-        const login = () => {
-            console.log(loginForm)
+        const clickLogin = () => {
+            console.log('loginForm', loginForm)
+            const data = loginForm;
+            login(data);
+
+            // トップページに移動する
+            router.push('/')
         }
 
-        return { router, route, loginForm, login };
+        return { router, route, loginForm, clickLogin, token };
     }
 
 });
