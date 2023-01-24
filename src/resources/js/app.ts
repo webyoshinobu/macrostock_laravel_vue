@@ -12,12 +12,13 @@ import 'swiper/swiper-bundle.css';
 import '../css/swiper.css'; //swiper専用スタイル
 import axios from '../../plugins/axios';
 import bootstrap from './bootstrap';
+import { error } from '../../store/error';
 
-library.add(faInstagram);
-bootstrap();
+library.add(faInstagram)
+bootstrap()
 
-const app = createApp(App);
-const pinia = createPinia();
+const app = createApp(App)
+const pinia = createPinia()
 app.use(pinia);
 // ログイン後にページリロードした時に、ログイン状態を維持する場合、
 //app.use(pinia);の後、以下の3行を記述しないとpiniaが動かないエラーが出る。
@@ -34,6 +35,9 @@ app.use(axios, {
 });
 
 app.use(router)
+
+const errorStore = error()
+app.use(errorStore.setCode)
 
 app.mount("#app")
 
