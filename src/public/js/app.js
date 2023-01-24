@@ -23906,12 +23906,19 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 __webpack_require__(/*! normalize.css */ "./node_modules/normalize.css/normalize.css");
+var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 var Header_vue_1 = __importDefault(__webpack_require__(/*! ./components/Header.vue */ "./resources/js/components/Header.vue"));
 var Footer_vue_1 = __importDefault(__webpack_require__(/*! ./components/Footer.vue */ "./resources/js/components/Footer.vue"));
 exports["default"] = {
   components: {
     Header: Header_vue_1["default"],
     Footer: Footer_vue_1["default"]
+  },
+  setup: function setup() {
+    (0, vue_1.onMounted)(function () {});
+    return {
+      onMounted: vue_1.onMounted
+    };
   }
 };
 
@@ -23983,9 +23990,9 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 var pinia_1 = __webpack_require__(/*! pinia */ "./node_modules/pinia/index.js");
 var auth_1 = __webpack_require__(/*! ../../../store/auth */ "./store/auth.ts");
+var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 var ButtonWhite_vue_1 = __importDefault(__webpack_require__(/*! ./common/ButtonWhite.vue */ "./resources/js/components/common/ButtonWhite.vue"));
 var ButtonBlack_vue_1 = __importDefault(__webpack_require__(/*! ./common/ButtonBlack.vue */ "./resources/js/components/common/ButtonBlack.vue"));
 exports["default"] = (0, vue_1.defineComponent)({
@@ -24022,7 +24029,10 @@ exports["default"] = (0, vue_1.defineComponent)({
     var clickLogout = function clickLogout() {
       authStore.logout();
       // ログインページに移動する
-      router.push('/login');
+      // router.push('/login');
+      router.push({
+        name: 'login'
+      });
       console.log('clickLogout');
     };
     // computed
@@ -24148,20 +24158,30 @@ exports["default"] = (0, vue_1.defineComponent)({
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/auth/Login.vue?vue&type=script&lang=ts ***!
   \************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 var auth_1 = __webpack_require__(/*! ../../../../store/auth */ "./store/auth.ts");
+var ButtonWhite_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonWhite.vue */ "./resources/js/components/common/ButtonWhite.vue"));
+var ButtonBlack_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonBlack.vue */ "./resources/js/components/common/ButtonBlack.vue"));
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'Login',
-  components: {},
+  components: {
+    ButtonWhite: ButtonWhite_vue_1["default"],
+    ButtonBlack: ButtonBlack_vue_1["default"]
+  },
   setup: function setup() {
     // data
     var router = (0, vue_router_1.useRouter)();
@@ -25058,35 +25078,42 @@ var _withScopeId = function _withScopeId(n) {
 var _hoisted_1 = {
   "class": "login"
 };
-var _hoisted_2 = {
-  "class": ""
-};
+var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("h2", {
+    "class": "login_title"
+  }, "会員ログイン", -1 /* HOISTED */);
+});
+
 var _hoisted_3 = ["value"];
-var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
-    "for": "login-email"
-  }, "Email", -1 /* HOISTED */);
-});
-
-var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
-    "for": "login-password"
-  }, "Password", -1 /* HOISTED */);
-});
-
-var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_4 = {
+  "class": "login_form_line"
+};
+var _hoisted_5 = {
+  "class": "login_form_line"
+};
+var _hoisted_6 = {
+  "class": "login_form_submit"
+};
+var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("div", {
-    "class": "form__button"
-  }, [/*#__PURE__*/(0, vue_1.createElementVNode)("button", {
-    type: "submit",
-    "class": "button button--inverse"
-  }, "login")], -1 /* HOISTED */);
+    "class": "login_explain"
+  }, [/*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "login_explain_word"
+  }, "パスワードをお忘れですか？"), /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "login_explain_word"
+  }, "会員登録はまだですか？")], -1 /* HOISTED */);
 });
 
+var _hoisted_8 = {
+  "class": "login_toRegister"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createElementVNode)("div", _hoisted_2, [(0, vue_1.createElementVNode)("form", {
+  var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
+  var _component_ButtonBlack = (0, vue_1.resolveComponent)("ButtonBlack");
+  var _component_router_link = (0, vue_1.resolveComponent)("router-link");
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("form", {
     method: "post",
-    "class": "form",
+    "class": "login_form",
     onSubmit: _cache[2] || (_cache[2] = (0, vue_1.withModifiers)(
     //@ts-ignore
     function () {
@@ -25096,21 +25123,47 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "hidden",
     name: "_token",
     value: _ctx.token
-  }, null, 8 /* PROPS */, _hoisted_3), _hoisted_4, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+  }, null, 8 /* PROPS */, _hoisted_3), (0, vue_1.createElementVNode)("div", _hoisted_4, [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+    "class": "login_form_line_input",
     type: "text",
-    "class": "form__item",
     id: "login-email",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return _ctx.loginForm.email = $event;
-    })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.loginForm.email]]), _hoisted_5, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+    }),
+    placeholder: "メールアドレス"
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.loginForm.email]])]), (0, vue_1.createElementVNode)("div", _hoisted_5, [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "password",
-    "class": "form__item",
+    "class": "login_form_line_input",
     id: "login-password",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return _ctx.loginForm.password = $event;
-    })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.loginForm.password]]), _hoisted_6], 32 /* HYDRATE_EVENTS */)])]);
+    }),
+    placeholder: "パスワード"
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.loginForm.password]])]), (0, vue_1.createElementVNode)("div", _hoisted_6, [(0, vue_1.createVNode)(_component_ButtonWhite, {
+    "class": "login_form_submit_button",
+    type: "submit"
+  }, {
+    "default": (0, vue_1.withCtx)(function () {
+      return [(0, vue_1.createTextVNode)("ログイン")];
+    }),
+    _: 1 /* STABLE */
+  })])], 32 /* HYDRATE_EVENTS */), _hoisted_7, (0, vue_1.createElementVNode)("div", _hoisted_8, [(0, vue_1.createVNode)(_component_router_link, {
+    to: "/register",
+    "class": "header_nav_menu_item"
+  }, {
+    "default": (0, vue_1.withCtx)(function () {
+      return [(0, vue_1.createVNode)(_component_ButtonBlack, {
+        "class": "login_toRegister_button"
+      }, {
+        "default": (0, vue_1.withCtx)(function () {
+          return [(0, vue_1.createTextVNode)("会員登録")];
+        }),
+        _: 1 /* STABLE */
+      })];
+    }),
+
+    _: 1 /* STABLE */
+  })])]);
 }
 
 exports.render = render;
@@ -25247,7 +25300,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "submit"
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [(0, vue_1.createTextVNode)("確認")];
+      return [(0, vue_1.createTextVNode)("登録")];
     }),
     _: 1 /* STABLE */
   })])], 32 /* HYDRATE_EVENTS */), (0, vue_1.createCommentVNode)(" </div> ")]);
@@ -26157,44 +26210,65 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 var pinia_1 = __webpack_require__(/*! pinia */ "./node_modules/pinia/index.js");
+var auth_1 = __webpack_require__(/*! ../../store/auth */ "./store/auth.ts");
 __webpack_require__(/*! normalize.css */ "./node_modules/normalize.css/normalize.css");
 var router_1 = __importDefault(__webpack_require__(/*! ./router */ "./resources/js/router.ts"));
 var App_vue_1 = __importDefault(__webpack_require__(/*! ./App.vue */ "./resources/js/App.vue"));
 var fontawesome_svg_core_1 = __webpack_require__(/*! @fortawesome/fontawesome-svg-core */ "./node_modules/@fortawesome/fontawesome-svg-core/index.mjs");
 var free_brands_svg_icons_1 = __webpack_require__(/*! @fortawesome/free-brands-svg-icons */ "./node_modules/@fortawesome/free-brands-svg-icons/index.js");
 var vue_fontawesome_1 = __webpack_require__(/*! @fortawesome/vue-fontawesome */ "./node_modules/@fortawesome/vue-fontawesome/index.es.js");
-var vue_awesome_swiper_1 = __importDefault(__webpack_require__(/*! vue-awesome-swiper */ "./node_modules/vue-awesome-swiper/index.js"));
 __webpack_require__(/*! swiper/swiper-bundle.css */ "./node_modules/swiper/swiper-bundle.css");
 __webpack_require__(/*! ../css/swiper.css */ "./resources/css/swiper.css"); //swiper専用スタイル
 var axios_1 = __importDefault(__webpack_require__(/*! ../../plugins/axios */ "./plugins/axios.ts"));
 var bootstrap_1 = __importDefault(__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.ts"));
-var auth_1 = __webpack_require__(/*! ../../store/auth */ "./store/auth.ts");
 fontawesome_svg_core_1.library.add(free_brands_svg_icons_1.faInstagram);
 (0, bootstrap_1["default"])();
 var app = (0, vue_1.createApp)(App_vue_1["default"]);
 var pinia = (0, pinia_1.createPinia)();
+app.use(pinia);
+// ログイン後にページリロードした時に、ログイン状態を維持する場合、
+//app.use(pinia);の後、以下の3行を記述しないとpiniaが動かないエラーが出る。
+var authStore = (0, auth_1.auth)();
 var currentUser = function currentUser() {
   return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          (0, auth_1.auth)().currentUser;
-        case 1:
+          _context.next = 2;
+          return authStore.currentUser();
+        case 2:
         case "end":
           return _context.stop();
       }
     }, _callee);
   }));
 };
-app.use(pinia);
-app.use(router_1["default"], vue_awesome_swiper_1["default"]);
+app.use(currentUser);
 app.component('fa', vue_fontawesome_1.FontAwesomeIcon);
 // app.use(VueAwesomeSwiper, /* { default options with global component } */);
 app.use(axios_1["default"], {
   baseUrl: 'https://localhost:8001/'
 });
-app.use(currentUser);
+app.use(router_1["default"]);
 app.mount("#app");
+// const app = createApp({
+//     async setup() {
+//         createPinia()
+//         const authStore = auth()
+//         // const currentUser = async () => {
+//             await authStore.currentUser()
+//         // }
+//         return { createPinia, authStore }
+//     },
+//     components: { App },
+// })
+// app.component('fa', FontAwesomeIcon );
+// // app.use(VueAwesomeSwiper, /* { default options with global component } */);
+// app.use(axios, {
+//     baseUrl: 'https://localhost:8001/',
+// });
+// app.use(router)
+// app.mount("#app")
 
 /***/ }),
 
@@ -26260,16 +26334,42 @@ Object.defineProperty(exports, "__esModule", ({
 //       .getAttribute("content"),
 // };
 // ---------------------------
+// import Axios, { AxiosStatic } from 'axios';
+// declare global {
+//   interface Window {
+//     axios: AxiosStatic;
+//   }
+//   interface Element {
+//     content: string;
+//   }
+// }
+// export default function bootstrap() {
+//   window.axios = Axios;
+//   window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+//   let token = document.head.querySelector('meta[name="csrf-token"]');
+//   if (token) {
+//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+//   } else {
+//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+//   }
+// }
+// ---------------------------
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
+var util_1 = __webpack_require__(/*! ./util */ "./resources/js/util.ts");
 function bootstrap() {
   window.axios = axios_1["default"];
   window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   var token = document.head.querySelector('meta[name="csrf-token"]');
-  if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-  } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-  }
+  //   if (token) {
+  //     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  //   } else {
+  //     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  //   }
+  window.axios.interceptors.request.use(function (config) {
+    // クッキーからトークンを取り出してヘッダーに添付する
+    config.headers['X-XSRF-TOKEN'] = (0, util_1.getCookieValue)('XSRF-TOKEN');
+    return config;
+  });
 }
 exports["default"] = bootstrap;
 
@@ -26302,7 +26402,6 @@ var Login_vue_1 = __importDefault(__webpack_require__(/*! ./components/auth/Logi
 var Register_vue_1 = __importDefault(__webpack_require__(/*! ./components/auth/Register.vue */ "./resources/js/components/auth/Register.vue"));
 var Cart_vue_1 = __importDefault(__webpack_require__(/*! ./components/cart/Cart.vue */ "./resources/js/components/cart/Cart.vue"));
 var Thanks_vue_1 = __importDefault(__webpack_require__(/*! ./components/Thanks.vue */ "./resources/js/components/Thanks.vue"));
-var auth_1 = __webpack_require__(/*! ../../store/auth */ "./store/auth.ts"); // ★　追加
 var routes = [{
   path: '/',
   name: 'top',
@@ -26331,14 +26430,35 @@ var routes = [{
 }, {
   path: '/login',
   name: 'login',
-  component: Login_vue_1["default"],
-  beforeEnter: function beforeEnter(to, from, next) {
-    if ((0, auth_1.auth)().isLoggedIn) {
-      next('/');
-    } else {
-      next();
-    }
-  }
+  component: Login_vue_1["default"]
+  // meta: {
+  //     requiresAuth: true
+  // },
+  // beforeEnter (to:any, from:any, next:any) {
+  //     console.log('beforeEnter');
+  //     const authStore = auth();
+  //     const { isLoggedIn } = storeToRefs(authStore);
+  //     if (!authStore.isLoggedIn) {
+  //     // if (to.meta.requiresAuth && !authStore.isLoggedIn) {
+  //         console.log(authStore.isLoggedIn);
+  //         next();
+  //     } else {
+  //         console.log(authStore.isLoggedIn);
+  //         next('/');
+  //     }
+  // }
+  // beforeEnter: (to:any, from:any, next:any) => {
+  //     console.log('beforeEnter');
+  //     const authStore = auth();
+  //     const { isLoggedIn } = storeToRefs(authStore);
+  //     if (!authStore.isLoggedIn) {
+  //         console.log('beforeEnter false')
+  //         next();
+  //     }else{
+  //         console.log('beforeEnter true')
+  //         next('/');
+  //     }
+  // },
 }, {
   path: '/register',
   name: 'register',
@@ -26352,11 +26472,137 @@ var routes = [{
   name: 'thanks',
   component: Thanks_vue_1["default"]
 }];
+// function isLogin() {
+//     const authStore = auth();
+//     const { isLoggedIn } = storeToRefs(authStore);
+//     console.log('isLogin', authStore.isLoggedIn);
+//     return authStore.isLoggedIn;
+// }
 var router = (0, vue_router_1.createRouter)({
   history: (0, vue_router_1.createWebHistory)(process.env.BASE_URL),
   routes: routes
 });
+// router.beforeEach(async(to, from, next) => {
+//     if (to.matched.some(record => record.meta.requiresAuth)) {
+//       if (isLogin()) {
+//         console.log('authStore.isLoggedIn1',isLogin());
+//         // next({
+//         //   path: '/',
+//         //   query: {
+//         //     redirect: to.fullPath
+//         //   }
+//         // })
+//         // next('/login')
+//         next({name: 'top'});
+//       } else {
+//         console.log('authStore.isLoggedIn2',isLogin());
+//         next();
+//       }
+//     } else {
+//         console.log('authStore.isLoggedIn3',isLogin());
+//         next();
+//     }
+//     console.log('authStore.isLoggedIn4',isLogin());
+// });
+// router.beforeEach(async (to, from) => {
+//     const authStore = auth();
+//     const { isLoggedIn } = storeToRefs(authStore);
+//     // canUserAccess() returns `true` or `false`
+//     const canAccess = await authStore.isLoggedIn
+//     if (!canAccess) {
+//         return '/'
+//     }else{
+//         return '/login'
+//     }
+// })
 exports["default"] = router;
+
+/***/ }),
+
+/***/ "./resources/js/util.ts":
+/*!******************************!*\
+  !*** ./resources/js/util.ts ***!
+  \******************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+function _iterableToArrayLimit(arr, i) {
+  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
+  if (null != _i) {
+    var _s,
+      _e,
+      _x,
+      _r,
+      _arr = [],
+      _n = !0,
+      _d = !1;
+    try {
+      if (_x = (_i = _i.call(arr)).next, 0 === i) {
+        if (Object(_i) !== _i) return;
+        _n = !1;
+      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
+    } catch (err) {
+      _d = !0, _e = err;
+    } finally {
+      try {
+        if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return;
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+    return _arr;
+  }
+}
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.getCookieValue = void 0;
+/**
+ * クッキーの値を取得する
+ * @param {String} searchKey 検索するキー
+ * @returns {String} キーに対応する値
+ */
+function getCookieValue(searchKey) {
+  if (typeof searchKey === 'undefined') {
+    return '';
+  }
+  var val = '';
+  document.cookie.split(';').forEach(function (cookie) {
+    var _cookie$split = cookie.split('='),
+      _cookie$split2 = _slicedToArray(_cookie$split, 2),
+      key = _cookie$split2[0],
+      value = _cookie$split2[1];
+    if (key === searchKey) {
+      return val = value;
+    }
+  });
+  return val;
+}
+exports.getCookieValue = getCookieValue;
 
 /***/ }),
 
@@ -26731,7 +26977,8 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
   state: function state() {
     return {
       user: null,
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      loginStatus: false
     };
   },
   getters: {
@@ -26811,7 +27058,14 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               response = _context4.sent;
               user = response.data || null;
               this.user = user;
-            case 5:
+              if (this.user == null) {
+                this.loginStatus = false;
+                console.log('currentUser this.loginStatus', this.loginStatus);
+              } else {
+                this.loginStatus = true;
+                console.log('currentUser this.loginStatus', this.loginStatus);
+              }
+            case 6:
             case "end":
               return _context4.stop();
           }
@@ -27289,7 +27543,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".login[data-v-4221c3ad] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".login[data-v-4221c3ad] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.login_title[data-v-4221c3ad] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.login_form[data-v-4221c3ad] {\n  display: flex;\n  flex-flow: column;\n}\n.login_form_line[data-v-4221c3ad] {\n  font-size: 36px;\n  border-bottom: solid 2px #000000;\n}\n.login_form_line[data-v-4221c3ad]:not(:last-child) {\n  margin: 0 0 50px 0;\n}\n.login_form_line_input[data-v-4221c3ad] {\n  width: 100%;\n  border: none;\n  outline: none;\n}\n.login_form_submit[data-v-4221c3ad] {\n  display: flex;\n  justify-content: center;\n}\n.login_explain[data-v-4221c3ad] {\n  font-size: 24px;\n  padding: 0 10%;\n}\n.login_explain_word[data-v-4221c3ad] {\n  display: flex;\n  justify-content: center;\n  padding: 20px 0;\n}\n.login_explain_word[data-v-4221c3ad]:not(:last-child) {\n  border-bottom: solid 2px #000000;\n}\n.login_toRegister[data-v-4221c3ad] {\n  display: flex;\n  justify-content: center;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -29004,11 +29258,13 @@ if (false) {}
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "__esModule": () => (/* reexport safe */ _Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__.__esModule),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Login_vue_vue_type_template_id_4221c3ad_scoped_true_ts_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Login.vue?vue&type=template&id=4221c3ad&scoped=true&ts=true */ "./resources/js/components/auth/Login.vue?vue&type=template&id=4221c3ad&scoped=true&ts=true");
 /* harmony import */ var _Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Login.vue?vue&type=script&lang=ts */ "./resources/js/components/auth/Login.vue?vue&type=script&lang=ts");
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 /* harmony import */ var _Login_vue_vue_type_style_index_0_id_4221c3ad_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Login.vue?vue&type=style&index=0&id=4221c3ad&lang=scss&scoped=true */ "./resources/js/components/auth/Login.vue?vue&type=style&index=0&id=4221c3ad&lang=scss&scoped=true");
 /* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
@@ -29492,10 +29748,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "__esModule": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__.__esModule),
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */   "default": () => (/* reexport default from dynamic */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default.a)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!../../../../node_modules/ts-loader/index.js??clonedRuleSet-7!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Login.vue?vue&type=script&lang=ts */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/auth/Login.vue?vue&type=script&lang=ts");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Login_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
  
 
 /***/ }),
@@ -40970,436 +41229,6 @@ function getWindow() {
 
 /***/ }),
 
-/***/ "./node_modules/swiper/components-shared/get-changed-params.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/swiper/components-shared/get-changed-params.js ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getChangedParams": () => (/* binding */ getChangedParams)
-/* harmony export */ });
-/* harmony import */ var _params_list_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./params-list.js */ "./node_modules/swiper/components-shared/params-list.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ "./node_modules/swiper/components-shared/utils.js");
-
-
-
-function getChangedParams(swiperParams, oldParams, children, oldChildren, getKey) {
-  const keys = [];
-  if (!oldParams) return keys;
-
-  const addKey = key => {
-    if (keys.indexOf(key) < 0) keys.push(key);
-  };
-
-  if (children && oldChildren) {
-    const oldChildrenKeys = oldChildren.map(getKey);
-    const childrenKeys = children.map(getKey);
-    if (oldChildrenKeys.join('') !== childrenKeys.join('')) addKey('children');
-    if (oldChildren.length !== children.length) addKey('children');
-  }
-
-  const watchParams = _params_list_js__WEBPACK_IMPORTED_MODULE_0__.paramsList.filter(key => key[0] === '_').map(key => key.replace(/_/, ''));
-  watchParams.forEach(key => {
-    if (key in swiperParams && key in oldParams) {
-      if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.isObject)(swiperParams[key]) && (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.isObject)(oldParams[key])) {
-        const newKeys = Object.keys(swiperParams[key]);
-        const oldKeys = Object.keys(oldParams[key]);
-
-        if (newKeys.length !== oldKeys.length) {
-          addKey(key);
-        } else {
-          newKeys.forEach(newKey => {
-            if (swiperParams[key][newKey] !== oldParams[key][newKey]) {
-              addKey(key);
-            }
-          });
-          oldKeys.forEach(oldKey => {
-            if (swiperParams[key][oldKey] !== oldParams[key][oldKey]) addKey(key);
-          });
-        }
-      } else if (swiperParams[key] !== oldParams[key]) {
-        addKey(key);
-      }
-    }
-  });
-  return keys;
-}
-
-
-
-/***/ }),
-
-/***/ "./node_modules/swiper/components-shared/get-params.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/swiper/components-shared/get-params.js ***!
-  \*************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getParams": () => (/* binding */ getParams)
-/* harmony export */ });
-/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ "./node_modules/swiper/components-shared/utils.js");
-/* harmony import */ var _params_list_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./params-list.js */ "./node_modules/swiper/components-shared/params-list.js");
-
-
-
-
-function getParams(obj = {}, splitEvents = true) {
-  const params = {
-    on: {}
-  };
-  const events = {};
-  const passedParams = {};
-  (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extend)(params, swiper__WEBPACK_IMPORTED_MODULE_0__["default"].defaults);
-  (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extend)(params, swiper__WEBPACK_IMPORTED_MODULE_0__["default"].extendedDefaults);
-  params._emitClasses = true;
-  params.init = false;
-  const rest = {};
-  const allowedParams = _params_list_js__WEBPACK_IMPORTED_MODULE_2__.paramsList.map(key => key.replace(/_/, ''));
-  const plainObj = Object.assign({}, obj);
-  Object.keys(plainObj).forEach(key => {
-    if (typeof obj[key] === 'undefined') return;
-
-    if (allowedParams.indexOf(key) >= 0) {
-      if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.isObject)(obj[key])) {
-        params[key] = {};
-        passedParams[key] = {};
-        (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extend)(params[key], obj[key]);
-        (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extend)(passedParams[key], obj[key]);
-      } else {
-        params[key] = obj[key];
-        passedParams[key] = obj[key];
-      }
-    } else if (key.search(/on[A-Z]/) === 0 && typeof obj[key] === 'function') {
-      if (splitEvents) {
-        events[`${key[2].toLowerCase()}${key.substr(3)}`] = obj[key];
-      } else {
-        params.on[`${key[2].toLowerCase()}${key.substr(3)}`] = obj[key];
-      }
-    } else {
-      rest[key] = obj[key];
-    }
-  });
-  ['navigation', 'pagination', 'scrollbar'].forEach(key => {
-    if (params[key] === true) params[key] = {};
-    if (params[key] === false) delete params[key];
-  });
-  return {
-    params,
-    passedParams,
-    rest,
-    events
-  };
-}
-
-
-
-/***/ }),
-
-/***/ "./node_modules/swiper/components-shared/mount-swiper.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/swiper/components-shared/mount-swiper.js ***!
-  \***************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "mountSwiper": () => (/* binding */ mountSwiper)
-/* harmony export */ });
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./node_modules/swiper/components-shared/utils.js");
-
-
-function mountSwiper({
-  el,
-  nextEl,
-  prevEl,
-  paginationEl,
-  scrollbarEl,
-  swiper
-}, swiperParams) {
-  if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.needsNavigation)(swiperParams) && nextEl && prevEl) {
-    swiper.params.navigation.nextEl = nextEl;
-    swiper.originalParams.navigation.nextEl = nextEl;
-    swiper.params.navigation.prevEl = prevEl;
-    swiper.originalParams.navigation.prevEl = prevEl;
-  }
-
-  if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.needsPagination)(swiperParams) && paginationEl) {
-    swiper.params.pagination.el = paginationEl;
-    swiper.originalParams.pagination.el = paginationEl;
-  }
-
-  if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.needsScrollbar)(swiperParams) && scrollbarEl) {
-    swiper.params.scrollbar.el = scrollbarEl;
-    swiper.originalParams.scrollbar.el = scrollbarEl;
-  }
-
-  swiper.init(el);
-}
-
-
-
-/***/ }),
-
-/***/ "./node_modules/swiper/components-shared/params-list.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/swiper/components-shared/params-list.js ***!
-  \**************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "paramsList": () => (/* binding */ paramsList)
-/* harmony export */ });
-/* underscore in name -> watch for changes */
-const paramsList = ['modules', 'init', '_direction', 'touchEventsTarget', 'initialSlide', '_speed', 'cssMode', 'updateOnWindowResize', 'resizeObserver', 'nested', 'focusableElements', '_enabled', '_width', '_height', 'preventInteractionOnTransition', 'userAgent', 'url', '_edgeSwipeDetection', '_edgeSwipeThreshold', '_freeMode', '_autoHeight', 'setWrapperSize', 'virtualTranslate', '_effect', 'breakpoints', '_spaceBetween', '_slidesPerView', 'maxBackfaceHiddenSlides', '_grid', '_slidesPerGroup', '_slidesPerGroupSkip', '_slidesPerGroupAuto', '_centeredSlides', '_centeredSlidesBounds', '_slidesOffsetBefore', '_slidesOffsetAfter', 'normalizeSlideIndex', '_centerInsufficientSlides', '_watchOverflow', 'roundLengths', 'touchRatio', 'touchAngle', 'simulateTouch', '_shortSwipes', '_longSwipes', 'longSwipesRatio', 'longSwipesMs', '_followFinger', 'allowTouchMove', '_threshold', 'touchMoveStopPropagation', 'touchStartPreventDefault', 'touchStartForcePreventDefault', 'touchReleaseOnEdges', 'uniqueNavElements', '_resistance', '_resistanceRatio', '_watchSlidesProgress', '_grabCursor', 'preventClicks', 'preventClicksPropagation', '_slideToClickedSlide', '_preloadImages', 'updateOnImagesReady', '_loop', '_loopAdditionalSlides', '_loopedSlides', '_loopedSlidesLimit', '_loopFillGroupWithBlank', 'loopPreventsSlide', '_rewind', '_allowSlidePrev', '_allowSlideNext', '_swipeHandler', '_noSwiping', 'noSwipingClass', 'noSwipingSelector', 'passiveListeners', 'containerModifierClass', 'slideClass', 'slideBlankClass', 'slideActiveClass', 'slideDuplicateActiveClass', 'slideVisibleClass', 'slideDuplicateClass', 'slideNextClass', 'slideDuplicateNextClass', 'slidePrevClass', 'slideDuplicatePrevClass', 'wrapperClass', 'runCallbacksOnInit', 'observer', 'observeParents', 'observeSlideChildren', // modules
-'a11y', '_autoplay', '_controller', 'coverflowEffect', 'cubeEffect', 'fadeEffect', 'flipEffect', 'creativeEffect', 'cardsEffect', 'hashNavigation', 'history', 'keyboard', 'lazy', 'mousewheel', '_navigation', '_pagination', 'parallax', '_scrollbar', '_thumbs', 'virtual', 'zoom'];
-
-
-/***/ }),
-
-/***/ "./node_modules/swiper/components-shared/update-on-virtual-data.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/swiper/components-shared/update-on-virtual-data.js ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "updateOnVirtualData": () => (/* binding */ updateOnVirtualData)
-/* harmony export */ });
-const updateOnVirtualData = swiper => {
-  if (!swiper || swiper.destroyed || !swiper.params.virtual || swiper.params.virtual && !swiper.params.virtual.enabled) return;
-  swiper.updateSlides();
-  swiper.updateProgress();
-  swiper.updateSlidesClasses();
-
-  if (swiper.lazy && swiper.params.lazy.enabled) {
-    swiper.lazy.load();
-  }
-
-  if (swiper.parallax && swiper.params.parallax && swiper.params.parallax.enabled) {
-    swiper.parallax.setTranslate();
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/swiper/components-shared/update-swiper.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/swiper/components-shared/update-swiper.js ***!
-  \****************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "updateSwiper": () => (/* binding */ updateSwiper)
-/* harmony export */ });
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./node_modules/swiper/components-shared/utils.js");
-
-
-function updateSwiper({
-  swiper,
-  slides,
-  passedParams,
-  changedParams,
-  nextEl,
-  prevEl,
-  scrollbarEl,
-  paginationEl
-}) {
-  const updateParams = changedParams.filter(key => key !== 'children' && key !== 'direction');
-  const {
-    params: currentParams,
-    pagination,
-    navigation,
-    scrollbar,
-    virtual,
-    thumbs
-  } = swiper;
-  let needThumbsInit;
-  let needControllerInit;
-  let needPaginationInit;
-  let needScrollbarInit;
-  let needNavigationInit;
-
-  if (changedParams.includes('thumbs') && passedParams.thumbs && passedParams.thumbs.swiper && currentParams.thumbs && !currentParams.thumbs.swiper) {
-    needThumbsInit = true;
-  }
-
-  if (changedParams.includes('controller') && passedParams.controller && passedParams.controller.control && currentParams.controller && !currentParams.controller.control) {
-    needControllerInit = true;
-  }
-
-  if (changedParams.includes('pagination') && passedParams.pagination && (passedParams.pagination.el || paginationEl) && (currentParams.pagination || currentParams.pagination === false) && pagination && !pagination.el) {
-    needPaginationInit = true;
-  }
-
-  if (changedParams.includes('scrollbar') && passedParams.scrollbar && (passedParams.scrollbar.el || scrollbarEl) && (currentParams.scrollbar || currentParams.scrollbar === false) && scrollbar && !scrollbar.el) {
-    needScrollbarInit = true;
-  }
-
-  if (changedParams.includes('navigation') && passedParams.navigation && (passedParams.navigation.prevEl || prevEl) && (passedParams.navigation.nextEl || nextEl) && (currentParams.navigation || currentParams.navigation === false) && navigation && !navigation.prevEl && !navigation.nextEl) {
-    needNavigationInit = true;
-  }
-
-  const destroyModule = mod => {
-    if (!swiper[mod]) return;
-    swiper[mod].destroy();
-
-    if (mod === 'navigation') {
-      currentParams[mod].prevEl = undefined;
-      currentParams[mod].nextEl = undefined;
-      swiper[mod].prevEl = undefined;
-      swiper[mod].nextEl = undefined;
-    } else {
-      currentParams[mod].el = undefined;
-      swiper[mod].el = undefined;
-    }
-  };
-
-  updateParams.forEach(key => {
-    if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.isObject)(currentParams[key]) && (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.isObject)(passedParams[key])) {
-      (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.extend)(currentParams[key], passedParams[key]);
-    } else {
-      const newValue = passedParams[key];
-
-      if ((newValue === true || newValue === false) && (key === 'navigation' || key === 'pagination' || key === 'scrollbar')) {
-        if (newValue === false) {
-          destroyModule(key);
-        }
-      } else {
-        currentParams[key] = passedParams[key];
-      }
-    }
-  });
-
-  if (updateParams.includes('controller') && !needControllerInit && swiper.controller && swiper.controller.control && currentParams.controller && currentParams.controller.control) {
-    swiper.controller.control = currentParams.controller.control;
-  }
-
-  if (changedParams.includes('children') && slides && virtual && currentParams.virtual.enabled) {
-    virtual.slides = slides;
-    virtual.update(true);
-  } else if (changedParams.includes('children') && swiper.lazy && swiper.params.lazy.enabled) {
-    swiper.lazy.load();
-  }
-
-  if (needThumbsInit) {
-    const initialized = thumbs.init();
-    if (initialized) thumbs.update(true);
-  }
-
-  if (needControllerInit) {
-    swiper.controller.control = currentParams.controller.control;
-  }
-
-  if (needPaginationInit) {
-    if (paginationEl) currentParams.pagination.el = paginationEl;
-    pagination.init();
-    pagination.render();
-    pagination.update();
-  }
-
-  if (needScrollbarInit) {
-    if (scrollbarEl) currentParams.scrollbar.el = scrollbarEl;
-    scrollbar.init();
-    scrollbar.updateSize();
-    scrollbar.setTranslate();
-  }
-
-  if (needNavigationInit) {
-    if (nextEl) currentParams.navigation.nextEl = nextEl;
-    if (prevEl) currentParams.navigation.prevEl = prevEl;
-    navigation.init();
-    navigation.update();
-  }
-
-  if (changedParams.includes('allowSlideNext')) {
-    swiper.allowSlideNext = passedParams.allowSlideNext;
-  }
-
-  if (changedParams.includes('allowSlidePrev')) {
-    swiper.allowSlidePrev = passedParams.allowSlidePrev;
-  }
-
-  if (changedParams.includes('direction')) {
-    swiper.changeDirection(passedParams.direction, false);
-  }
-
-  swiper.update();
-}
-
-
-
-/***/ }),
-
-/***/ "./node_modules/swiper/components-shared/utils.js":
-/*!********************************************************!*\
-  !*** ./node_modules/swiper/components-shared/utils.js ***!
-  \********************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "extend": () => (/* binding */ extend),
-/* harmony export */   "isObject": () => (/* binding */ isObject),
-/* harmony export */   "needsNavigation": () => (/* binding */ needsNavigation),
-/* harmony export */   "needsPagination": () => (/* binding */ needsPagination),
-/* harmony export */   "needsScrollbar": () => (/* binding */ needsScrollbar),
-/* harmony export */   "uniqueClasses": () => (/* binding */ uniqueClasses)
-/* harmony export */ });
-function isObject(o) {
-  return typeof o === 'object' && o !== null && o.constructor && Object.prototype.toString.call(o).slice(8, -1) === 'Object';
-}
-
-function extend(target, src) {
-  const noExtend = ['__proto__', 'constructor', 'prototype'];
-  Object.keys(src).filter(key => noExtend.indexOf(key) < 0).forEach(key => {
-    if (typeof target[key] === 'undefined') target[key] = src[key];else if (isObject(src[key]) && isObject(target[key]) && Object.keys(src[key]).length > 0) {
-      if (src[key].__swiper__) target[key] = src[key];else extend(target[key], src[key]);
-    } else {
-      target[key] = src[key];
-    }
-  });
-}
-
-function needsNavigation(params = {}) {
-  return params.navigation && typeof params.navigation.nextEl === 'undefined' && typeof params.navigation.prevEl === 'undefined';
-}
-
-function needsPagination(params = {}) {
-  return params.pagination && typeof params.pagination.el === 'undefined';
-}
-
-function needsScrollbar(params = {}) {
-  return params.scrollbar && typeof params.scrollbar.el === 'undefined';
-}
-
-function uniqueClasses(classNames = '') {
-  const classes = classNames.split(' ').map(c => c.trim()).filter(c => !!c);
-  const unique = [];
-  classes.forEach(c => {
-    if (unique.indexOf(c) < 0) unique.push(c);
-  });
-  return unique.join(' ');
-}
-
-
-
-/***/ }),
-
 /***/ "./node_modules/swiper/core/breakpoints/getBreakpoint.js":
 /*!***************************************************************!*\
   !*** ./node_modules/swiper/core/breakpoints/getBreakpoint.js ***!
@@ -51820,43 +51649,6 @@ function Zoom({
 
 /***/ }),
 
-/***/ "./node_modules/swiper/shared/calc-looped-slides.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/swiper/shared/calc-looped-slides.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "calcLoopedSlides": () => (/* binding */ calcLoopedSlides)
-/* harmony export */ });
-/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
-
-const calcLoopedSlides = (slides, swiperParams) => {
-  let slidesPerViewParams = swiperParams.slidesPerView;
-
-  if (swiperParams.breakpoints) {
-    const breakpoint = swiper__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.getBreakpoint(swiperParams.breakpoints);
-    const breakpointOnlyParams = breakpoint in swiperParams.breakpoints ? swiperParams.breakpoints[breakpoint] : undefined;
-
-    if (breakpointOnlyParams && breakpointOnlyParams.slidesPerView) {
-      slidesPerViewParams = breakpointOnlyParams.slidesPerView;
-    }
-  }
-
-  let loopedSlides = Math.ceil(parseFloat(swiperParams.loopedSlides || slidesPerViewParams, 10));
-  loopedSlides += swiperParams.loopAdditionalSlides;
-
-  if (loopedSlides > slides.length && swiperParams.loopedSlidesLimit) {
-    loopedSlides = slides.length;
-  }
-
-  return loopedSlides;
-};
-
-/***/ }),
-
 /***/ "./node_modules/swiper/shared/classes-to-selector.js":
 /*!***********************************************************!*\
   !*** ./node_modules/swiper/shared/classes-to-selector.js ***!
@@ -52638,1056 +52430,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-/***/ }),
-
-/***/ "./node_modules/swiper/vue/context.js":
-/*!********************************************!*\
-  !*** ./node_modules/swiper/vue/context.js ***!
-  \********************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "useSwiper": () => (/* binding */ useSwiper),
-/* harmony export */   "useSwiperSlide": () => (/* binding */ useSwiperSlide)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-
-const useSwiperSlide = () => {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)('swiperSlide');
-};
-const useSwiper = () => {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)('swiper');
-};
-
-/***/ }),
-
-/***/ "./node_modules/swiper/vue/get-children.js":
-/*!*************************************************!*\
-  !*** ./node_modules/swiper/vue/get-children.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getChildren": () => (/* binding */ getChildren)
-/* harmony export */ });
-function getChildren(originalSlots, slidesRef, oldSlidesRef) {
-  if (originalSlots === void 0) {
-    originalSlots = {};
-  }
-
-  const slides = [];
-  const slots = {
-    'container-start': [],
-    'container-end': [],
-    'wrapper-start': [],
-    'wrapper-end': []
-  };
-
-  const getSlidesFromElements = (els, slotName) => {
-    if (!Array.isArray(els)) {
-      return;
-    }
-
-    els.forEach(vnode => {
-      const isFragment = typeof vnode.type === 'symbol';
-      if (slotName === 'default') slotName = 'container-end';
-
-      if (isFragment && vnode.children) {
-        getSlidesFromElements(vnode.children, 'default');
-      } else if (vnode.type && (vnode.type.name === 'SwiperSlide' || vnode.type.name === 'AsyncComponentWrapper')) {
-        slides.push(vnode);
-      } else if (slots[slotName]) {
-        slots[slotName].push(vnode);
-      }
-    });
-  };
-
-  Object.keys(originalSlots).forEach(slotName => {
-    if (typeof originalSlots[slotName] !== 'function') return;
-    const els = originalSlots[slotName]();
-    getSlidesFromElements(els, slotName);
-  });
-  oldSlidesRef.value = slidesRef.value;
-  slidesRef.value = slides;
-  return {
-    slides,
-    slots
-  };
-}
-
-
-
-/***/ }),
-
-/***/ "./node_modules/swiper/vue/loop.js":
-/*!*****************************************!*\
-  !*** ./node_modules/swiper/vue/loop.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "calcLoopedSlides": () => (/* reexport safe */ _shared_calc_looped_slides_js__WEBPACK_IMPORTED_MODULE_1__.calcLoopedSlides),
-/* harmony export */   "renderLoop": () => (/* binding */ renderLoop)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _shared_calc_looped_slides_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/calc-looped-slides.js */ "./node_modules/swiper/shared/calc-looped-slides.js");
-
-
-
-function renderLoop(swiperRef, slides, swiperParams) {
-  const modifiedSlides = slides.map((child, index) => {
-    if (!child.props) child.props = {};
-    child.props.swiperRef = swiperRef;
-    child.props['data-swiper-slide-index'] = index;
-    return child;
-  });
-
-  function duplicateSlide(child, index, position) {
-    if (!child.props) child.props = {};
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)(child.type, { ...child.props,
-      key: `${child.key}-duplicate-${index}-${position}`,
-      class: `${child.props.className || ''} ${swiperParams.slideDuplicateClass} ${child.props.class || ''}`
-    }, child.children);
-  }
-
-  if (swiperParams.loopFillGroupWithBlank) {
-    const blankSlidesNum = swiperParams.slidesPerGroup - modifiedSlides.length % swiperParams.slidesPerGroup;
-
-    if (blankSlidesNum !== swiperParams.slidesPerGroup) {
-      for (let i = 0; i < blankSlidesNum; i += 1) {
-        const blankSlide = (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)('div', {
-          class: `${swiperParams.slideClass} ${swiperParams.slideBlankClass}`
-        });
-        modifiedSlides.push(blankSlide);
-      }
-    }
-  }
-
-  if (swiperParams.slidesPerView === 'auto' && !swiperParams.loopedSlides) {
-    swiperParams.loopedSlides = modifiedSlides.length;
-  }
-
-  const loopedSlides = (0,_shared_calc_looped_slides_js__WEBPACK_IMPORTED_MODULE_1__.calcLoopedSlides)(modifiedSlides, swiperParams);
-  const prependSlides = [];
-  const appendSlides = [];
-
-  for (let i = 0; i < loopedSlides; i += 1) {
-    const index = i - Math.floor(i / modifiedSlides.length) * modifiedSlides.length;
-    appendSlides.push(duplicateSlide(modifiedSlides[index], i, 'append'));
-    prependSlides.unshift(duplicateSlide(modifiedSlides[modifiedSlides.length - index - 1], i, 'prepend'));
-  }
-
-  if (swiperRef.value) {
-    swiperRef.value.loopedSlides = loopedSlides;
-  }
-
-  return [...prependSlides, ...modifiedSlides, ...appendSlides];
-}
-
-
-
-/***/ }),
-
-/***/ "./node_modules/swiper/vue/swiper-slide.js":
-/*!*************************************************!*\
-  !*** ./node_modules/swiper/vue/swiper-slide.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SwiperSlide": () => (/* binding */ SwiperSlide)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _components_shared_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components-shared/utils.js */ "./node_modules/swiper/components-shared/utils.js");
-
-
-const SwiperSlide = {
-  name: 'SwiperSlide',
-  props: {
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    swiperRef: {
-      type: Object,
-      required: false
-    },
-    zoom: {
-      type: Boolean,
-      default: undefined
-    },
-    virtualIndex: {
-      type: [String, Number],
-      default: undefined
-    }
-  },
-
-  setup(props, _ref) {
-    let {
-      slots
-    } = _ref;
-    let eventAttached = false;
-    const {
-      swiperRef
-    } = props;
-    const slideElRef = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
-    const slideClasses = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('swiper-slide');
-
-    function updateClasses(swiper, el, classNames) {
-      if (el === slideElRef.value) {
-        slideClasses.value = classNames;
-      }
-    }
-
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(() => {
-      if (!swiperRef || !swiperRef.value) return;
-      swiperRef.value.on('_slideClass', updateClasses);
-      eventAttached = true;
-    });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeUpdate)(() => {
-      if (eventAttached || !swiperRef || !swiperRef.value) return;
-      swiperRef.value.on('_slideClass', updateClasses);
-      eventAttached = true;
-    });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onUpdated)(() => {
-      if (!slideElRef.value || !swiperRef || !swiperRef.value) return;
-
-      if (swiperRef.value.destroyed) {
-        if (slideClasses.value !== 'swiper-slide') {
-          slideClasses.value = 'swiper-slide';
-        }
-      }
-    });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeUnmount)(() => {
-      if (!swiperRef || !swiperRef.value) return;
-      swiperRef.value.off('_slideClass', updateClasses);
-    });
-    const slideData = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(() => ({
-      isActive: slideClasses.value.indexOf('swiper-slide-active') >= 0 || slideClasses.value.indexOf('swiper-slide-duplicate-active') >= 0,
-      isVisible: slideClasses.value.indexOf('swiper-slide-visible') >= 0,
-      isDuplicate: slideClasses.value.indexOf('swiper-slide-duplicate') >= 0,
-      isPrev: slideClasses.value.indexOf('swiper-slide-prev') >= 0 || slideClasses.value.indexOf('swiper-slide-duplicate-prev') >= 0,
-      isNext: slideClasses.value.indexOf('swiper-slide-next') >= 0 || slideClasses.value.indexOf('swiper-slide-duplicate-next') >= 0
-    }));
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.provide)('swiperSlide', slideData);
-    return () => {
-      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)(props.tag, {
-        class: (0,_components_shared_utils_js__WEBPACK_IMPORTED_MODULE_1__.uniqueClasses)(`${slideClasses.value}`),
-        ref: slideElRef,
-        'data-swiper-slide-index': props.virtualIndex
-      }, props.zoom ? (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)('div', {
-        class: 'swiper-zoom-container',
-        'data-swiper-zoom': typeof props.zoom === 'number' ? props.zoom : undefined
-      }, slots.default && slots.default(slideData.value)) : slots.default && slots.default(slideData.value));
-    };
-  }
-
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/swiper/vue/swiper-vue.js":
-/*!***********************************************!*\
-  !*** ./node_modules/swiper/vue/swiper-vue.js ***!
-  \***********************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Swiper": () => (/* reexport safe */ _swiper_js__WEBPACK_IMPORTED_MODULE_0__.Swiper),
-/* harmony export */   "SwiperSlide": () => (/* reexport safe */ _swiper_slide_js__WEBPACK_IMPORTED_MODULE_1__.SwiperSlide),
-/* harmony export */   "useSwiper": () => (/* reexport safe */ _context_js__WEBPACK_IMPORTED_MODULE_2__.useSwiper),
-/* harmony export */   "useSwiperSlide": () => (/* reexport safe */ _context_js__WEBPACK_IMPORTED_MODULE_2__.useSwiperSlide)
-/* harmony export */ });
-/* harmony import */ var _swiper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./swiper.js */ "./node_modules/swiper/vue/swiper.js");
-/* harmony import */ var _swiper_slide_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./swiper-slide.js */ "./node_modules/swiper/vue/swiper-slide.js");
-/* harmony import */ var _context_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./context.js */ "./node_modules/swiper/vue/context.js");
-/**
- * Swiper Vue 8.4.6
- * Most modern mobile touch slider and framework with hardware accelerated transitions
- * https://swiperjs.com
- *
- * Copyright 2014-2023 Vladimir Kharlampidi
- *
- * Released under the MIT License
- *
- * Released on: January 17, 2023
- */
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/swiper/vue/swiper.js":
-/*!*******************************************!*\
-  !*** ./node_modules/swiper/vue/swiper.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Swiper": () => (/* binding */ Swiper)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
-/* harmony import */ var _components_shared_get_params_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components-shared/get-params.js */ "./node_modules/swiper/components-shared/get-params.js");
-/* harmony import */ var _components_shared_mount_swiper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components-shared/mount-swiper.js */ "./node_modules/swiper/components-shared/mount-swiper.js");
-/* harmony import */ var _components_shared_utils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components-shared/utils.js */ "./node_modules/swiper/components-shared/utils.js");
-/* harmony import */ var _loop_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./loop.js */ "./node_modules/swiper/vue/loop.js");
-/* harmony import */ var _components_shared_get_changed_params_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components-shared/get-changed-params.js */ "./node_modules/swiper/components-shared/get-changed-params.js");
-/* harmony import */ var _get_children_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./get-children.js */ "./node_modules/swiper/vue/get-children.js");
-/* harmony import */ var _components_shared_update_swiper_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components-shared/update-swiper.js */ "./node_modules/swiper/components-shared/update-swiper.js");
-/* harmony import */ var _virtual_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./virtual.js */ "./node_modules/swiper/vue/virtual.js");
-/* harmony import */ var _components_shared_update_on_virtual_data_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components-shared/update-on-virtual-data.js */ "./node_modules/swiper/components-shared/update-on-virtual-data.js");
-
-
-
-
-
-
-
-
-
-
-
-const Swiper = {
-  name: 'Swiper',
-  props: {
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    wrapperTag: {
-      type: String,
-      default: 'div'
-    },
-    modules: {
-      type: Array,
-      default: undefined
-    },
-    init: {
-      type: Boolean,
-      default: undefined
-    },
-    direction: {
-      type: String,
-      default: undefined
-    },
-    touchEventsTarget: {
-      type: String,
-      default: undefined
-    },
-    initialSlide: {
-      type: Number,
-      default: undefined
-    },
-    speed: {
-      type: Number,
-      default: undefined
-    },
-    cssMode: {
-      type: Boolean,
-      default: undefined
-    },
-    updateOnWindowResize: {
-      type: Boolean,
-      default: undefined
-    },
-    resizeObserver: {
-      type: Boolean,
-      default: undefined
-    },
-    nested: {
-      type: Boolean,
-      default: undefined
-    },
-    focusableElements: {
-      type: String,
-      default: undefined
-    },
-    width: {
-      type: Number,
-      default: undefined
-    },
-    height: {
-      type: Number,
-      default: undefined
-    },
-    preventInteractionOnTransition: {
-      type: Boolean,
-      default: undefined
-    },
-    userAgent: {
-      type: String,
-      default: undefined
-    },
-    url: {
-      type: String,
-      default: undefined
-    },
-    edgeSwipeDetection: {
-      type: [Boolean, String],
-      default: undefined
-    },
-    edgeSwipeThreshold: {
-      type: Number,
-      default: undefined
-    },
-    autoHeight: {
-      type: Boolean,
-      default: undefined
-    },
-    setWrapperSize: {
-      type: Boolean,
-      default: undefined
-    },
-    virtualTranslate: {
-      type: Boolean,
-      default: undefined
-    },
-    effect: {
-      type: String,
-      default: undefined
-    },
-    breakpoints: {
-      type: Object,
-      default: undefined
-    },
-    spaceBetween: {
-      type: Number,
-      default: undefined
-    },
-    slidesPerView: {
-      type: [Number, String],
-      default: undefined
-    },
-    maxBackfaceHiddenSlides: {
-      type: Number,
-      default: undefined
-    },
-    slidesPerGroup: {
-      type: Number,
-      default: undefined
-    },
-    slidesPerGroupSkip: {
-      type: Number,
-      default: undefined
-    },
-    slidesPerGroupAuto: {
-      type: Boolean,
-      default: undefined
-    },
-    centeredSlides: {
-      type: Boolean,
-      default: undefined
-    },
-    centeredSlidesBounds: {
-      type: Boolean,
-      default: undefined
-    },
-    slidesOffsetBefore: {
-      type: Number,
-      default: undefined
-    },
-    slidesOffsetAfter: {
-      type: Number,
-      default: undefined
-    },
-    normalizeSlideIndex: {
-      type: Boolean,
-      default: undefined
-    },
-    centerInsufficientSlides: {
-      type: Boolean,
-      default: undefined
-    },
-    watchOverflow: {
-      type: Boolean,
-      default: undefined
-    },
-    roundLengths: {
-      type: Boolean,
-      default: undefined
-    },
-    touchRatio: {
-      type: Number,
-      default: undefined
-    },
-    touchAngle: {
-      type: Number,
-      default: undefined
-    },
-    simulateTouch: {
-      type: Boolean,
-      default: undefined
-    },
-    shortSwipes: {
-      type: Boolean,
-      default: undefined
-    },
-    longSwipes: {
-      type: Boolean,
-      default: undefined
-    },
-    longSwipesRatio: {
-      type: Number,
-      default: undefined
-    },
-    longSwipesMs: {
-      type: Number,
-      default: undefined
-    },
-    followFinger: {
-      type: Boolean,
-      default: undefined
-    },
-    allowTouchMove: {
-      type: Boolean,
-      default: undefined
-    },
-    threshold: {
-      type: Number,
-      default: undefined
-    },
-    touchMoveStopPropagation: {
-      type: Boolean,
-      default: undefined
-    },
-    touchStartPreventDefault: {
-      type: Boolean,
-      default: undefined
-    },
-    touchStartForcePreventDefault: {
-      type: Boolean,
-      default: undefined
-    },
-    touchReleaseOnEdges: {
-      type: Boolean,
-      default: undefined
-    },
-    uniqueNavElements: {
-      type: Boolean,
-      default: undefined
-    },
-    resistance: {
-      type: Boolean,
-      default: undefined
-    },
-    resistanceRatio: {
-      type: Number,
-      default: undefined
-    },
-    watchSlidesProgress: {
-      type: Boolean,
-      default: undefined
-    },
-    grabCursor: {
-      type: Boolean,
-      default: undefined
-    },
-    preventClicks: {
-      type: Boolean,
-      default: undefined
-    },
-    preventClicksPropagation: {
-      type: Boolean,
-      default: undefined
-    },
-    slideToClickedSlide: {
-      type: Boolean,
-      default: undefined
-    },
-    preloadImages: {
-      type: Boolean,
-      default: undefined
-    },
-    updateOnImagesReady: {
-      type: Boolean,
-      default: undefined
-    },
-    loop: {
-      type: Boolean,
-      default: undefined
-    },
-    loopAdditionalSlides: {
-      type: Number,
-      default: undefined
-    },
-    loopedSlides: {
-      type: Number,
-      default: undefined
-    },
-    loopedSlidesLimit: {
-      type: Boolean,
-      default: true
-    },
-    loopFillGroupWithBlank: {
-      type: Boolean,
-      default: undefined
-    },
-    loopPreventsSlide: {
-      type: Boolean,
-      default: undefined
-    },
-    rewind: {
-      type: Boolean,
-      default: undefined
-    },
-    allowSlidePrev: {
-      type: Boolean,
-      default: undefined
-    },
-    allowSlideNext: {
-      type: Boolean,
-      default: undefined
-    },
-    swipeHandler: {
-      type: Boolean,
-      default: undefined
-    },
-    noSwiping: {
-      type: Boolean,
-      default: undefined
-    },
-    noSwipingClass: {
-      type: String,
-      default: undefined
-    },
-    noSwipingSelector: {
-      type: String,
-      default: undefined
-    },
-    passiveListeners: {
-      type: Boolean,
-      default: undefined
-    },
-    containerModifierClass: {
-      type: String,
-      default: undefined
-    },
-    slideClass: {
-      type: String,
-      default: undefined
-    },
-    slideBlankClass: {
-      type: String,
-      default: undefined
-    },
-    slideActiveClass: {
-      type: String,
-      default: undefined
-    },
-    slideDuplicateActiveClass: {
-      type: String,
-      default: undefined
-    },
-    slideVisibleClass: {
-      type: String,
-      default: undefined
-    },
-    slideDuplicateClass: {
-      type: String,
-      default: undefined
-    },
-    slideNextClass: {
-      type: String,
-      default: undefined
-    },
-    slideDuplicateNextClass: {
-      type: String,
-      default: undefined
-    },
-    slidePrevClass: {
-      type: String,
-      default: undefined
-    },
-    slideDuplicatePrevClass: {
-      type: String,
-      default: undefined
-    },
-    wrapperClass: {
-      type: String,
-      default: undefined
-    },
-    runCallbacksOnInit: {
-      type: Boolean,
-      default: undefined
-    },
-    observer: {
-      type: Boolean,
-      default: undefined
-    },
-    observeParents: {
-      type: Boolean,
-      default: undefined
-    },
-    observeSlideChildren: {
-      type: Boolean,
-      default: undefined
-    },
-    a11y: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    autoplay: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    controller: {
-      type: Object,
-      default: undefined
-    },
-    coverflowEffect: {
-      type: Object,
-      default: undefined
-    },
-    cubeEffect: {
-      type: Object,
-      default: undefined
-    },
-    fadeEffect: {
-      type: Object,
-      default: undefined
-    },
-    flipEffect: {
-      type: Object,
-      default: undefined
-    },
-    creativeEffect: {
-      type: Object,
-      default: undefined
-    },
-    cardsEffect: {
-      type: Object,
-      default: undefined
-    },
-    hashNavigation: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    history: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    keyboard: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    lazy: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    mousewheel: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    navigation: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    pagination: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    parallax: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    scrollbar: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    thumbs: {
-      type: Object,
-      default: undefined
-    },
-    virtual: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    zoom: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    grid: {
-      type: [Object],
-      default: undefined
-    },
-    freeMode: {
-      type: [Boolean, Object],
-      default: undefined
-    },
-    enabled: {
-      type: Boolean,
-      default: undefined
-    }
-  },
-  emits: ['_beforeBreakpoint', '_containerClasses', '_slideClass', '_slideClasses', '_swiper', '_freeModeNoMomentumRelease', 'activeIndexChange', 'afterInit', 'autoplay', 'autoplayStart', 'autoplayStop', 'autoplayPause', 'autoplayResume', 'beforeDestroy', 'beforeInit', 'beforeLoopFix', 'beforeResize', 'beforeSlideChangeStart', 'beforeTransitionStart', 'breakpoint', 'changeDirection', 'click', 'disable', 'doubleTap', 'doubleClick', 'destroy', 'enable', 'fromEdge', 'hashChange', 'hashSet', 'imagesReady', 'init', 'keyPress', 'lazyImageLoad', 'lazyImageReady', 'lock', 'loopFix', 'momentumBounce', 'navigationHide', 'navigationShow', 'navigationPrev', 'navigationNext', 'observerUpdate', 'orientationchange', 'paginationHide', 'paginationRender', 'paginationShow', 'paginationUpdate', 'progress', 'reachBeginning', 'reachEnd', 'realIndexChange', 'resize', 'scroll', 'scrollbarDragEnd', 'scrollbarDragMove', 'scrollbarDragStart', 'setTransition', 'setTranslate', 'slideChange', 'slideChangeTransitionEnd', 'slideChangeTransitionStart', 'slideNextTransitionEnd', 'slideNextTransitionStart', 'slidePrevTransitionEnd', 'slidePrevTransitionStart', 'slideResetTransitionStart', 'slideResetTransitionEnd', 'sliderMove', 'sliderFirstMove', 'slidesLengthChange', 'slidesGridLengthChange', 'snapGridLengthChange', 'snapIndexChange', 'swiper', 'tap', 'toEdge', 'touchEnd', 'touchMove', 'touchMoveOpposite', 'touchStart', 'transitionEnd', 'transitionStart', 'unlock', 'update', 'virtualUpdate', 'zoomChange'],
-
-  setup(props, _ref) {
-    let {
-      slots: originalSlots,
-      emit
-    } = _ref;
-    const {
-      tag: Tag,
-      wrapperTag: WrapperTag
-    } = props;
-    const containerClasses = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('swiper');
-    const virtualData = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
-    const breakpointChanged = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
-    const initializedRef = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
-    const swiperElRef = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
-    const swiperRef = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
-    const oldPassedParamsRef = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
-    const slidesRef = {
-      value: []
-    };
-    const oldSlidesRef = {
-      value: []
-    };
-    const nextElRef = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
-    const prevElRef = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
-    const paginationElRef = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
-    const scrollbarElRef = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
-    const {
-      params: swiperParams,
-      passedParams
-    } = (0,_components_shared_get_params_js__WEBPACK_IMPORTED_MODULE_2__.getParams)(props, false);
-    (0,_get_children_js__WEBPACK_IMPORTED_MODULE_7__.getChildren)(originalSlots, slidesRef, oldSlidesRef);
-    oldPassedParamsRef.value = passedParams;
-    oldSlidesRef.value = slidesRef.value;
-
-    const onBeforeBreakpoint = () => {
-      (0,_get_children_js__WEBPACK_IMPORTED_MODULE_7__.getChildren)(originalSlots, slidesRef, oldSlidesRef);
-      breakpointChanged.value = true;
-    };
-
-    swiperParams.onAny = function (event) {
-      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        args[_key - 1] = arguments[_key];
-      }
-
-      emit(event, ...args);
-    };
-
-    Object.assign(swiperParams.on, {
-      _beforeBreakpoint: onBeforeBreakpoint,
-
-      _containerClasses(swiper, classes) {
-        containerClasses.value = classes;
-      }
-
-    }); // init Swiper
-
-    swiperRef.value = new swiper__WEBPACK_IMPORTED_MODULE_1__["default"](swiperParams);
-
-    swiperRef.value.loopCreate = () => {};
-
-    swiperRef.value.loopDestroy = () => {};
-
-    if (swiperParams.loop) {
-      swiperRef.value.loopedSlides = (0,_loop_js__WEBPACK_IMPORTED_MODULE_5__.calcLoopedSlides)(slidesRef.value, swiperParams);
-    }
-
-    if (swiperRef.value.virtual && swiperRef.value.params.virtual.enabled) {
-      swiperRef.value.virtual.slides = slidesRef.value;
-      const extendWith = {
-        cache: false,
-        slides: slidesRef.value,
-        renderExternal: data => {
-          virtualData.value = data;
-        },
-        renderExternalUpdate: false
-      };
-      (0,_components_shared_utils_js__WEBPACK_IMPORTED_MODULE_4__.extend)(swiperRef.value.params.virtual, extendWith);
-      (0,_components_shared_utils_js__WEBPACK_IMPORTED_MODULE_4__.extend)(swiperRef.value.originalParams.virtual, extendWith);
-    }
-
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onUpdated)(() => {
-      // set initialized flag
-      if (!initializedRef.value && swiperRef.value) {
-        swiperRef.value.emitSlidesClasses();
-        initializedRef.value = true;
-      } // watch for params change
-
-
-      const {
-        passedParams: newPassedParams
-      } = (0,_components_shared_get_params_js__WEBPACK_IMPORTED_MODULE_2__.getParams)(props, false);
-      const changedParams = (0,_components_shared_get_changed_params_js__WEBPACK_IMPORTED_MODULE_6__.getChangedParams)(newPassedParams, oldPassedParamsRef.value, slidesRef.value, oldSlidesRef.value, c => c.props && c.props.key);
-      oldPassedParamsRef.value = newPassedParams;
-
-      if ((changedParams.length || breakpointChanged.value) && swiperRef.value && !swiperRef.value.destroyed) {
-        (0,_components_shared_update_swiper_js__WEBPACK_IMPORTED_MODULE_8__.updateSwiper)({
-          swiper: swiperRef.value,
-          slides: slidesRef.value,
-          passedParams: newPassedParams,
-          changedParams,
-          nextEl: nextElRef.value,
-          prevEl: prevElRef.value,
-          scrollbarEl: scrollbarElRef.value,
-          paginationEl: paginationElRef.value
-        });
-      }
-
-      breakpointChanged.value = false;
-    });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.provide)('swiper', swiperRef); // update on virtual update
-
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(virtualData, () => {
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.nextTick)(() => {
-        (0,_components_shared_update_on_virtual_data_js__WEBPACK_IMPORTED_MODULE_10__.updateOnVirtualData)(swiperRef.value);
-      });
-    }); // mount swiper
-
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(() => {
-      if (!swiperElRef.value) return;
-      (0,_components_shared_mount_swiper_js__WEBPACK_IMPORTED_MODULE_3__.mountSwiper)({
-        el: swiperElRef.value,
-        nextEl: nextElRef.value,
-        prevEl: prevElRef.value,
-        paginationEl: paginationElRef.value,
-        scrollbarEl: scrollbarElRef.value,
-        swiper: swiperRef.value
-      }, swiperParams);
-      emit('swiper', swiperRef.value);
-    });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeUnmount)(() => {
-      if (swiperRef.value && !swiperRef.value.destroyed) {
-        swiperRef.value.destroy(true, false);
-      }
-    }); // bypass swiper instance to slides
-
-    function renderSlides(slides) {
-      if (swiperParams.virtual) {
-        return (0,_virtual_js__WEBPACK_IMPORTED_MODULE_9__.renderVirtual)(swiperRef, slides, virtualData.value);
-      }
-
-      if (!swiperParams.loop || swiperRef.value && swiperRef.value.destroyed) {
-        slides.forEach(slide => {
-          if (!slide.props) slide.props = {};
-          slide.props.swiperRef = swiperRef;
-        });
-        return slides;
-      }
-
-      return (0,_loop_js__WEBPACK_IMPORTED_MODULE_5__.renderLoop)(swiperRef, slides, swiperParams);
-    }
-
-    return () => {
-      const {
-        slides,
-        slots
-      } = (0,_get_children_js__WEBPACK_IMPORTED_MODULE_7__.getChildren)(originalSlots, slidesRef, oldSlidesRef);
-      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)(Tag, {
-        ref: swiperElRef,
-        class: (0,_components_shared_utils_js__WEBPACK_IMPORTED_MODULE_4__.uniqueClasses)(containerClasses.value)
-      }, [slots['container-start'], (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)(WrapperTag, {
-        class: 'swiper-wrapper'
-      }, [slots['wrapper-start'], renderSlides(slides), slots['wrapper-end']]), (0,_components_shared_utils_js__WEBPACK_IMPORTED_MODULE_4__.needsNavigation)(props) && [(0,vue__WEBPACK_IMPORTED_MODULE_0__.h)('div', {
-        ref: prevElRef,
-        class: 'swiper-button-prev'
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)('div', {
-        ref: nextElRef,
-        class: 'swiper-button-next'
-      })], (0,_components_shared_utils_js__WEBPACK_IMPORTED_MODULE_4__.needsScrollbar)(props) && (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)('div', {
-        ref: scrollbarElRef,
-        class: 'swiper-scrollbar'
-      }), (0,_components_shared_utils_js__WEBPACK_IMPORTED_MODULE_4__.needsPagination)(props) && (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)('div', {
-        ref: paginationElRef,
-        class: 'swiper-pagination'
-      }), slots['container-end']]);
-    };
-  }
-
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/swiper/vue/virtual.js":
-/*!********************************************!*\
-  !*** ./node_modules/swiper/vue/virtual.js ***!
-  \********************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "renderVirtual": () => (/* binding */ renderVirtual)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-
-
-function renderVirtual(swiperRef, slides, virtualData) {
-  if (!virtualData) return null;
-  const style = swiperRef.value.isHorizontal() ? {
-    [swiperRef.value.rtlTranslate ? 'right' : 'left']: `${virtualData.offset}px`
-  } : {
-    top: `${virtualData.offset}px`
-  };
-  return slides.filter((slide, index) => index >= virtualData.from && index <= virtualData.to).map(slide => {
-    if (!slide.props) slide.props = {};
-    if (!slide.props.style) slide.props.style = {};
-    slide.props.swiperRef = swiperRef;
-    slide.props.style = style;
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)(slide.type, { ...slide.props
-    }, slide.children);
-  });
-}
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-awesome-swiper/index.js":
-/*!**************************************************!*\
-  !*** ./node_modules/vue-awesome-swiper/index.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Swiper": () => (/* reexport safe */ swiper_vue__WEBPACK_IMPORTED_MODULE_0__.Swiper),
-/* harmony export */   "SwiperSlide": () => (/* reexport safe */ swiper_vue__WEBPACK_IMPORTED_MODULE_0__.SwiperSlide),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "useSwiper": () => (/* reexport safe */ swiper_vue__WEBPACK_IMPORTED_MODULE_0__.useSwiper),
-/* harmony export */   "useSwiperSlide": () => (/* reexport safe */ swiper_vue__WEBPACK_IMPORTED_MODULE_0__.useSwiperSlide)
-/* harmony export */ });
-/* harmony import */ var swiper_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper/vue */ "./node_modules/swiper/vue/swiper-vue.js");
-/**
- * @file vue-awesome-swiper
- * @author Surmon <https://github.com/surmon-china>
- */
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  Swiper: swiper_vue__WEBPACK_IMPORTED_MODULE_0__.Swiper,
-  SwiperSlide: swiper_vue__WEBPACK_IMPORTED_MODULE_0__.SwiperSlide,
-  install(app) {
-    app.component('Swiper', swiper_vue__WEBPACK_IMPORTED_MODULE_0__.Swiper);
-    app.component('SwiperSlide', swiper_vue__WEBPACK_IMPORTED_MODULE_0__.SwiperSlide);
-  }
-});
 
 
 /***/ }),
