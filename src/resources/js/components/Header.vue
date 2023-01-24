@@ -28,9 +28,9 @@
 
 <script lang="ts">
     import { defineComponent, ref, onMounted } from "vue";
-    import { useRoute, useRouter } from 'vue-router';
     import { storeToRefs } from "pinia";
     import { auth } from '../../../store/auth';
+    import { useRoute, useRouter } from 'vue-router';
     import ButtonWhite from "./common/ButtonWhite.vue";
     import ButtonBlack from "./common/ButtonBlack.vue";
     export default defineComponent({
@@ -68,7 +68,8 @@
             const clickLogout = () => {
                 authStore.logout();
                 // ログインページに移動する
-                router.push('/login');
+                // router.push('/login');
+                router.push( {name: 'login'} );
                 console.log('clickLogout');
             };
 

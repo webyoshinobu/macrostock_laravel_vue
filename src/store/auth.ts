@@ -19,6 +19,7 @@ export const auth = defineStore('auth', {
     state: () => ({
         user: null as USER|null,
         csrf: document.querySelector('meta[name="csrf-token"]')!.getAttribute('content'),
+        loginStatus: false,
     }),
     getters: ({
         isLoggedIn: (state) => state.user !== null,
@@ -46,6 +47,13 @@ export const auth = defineStore('auth', {
             const response = await axios.get('/api/user');
             const user = response.data || null;
             this.user = user;
+            if(this.user == null) {
+                this.loginStatus = false;
+                console.log('currentUser this.loginStatus', this.loginStatus);
+            }else{
+                this.loginStatus = true;
+                console.log('currentUser this.loginStatus', this.loginStatus);
+            }
           }
     },
   })

@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="register_form_submit">
-                    <ButtonOrange class="register_form_submit_button" type="submit">確認</ButtonOrange>
+                    <ButtonOrange class="register_form_submit_button" type="submit">登録</ButtonOrange>
                 </div>
             </form>
         <!-- </div> -->
