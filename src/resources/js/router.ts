@@ -10,6 +10,7 @@ import login from "./components/auth/Login.vue";
 import register from "./components/auth/Register.vue";
 import cart from "./components/cart/Cart.vue";
 import thanks from "./components/Thanks.vue";
+import systemError from "./components/errors/System.vue";
 
 const routes = [
     {
@@ -90,6 +91,11 @@ const routes = [
         path: '/thanks',
         name: 'thanks',
         component: thanks
+    },
+    {
+        path: '/500',
+        name: '500',
+        component: systemError
     },
 ]
 

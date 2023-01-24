@@ -5,6 +5,21 @@
             <!-- laravelのトークンを使用 -->
             <input type="hidden" name="_token" :value="token">
 
+            <div v-if="loginErrors" class="errors">
+                <ul v-if="loginErrors.email">
+                    <li v-for="msg in loginErrors.email" :key="msg">
+                        <!-- {{ msg }} -->
+                        メールアドレスを入力してください。
+                    </li>
+                </ul>
+                <ul v-if="loginErrors.password">
+                    <li v-for="msg in loginErrors.password" :key="msg">
+                        <!-- {{ msg }} -->
+                        パスワードを入力してください。
+                    </li>
+                </ul>
+            </div>
+
             <div class="login_form_line">
                 <input class="login_form_line_input" type="text" id="login-email" v-model="loginForm.email" placeholder="メールアドレス">
             </div>
@@ -31,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed, onMounted } from "vue";
 import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 import { auth } from '../../../../store/auth';
@@ -49,24 +64,45 @@ export default defineComponent({
         // data
         const router = useRouter();
         const route = useRoute();
-        const { login } = auth();
+        const { login, setLoginErrorMessages } = auth();
         const loginForm = {
             email: '',
             password: ''
         };
         const token = auth().csrf;
+        const { getApiStatus } = storeToRefs(auth());
+
+        //computed
+        const loginErrors = computed(() => {
+            return auth().loginErrorMessages
+        })
 
         // methods
-        const clickLogin = () => {
+        const clickLogin = async () => {
             console.log('loginForm', loginForm)
             const data = loginForm;
-            login(data);
+            await login(data);
+
+            const apiStatus = auth().getApiStatus
+            console.log('apiStatus', apiStatus);
 
             // トップページに移動する
-            router.push('/')
+            if (apiStatus == true) {
+                console.log('apiStatus', apiStatus);
+                router.push({ name: 'top' })
+            }
         }
 
-        return { router, route, loginForm, clickLogin, token };
+        const clearError = () => {
+            setLoginErrorMessages(null)
+            console.log('clearError');
+        }
+
+        onMounted(() => {
+            clearError();
+        });
+
+        return { router, route, loginForm, clickLogin, token, loginErrors, clearError, onMounted };
     }
 
 });
@@ -126,6 +162,17 @@ export default defineComponent({
     &_toRegister {
         display: flex;
         justify-content: center;
+    }
+}
+
+.errors {
+    margin: 0 0 20px 0;
+
+    ul {
+        list-style: none;
+        font-size: 24px;
+        color: red;
+        font-weight: bold;
     }
 }
 
