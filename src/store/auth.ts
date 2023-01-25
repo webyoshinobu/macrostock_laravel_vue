@@ -24,7 +24,6 @@ export const auth = defineStore('auth', {
         apiStatus: false,
         loginErrorMessages: null,
         registerErrorMessages: null,
-        // loginStatus: false,
     }),
     getters: ({
         isLoggedIn: (state) => state.user !== null,
@@ -100,16 +99,22 @@ export const auth = defineStore('auth', {
         },
 
         async currentUser () {
-            const response = await axios.get('/api/user');
-            const user = response.data || null;
-            this.user = user;
-            // if(this.user == null) {
-            //     this.loginStatus = false;
-            //     console.log('currentUser this.loginStatus', this.loginStatus);
-            // }else{
-            //     this.loginStatus = true;
-            //     console.log('currentUser this.loginStatus', this.loginStatus);
-            // }
+            // const response = await axios.get('/api/user');
+            // const user = response.data || null;
+            // this.user = user;
+
+            this.apiStatus = false
+            const response = await axios.get('/api/user')
+            const user = response.data || null
+
+            if (response.status === OK) {
+                this.apiStatus = true
+                this.user = user
+                return false
+            }
+
+            this.apiStatus = false
+            error().setCode(response.status);
         },
 
         setLoginErrorMessages (messages:any) {
