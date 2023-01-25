@@ -28171,10 +28171,8 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
       apiStatus: false,
       loginErrorMessages: null,
       registerErrorMessages: null
-      // loginStatus: false,
     };
   },
-
   getters: {
     isLoggedIn: function isLoggedIn(state) {
       return state.user !== null;
@@ -28296,20 +28294,26 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.next = 2;
+              // const response = await axios.get('/api/user');
+              // const user = response.data || null;
+              // this.user = user;
+              this.apiStatus = false;
+              _context4.next = 3;
               return axios_1["default"].get('/api/user');
-            case 2:
+            case 3:
               response = _context4.sent;
               user = response.data || null;
+              if (!(response.status === util_1.OK)) {
+                _context4.next = 9;
+                break;
+              }
+              this.apiStatus = true;
               this.user = user;
-            // if(this.user == null) {
-            //     this.loginStatus = false;
-            //     console.log('currentUser this.loginStatus', this.loginStatus);
-            // }else{
-            //     this.loginStatus = true;
-            //     console.log('currentUser this.loginStatus', this.loginStatus);
-            // }
-            case 5:
+              return _context4.abrupt("return", false);
+            case 9:
+              this.apiStatus = false;
+              (0, error_1.error)().setCode(response.status);
+            case 11:
             case "end":
               return _context4.stop();
           }
