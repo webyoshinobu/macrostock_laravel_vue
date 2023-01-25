@@ -120,4 +120,9 @@ export default function bootstrap() {
         return config
     })
 
+    window.axios.interceptors.response.use(
+        response => response,
+        error => error.response || error
+    )
+
 }
