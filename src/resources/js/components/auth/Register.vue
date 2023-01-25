@@ -6,6 +6,27 @@
                 <!-- laravelのトークンを使用 -->
                 <input type="hidden" name="_token" :value="token">
 
+                <div v-if="registerErrors" class="errors">
+                    <ul v-if="registerErrors.name">
+                        <li v-for="msg in registerErrors.name" :key="msg">
+                            <!-- {{ msg }} -->
+                            氏名を入力してください。
+                        </li>
+                    </ul>
+                    <ul v-if="registerErrors.email">
+                        <li v-for="msg in registerErrors.email" :key="msg">
+                            <!-- {{ msg }} -->
+                            メールアドレスを入力してください。
+                        </li>
+                    </ul>
+                    <ul v-if="registerErrors.password">
+                        <li v-for="msg in registerErrors.password" :key="msg">
+                            <!-- {{ msg }} -->
+                            パスワードを入力してください。
+                        </li>
+                    </ul>
+                </div>
+
                 <div class="register_form_line">
                     <label class="register_form_line_label" for="register_form_username">氏名</label>
                     <input type="text" class="register_form_line_input" id="register_form_username" v-model="registerForm.name">
@@ -41,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted, computed } from "vue";
 import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 import { auth } from '../../../../store/auth';
@@ -57,7 +78,7 @@ export default defineComponent({
         // data
         const router = useRouter();
         const route = useRoute();
-        const { register } = auth();
+        const { register, setRegisterErrorMessages } = auth();
         const registerForm = {
             name: '',
             email: '',
@@ -65,24 +86,39 @@ export default defineComponent({
             password_confirmation: ''
         };
         const token = auth().csrf;
+        const { getApiStatus } = storeToRefs(auth());
+
+        //computed
+        const registerErrors = computed(() => {
+            return auth().registerErrorMessages
+        })
 
         // methods
-
-        const clickRegister = () => {
+        const clickRegister = async () => {
             console.log('registerForm', registerForm);
             const data = registerForm;
             // authストアのresigterアクションを呼び出す
-            register(data);
+            await register(data);
+
+            const apiStatus = auth().getApiStatus
+            console.log('register apiStatus', apiStatus);
 
             // トップページに移動する
-            router.push('/')
+            if (apiStatus == true) {
+                router.push({ name: 'top' })
+            }
+        }
+
+        const clearError = () => {
+            setRegisterErrorMessages(null)
+            console.log('clearError');
         }
 
         onMounted(() => {
-            // console.log('csrf', token);
+            clearError();
         });
 
-        return { router, route, registerForm, token, clickRegister, register };
+        return { router, route, registerForm, token, clickRegister, register, registerErrors, clearError };
     }
 
 });
@@ -137,6 +173,17 @@ export default defineComponent({
             display: flex;
             justify-content: center;
         }
+    }
+}
+
+.errors {
+    margin: 0 0 20px 0;
+
+    ul {
+        list-style: none;
+        font-size: 24px;
+        color: red;
+        font-weight: bold;
     }
 }
 

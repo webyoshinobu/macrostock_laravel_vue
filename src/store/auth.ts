@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { OK, UNPROCESSABLE_ENTITY } from '../resources/js/util'
+import { OK, CREATED, UNPROCESSABLE_ENTITY } from '../resources/js/util'
 import { error } from './error'
 import axios from "axios"
 
@@ -23,7 +23,8 @@ export const auth = defineStore('auth', {
         csrf: document.querySelector('meta[name="csrf-token"]')!.getAttribute('content'),
         apiStatus: false,
         loginErrorMessages: null,
-        loginStatus: false,
+        registerErrorMessages: null,
+        // loginStatus: false,
     }),
     getters: ({
         isLoggedIn: (state) => state.user !== null,
@@ -32,17 +33,31 @@ export const auth = defineStore('auth', {
     }),
     actions: {
         async register (data:any) {
-            this.user = data;
+            // this.user = data;
+            // const response = await axios.post('/api/register', data);
+            // this.user = response.data;
+
+            this.user = null;
             const response = await axios.post('/api/register', data);
-            this.user = response.data;
+            if (response.status === CREATED) {
+                this.apiStatus = true;
+                this.user = response.data;
+                return false
+            }
+
+            this.apiStatus = false;
+            if (response.status === UNPROCESSABLE_ENTITY) {
+                this.registerErrorMessages = response.data.errors
+            } else {
+                error().setCode(response.status);
+            }
         },
 
-        // async login (data:any) {
-        //     const response = await axios.post('/api/login', data);
-        //     console.log('auth.ts login data', response.data);
-        //     this.user = response.data;
-        // },
         async login (data:any) {
+            // const response = await axios.post('/api/login', data);
+            // console.log('auth.ts login data', response.data);
+            // this.user = response.data;
+
             // this.apiStatus = false
             const response = await axios.post('/api/login', data).
             catch(err => err.response || err);
@@ -67,25 +82,42 @@ export const auth = defineStore('auth', {
         },
 
         async logout () {
-            const response = await axios.post('/api/logout');
-            this.user = null;
+            // const response = await axios.post('/api/logout');
+            // this.user = null;
+
+            this.apiStatus = false
+            const response = await axios.post('/api/logout')
+
+            if (response.status === OK) {
+                this.apiStatus = true
+                this.user = null;
+                return false
+            }
+
+            this.apiStatus = false
+            error().setCode(response.status);
+
         },
 
         async currentUser () {
             const response = await axios.get('/api/user');
             const user = response.data || null;
             this.user = user;
-            if(this.user == null) {
-                this.loginStatus = false;
-                console.log('currentUser this.loginStatus', this.loginStatus);
-            }else{
-                this.loginStatus = true;
-                console.log('currentUser this.loginStatus', this.loginStatus);
-            }
+            // if(this.user == null) {
+            //     this.loginStatus = false;
+            //     console.log('currentUser this.loginStatus', this.loginStatus);
+            // }else{
+            //     this.loginStatus = true;
+            //     console.log('currentUser this.loginStatus', this.loginStatus);
+            // }
         },
 
         setLoginErrorMessages (messages:any) {
             this.loginErrorMessages = messages
+        },
+
+        setRegisterErrorMessages (messages:any) {
+            this.registerErrorMessages = messages
         }
     },
   })

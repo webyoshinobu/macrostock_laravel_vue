@@ -65,11 +65,17 @@
                 });
             };
 
-            const clickLogout = () => {
-                authStore.logout();
+            const clickLogout = async () => {
+                await authStore.logout();
+
+                const apiStatus = auth().getApiStatus
+                console.log('logout apiStatus', apiStatus);
+
                 // ログインページに移動する
-                // router.push('/login');
-                router.push( {name: 'login'} );
+                if (apiStatus == true) {
+                    router.push({ name: 'login' })
+                }
+
                 console.log('clickLogout');
             };
 

@@ -84,11 +84,10 @@ export default defineComponent({
             await login(data);
 
             const apiStatus = auth().getApiStatus
-            console.log('apiStatus', apiStatus);
+            console.log('login apiStatus', apiStatus);
 
             // トップページに移動する
             if (apiStatus == true) {
-                console.log('apiStatus', apiStatus);
                 router.push({ name: 'top' })
             }
         }
