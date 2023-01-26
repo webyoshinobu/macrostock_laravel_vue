@@ -9,21 +9,30 @@ type USER = {
     password: string,
 }
 
-// declare const validPassword: unique symbol;
-// type Password = string & { validPassword: never }
-// type USER = {
-//     name: String,
-//     email: String,
-//     password: Password,
-// }
+declare const validPassword: unique symbol;
+type Password = string & { validPassword: never }
+type ADMIN = {
+    name: String,
+    email: String,
+    password: Password,
+}
 
 export const auth = defineStore('auth', {
     state: () => ({
+        //-------------------
+        //ユーザー関連
+        //-------------------
         user: null as USER|null,
         csrf: document.querySelector('meta[name="csrf-token"]')!.getAttribute('content'),
         apiStatus: false,
         loginErrorMessages: null,
         registerErrorMessages: null,
+
+        //-------------------
+        //管理者関連
+        //-------------------
+        adminUser: null as ADMIN|null,
+        adminRegisterErrorMessages: null,
     }),
     getters: ({
         isLoggedIn: (state) => state.user !== null,
@@ -31,6 +40,9 @@ export const auth = defineStore('auth', {
         getApiStatus: state => state.apiStatus,
     }),
     actions: {
+        //-------------------
+        //ユーザー関連
+        //-------------------
         async register (data:any) {
             // this.user = data;
             // const response = await axios.post('/api/register', data);
@@ -123,6 +135,34 @@ export const auth = defineStore('auth', {
 
         setRegisterErrorMessages (messages:any) {
             this.registerErrorMessages = messages
-        }
+        },
+
+        //-------------------
+        //管理者関連
+        //-------------------
+        async adminRegister (data:any) {
+            this.adminUser = null;
+            const response = await axios.post('/api/adminRegister', data);
+            if (response.status === CREATED) {
+                this.apiStatus = true;
+                this.adminUser = response.data;
+                return false
+            }
+
+            this.apiStatus = false;
+            if (response.status === UNPROCESSABLE_ENTITY) {
+                this.adminRegisterErrorMessages = response.data.errors
+            } else {
+                error().setCode(response.status);
+            }
+        },
+
+        setAdminRegisterErrorMessages (messages:any) {
+            this.adminRegisterErrorMessages = messages
+        },
+
+        // setApiStatus (status:any) {
+        //     this.apiStatus = status
+        // }
     },
   })

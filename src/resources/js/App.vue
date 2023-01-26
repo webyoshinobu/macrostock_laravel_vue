@@ -8,8 +8,9 @@
 
 <script lang="ts">
 import 'normalize.css';
-import { onMounted, computed, watch } from "vue";
+import { onMounted, watch } from "vue";
 import { useRoute, useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import { error } from "../../store/error";
@@ -24,27 +25,21 @@ export default {
   setup() {
     const router = useRouter();
     const route = useRoute();
+    const { code } = storeToRefs(error());
+    const errorCode = code
 
-    const errorCode = computed(() => {
-      return error().code
-    })
-
-    watch(() => errorCode, (next, prev) => {
-        const handler = (val:any) => {
-            if (val === INTERNAL_SERVER_ERROR) {
-            router.push('/500')
-            }
-        };
-    },
-    {
-        immediate: true
+    watch(errorCode, (errorCode:any) => {
+        console.log('errorCode', errorCode)
+        if (errorCode === INTERNAL_SERVER_ERROR) {
+            router.push({ name: '500' })
+        }
     })
 
     onMounted(() => {
 
     });
 
-    return { onMounted, errorCode };
+    return { onMounted };
   }
 };
 </script>

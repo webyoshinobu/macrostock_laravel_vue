@@ -8,6 +8,8 @@ import photo from "./components/gallery/Photo.vue";
 import contact from "./components/contact/Contact.vue";
 import login from "./components/auth/Login.vue";
 import register from "./components/auth/Register.vue";
+import admin from "./components/admin/Admin.vue";
+import adminRegister from "./components/admin/AdminRegister.vue";
 import cart from "./components/cart/Cart.vue";
 import thanks from "./components/Thanks.vue";
 import systemError from "./components/errors/System.vue";
@@ -81,6 +83,16 @@ const routes = [
         path: '/register',
         name: 'register',
         component: register
+    },
+    {
+        path: '/admin',
+        name: 'admin',
+        component: admin
+    },
+    {
+        path: '/adminRegister',
+        name: 'adminRegister',
+        component: adminRegister
     },
     {
         path: '/cart',
