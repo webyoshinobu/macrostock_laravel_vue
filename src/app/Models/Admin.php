@@ -13,14 +13,14 @@ class Admin extends User
     use HasFactory;
 
     protected $fillable = [
-        'admin_name',
-        'admin_email',
-        'admin_password',
+        'name',
+        'email',
+        'password',
     ];
 
     protected $hidden = [
-        'admin_password',
-        // 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     protected $casts = [

@@ -2,7 +2,9 @@
   <footer class="footer">
     <!-- <fa :icon="{ prefix: 'fab', iconName: 'instagram' }" style="color:white;" class="sns_logo fa-5x" /> -->
     <fa :icon="{ prefix: 'fab', iconName: 'instagram' }" class="sns_logo fa-5x" :class="{change_header: isChange}" />
-    <p class="footer_admin wd_color_white" :class="{change_header: isChange}">Administrator Login</p>
+    <router-link to="/admin/login" class="footer_admin wd_color_white">
+        <p :class="{change_header: isChange}">Administrator Login</p>
+    </router-link>
   </footer>
 </template>
 
@@ -52,31 +54,19 @@
     z-index: 999;
     display: flex;
     justify-content: space-between;
+
+    &_admin {
+        display: flex;
+        align-items: center;
+        margin: 0 27px 20px 0;
+        font-size: 24px;
+        text-decoration: none;
+    }
 }
 
 .sns_logo {
     margin: 0 0 20px 27px;
     color: #ffffff;
-}
-
-.footer_admin {
-    display: flex;
-    align-items: center;
-    margin: 0 27px 20px 0;
-    font-size: 24px;
-}
-
-//共通
-.bg-white {
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bold;
-}
-
-.bg-black {
-    background-color: #000000;
-    color: #ffffff;
-    font-weight: bold;
 }
 
 .wd_color_white {

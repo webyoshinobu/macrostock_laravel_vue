@@ -37,7 +37,10 @@ Route::get('/user', fn() => Auth::user())->name('user');
 | 管理者関連
 |--------------------------------------------------------------------------
 */
-Route::post('/admin/login', [App\Http\Controllers\admin\LoginController::class, 'login']);
-Route::post('/admin/logout', [App\Http\Controllers\admin\LoginController::class,'logout']);
-// Route::post('/admin/register', [App\Http\Controllers\admin\RegisterController::class, 'register']);
-Route::post('/admin/register', 'App\Http\Controllers\admin\RegisterController@register')->name('register');
+// 会員登録
+Route::post('/admin/register', 'App\Http\Controllers\Admin\RegisterController@register')->name('register');
+// ログイン
+Route::post('/admin/login', 'App\Http\Controllers\Admin\LoginController@login')->name('login');
+// ログアウト
+Route::post('/admin/logout', 'App\Http\Controllers\Admin\LoginController@logout')->name('logout');
+

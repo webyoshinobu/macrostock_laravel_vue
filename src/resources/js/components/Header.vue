@@ -15,7 +15,7 @@
             <router-link to="/contact" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange}">Contact</router-link>
 
             <router-link v-if="!isLoggedIn" to="/login" class="header_nav_menu_item"><ButtonWhite>Login</ButtonWhite></router-link>
-            <router-link v-else to="/login" class="header_nav_menu_item" @click="clickLogout"><ButtonWhite>Logout</ButtonWhite></router-link>
+            <p v-else class="header_nav_menu_item" @click="clickLogout"><ButtonWhite>Logout</ButtonWhite></p>
 
             <router-link v-if="!isLoggedIn" to="/register" class="header_nav_menu_item"><ButtonBlack>Register</ButtonBlack></router-link>
             <p v-else class="header_nav_menu_item"><ButtonBlack>{{ userInfo.name }} 様</ButtonBlack></p>
@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent, ref, onMounted } from "vue";
+    import { defineComponent, ref, onMounted, inject } from "vue";
     import { storeToRefs } from "pinia";
     import { auth } from '../../../store/auth';
     import { useRoute, useRouter } from 'vue-router';
@@ -46,7 +46,7 @@
             const route = useRoute();
             const isChange = ref(false);
             const authStore = auth();
-            const { userInfo, isLoggedIn } = storeToRefs(authStore);
+            const { userInfo, isLoggedIn, getAdminFlag } = storeToRefs(authStore);
             const token = auth().csrf;
 
             // methods
@@ -66,14 +66,26 @@
             };
 
             const clickLogout = async () => {
-                await authStore.logout();
+                console.log('Header logout apiStatus', auth().getApiStatus);
+                console.log('Header logout admin_flag', auth().getAdminFlag);
+                if(auth().getAdminFlag == 1){
+                    await authStore.adminLogout();
+                }else{
+                    await authStore.logout();
+                }
 
-                const apiStatus = auth().getApiStatus
-                console.log('logout apiStatus', apiStatus);
+                console.log('Header logout apiStatus end', auth().getApiStatus);
+                console.log('Header logout admin_flag end', auth().getAdminFlag);
 
                 // ログインページに移動する
-                if (apiStatus == true) {
-                    router.push({ name: 'login' })
+                // if (auth().getApiStatus == true) {
+                if (auth().getApiStatus == false) {
+                    // if (auth().getAdminFlag == 1) {
+                    //     router.push({ name: 'admin/login' });
+                    // }else{
+                    //     router.push({ name: 'login' });
+                    // }
+                    router.push({ name: 'top' });
                 }
 
                 console.log('clickLogout');
