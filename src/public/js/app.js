@@ -24407,7 +24407,8 @@ exports["default"] = (0, vue_1.defineComponent)({
     var authStore = (0, auth_1.auth)();
     var _ref = (0, pinia_1.storeToRefs)(authStore),
       userInfo = _ref.userInfo,
-      isLoggedIn = _ref.isLoggedIn;
+      isLoggedIn = _ref.isLoggedIn,
+      getAdminFlag = _ref.getAdminFlag;
     var token = (0, auth_1.auth)().csrf;
     // methods
     var addClass = function addClass() {
@@ -24426,23 +24427,40 @@ exports["default"] = (0, vue_1.defineComponent)({
     };
     var clickLogout = function clickLogout() {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var apiStatus;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              console.log('Header logout apiStatus', (0, auth_1.auth)().getApiStatus);
+              console.log('Header logout admin_flag', (0, auth_1.auth)().getAdminFlag);
+              if (!((0, auth_1.auth)().getAdminFlag == 1)) {
+                _context.next = 7;
+                break;
+              }
+              _context.next = 5;
+              return authStore.adminLogout();
+            case 5:
+              _context.next = 9;
+              break;
+            case 7:
+              _context.next = 9;
               return authStore.logout();
-            case 2:
-              apiStatus = (0, auth_1.auth)().getApiStatus;
-              console.log('logout apiStatus', apiStatus);
+            case 9:
+              console.log('Header logout apiStatus end', (0, auth_1.auth)().getApiStatus);
+              console.log('Header logout admin_flag end', (0, auth_1.auth)().getAdminFlag);
               // ログインページに移動する
-              if (apiStatus == true) {
+              // if (auth().getApiStatus == true) {
+              if ((0, auth_1.auth)().getApiStatus == false) {
+                // if (auth().getAdminFlag == 1) {
+                //     router.push({ name: 'admin/login' });
+                // }else{
+                //     router.push({ name: 'login' });
+                // }
                 router.push({
-                  name: 'login'
+                  name: 'top'
                 });
               }
               console.log('clickLogout');
-            case 6:
+            case 13:
             case "end":
               return _context.stop();
           }
@@ -24568,10 +24586,10 @@ exports["default"] = (0, vue_1.defineComponent)({
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=script&lang=ts":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=script&lang=ts ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=script&lang=ts":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=script&lang=ts ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -24943,7 +24961,7 @@ exports["default"] = (0, vue_1.defineComponent)({
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
     var _ref = (0, auth_1.auth)(),
-      login = _ref.login,
+      adminLogin = _ref.adminLogin,
       setLoginErrorMessages = _ref.setLoginErrorMessages;
     var loginForm = {
       email: '',
@@ -24963,10 +24981,10 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              console.log('loginForm', loginForm);
+              console.log('admin loginForm', loginForm);
               data = loginForm;
               _context.next = 4;
-              return login(data);
+              return adminLogin(data);
             case 4:
               apiStatus = (0, auth_1.auth)().getApiStatus;
               console.log('login apiStatus', apiStatus);
@@ -26702,6 +26720,7 @@ var _hoisted_1 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_fa = (0, vue_1.resolveComponent)("fa");
+  var _component_router_link = (0, vue_1.resolveComponent)("router-link");
   return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("footer", _hoisted_1, [(0, vue_1.createCommentVNode)(" <fa :icon=\"{ prefix: 'fab', iconName: 'instagram' }\" style=\"color:white;\" class=\"sns_logo fa-5x\" /> "), (0, vue_1.createVNode)(_component_fa, {
     icon: {
       prefix: 'fab',
@@ -26710,11 +26729,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": (0, vue_1.normalizeClass)(["sns_logo fa-5x", {
       change_header: _ctx.isChange
     }])
-  }, null, 8 /* PROPS */, ["class"]), (0, vue_1.createElementVNode)("p", {
-    "class": (0, vue_1.normalizeClass)(["footer_admin wd_color_white", {
-      change_header: _ctx.isChange
-    }])
-  }, "Administrator Login", 2 /* CLASS */)]);
+  }, null, 8 /* PROPS */, ["class"]), (0, vue_1.createVNode)(_component_router_link, {
+    to: "/admin/login",
+    "class": "footer_admin wd_color_white"
+  }, {
+    "default": (0, vue_1.withCtx)(function () {
+      return [(0, vue_1.createElementVNode)("p", {
+        "class": (0, vue_1.normalizeClass)({
+          change_header: _ctx.isChange
+        })
+      }, "Administrator Login", 2 /* CLASS */)];
+    }),
+
+    _: 1 /* STABLE */
+  })]);
 }
 
 exports.render = render;
@@ -26813,23 +26841,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
 
     _: 1 /* STABLE */
-  })) : ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
+  })) : ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("p", {
     key: 1,
-    to: "/login",
     "class": "header_nav_menu_item",
-    onClick: _ctx.clickLogout
-  }, {
+    onClick: _cache[0] || (_cache[0] =
+    //@ts-ignore
+    function () {
+      return _ctx.clickLogout && _ctx.clickLogout.apply(_ctx, arguments);
+    })
+  }, [(0, vue_1.createVNode)(_component_ButtonWhite, null, {
     "default": (0, vue_1.withCtx)(function () {
-      return [(0, vue_1.createVNode)(_component_ButtonWhite, null, {
-        "default": (0, vue_1.withCtx)(function () {
-          return [(0, vue_1.createTextVNode)("Logout")];
-        }),
-        _: 1 /* STABLE */
-      })];
+      return [(0, vue_1.createTextVNode)("Logout")];
     }),
-
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["onClick"])), !_ctx.isLoggedIn ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
+  })])), !_ctx.isLoggedIn ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
     key: 2,
     to: "/register",
     "class": "header_nav_menu_item"
@@ -27097,10 +27122,10 @@ exports.render = render;
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[4]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=template&id=6ef557f4&scoped=true&ts=true":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[4]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=template&id=6ef557f4&scoped=true&ts=true ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[4]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=template&id=69653985&scoped=true&ts=true":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[4]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=template&id=69653985&scoped=true&ts=true ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -27112,7 +27137,7 @@ Object.defineProperty(exports, "__esModule", ({
 exports.render = void 0;
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 var _withScopeId = function _withScopeId(n) {
-  return (0, vue_1.pushScopeId)("data-v-6ef557f4"), n = n(), (0, vue_1.popScopeId)(), n;
+  return (0, vue_1.pushScopeId)("data-v-69653985"), n = n(), (0, vue_1.popScopeId)(), n;
 };
 var _hoisted_1 = {
   "class": "admin"
@@ -27168,11 +27193,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8 /* PROPS */, _hoisted_3), _ctx.loginErrors ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_4, [_ctx.loginErrors.email ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_5, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.loginErrors.email, function (msg) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: msg
-    }, [(0, vue_1.createCommentVNode)(" {{ msg }} "), (0, vue_1.createTextVNode)(" メールアドレスを入力してください。 ")]);
+    }, [(0, vue_1.createTextVNode)((0, vue_1.toDisplayString)(msg) + " ", 1 /* TEXT */), (0, vue_1.createCommentVNode)(" メールアドレスを入力してください。 ")]);
   }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.loginErrors.password ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_6, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.loginErrors.password, function (msg) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: msg
-    }, [(0, vue_1.createCommentVNode)(" {{ msg }} "), (0, vue_1.createTextVNode)(" パスワードを入力してください。 ")]);
+    }, [(0, vue_1.createTextVNode)((0, vue_1.toDisplayString)(msg) + " ", 1 /* TEXT */), (0, vue_1.createCommentVNode)(" パスワードを入力してください。 ")]);
   }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true)])) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("div", _hoisted_7, [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     "class": "admin_form_line_input",
     type: "text",
@@ -27317,30 +27342,30 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "adminRegister_form_line_input",
     id: "adminRegister_form_username",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return _ctx.registerForm.admin_name = $event;
+      return _ctx.registerForm.name = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.admin_name]])]), (0, vue_1.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.name]])]), (0, vue_1.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "text",
     "class": "adminRegister_form_line_input",
     id: "adminRegister_form_email",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return _ctx.registerForm.admin_email = $event;
+      return _ctx.registerForm.email = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.admin_email]])]), (0, vue_1.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.email]])]), (0, vue_1.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "password",
     "class": "adminRegister_form_line_input",
     id: "adminRegister_form_pass",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-      return _ctx.registerForm.admin_password = $event;
+      return _ctx.registerForm.password = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.admin_password]])]), (0, vue_1.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.password]])]), (0, vue_1.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "password",
     "class": "adminRegister_form_line_input",
     id: "adminRegister_form_passconfirmation",
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-      return _ctx.registerForm.admin_password_confirmation = $event;
+      return _ctx.registerForm.password_confirmation = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.admin_password_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_16, [(0, vue_1.createVNode)(_component_ButtonOrange, {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.password_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_16, [(0, vue_1.createVNode)(_component_ButtonOrange, {
     "class": "adminRegister_form_submit_button",
     type: "submit"
   }, {
@@ -28747,7 +28772,7 @@ var Photo_vue_1 = __importDefault(__webpack_require__(/*! ./components/gallery/P
 var Contact_vue_1 = __importDefault(__webpack_require__(/*! ./components/contact/Contact.vue */ "./resources/js/components/contact/Contact.vue"));
 var Login_vue_1 = __importDefault(__webpack_require__(/*! ./components/auth/Login.vue */ "./resources/js/components/auth/Login.vue"));
 var Register_vue_1 = __importDefault(__webpack_require__(/*! ./components/auth/Register.vue */ "./resources/js/components/auth/Register.vue"));
-var Admin_vue_1 = __importDefault(__webpack_require__(/*! ./components/admin/Admin.vue */ "./resources/js/components/admin/Admin.vue"));
+var AdminLogin_vue_1 = __importDefault(__webpack_require__(/*! ./components/admin/AdminLogin.vue */ "./resources/js/components/admin/AdminLogin.vue"));
 var AdminRegister_vue_1 = __importDefault(__webpack_require__(/*! ./components/admin/AdminRegister.vue */ "./resources/js/components/admin/AdminRegister.vue"));
 var Cart_vue_1 = __importDefault(__webpack_require__(/*! ./components/cart/Cart.vue */ "./resources/js/components/cart/Cart.vue"));
 var Thanks_vue_1 = __importDefault(__webpack_require__(/*! ./components/Thanks.vue */ "./resources/js/components/Thanks.vue"));
@@ -28814,9 +28839,9 @@ var routes = [{
   name: 'register',
   component: Register_vue_1["default"]
 }, {
-  path: '/admin',
-  name: 'admin',
-  component: Admin_vue_1["default"]
+  path: '/admin/login',
+  name: 'admin/login',
+  component: AdminLogin_vue_1["default"]
 }, {
   path: '/admin/register',
   name: 'admin/register',
@@ -29349,18 +29374,24 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
       //管理者関連
       //-------------------
       adminUser: null,
-      adminRegisterErrorMessages: null
+      adminRegisterErrorMessages: null,
+      adminFlag: null
     };
   },
   getters: {
+    //ユーザー、管理者共用
     isLoggedIn: function isLoggedIn(state) {
-      return state.user !== null;
+      return state.user !== null || state.adminUser !== null;
     },
     userInfo: function userInfo(state) {
-      return state.user ? state.user : null;
+      return state.user ? state.user :  false || state.adminUser ? state.adminUser : null;
     },
     getApiStatus: function getApiStatus(state) {
       return state.apiStatus;
+    },
+    //管理者
+    getAdminFlag: function getAdminFlag(state) {
+      return state.adminFlag;
     }
   },
   actions: {
@@ -29457,7 +29488,8 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
                 _context3.next = 8;
                 break;
               }
-              this.apiStatus = true;
+              // this.apiStatus = true
+              this.apiStatus = false;
               this.user = null;
               return _context3.abrupt("return", false);
             case 8:
@@ -29541,6 +29573,80 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return _context5.stop();
           }
         }, _callee5, this);
+      }));
+    },
+    adminLogin: function adminLogin(data) {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return axios_1["default"].post('/api/admin/login', data)["catch"](function (err) {
+                return err.response || err;
+              });
+            case 2:
+              response = _context6.sent;
+              console.log('adminLogin data', data);
+              console.log('auth.ts login response.status1', response.status);
+              if (!(response.status === util_1.OK)) {
+                _context6.next = 11;
+                break;
+              }
+              this.apiStatus = true;
+              this.adminUser = response.data;
+              this.adminFlag = response.data.admin_flag;
+              console.log('adminLogin this.adminFlag', this.adminFlag);
+              return _context6.abrupt("return", false);
+            case 11:
+              this.apiStatus = false;
+              (0, error_1.error)().setCode(response.status);
+              console.log('auth.ts login response.data', response.data);
+              console.log('auth.ts login response.status2', response.status);
+              console.log('auth.ts login this.apiStatus', this.apiStatus);
+              if (response.status === util_1.UNPROCESSABLE_ENTITY) {
+                this.loginErrorMessages = response.data.errors;
+              } else {
+                (0, error_1.error)().setCode(response.status);
+              }
+            case 17:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6, this);
+      }));
+    },
+    adminLogout: function adminLogout() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              // const response = await axios.post('/api/logout');
+              // this.user = null;
+              this.apiStatus = false;
+              _context7.next = 3;
+              return axios_1["default"].post('/api/admin/logout');
+            case 3:
+              response = _context7.sent;
+              if (!(response.status === util_1.OK)) {
+                _context7.next = 9;
+                break;
+              }
+              // this.apiStatus = true
+              this.apiStatus = false;
+              this.adminUser = null;
+              this.adminFlag = null;
+              return _context7.abrupt("return", false);
+            case 9:
+              this.apiStatus = false;
+              this.adminFlag = null;
+              (0, error_1.error)().setCode(response.status);
+            case 12:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7, this);
       }));
     },
     setAdminRegisterErrorMessages: function setAdminRegisterErrorMessages(messages) {
@@ -30001,7 +30107,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".footer[data-v-61a7c374] {\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 999;\n  display: flex;\n  justify-content: space-between;\n}\n.sns_logo[data-v-61a7c374] {\n  margin: 0 0 20px 27px;\n  color: #ffffff;\n}\n.footer_admin[data-v-61a7c374] {\n  display: flex;\n  align-items: center;\n  margin: 0 27px 20px 0;\n  font-size: 24px;\n}\n.bg-white[data-v-61a7c374] {\n  background-color: #ffffff;\n  color: #000000;\n  font-weight: bold;\n}\n.bg-black[data-v-61a7c374] {\n  background-color: #000000;\n  color: #ffffff;\n  font-weight: bold;\n}\n.wd_color_white[data-v-61a7c374] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-61a7c374] {\n  color: #000000;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".footer[data-v-61a7c374] {\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 999;\n  display: flex;\n  justify-content: space-between;\n}\n.footer_admin[data-v-61a7c374] {\n  display: flex;\n  align-items: center;\n  margin: 0 27px 20px 0;\n  font-size: 24px;\n  text-decoration: none;\n}\n.sns_logo[data-v-61a7c374] {\n  margin: 0 0 20px 27px;\n  color: #ffffff;\n}\n.wd_color_white[data-v-61a7c374] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-61a7c374] {\n  color: #000000;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -30086,10 +30192,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.top[data-v-5c6cb
 
 /***/ }),
 
-/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -30103,7 +30209,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".admin[data-v-6ef557f4] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.admin_title[data-v-6ef557f4] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.admin_form[data-v-6ef557f4] {\n  display: flex;\n  flex-flow: column;\n}\n.admin_form_line[data-v-6ef557f4] {\n  font-size: 36px;\n  border-bottom: solid 2px #000000;\n}\n.admin_form_line[data-v-6ef557f4]:not(:last-child) {\n  margin: 0 0 50px 0;\n}\n.admin_form_line_input[data-v-6ef557f4] {\n  width: 100%;\n  border: none;\n  outline: none;\n}\n.admin_form_submit[data-v-6ef557f4] {\n  display: flex;\n  justify-content: center;\n}\n.admin_explain[data-v-6ef557f4] {\n  font-size: 24px;\n  padding: 0 10%;\n}\n.admin_explain_word[data-v-6ef557f4] {\n  display: flex;\n  justify-content: center;\n  padding: 20px 0;\n}\n.admin_explain_word[data-v-6ef557f4]:not(:last-child) {\n  border-bottom: solid 2px #000000;\n}\n.admin_toRegister[data-v-6ef557f4] {\n  display: flex;\n  justify-content: center;\n}\n.errors[data-v-6ef557f4] {\n  margin: 0 0 20px 0;\n}\n.errors ul[data-v-6ef557f4] {\n  list-style: none;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".admin[data-v-69653985] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.admin_title[data-v-69653985] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.admin_form[data-v-69653985] {\n  display: flex;\n  flex-flow: column;\n}\n.admin_form_line[data-v-69653985] {\n  font-size: 36px;\n  border-bottom: solid 2px #000000;\n}\n.admin_form_line[data-v-69653985]:not(:last-child) {\n  margin: 0 0 50px 0;\n}\n.admin_form_line_input[data-v-69653985] {\n  width: 100%;\n  border: none;\n  outline: none;\n}\n.admin_form_submit[data-v-69653985] {\n  display: flex;\n  justify-content: center;\n}\n.admin_explain[data-v-69653985] {\n  font-size: 24px;\n  padding: 0 10%;\n}\n.admin_explain_word[data-v-69653985] {\n  display: flex;\n  justify-content: center;\n  padding: 20px 0;\n}\n.admin_explain_word[data-v-69653985]:not(:last-child) {\n  border-bottom: solid 2px #000000;\n}\n.admin_toRegister[data-v-69653985] {\n  display: flex;\n  justify-content: center;\n}\n.errors[data-v-69653985] {\n  margin: 0 0 20px 0;\n}\n.errors ul[data-v-69653985] {\n  list-style: none;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -30872,10 +30978,10 @@ var update = _node_modules_laravel_mix_node_modules_style_loader_dist_runtime_in
 
 /***/ }),
 
-/***/ "./node_modules/laravel-mix/node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/laravel-mix/node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/laravel-mix/node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -30885,7 +30991,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_laravel_mix_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/laravel-mix/node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/laravel-mix/node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_laravel_mix_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_14_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_14_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_14_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_style_index_0_id_6ef557f4_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_14_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_14_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_14_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_style_index_0_id_69653985_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true");
 
             
 
@@ -30894,11 +31000,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_laravel_mix_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_14_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_14_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_14_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_style_index_0_id_6ef557f4_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_laravel_mix_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_14_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_14_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_14_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_style_index_0_id_69653985_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_14_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_14_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_14_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_style_index_0_id_6ef557f4_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_14_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_14_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_14_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_style_index_0_id_69653985_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -31971,10 +32077,10 @@ if (false) {}
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/Admin.vue":
-/*!*************************************************!*\
-  !*** ./resources/js/components/admin/Admin.vue ***!
-  \*************************************************/
+/***/ "./resources/js/components/admin/AdminLogin.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/admin/AdminLogin.vue ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -31982,12 +32088,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Admin_vue_vue_type_template_id_6ef557f4_scoped_true_ts_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Admin.vue?vue&type=template&id=6ef557f4&scoped=true&ts=true */ "./resources/js/components/admin/Admin.vue?vue&type=template&id=6ef557f4&scoped=true&ts=true");
-/* harmony import */ var _Admin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Admin.vue?vue&type=script&lang=ts */ "./resources/js/components/admin/Admin.vue?vue&type=script&lang=ts");
+/* harmony import */ var _AdminLogin_vue_vue_type_template_id_69653985_scoped_true_ts_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminLogin.vue?vue&type=template&id=69653985&scoped=true&ts=true */ "./resources/js/components/admin/AdminLogin.vue?vue&type=template&id=69653985&scoped=true&ts=true");
+/* harmony import */ var _AdminLogin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminLogin.vue?vue&type=script&lang=ts */ "./resources/js/components/admin/AdminLogin.vue?vue&type=script&lang=ts");
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _Admin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _Admin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _AdminLogin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _AdminLogin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
-/* harmony import */ var _Admin_vue_vue_type_style_index_0_id_6ef557f4_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true */ "./resources/js/components/admin/Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true");
+/* harmony import */ var _AdminLogin_vue_vue_type_style_index_0_id_69653985_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true */ "./resources/js/components/admin/AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true");
 /* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
@@ -31996,7 +32102,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Admin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Admin_vue_vue_type_template_id_6ef557f4_scoped_true_ts_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-6ef557f4"],['__file',"resources/js/components/admin/Admin.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_AdminLogin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AdminLogin_vue_vue_type_template_id_69653985_scoped_true_ts_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-69653985"],['__file',"resources/js/components/admin/AdminLogin.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -32558,21 +32664,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/Admin.vue?vue&type=script&lang=ts":
-/*!*************************************************************************!*\
-  !*** ./resources/js/components/admin/Admin.vue?vue&type=script&lang=ts ***!
-  \*************************************************************************/
+/***/ "./resources/js/components/admin/AdminLogin.vue?vue&type=script&lang=ts":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/admin/AdminLogin.vue?vue&type=script&lang=ts ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport default from dynamic */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default.a)
+/* harmony export */   "default": () => (/* reexport default from dynamic */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default.a)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!../../../../node_modules/ts-loader/index.js??clonedRuleSet-7!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Admin.vue?vue&type=script&lang=ts */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=script&lang=ts");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!../../../../node_modules/ts-loader/index.js??clonedRuleSet-7!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLogin.vue?vue&type=script&lang=ts */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=script&lang=ts");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_script_lang_ts__WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
  
 
@@ -32905,19 +33011,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/Admin.vue?vue&type=template&id=6ef557f4&scoped=true&ts=true":
-/*!***************************************************************************************************!*\
-  !*** ./resources/js/components/admin/Admin.vue?vue&type=template&id=6ef557f4&scoped=true&ts=true ***!
-  \***************************************************************************************************/
+/***/ "./resources/js/components/admin/AdminLogin.vue?vue&type=template&id=69653985&scoped=true&ts=true":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/admin/AdminLogin.vue?vue&type=template&id=69653985&scoped=true&ts=true ***!
+  \********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "__esModule": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_4_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_template_id_6ef557f4_scoped_true_ts_true__WEBPACK_IMPORTED_MODULE_0__.__esModule),
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_4_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_template_id_6ef557f4_scoped_true_ts_true__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */   "__esModule": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_4_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_template_id_69653985_scoped_true_ts_true__WEBPACK_IMPORTED_MODULE_0__.__esModule),
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_4_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_template_id_69653985_scoped_true_ts_true__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_4_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_template_id_6ef557f4_scoped_true_ts_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!../../../../node_modules/ts-loader/index.js??clonedRuleSet-7!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[4]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Admin.vue?vue&type=template&id=6ef557f4&scoped=true&ts=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[4]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=template&id=6ef557f4&scoped=true&ts=true");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_babel_loader_lib_index_js_clonedRuleSet_6_use_0_node_modules_ts_loader_index_js_clonedRuleSet_7_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_4_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_template_id_69653985_scoped_true_ts_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!../../../../node_modules/ts-loader/index.js??clonedRuleSet-7!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[4]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLogin.vue?vue&type=template&id=69653985&scoped=true&ts=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/babel-loader/lib/index.js??clonedRuleSet-6.use[0]!./node_modules/ts-loader/index.js??clonedRuleSet-7!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[4]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=template&id=69653985&scoped=true&ts=true");
 
 
 /***/ }),
@@ -33224,15 +33330,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/admin/Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true":
-/*!**********************************************************************************************************!*\
-  !*** ./resources/js/components/admin/Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true ***!
-  \**********************************************************************************************************/
+/***/ "./resources/js/components/admin/AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true ***!
+  \***************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_laravel_mix_node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_14_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_14_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_14_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Admin_vue_vue_type_style_index_0_id_6ef557f4_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/laravel-mix/node_modules/style-loader/dist/cjs.js!../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true */ "./node_modules/laravel-mix/node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/Admin.vue?vue&type=style&index=0&id=6ef557f4&lang=scss&scoped=true");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_14_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_14_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_14_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_AdminLogin_vue_vue_type_style_index_0_id_69653985_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/laravel-mix/node_modules/style-loader/dist/cjs.js!../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true */ "./node_modules/laravel-mix/node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-14.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-14.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-14.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/admin/AdminLogin.vue?vue&type=style&index=0&id=69653985&lang=scss&scoped=true");
 
 
 /***/ }),

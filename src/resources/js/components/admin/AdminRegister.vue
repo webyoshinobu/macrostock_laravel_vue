@@ -29,22 +29,22 @@
 
                 <div class="adminRegister_form_line">
                     <label class="adminRegister_form_line_label" for="adminRegister_form_username">氏名</label>
-                    <input type="text" class="adminRegister_form_line_input" id="adminRegister_form_username" v-model="registerForm.admin_name">
+                    <input type="text" class="adminRegister_form_line_input" id="adminRegister_form_username" v-model="registerForm.name">
                 </div>
 
                 <div class="adminRegister_form_line">
                     <label class="adminRegister_form_line_label" for="adminRegister_form_email">メールアドレス</label>
-                    <input type="text" class="adminRegister_form_line_input" id="adminRegister_form_email" v-model="registerForm.admin_email">
+                    <input type="text" class="adminRegister_form_line_input" id="adminRegister_form_email" v-model="registerForm.email">
                 </div>
 
                 <div class="adminRegister_form_line">
                     <label class="adminRegister_form_line_label" for="adminRegister_form_pass">パスワード</label>
-                    <input type="password" class="adminRegister_form_line_input" id="adminRegister_form_pass" v-model="registerForm.admin_password">
+                    <input type="password" class="adminRegister_form_line_input" id="adminRegister_form_pass" v-model="registerForm.password">
                 </div>
 
                 <div class="adminRegister_form_line">
                     <label class="adminRegister_form_line_label" for="adminRegister_form_passconfirmation">パスワード(確認)</label>
-                    <input type="password" class="adminRegister_form_line_input" id="adminRegister_form_passconfirmation" v-model="registerForm.admin_password_confirmation">
+                    <input type="password" class="adminRegister_form_line_input" id="adminRegister_form_passconfirmation" v-model="registerForm.password_confirmation">
                 </div>
 
                 <div class="adminRegister_form_submit">

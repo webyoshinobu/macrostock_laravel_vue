@@ -9,12 +9,19 @@ type USER = {
     password: string,
 }
 
-declare const validPassword: unique symbol;
-type Password = string & { validPassword: never }
+// declare const validPassword: unique symbol;
+// type Password = string & { validPassword: never }
+// type ADMIN = {
+//     admin_name: string,
+//     admin_email: string,
+//     admin_password: Password,
+// }
+
 type ADMIN = {
-    name: String,
-    email: String,
-    password: Password,
+    admin_name: string,
+    admin_email: string,
+    admin_password: string,
+    admin_flag: number,
 }
 
 export const auth = defineStore('auth', {
@@ -33,11 +40,15 @@ export const auth = defineStore('auth', {
         //-------------------
         adminUser: null as ADMIN|null,
         adminRegisterErrorMessages: null,
+        adminFlag: null,
     }),
     getters: ({
-        isLoggedIn: (state) => state.user !== null,
-        userInfo: state => state.user ? state.user : null,
+        //ユーザー、管理者共用
+        isLoggedIn: (state) => state.user !== null || state.adminUser !== null,
+        userInfo: state => state.user ? state.user : null || state.adminUser ? state.adminUser : null,
         getApiStatus: state => state.apiStatus,
+        //管理者
+        getAdminFlag: state => state.adminFlag,
     }),
     actions: {
         //-------------------
@@ -100,7 +111,8 @@ export const auth = defineStore('auth', {
             const response = await axios.post('/api/logout')
 
             if (response.status === OK) {
-                this.apiStatus = true
+                // this.apiStatus = true
+                this.apiStatus = false;
                 this.user = null;
                 return false
             }
@@ -125,7 +137,7 @@ export const auth = defineStore('auth', {
                 return false
             }
 
-            this.apiStatus = false
+            this.apiStatus = false;
             error().setCode(response.status);
         },
 
@@ -155,6 +167,58 @@ export const auth = defineStore('auth', {
             } else {
                 error().setCode(response.status);
             }
+        },
+
+        async adminLogin (data:any) {
+            // const response = await axios.post('/api/login', data);
+            // console.log('auth.ts login data', response.data);
+            // this.user = response.data;
+
+            // this.apiStatus = false
+            const response = await axios.post('/api/admin/login', data).
+            catch(err => err.response || err);
+            console.log('adminLogin data', data);
+            console.log('auth.ts login response.status1', response.status);
+            if (response.status === OK) {
+                this.apiStatus = true;
+                this.adminUser = response.data;
+                this.adminFlag = response.data.admin_flag;
+                console.log('adminLogin this.adminFlag', this.adminFlag);
+                return false;
+            }
+
+            this.apiStatus = false;
+            error().setCode(response.status);
+            console.log('auth.ts login response.data', response.data);
+            console.log('auth.ts login response.status2', response.status);
+            console.log('auth.ts login this.apiStatus', this.apiStatus);
+
+            if (response.status === UNPROCESSABLE_ENTITY) {
+                this.loginErrorMessages = response.data.errors
+            } else {
+                error().setCode(response.status);
+            }
+        },
+
+        async adminLogout () {
+            // const response = await axios.post('/api/logout');
+            // this.user = null;
+
+            this.apiStatus = false
+            const response = await axios.post('/api/admin/logout')
+
+            if (response.status === OK) {
+                // this.apiStatus = true
+                this.apiStatus = false
+                this.adminUser = null;
+                this.adminFlag = null;
+                return false
+            }
+
+            this.apiStatus = false;
+            this.adminFlag = null;
+            error().setCode(response.status);
+
         },
 
         setAdminRegisterErrorMessages (messages:any) {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-// use Illuminate\Http\Request; // ★ 追加
+use Illuminate\Http\Request; // ★ 追加
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -51,18 +51,18 @@ class LoginController extends Controller
     }
 
     // // ★ メソッド追加
-    // protected function authenticated(Request $request, $user)
-    // {
-    //     return $user;
-    // }
+    protected function authenticated(Request $request, $user)
+    {
+        return $user;
+    }
 
     protected function loggedOut(Request $request)
     {
         // // セッションを再生成する
-        // $request->session()->regenerate();
-        // return response()->json();
+        $request->session()->regenerate();
+        return response()->json();
 
-        $this->performLogout($request);                     //追記
-        return redirect('admin/login');                     //追記
+        // $this->performLogout($request);                     //追記
+        // return redirect('admin/login');                     //追記
     }
 }
