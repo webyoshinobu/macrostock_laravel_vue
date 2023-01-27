@@ -75,10 +75,10 @@ export default defineComponent({
         const route = useRoute();
         const { adminRegister, setAdminRegisterErrorMessages } = auth();
         const registerForm = {
-            admin_name: '',
-            admin_email: '',
-            admin_password: '',
-            admin_password_confirmation: ''
+            name: '',
+            email: '',
+            password: '',
+            password_confirmation: ''
         };
         const token = auth().csrf;
         const { getApiStatus } = storeToRefs(auth());

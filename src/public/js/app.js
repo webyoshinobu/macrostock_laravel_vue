@@ -23954,7 +23954,6 @@ var pinia_1 = __webpack_require__(/*! pinia */ "./node_modules/pinia/index.js");
 var Header_vue_1 = __importDefault(__webpack_require__(/*! ./components/Header.vue */ "./resources/js/components/Header.vue"));
 var Footer_vue_1 = __importDefault(__webpack_require__(/*! ./components/Footer.vue */ "./resources/js/components/Footer.vue"));
 var error_1 = __webpack_require__(/*! ../../store/error */ "./store/error.ts");
-var util_1 = __webpack_require__(/*! ./util */ "./resources/js/util.ts");
 exports["default"] = {
   components: {
     Header: Header_vue_1["default"],
@@ -23968,12 +23967,11 @@ exports["default"] = {
     var errorCode = code;
     (0, vue_1.watch)(errorCode, function (errorCode) {
       console.log('errorCode', errorCode);
-      if (errorCode === util_1.INTERNAL_SERVER_ERROR) {
-        router.push({
-          name: '500'
-        });
-      }
+      // if (errorCode === INTERNAL_SERVER_ERROR) {
+      //     router.push({ name: '500' })
+      // }
     });
+
     (0, vue_1.onMounted)(function () {});
     return {
       onMounted: vue_1.onMounted
@@ -25383,10 +25381,10 @@ exports["default"] = (0, vue_1.defineComponent)({
       adminRegister = _ref.adminRegister,
       setAdminRegisterErrorMessages = _ref.setAdminRegisterErrorMessages;
     var registerForm = {
-      admin_name: '',
-      admin_email: '',
-      admin_password: '',
-      admin_password_confirmation: ''
+      name: '',
+      email: '',
+      password: '',
+      password_confirmation: ''
     };
     var token = (0, auth_1.auth)().csrf;
     var _ref2 = (0, pinia_1.storeToRefs)((0, auth_1.auth)()),
@@ -28820,8 +28818,8 @@ var routes = [{
   name: 'admin',
   component: Admin_vue_1["default"]
 }, {
-  path: '/adminRegister',
-  name: 'adminRegister',
+  path: '/admin/register',
+  name: 'admin/register',
   component: AdminRegister_vue_1["default"]
 }, {
   path: '/cart',
@@ -29521,7 +29519,7 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
             case 0:
               this.adminUser = null;
               _context5.next = 3;
-              return axios_1["default"].post('/api/adminRegister', data);
+              return axios_1["default"].post('/api/admin/register', data);
             case 3:
               response = _context5.sent;
               if (!(response.status === util_1.CREATED)) {

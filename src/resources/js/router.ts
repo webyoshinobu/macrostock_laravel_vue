@@ -90,8 +90,8 @@ const routes = [
         component: admin
     },
     {
-        path: '/adminRegister',
-        name: 'adminRegister',
+        path: '/admin/register',
+        name: 'admin/register',
         component: adminRegister
     },
     {
