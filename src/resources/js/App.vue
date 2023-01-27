@@ -30,9 +30,9 @@ export default {
 
     watch(errorCode, (errorCode:any) => {
         console.log('errorCode', errorCode)
-        if (errorCode === INTERNAL_SERVER_ERROR) {
-            router.push({ name: '500' })
-        }
+        // if (errorCode === INTERNAL_SERVER_ERROR) {
+        //     router.push({ name: '500' })
+        // }
     })
 
     onMounted(() => {
