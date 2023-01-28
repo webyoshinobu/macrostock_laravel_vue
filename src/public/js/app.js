@@ -25397,7 +25397,7 @@ exports["default"] = (0, vue_1.defineComponent)({
     var route = (0, vue_router_1.useRoute)();
     var _ref = (0, auth_1.auth)(),
       adminRegister = _ref.adminRegister,
-      setAdminRegisterErrorMessages = _ref.setAdminRegisterErrorMessages;
+      setRegisterErrorMessages = _ref.setRegisterErrorMessages;
     var registerForm = {
       name: '',
       email: '',
@@ -25408,8 +25408,8 @@ exports["default"] = (0, vue_1.defineComponent)({
     var _ref2 = (0, pinia_1.storeToRefs)((0, auth_1.auth)()),
       getApiStatus = _ref2.getApiStatus;
     //computed
-    var adminRegisterErrors = (0, vue_1.computed)(function () {
-      return (0, auth_1.auth)().adminRegisterErrorMessages;
+    var registerErrors = (0, vue_1.computed)(function () {
+      return (0, auth_1.auth)().registerErrorMessages;
     });
     // methods
     var clickRegister = function clickRegister() {
@@ -25439,7 +25439,7 @@ exports["default"] = (0, vue_1.defineComponent)({
       }));
     };
     var clearError = function clearError() {
-      setAdminRegisterErrorMessages(null);
+      setRegisterErrorMessages(null);
       console.log('clearError');
     };
     (0, vue_1.onMounted)(function () {
@@ -25452,7 +25452,7 @@ exports["default"] = (0, vue_1.defineComponent)({
       token: token,
       clickRegister: clickRegister,
       adminRegister: adminRegister,
-      adminRegisterErrors: adminRegisterErrors,
+      registerErrors: registerErrors,
       clearError: clearError
     };
   }
@@ -27325,18 +27325,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "hidden",
     name: "_token",
     value: _ctx.token
-  }, null, 8 /* PROPS */, _hoisted_3), _ctx.adminRegisterErrors ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_4, [_ctx.adminRegisterErrors.name ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_5, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.adminRegisterErrors.name, function (msg) {
+  }, null, 8 /* PROPS */, _hoisted_3), _ctx.registerErrors ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_4, [_ctx.registerErrors.name ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_5, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.registerErrors.name, function (msg) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: msg
-    }, [(0, vue_1.createCommentVNode)(" {{ msg }} "), (0, vue_1.createTextVNode)(" 氏名を入力してください。 ")]);
-  }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.adminRegisterErrors.email ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_6, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.adminRegisterErrors.email, function (msg) {
+    }, (0, vue_1.toDisplayString)(msg), 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.registerErrors.email ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_6, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.registerErrors.email, function (msg) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: msg
-    }, [(0, vue_1.createCommentVNode)(" {{ msg }} "), (0, vue_1.createTextVNode)(" メールアドレスを入力してください。 ")]);
-  }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.adminRegisterErrors.password ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_7, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.adminRegisterErrors.password, function (msg) {
+    }, (0, vue_1.toDisplayString)(msg), 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.registerErrors.password ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_7, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.registerErrors.password, function (msg) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: msg
-    }, [(0, vue_1.createCommentVNode)(" {{ msg }} "), (0, vue_1.createTextVNode)(" パスワードを入力してください。 ")]);
+    }, (0, vue_1.toDisplayString)(msg), 1 /* TEXT */);
   }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true)])) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "text",
     "class": "adminRegister_form_line_input",
@@ -28609,6 +28609,21 @@ var currentUser = function currentUser() {
   }));
 };
 app.use(currentUser);
+var currentAdmin = function currentAdmin() {
+  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return authStore.currentAdmin();
+        case 2:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+};
+app.use(currentAdmin);
 app.component('fa', vue_fontawesome_1.FontAwesomeIcon);
 // app.use(VueAwesomeSwiper, /* { default options with global component } */);
 app.use(axios_1["default"], {
@@ -29516,29 +29531,25 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].get('/api/user');
             case 3:
               response = _context4.sent;
+              console.log('auth.ts currentUser response.data', response.data);
               user = response.data || null;
+              console.log('auth.ts currentUser user', user);
               if (!(response.status === util_1.OK)) {
-                _context4.next = 9;
+                _context4.next = 11;
                 break;
               }
               this.apiStatus = true;
               this.user = user;
               return _context4.abrupt("return", false);
-            case 9:
+            case 11:
               this.apiStatus = false;
               (0, error_1.error)().setCode(response.status);
-            case 11:
+            case 13:
             case "end":
               return _context4.stop();
           }
         }, _callee4, this);
       }));
-    },
-    setLoginErrorMessages: function setLoginErrorMessages(messages) {
-      this.loginErrorMessages = messages;
-    },
-    setRegisterErrorMessages: function setRegisterErrorMessages(messages) {
-      this.registerErrorMessages = messages;
     },
     //-------------------
     //管理者関連
@@ -29564,7 +29575,7 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
             case 8:
               this.apiStatus = false;
               if (response.status === util_1.UNPROCESSABLE_ENTITY) {
-                this.adminRegisterErrorMessages = response.data.errors;
+                this.registerErrorMessages = response.data.errors;
               } else {
                 (0, error_1.error)().setCode(response.status);
               }
@@ -29649,11 +29660,49 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
         }, _callee7, this);
       }));
     },
-    setAdminRegisterErrorMessages: function setAdminRegisterErrorMessages(messages) {
-      this.adminRegisterErrorMessages = messages;
-    } // setApiStatus (status:any) {
-    //     this.apiStatus = status
-    // }
+    currentAdmin: function currentAdmin() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        var response, admin;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              // const response = await axios.get('/api/user');
+              // const user = response.data || null;
+              // this.user = user;
+              this.apiStatus = false;
+              _context8.next = 3;
+              return axios_1["default"].get('/api/admin');
+            case 3:
+              response = _context8.sent;
+              console.log('auth.ts currentUser response.data', response.data);
+              admin = response.data || null;
+              console.log('auth.ts currentUser admin', admin);
+              if (!(response.status === util_1.OK)) {
+                _context8.next = 11;
+                break;
+              }
+              this.apiStatus = true;
+              this.adminUser = admin;
+              return _context8.abrupt("return", false);
+            case 11:
+              this.apiStatus = false;
+              (0, error_1.error)().setCode(response.status);
+            case 13:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8, this);
+      }));
+    },
+    //-------------------
+    //ユーザー、管理者共通
+    //-------------------
+    setLoginErrorMessages: function setLoginErrorMessages(messages) {
+      this.loginErrorMessages = messages;
+    },
+    setRegisterErrorMessages: function setRegisterErrorMessages(messages) {
+      this.registerErrorMessages = messages;
+    }
   }
 });
 

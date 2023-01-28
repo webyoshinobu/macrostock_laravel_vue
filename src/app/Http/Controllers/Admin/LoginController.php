@@ -50,7 +50,7 @@ class LoginController extends Controller
         return Auth::guard('admin');                        //追記
     }
 
-    // // ★ メソッド追加
+    // ★ メソッド追加
     protected function authenticated(Request $request, $user)
     {
         return $user;

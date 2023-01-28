@@ -28,6 +28,11 @@ const currentUser = async () => {
 }
 app.use(currentUser)
 
+const currentAdmin = async () => {
+    await authStore.currentAdmin()
+}
+app.use(currentAdmin)
+
 app.component('fa', FontAwesomeIcon );
 // app.use(VueAwesomeSwiper, /* { default options with global component } */);
 app.use(axios, {
