@@ -129,7 +129,9 @@ export const auth = defineStore('auth', {
 
             this.apiStatus = false
             const response = await axios.get('/api/user')
+            console.log('auth.ts currentUser response.data', response.data);
             const user = response.data || null
+            console.log('auth.ts currentUser user', user);
 
             if (response.status === OK) {
                 this.apiStatus = true
@@ -139,14 +141,6 @@ export const auth = defineStore('auth', {
 
             this.apiStatus = false;
             error().setCode(response.status);
-        },
-
-        setLoginErrorMessages (messages:any) {
-            this.loginErrorMessages = messages
-        },
-
-        setRegisterErrorMessages (messages:any) {
-            this.registerErrorMessages = messages
         },
 
         //-------------------
@@ -163,7 +157,7 @@ export const auth = defineStore('auth', {
 
             this.apiStatus = false;
             if (response.status === UNPROCESSABLE_ENTITY) {
-                this.adminRegisterErrorMessages = response.data.errors
+                this.registerErrorMessages = response.data.errors
             } else {
                 error().setCode(response.status);
             }
@@ -221,12 +215,38 @@ export const auth = defineStore('auth', {
 
         },
 
-        setAdminRegisterErrorMessages (messages:any) {
-            this.adminRegisterErrorMessages = messages
+        async currentAdmin () {
+            // const response = await axios.get('/api/user');
+            // const user = response.data || null;
+            // this.user = user;
+
+            this.apiStatus = false
+            const response = await axios.get('/api/admin');
+            console.log('auth.ts currentUser response.data', response.data);
+            const admin = response.data || null
+            console.log('auth.ts currentUser admin', admin);
+
+            if (response.status === OK) {
+                this.apiStatus = true
+                this.adminUser = admin
+                return false
+            }
+
+            this.apiStatus = false;
+            error().setCode(response.status);
         },
 
-        // setApiStatus (status:any) {
-        //     this.apiStatus = status
-        // }
+        //-------------------
+        //ユーザー、管理者共通
+        //-------------------
+
+        setLoginErrorMessages (messages:any) {
+            this.loginErrorMessages = messages
+        },
+
+        setRegisterErrorMessages (messages:any) {
+            this.registerErrorMessages = messages
+        },
+
     },
   })

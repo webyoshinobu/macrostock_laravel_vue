@@ -6,23 +6,20 @@
                 <!-- laravelのトークンを使用 -->
                 <input type="hidden" name="_token" :value="token">
 
-                <div v-if="adminRegisterErrors" class="errors">
-                    <ul v-if="adminRegisterErrors.name">
-                        <li v-for="msg in adminRegisterErrors.name" :key="msg">
-                            <!-- {{ msg }} -->
-                            氏名を入力してください。
+                <div v-if="registerErrors" class="errors">
+                    <ul v-if="registerErrors.name">
+                        <li v-for="msg in registerErrors.name" :key="msg">
+                            {{ msg }}
                         </li>
                     </ul>
-                    <ul v-if="adminRegisterErrors.email">
-                        <li v-for="msg in adminRegisterErrors.email" :key="msg">
-                            <!-- {{ msg }} -->
-                            メールアドレスを入力してください。
+                    <ul v-if="registerErrors.email">
+                        <li v-for="msg in registerErrors.email" :key="msg">
+                            {{ msg }}
                         </li>
                     </ul>
-                    <ul v-if="adminRegisterErrors.password">
-                        <li v-for="msg in adminRegisterErrors.password" :key="msg">
-                            <!-- {{ msg }} -->
-                            パスワードを入力してください。
+                    <ul v-if="registerErrors.password">
+                        <li v-for="msg in registerErrors.password" :key="msg">
+                            {{ msg }}
                         </li>
                     </ul>
                 </div>
@@ -73,7 +70,7 @@ export default defineComponent({
         // data
         const router = useRouter();
         const route = useRoute();
-        const { adminRegister, setAdminRegisterErrorMessages } = auth();
+        const { adminRegister, setRegisterErrorMessages } = auth();
         const registerForm = {
             name: '',
             email: '',
@@ -84,8 +81,8 @@ export default defineComponent({
         const { getApiStatus } = storeToRefs(auth());
 
         //computed
-        const adminRegisterErrors = computed(() => {
-            return auth().adminRegisterErrorMessages
+        const registerErrors = computed(() => {
+            return auth().registerErrorMessages
         })
 
         // methods
@@ -105,7 +102,7 @@ export default defineComponent({
         }
 
         const clearError = () => {
-            setAdminRegisterErrorMessages(null)
+            setRegisterErrorMessages(null)
             console.log('clearError');
         }
 
@@ -113,7 +110,7 @@ export default defineComponent({
             clearError();
         });
 
-        return { router, route, registerForm, token, clickRegister, adminRegister, adminRegisterErrors, clearError };
+        return { router, route, registerForm, token, clickRegister, adminRegister, registerErrors, clearError };
     }
 
 });
