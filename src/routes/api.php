@@ -45,4 +45,11 @@ Route::post('/admin/login', 'App\Http\Controllers\Admin\LoginController@login')-
 Route::post('/admin/logout', 'App\Http\Controllers\Admin\LoginController@logout')->name('logout');
 // ログイン管理者
 Route::get('/admin', fn() => Auth::guard('admin')->user())->name('admin');
+// Route::get('/admin/mypage', fn() => Auth::guard('admin')->user())->name('admin/mypage');
 
+/*
+|--------------------------------------------------------------------------
+| 写真アップロード
+|--------------------------------------------------------------------------
+*/
+Route::post('/photos', 'App\Http\Controllers\PhotoController@create')->name('photo.create');
