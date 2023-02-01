@@ -13,6 +13,7 @@ import '../css/swiper.css'; //swiper専用スタイル
 import axios from '../../plugins/axios';
 import bootstrap from './bootstrap';
 import { error } from '../../store/error';
+import { message } from '../../store/message';
 
 library.add(faInstagram)
 bootstrap()
@@ -43,6 +44,9 @@ app.use(router)
 
 const errorStore = error()
 app.use(errorStore.setCode)
+
+const messageStore = message()
+app.use(messageStore.setContent)
 
 app.mount("#app")
 

@@ -10,6 +10,7 @@ import login from "./components/auth/Login.vue";
 import register from "./components/auth/Register.vue";
 import admin from "./components/admin/AdminLogin.vue";
 import adminRegister from "./components/admin/AdminRegister.vue";
+import adminMypage from "./components/admin/AdminMypage.vue";
 import cart from "./components/cart/Cart.vue";
 import thanks from "./components/Thanks.vue";
 import systemError from "./components/errors/System.vue";
@@ -93,6 +94,11 @@ const routes = [
         path: '/admin/register',
         name: 'admin/register',
         component: adminRegister
+    },
+    {
+        path: '/admin/mypage',
+        name: 'admin/mypage',
+        component: adminMypage
     },
     {
         path: '/cart',
