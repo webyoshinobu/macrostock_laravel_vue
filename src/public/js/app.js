@@ -23951,7 +23951,6 @@ __webpack_require__(/*! normalize.css */ "./node_modules/normalize.css/normalize
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 var pinia_1 = __webpack_require__(/*! pinia */ "./node_modules/pinia/index.js");
-var Message_vue_1 = __importDefault(__webpack_require__(/*! ./components/Message.vue */ "./resources/js/components/Message.vue"));
 var Header_vue_1 = __importDefault(__webpack_require__(/*! ./components/Header.vue */ "./resources/js/components/Header.vue"));
 var Footer_vue_1 = __importDefault(__webpack_require__(/*! ./components/Footer.vue */ "./resources/js/components/Footer.vue"));
 var error_1 = __webpack_require__(/*! ../../store/error */ "./store/error.ts");
@@ -23959,8 +23958,7 @@ var util_1 = __webpack_require__(/*! ./util */ "./resources/js/util.ts");
 exports["default"] = {
   components: {
     Header: Header_vue_1["default"],
-    Footer: Footer_vue_1["default"],
-    Message: Message_vue_1["default"]
+    Footer: Footer_vue_1["default"]
   },
   setup: function setup() {
     var router = (0, vue_router_1.useRouter)();
@@ -24537,21 +24535,42 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+var pinia_1 = __webpack_require__(/*! pinia */ "./node_modules/pinia/index.js");
+var message_1 = __webpack_require__(/*! ../../../store/message */ "./store/message.ts");
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'Message',
-  components: {},
   setup: function setup() {
     // data
-    var message = '';
-    // computed
-    var setContent = (0, vue_1.computed)(function () {
-      return message = message().content;
+    var messageStore = (0, message_1.message)();
+    var _ref = (0, pinia_1.storeToRefs)(messageStore),
+      getMessage = _ref.getMessage,
+      content = _ref.content;
+    var showMessage = (0, vue_1.ref)(null);
+    var isVisible = (0, vue_1.ref)(false);
+    (0, vue_1.watch)(getMessage, function () {
+      return setVisible();
     });
+    var setVisible = function setVisible() {
+      isVisible.value = true;
+      console.log('Message.vue isVisible', isVisible.value);
+      console.log('Message.vue getMessage', getMessage.value);
+      showMessage = getMessage.value;
+      console.log('Message.vue showMessage', showMessage);
+      console.log('Message.vue content', messageStore.content);
+    };
+    // const setMessage = computed(() =>{
+    //     return messageStore.content
+    // })
     (0, vue_1.onMounted)(function () {});
     return {
       onMounted: vue_1.onMounted,
-      setContent: setContent,
-      message: message
+      message: message_1.message,
+      messageStore: messageStore,
+      getMessage: getMessage,
+      setVisible: setVisible,
+      isVisible: isVisible,
+      content: content,
+      showMessage: showMessage
     };
   }
 });
@@ -25455,6 +25474,7 @@ var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bund
 var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 var ButtonWhite_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonWhite.vue */ "./resources/js/components/common/ButtonWhite.vue"));
 var ButtonBlack_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonBlack.vue */ "./resources/js/components/common/ButtonBlack.vue"));
+var Message_vue_1 = __importDefault(__webpack_require__(/*! ../Message.vue */ "./resources/js/components/Message.vue"));
 var Loader_vue_1 = __importDefault(__webpack_require__(/*! ../Loader.vue */ "./resources/js/components/Loader.vue"));
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 var util_1 = __webpack_require__(/*! ../../util */ "./resources/js/util.ts");
@@ -25465,7 +25485,8 @@ exports["default"] = (0, vue_1.defineComponent)({
   components: {
     ButtonWhite: ButtonWhite_vue_1["default"],
     ButtonBlack: ButtonBlack_vue_1["default"],
-    Loader: Loader_vue_1["default"]
+    Loader: Loader_vue_1["default"],
+    Message: Message_vue_1["default"]
   },
   setup: function setup() {
     var _this = this;
@@ -27261,11 +27282,10 @@ Object.defineProperty(exports, "__esModule", ({
 exports.render = void 0;
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_Message = (0, vue_1.resolveComponent)("Message");
   var _component_Header = (0, vue_1.resolveComponent)("Header");
   var _component_router_view = (0, vue_1.resolveComponent)("router-view");
   var _component_Footer = (0, vue_1.resolveComponent)("Footer");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", null, [(0, vue_1.createVNode)(_component_Message), (0, vue_1.createVNode)(_component_Header), (0, vue_1.createVNode)(_component_router_view), (0, vue_1.createVNode)(_component_Footer)]);
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", null, [(0, vue_1.createVNode)(_component_Header), (0, vue_1.createVNode)(_component_router_view), (0, vue_1.createVNode)(_component_Footer)]);
 }
 exports.render = render;
 
@@ -27510,7 +27530,7 @@ var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bund
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0, vue_1.withDirectives)(((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", {
     "class": "message"
-  }, (0, vue_1.toDisplayString)(_ctx.message), 513 /* TEXT, NEED_PATCH */)), [[vue_1.vShow, _ctx.message]]);
+  }, (0, vue_1.toDisplayString)(_ctx.showMessage) + "test ", 513 /* TEXT, NEED_PATCH */)), [[vue_1.vShow, _ctx.isVisible]]);
 }
 exports.render = render;
 
@@ -27913,12 +27933,13 @@ var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Loader = (0, vue_1.resolveComponent)("Loader");
+  var _component_Message = (0, vue_1.resolveComponent)("Message");
   return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createCommentVNode)(" ローディング "), (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("div", _hoisted_3, [(0, vue_1.createVNode)(_component_Loader, null, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createTextVNode)("Sending your photo...")];
     }),
     _: 1 /* STABLE */
-  })], 512 /* NEED_PATCH */), [[vue_1.vShow, _ctx.loading]]), (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("form", {
+  })], 512 /* NEED_PATCH */), [[vue_1.vShow, _ctx.loading]]), (0, vue_1.createVNode)(_component_Message), (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("form", {
     "class": "adminmypage_form",
     onSubmit: _cache[1] || (_cache[1] = (0, vue_1.withModifiers)(
     //@ts-ignore
@@ -30581,7 +30602,11 @@ exports.message = (0, pinia_1.defineStore)('message', {
       content: null
     };
   },
-  getters: {},
+  getters: {
+    getMessage: function getMessage(state) {
+      return state.content ? state.content : null;
+    }
+  },
   actions: {
     // setContent (state:any, { content, timeout }:any) {
     setContent: function setContent(content, timeout) {
@@ -30592,6 +30617,7 @@ exports.message = (0, pinia_1.defineStore)('message', {
       setTimeout(function () {
         return content = '';
       }, timeout);
+      console.log('message.ts content', this.content, timeout);
     }
   }
 });

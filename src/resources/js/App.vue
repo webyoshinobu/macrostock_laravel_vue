@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Message />
     <Header />
     <router-view></router-view>
     <Footer />
@@ -12,7 +11,6 @@ import 'normalize.css';
 import { onMounted, watch } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
-import Message from "./components/Message.vue"
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import { error } from "../../store/error";
@@ -22,7 +20,6 @@ export default {
   components: {
     Header,
     Footer,
-    Message,
   },
 
   setup() {
