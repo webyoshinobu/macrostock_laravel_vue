@@ -7,6 +7,8 @@
             <Loader>Sending your photo...</Loader>
         </div>
 
+        <Message></Message>
+
         <form v-show="! loading" class="adminmypage_form" @submit.prevent="submit">
 
             <!-- <input type="hidden" name="_token" :value="token"> -->
@@ -37,6 +39,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { auth } from '../../../../store/auth'
 import ButtonWhite from "../common/ButtonWhite.vue"
 import ButtonBlack from "../common/ButtonBlack.vue"
+import Message from "../Message.vue"
 import Loader from "../Loader.vue"
 import axios from "axios";
 import { CREATED, UNPROCESSABLE_ENTITY } from '../../util'
@@ -49,6 +52,7 @@ export default defineComponent({
         ButtonWhite,
         ButtonBlack,
         Loader,
+        Message,
     },
 
     setup() {

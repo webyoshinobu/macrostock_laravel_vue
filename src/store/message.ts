@@ -9,7 +9,7 @@ export const message = defineStore('message', {
         content: null as CONTENT|null,
     }),
     getters: ({
-
+        getMessage: (state) => state.content ? state.content: null,
     }),
     actions: {
         // setContent (state:any, { content, timeout }:any) {
@@ -21,6 +21,8 @@ export const message = defineStore('message', {
             }
 
             setTimeout(() => (content = ''), timeout)
+
+            console.log('message.ts content', this.content, timeout);
         }
     },
 })
