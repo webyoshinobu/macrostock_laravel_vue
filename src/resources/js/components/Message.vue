@@ -1,5 +1,5 @@
 <template>
-  <div class="message" v-show="isVisible">
+  <div class="message" v-show="isVisible" :ref="showMessage">
         {{ showMessage }}test
   </div>
 </template>
@@ -25,7 +25,7 @@
             isVisible.value = true
             console.log('Message.vue isVisible', isVisible.value);
             console.log('Message.vue getMessage', getMessage.value)
-            showMessage = getMessage.value
+            showMessage.value = getMessage.value
             console.log('Message.vue showMessage', showMessage)
             console.log('Message.vue content', messageStore.content)
         }

@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Auth;
 //     return view('welcome');
 // });
 
+// 写真ダウンロード
+Route::get('/photos/{photo}/download', 'PhotoController@download');
+
 Route::get('/{any}', function () {
     // 「index.blade.php」から拡張子を除いた「index」をviewに記載
     return view('index');
