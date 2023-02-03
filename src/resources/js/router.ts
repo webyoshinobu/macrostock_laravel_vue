@@ -25,16 +25,16 @@ const routes = [
         path: '/gallery',
         name: 'gallery',
         component: gallery,
-        props: true
+        // props: true
+        props: (route:any) => {
+            const page = route.query.page
+            console.log('router.ts page', page);
+            return { page: /^[1-9][0-9]*$/.test(page) ? page * 1 : 1 }
+          }
     },
-    // {
-    //     path: '/gallery/photo',
-    //     name: 'photo',
-    //     component: photo,
-    //     props: true
-    // },
     {
-        path: '/gallery/photo/:index?/:src?/:alt?',
+        // path: '/gallery/photo/:index?/:src?/:alt?',
+        path: '/gallery/photo/:id?/:url?/:owner?',
         name: 'photo',
         component: photo,
         props: true

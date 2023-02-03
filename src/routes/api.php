@@ -49,7 +49,12 @@ Route::get('/admin', fn() => Auth::guard('admin')->user())->name('admin');
 
 /*
 |--------------------------------------------------------------------------
-| 写真アップロード
+| 写真関連
 |--------------------------------------------------------------------------
 */
+// 写真アップロード
 Route::post('/photos', 'App\Http\Controllers\PhotoController@create')->name('photo.create');
+// 写真一覧表示
+Route::get('/gallery', 'App\Http\Controllers\PhotoController@index')->name('photo.index');
+
+
