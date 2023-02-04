@@ -1,5 +1,5 @@
 <template>
-  <div class="message" v-show="isVisible" :ref="showMessage">
+  <div class="message" v-show="isVisible" :showMessage="showMessage">
         {{ showMessage }}test
   </div>
 </template>

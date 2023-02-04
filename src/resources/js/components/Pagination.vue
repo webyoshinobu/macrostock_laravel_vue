@@ -1,20 +1,22 @@
 <template>
   <div class="pagination">
-    <RouterLink
+    <router-link
       v-if="! isFirstPage"
-      :to="`/?page=${currentPage - 1}`"
+      :to="`/gallery?page=${currentPage - 1}`"
       class="button"
-    >&laquo; prev</RouterLink>
-    <RouterLink
+    >&laquo; prev</router-link>
+    <router-link
       v-if="! isLastPage"
-      :to="`/?page=${currentPage + 1}`"
+      :to="`/gallery?page=${currentPage + 1}`"
       class="button"
-    >next &raquo;</RouterLink>
+    >next &raquo;</router-link>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
+import { useRoute, useRouter } from 'vue-router';
+
 export default defineComponent({
     name: 'Pagination',
 
@@ -31,6 +33,9 @@ export default defineComponent({
 
     setup(props) {
 
+        const router = useRouter();
+        const route = useRoute();
+
         const isFirstPage = computed(() => {
             return props.currentPage === 1
         })
@@ -38,7 +43,10 @@ export default defineComponent({
             return props.currentPage === props.lastPage
         })
 
-        return { isFirstPage, isLastPage }
+        console.log('Pagination.vue isFirstPage', isFirstPage);
+        console.log('Pagination.vue isLastPage', isLastPage);
+
+        return { router, route, isFirstPage, isLastPage }
     },
 })
 </script>
