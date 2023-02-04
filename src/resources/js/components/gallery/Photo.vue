@@ -3,7 +3,7 @@
     <h2 class="photo_title">写真No.000000</h2>
     <div class="photo_wrap">
         <figure class="photo_wrap_img">
-            <img :src="image.src" :alt="image.alt">
+            <img :src="image.url" :alt="`Photo by ${image.owner.name}`">
         </figure>
         <aside class="photo_wrap_aside">
             <p class="photo_wrap_aside_word">画像サイズ：0000 × 0000px</p>

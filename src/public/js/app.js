@@ -24590,6 +24590,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'Pagination',
   props: {
@@ -24603,13 +24604,19 @@ exports["default"] = (0, vue_1.defineComponent)({
     }
   },
   setup: function setup(props) {
+    var router = (0, vue_router_1.useRouter)();
+    var route = (0, vue_router_1.useRoute)();
     var isFirstPage = (0, vue_1.computed)(function () {
       return props.currentPage === 1;
     });
     var isLastPage = (0, vue_1.computed)(function () {
       return props.currentPage === props.lastPage;
     });
+    console.log('Pagination.vue isFirstPage', isFirstPage);
+    console.log('Pagination.vue isLastPage', isLastPage);
     return {
+      router: router,
+      route: route,
       isFirstPage: isFirstPage,
       isLastPage: isLastPage
     };
@@ -27517,26 +27524,27 @@ exports["default"] = (0, vue_1.defineComponent)({
   components: {
     Pagination: Pagination_vue_1["default"]
   },
-  props: {
-    page: {
-      type: Number,
-      required: false,
-      "default": 1
-    },
-    route: {
-      type: String
-    }
-  },
+  // props: {
+  //     page: {
+  //         type: Number,
+  //         required: false,
+  //         default: 1
+  //     },
+  //     route: {
+  //         type: String,
+  //         required: false,
+  //     }
+  // },
   setup: function setup(props) {
     var _this = this;
     //data
     var router = (0, vue_router_1.useRouter)();
-    // const { product_imgs } = storeToRefs(galleryImgs());
-    // let images:any=[];
+    var route = (0, vue_router_1.useRoute)();
     var images = (0, vue_1.ref)({});
     var currentPage = (0, vue_1.ref)(0);
     var lastPage = (0, vue_1.ref)(0);
     var selectImg = (0, vue_1.ref)();
+    console.log('Gallery.vue setup route', route);
     // methods
     var pushImg = function pushImg(image) {
       selectImg.value = image;
@@ -27551,37 +27559,45 @@ exports["default"] = (0, vue_1.defineComponent)({
 
     var galleryList = function galleryList() {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
+        var page, response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return axios_1["default"].get('/api/gallery/?page=${props.page}');
-            case 2:
+              // const response = await axios.get('/api/gallery');
+              // console.log('Gallery.vue props props.page', props.page);
+              // console.log('Gallery.vue galleryList route', route)
+              // console.log('Gallery.vue galleryList route.query', route.query.page);
+              page = route.query.page;
+              _context.next = 3;
+              return axios_1["default"].get("/api/gallery?page=".concat(page));
+            case 3:
               response = _context.sent;
               if (!(response.status !== util_1.OK)) {
-                _context.next = 6;
+                _context.next = 7;
                 break;
               }
               (0, error_1.error)().setCode(response.status);
               return _context.abrupt("return", false);
-            case 6:
+            case 7:
               console.log('Gallery.vue response', response.data);
-              // images.value = response.data.data;
-              // console.log('Gallery.vue images', images.value)
               images.value = response.data.data;
               console.log('Gallery.vue images', images.value);
               currentPage.value = response.data.current_page;
               console.log('Gallery.vue currentPage', currentPage.value);
               lastPage.value = response.data.last_page;
               console.log('Gallery.vue lastPage', lastPage.value);
-            case 13:
+            case 14:
             case "end":
               return _context.stop();
           }
         }, _callee);
       }));
     };
+    (0, vue_1.watch)(route, function () {
+      galleryList();
+    }, {
+      immediate: true
+    });
     (0, vue_1.onMounted)(function () {});
     return {
       router: router,
@@ -27592,26 +27608,14 @@ exports["default"] = (0, vue_1.defineComponent)({
       currentPage: currentPage,
       lastPage: lastPage
     };
-  },
-  watch: {
-    route: {
-      handler: function handler() {
-        return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-          return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-            while (1) switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return this.galleryList();
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }, _callee2, this);
-        }));
-      },
-      immediate: true
-    }
-  }
+  } // watch: {
+  //     route: {
+  //         async handler () {
+  //             await this.galleryList()
+  //         },
+  //         immediate: true
+  //     }
+  // }
 });
 
 /***/ }),
@@ -27925,7 +27929,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createVNode)(_component_ButtonBlack, null, {
         "default": (0, vue_1.withCtx)(function () {
-          return [(0, vue_1.createTextVNode)((0, vue_1.toDisplayString)(_ctx.userInfo.name) + " 様", 1 /* TEXT */)];
+          return [(0, vue_1.createTextVNode)((0, vue_1.toDisplayString)(_ctx.userInfo.name) + " 様 マイページ", 1 /* TEXT */)];
         }),
 
         _: 1 /* STABLE */
@@ -27986,11 +27990,12 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.render = void 0;
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+var _hoisted_1 = ["showMessage"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0, vue_1.withDirectives)(((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", {
     "class": "message",
-    ref: _ctx.showMessage
-  }, (0, vue_1.toDisplayString)(_ctx.showMessage) + "test ", 513 /* TEXT, NEED_PATCH */)), [[vue_1.vShow, _ctx.isVisible]]);
+    showMessage: _ctx.showMessage
+  }, (0, vue_1.toDisplayString)(_ctx.showMessage) + "test ", 9 /* TEXT, PROPS */, _hoisted_1)), [[vue_1.vShow, _ctx.isVisible]]);
 }
 exports.render = render;
 
@@ -28014,19 +28019,19 @@ var _hoisted_1 = {
   "class": "pagination"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_RouterLink = (0, vue_1.resolveComponent)("RouterLink");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_1, [!_ctx.isFirstPage ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_RouterLink, {
+  var _component_router_link = (0, vue_1.resolveComponent)("router-link");
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_1, [!_ctx.isFirstPage ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
     key: 0,
-    to: "/?page=".concat(_ctx.currentPage - 1),
+    to: "/gallery?page=".concat(_ctx.currentPage - 1),
     "class": "button"
   }, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createTextVNode)("« prev")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["to"])) : (0, vue_1.createCommentVNode)("v-if", true), !_ctx.isLastPage ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_RouterLink, {
+  }, 8 /* PROPS */, ["to"])) : (0, vue_1.createCommentVNode)("v-if", true), !_ctx.isLastPage ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
     key: 1,
-    to: "/?page=".concat(_ctx.currentPage + 1),
+    to: "/gallery?page=".concat(_ctx.currentPage + 1),
     "class": "button"
   }, {
     "default": (0, vue_1.withCtx)(function () {
@@ -29254,14 +29259,14 @@ var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_3 = {
   "class": "gallery_list"
 };
-var _hoisted_4 = ["src", "alt", "onClick"];
+var _hoisted_4 = ["images"];
+var _hoisted_5 = ["src", "alt", "onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Pagination = (0, vue_1.resolveComponent)("Pagination");
   return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("ul", _hoisted_3, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.images, function (image) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: image.index,
-      ref_for: true,
-      ref: _ctx.images,
+      images: _ctx.images,
       "class": "gallery_list_item"
     }, [(0, vue_1.createCommentVNode)(" <img :src=\"image.src\" :alt=\"image.alt\" @click=\"pushImg(image)\"> "), (0, vue_1.createElementVNode)("img", {
       src: image.url,
@@ -29269,7 +29274,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: function onClick($event) {
         return _ctx.pushImg(image);
       }
-    }, null, 8 /* PROPS */, _hoisted_4)]);
+    }, null, 8 /* PROPS */, _hoisted_5)], 8 /* PROPS */, _hoisted_4);
   }), 128 /* KEYED_FRAGMENT */))]), (0, vue_1.createVNode)(_component_Pagination, {
     "current-page": _ctx.currentPage,
     "last-page": _ctx.lastPage
@@ -29340,8 +29345,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonOrange = (0, vue_1.resolveComponent)("ButtonOrange");
   var _component_Term = (0, vue_1.resolveComponent)("Term");
   return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("div", _hoisted_3, [(0, vue_1.createElementVNode)("figure", _hoisted_4, [(0, vue_1.createElementVNode)("img", {
-    src: _ctx.image.src,
-    alt: _ctx.image.alt
+    src: _ctx.image.url,
+    alt: "Photo by ".concat(_ctx.image.owner.name)
   }, null, 8 /* PROPS */, _hoisted_5)]), (0, vue_1.createElementVNode)("aside", _hoisted_6, [_hoisted_7, _hoisted_8, _hoisted_9, (0, vue_1.createElementVNode)("p", _hoisted_10, [(0, vue_1.createVNode)(_component_ButtonOrange, {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return _ctx.toCart(_ctx.image);
@@ -30056,6 +30061,7 @@ var routes = [{
   // props: true
   props: function props(route) {
     var page = route.query.page;
+    console.log('router.ts gallery route', route);
     console.log('router.ts page', page);
     return {
       page: /^[1-9][0-9]*$/.test(page) ? page * 1 : 1

@@ -2,7 +2,7 @@
   <section class="gallery">
     <h2 class="gallery_title">Gallery</h2>
     <ul class="gallery_list">
-        <li v-for="image in images" :key="image.index" :ref="images" class="gallery_list_item">
+        <li v-for="image in images" :key="image.index" :images="images" class="gallery_list_item">
             <!-- <img :src="image.src" :alt="image.alt" @click="pushImg(image)"> -->
             <img :src="image.url" :alt="image.owner" @click="pushImg(image)">
         </li>
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, reactive } from "vue";
+import { defineComponent, ref, onMounted, reactive, watch, toRefs, computed } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 // import { galleryImgs } from '../../../../store/gallery';
@@ -27,26 +27,28 @@ export default defineComponent({
         Pagination,
     },
 
-    props: {
-        page: {
-            type: Number,
-            required: false,
-            default: 1
-        },
-        route: {
-            type: String,
-        }
-    },
+    // props: {
+    //     page: {
+    //         type: Number,
+    //         required: false,
+    //         default: 1
+    //     },
+    //     route: {
+    //         type: String,
+    //         required: false,
+    //     }
+    // },
 
     setup(props) {
         //data
         const router = useRouter()
-        // const { product_imgs } = storeToRefs(galleryImgs());
-        // let images:any=[];
+        const route = useRoute();
         let images = ref({})
         let currentPage = ref(0)
         let lastPage = ref(0)
         const selectImg = ref()
+
+        console.log('Gallery.vue setup route', route)
 
         // methods
         const pushImg = (image:any) => {
@@ -59,7 +61,11 @@ export default defineComponent({
 
         const galleryList = async () => {
             // const response = await axios.get('/api/gallery');
-            const response = await axios.get('/api/gallery/?page=${props.page}');
+            // console.log('Gallery.vue props props.page', props.page);
+            // console.log('Gallery.vue galleryList route', route)
+            // console.log('Gallery.vue galleryList route.query', route.query.page);
+            const page = route.query.page
+            const response = await axios.get(`/api/gallery?page=${page}`);
 
             if (response.status !== OK) {
                 error().setCode(response.status);
@@ -67,15 +73,22 @@ export default defineComponent({
             }
 
             console.log('Gallery.vue response', response.data);
-            // images.value = response.data.data;
-            // console.log('Gallery.vue images', images.value)
+
             images.value = response.data.data
             console.log('Gallery.vue images', images.value)
+
             currentPage.value = response.data.current_page
             console.log('Gallery.vue currentPage', currentPage.value)
+
             lastPage.value = response.data.last_page
             console.log('Gallery.vue lastPage', lastPage.value)
         }
+
+        watch(route, () => {
+            galleryList()
+        },{
+            immediate: true
+        })
 
         onMounted(() => {
 
@@ -84,14 +97,14 @@ export default defineComponent({
         return { router, selectImg, pushImg, galleryList, images, currentPage, lastPage };
     },
 
-    watch: {
-        route: {
-            async handler () {
-                await this.galleryList()
-            },
-            immediate: true
-        }
-    }
+    // watch: {
+    //     route: {
+    //         async handler () {
+    //             await this.galleryList()
+    //         },
+    //         immediate: true
+    //     }
+    // }
 });
 </script>
 

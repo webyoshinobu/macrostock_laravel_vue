@@ -28,9 +28,10 @@ const routes = [
         // props: true
         props: (route:any) => {
             const page = route.query.page
+            console.log('router.ts gallery route', route);
             console.log('router.ts page', page);
             return { page: /^[1-9][0-9]*$/.test(page) ? page * 1 : 1 }
-          }
+        }
     },
     {
         // path: '/gallery/photo/:index?/:src?/:alt?',
