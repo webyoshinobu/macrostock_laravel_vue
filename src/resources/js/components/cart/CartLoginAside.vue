@@ -7,9 +7,11 @@
             <router-link to="/gallery">
                 <ButtonWhite class="logined_detail_button_component">Galleryへ</ButtonWhite>
             </router-link>
-            <router-link to="/thanks">
-                <ButtonOrange class="logined_detail_button_component">購入する</ButtonOrange>
-            </router-link>
+            <!-- <router-link to="/thanks"> -->
+            <div>
+                <ButtonOrange @click="download" class="logined_detail_button_component">購入する</ButtonOrange>
+            </div>
+            <!-- </router-link> -->
         </div>
     </div>
   </section>
@@ -20,6 +22,9 @@ import { defineComponent, ref, onMounted } from "vue";
 import ButtonOrange from "../common/ButtonOrange.vue";
 import ButtonWhite from "../common/ButtonWhite.vue";
 import { useRoute, useRouter } from 'vue-router';
+import axios from "axios"
+import { storeToRefs } from 'pinia';
+import { cartCounter } from '../../../../store/cart';
 
 export default defineComponent({
     name: 'CartLoginAside',
@@ -34,9 +39,15 @@ export default defineComponent({
         const route = useRoute();
 
         // methods
+        const download = async() => {
+            const downloadItems = cartCounter().items;
+            console.log('CartLoginAside.vue download downloadItems', downloadItems);
+            const response = await axios.get('api/photos/zipDownLoad');
+            console.log('CartLoginAside.vue download response', response);
+        }
 
 
-        return { router, route }
+        return { router, route, download, }
     },
 
 });

@@ -35,7 +35,7 @@ const routes = [
     },
     {
         // path: '/gallery/photo/:index?/:src?/:alt?',
-        path: '/gallery/photo/:id?/:url?/:owner?',
+        path: '/gallery/photo/:filename?/:price?/:url?/:owner?',
         name: 'photo',
         component: photo,
         props: true

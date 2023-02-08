@@ -9,7 +9,7 @@
                     <p class="cart_wrap_list_content_each_title f_40">写真No.000000</p>
                     <div class="cart_wrap_list_content_each_selected">
                         <div class="cart_wrap_list_content_each_selected_img">
-                            <img :src="item.src" :alt="item.alt">
+                            <img :src="item.url" :alt="`Photo by ${item.owner.name}`">
                         </div>
                         <div class="cart_wrap_list_content_each_selected_detail">
                             <p class="cart_wrap_list_content_each_selected_detail_word f_36">¥0000</p>
@@ -48,7 +48,7 @@ export default defineComponent({
         // data
         // const { items } = storeToRefs(cartCounter());
         const items = cartCounter().items;
-
+        console.log('Cart.vue', items);
         // methods
 
         return { items }
