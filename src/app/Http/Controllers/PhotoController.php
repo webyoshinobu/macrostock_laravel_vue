@@ -8,6 +8,10 @@ use App\Models\Photo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use ZipArchive;
+use Aws\CommandPool;
+use Aws\S3\S3Client;
 
 class PhotoController extends Controller
 {
@@ -70,24 +74,96 @@ class PhotoController extends Controller
         return $photos;
     }
 
-    /**
-    * 写真ダウンロード
-    * @param Photo $photo
-    * @return \Illuminate\Http\Response
-    */
-    public function download(Photo $photo)
-    {
-        // 写真の存在チェック
-        if (! Storage::cloud()->exists($photo->filename)) {
-            abort(404);
-        }
+    // /**
+    // * 写真ダウンロード
+    // * @param Photo $photo
+    // * @return \Illuminate\Http\Response
+    // */
+    // public function download(Photo $photo)
+    // {
+    //     Log::debug(print_r($photo, true));
+    //     // 写真の存在チェック
+    //     if (! Storage::cloud()->exists($photo->filename)) {
+    //         abort(404);
+    //     }
 
-        $disposition = 'attachment; filename="' . $photo->filename . '"';
-        $headers = [
-            'Content-Type' => 'application/octet-stream',
-            'Content-Disposition' => $disposition,
+    //     $disposition = 'attachment; filename="' . $photo->filename . '"';
+    //     $headers = [
+    //         'Content-Type' => 'application/octet-stream',
+    //         'Content-Disposition' => $disposition,
+    //     ];
+
+    //     // return response(Storage::cloud()->get($photo->filename), 200, $headers);
+    //     return response(Storage::cloud()->get($photo->filename), 200, $headers);
+    // }
+
+    public function zipDownLoad(ZipArchive $zip)
+    {
+        // バケット
+        $bucket = config('filesystems.disks.s3.bucket');
+        $imgDir = 'imgs';
+
+        // 画像ファイル名
+        $imgs = [
+            'UW7wGfEa90ji.jpg',
+            '627kl8iPOAHg.jpg',
+            'cmxr2v1shLVU.jpg',
         ];
 
-        return response(Storage::cloud()->get($photo->filename), 200, $headers);
+        // S3Client
+        $s3Client = new S3Client(
+            [
+                'version' => 'latest',
+                'region' => config('filesystems.disks.s3.region'),
+                'credentials' => [
+                    'secret' => config('filesystems.disks.s3.secret'),
+                    'key' => config('filesystems.disks.s3.key'),
+                ],
+            ]
+        );
+
+        // zipファイル名と保存先(あとで削除する)
+        $zipFileName = 'test.zip';
+        $zipFilePath = public_path() . '/' . $zipFileName;
+
+        // レスポンスヘッダー
+        $headers = ['Content-Type' => 'application/zip'];
+
+        // 画像取得
+        $commands = [];
+        foreach ($imgs as $img) {
+            $key = $imgDir . $img;
+            $commands[] = $s3Client->getCommand(
+                'GetObject',
+                [
+                    'Bucket' => $bucket,
+                    'Key' => $key,
+                ]
+            );
+        }
+
+        $contents = CommandPool::batch($s3Client, $commands);
+
+        // zipファイル作成
+        $zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+        foreach ($contents as $i => $content) {
+            // 取得できなかったらS3Exceptionが格納されてる。
+            if (strpos(get_class($content), 'S3Exception') !== false) {
+                continue;
+            }
+
+            $zip->addFromString($imgs[$i], $content['Body']);
+        }
+
+        $zip->close();
+
+        // おまじない
+        ob_end_clean();
+
+        // 返却
+        return response()
+                ->download($zipFilePath, $zipFileName, $headers)
+                ->deleteFileAfterSend(true);
     }
 }

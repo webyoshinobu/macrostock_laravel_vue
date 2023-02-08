@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class Photo extends Model
 {
@@ -79,14 +80,14 @@ class Photo extends Model
         'url',
     ];
 
-    /** JSONに含めない属性 */
-    protected $hidden = [
-        'user_id', 'filename',
-        self::CREATED_AT, self::UPDATED_AT,
-    ];
+    // /** JSONに含めない属性 */
+    // protected $hidden = [
+    //     'user_id', 'filename',
+    //     self::CREATED_AT, self::UPDATED_AT,
+    // ];
 
     /** JSONに含める属性 */
     protected $visible = [
-        'id', 'owner', 'url',
+        'url', 'price', 'filename', 'owner'
     ];
 }

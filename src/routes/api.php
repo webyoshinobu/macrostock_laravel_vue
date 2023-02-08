@@ -56,5 +56,6 @@ Route::get('/admin', fn() => Auth::guard('admin')->user())->name('admin');
 Route::post('/photos', 'App\Http\Controllers\PhotoController@create')->name('photo.create');
 // 写真一覧表示
 Route::get('/gallery', 'App\Http\Controllers\PhotoController@index')->name('photo.index');
-
+//写真ダウンロード
+Route::get('/photos/zipDownLoad', 'App\Http\Controllers\PhotoController@zipDownLoad')->name('photo.zipDownLoad');
 

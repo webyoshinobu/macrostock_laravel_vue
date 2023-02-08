@@ -12,7 +12,7 @@ export const cartCounter = defineStore('cart', {
         addCart(image:any) {
             this.items.push(image);
             // this.items = image;
-            console.log('action this.items', this.items);
+            console.log('cart.ts action this.items', this.items);
         },
     },
   })
