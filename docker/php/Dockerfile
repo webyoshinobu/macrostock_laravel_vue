@@ -16,6 +16,9 @@ RUN apt-get update && \
     zip \
     unzip \
     vim \
-    && docker-php-ext-install pdo_mysql bcmath
+    && docker-php-ext-install pdo_mysql bcmath \
+    # zip extentionのインストール(以下2行)エラーになるかも
+    && apt-get -y install libzip-dev \ 
+    && docker-php-ext-install zip
 
 WORKDIR /var/www/html
