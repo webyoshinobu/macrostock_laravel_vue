@@ -25,6 +25,7 @@ import { useRoute, useRouter } from 'vue-router';
 import axios from "axios"
 import { storeToRefs } from 'pinia';
 import { cartCounter } from '../../../../store/cart';
+import { saveAs } from "file-saver";
 
 export default defineComponent({
     name: 'CartLoginAside',
@@ -42,12 +43,24 @@ export default defineComponent({
         const download = async() => {
             const downloadItems = cartCounter().items;
             console.log('CartLoginAside.vue download downloadItems', downloadItems);
-            const response = await axios.get('api/photos/zipDownLoad');
-            console.log('CartLoginAside.vue download response', response);
+
+            // const response = await axios.get('api/photos/zipDownLoad');
+            // console.log('CartLoginAside.vue download response', response);
+
+            await axios.get('api/photos/zipDownLoad', { responseType: "blob", })
+            .then((response)=>{
+                let mineType = response.headers["content-type"];
+                const name = response.headers["content-disposition"];
+                const blob = new Blob([response.data], { type: mineType });
+                saveAs(blob, name);
+            })
+            .catch((error) => {
+                console.log(error.messagae);
+            });
+
         }
 
-
-        return { router, route, download, }
+        return { router, route, download }
     },
 
 });
