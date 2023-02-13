@@ -57,5 +57,6 @@ Route::post('/photos', 'App\Http\Controllers\PhotoController@create')->name('pho
 // 写真一覧表示
 Route::get('/gallery', 'App\Http\Controllers\PhotoController@index')->name('photo.index');
 // //写真ダウンロード
-Route::get('/photos/zipDownLoad', 'App\Http\Controllers\PhotoController@zipDownLoad')->name('photo.zipDownLoad');
+// Route::get('/photos/zipDownLoad', 'App\Http\Controllers\PhotoController@zipDownLoad')->name('photo.zipDownLoad');
+Route::post('/photos/zipDownLoad', 'App\Http\Controllers\PhotoController@zipDownLoad')->name('photo.zipDownLoad');
 

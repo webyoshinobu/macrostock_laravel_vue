@@ -47,7 +47,8 @@ export default defineComponent({
             // const response = await axios.get('api/photos/zipDownLoad');
             // console.log('CartLoginAside.vue download response', response);
 
-            await axios.get('api/photos/zipDownLoad', { responseType: "blob", })
+            // await axios.get('api/photos/zipDownLoad', { responseType: "blob", })
+            await axios.post('api/photos/zipDownLoad', downloadItems, { responseType: "blob", })
             .then((response)=>{
                 let mineType = response.headers["content-type"];
                 // const name = response.headers["content-disposition"];
