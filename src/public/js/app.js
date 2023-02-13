@@ -27407,11 +27407,14 @@ exports["default"] = (0, vue_1.defineComponent)({
                 responseType: "blob"
               }).then(function (response) {
                 var mineType = response.headers["content-type"];
-                var name = response.headers["content-disposition"];
+                // const name = response.headers["content-disposition"];
+                var contentDisposition = response.headers["content-disposition"];
+                var fileName = getFileName(contentDisposition);
                 var blob = new Blob([response.data], {
                   type: mineType
                 });
-                (0, file_saver_1.saveAs)(blob, name);
+                // saveAs(blob, fileName );
+                (0, file_saver_1.saveAs)(blob, decodeURIComponent(fileName));
               })["catch"](function (error) {
                 console.log(error.messagae);
               });
@@ -27422,10 +27425,19 @@ exports["default"] = (0, vue_1.defineComponent)({
         }, _callee);
       }));
     };
+    //laravelからのレスポンスで$headersのContent-Dispositionを指定してダウンロードするとtmpファイルには正常に保存されるが、ダウンロードしたタイミングでファイルが壊れるので、Content-Dispositionのfilenameからファイル名を取り出して返す。
+    // function getFileName(contentDisposition:string){
+    var getFileName = function getFileName(contentDisposition) {
+      var fileName = contentDisposition.substring(contentDisposition.indexOf("''") + 2, contentDisposition.length);
+      //デコードするとスペースが"+"になるのでスペースへ置換します
+      fileName = decodeURI(fileName).replace(/\+/g, " ");
+      return fileName;
+    };
     return {
       router: router,
       route: route,
-      download: download
+      download: download,
+      getFileName: getFileName
     };
   }
 });

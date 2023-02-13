@@ -50,9 +50,12 @@ export default defineComponent({
             await axios.get('api/photos/zipDownLoad', { responseType: "blob", })
             .then((response)=>{
                 let mineType = response.headers["content-type"];
-                const name = response.headers["content-disposition"];
+                // const name = response.headers["content-disposition"];
+                const contentDisposition = response.headers["content-disposition"];
+                const fileName = getFileName(contentDisposition)
                 const blob = new Blob([response.data], { type: mineType });
-                saveAs(blob, name);
+                // saveAs(blob, fileName );
+                saveAs(blob, decodeURIComponent( fileName ));
             })
             .catch((error) => {
                 console.log(error.messagae);
@@ -60,7 +63,19 @@ export default defineComponent({
 
         }
 
-        return { router, route, download }
+        //laravelからのレスポンスで$headersのContent-Dispositionを指定してダウンロードするとtmpファイルには正常に保存されるが、ダウンロードしたタイミングでファイルが壊れるので、Content-Dispositionのfilenameからファイル名を取り出して返す。
+        // function getFileName(contentDisposition:string){
+        const getFileName = (contentDisposition:string) => {
+            let fileName = contentDisposition.substring(contentDisposition.indexOf("''") + 2,
+            contentDisposition.length
+            );
+            //デコードするとスペースが"+"になるのでスペースへ置換します
+            fileName = decodeURI(fileName).replace(/\+/g, " ");
+
+            return fileName;
+        }
+
+        return { router, route, download, getFileName }
     },
 
 });

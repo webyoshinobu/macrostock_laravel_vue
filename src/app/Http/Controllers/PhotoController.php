@@ -142,9 +142,10 @@ class PhotoController extends Controller
         try {
             // 現在の日付を取得
             $now = date('Ymd');
-            $zipFileName = 'macrostock_'.$now.'.zip';
+            $zipFileName = 'マクロストック_'.$now.'.zip';
+            $zipFileName = rawurlencode($zipFileName);
             $zipFilePath = $tmp . $zipFileName;
-            $downloadPath = '/tmp/' . $zipFileName;
+            // $downloadPath = '/tmp/' . $zipFileName;
             Log::debug(print_r($zipFilePath, true));
 
             // 画像取得
@@ -168,7 +169,7 @@ class PhotoController extends Controller
             if(!file_exists($zipFilePath)){
                 Log::info('zipファイルの作成を開始');
                 $zip = new ZipArchive();
-                $res = $zip->open($zipFilePath, ZipArchive::CREATE);
+                $res = $zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
                 Log::debug(print_r($res, true));
                 if ($res != TRUE) {
                     throw new Exception("open FALSE code:{$res}");
@@ -214,10 +215,8 @@ class PhotoController extends Controller
 
                 $headers = [
                     'Content-Type' => 'application/zip',
-                    // 'Content-Type' => $mimeType,
                     'Content-Transfer-Encoding' => 'Binary',
-                    // 'Content-Disposition' => 'attachment; filename="'.$zipFileName.'"',
-                    // 'Content-Disposition' => 'attachment'
+                    // 'Content-Disposition' => $zipFileName,
                 ];
 
                 // readfile($zipFilePath);
@@ -232,6 +231,7 @@ class PhotoController extends Controller
                 return response()
                     ->download($zipFilePath, $zipFileName, $headers)
                     ->deleteFileAfterSend(true);
+
             }
         }catch (Exception $e) {
             Log::error("zipの作成に失敗しました\n");
