@@ -97,23 +97,35 @@ class PhotoController extends Controller
     //     return response(Storage::cloud()->get($photo->filename), 200, $headers);
     // }
 
-    public function zipDownLoad(ZipArchive $zip)
+    public function zipDownLoad(ZipArchive $zip, Request $request)
     {
         // バケット
         $bucket = config('filesystems.disks.s3.bucket');
         // $imgDir = 'imgs'; //←恐らくs3上のバケットにフォルダ分けしていた場合の指定っぽい
         Log::debug(print_r($bucket, true));
-        // Log::debug(print_r($imgDir, true));
 
         // 画像ファイル名
-        $imgs = [
-            'UW7wGfEa90ji.jpg',
-            '627kl8iPOAHg.jpg',
-            'cmxr2v1shLVU.jpg',
-            // public_path().'/images/top_slide1.jpg',
-            // public_path().'/images/top_slide2.jpg',
-            // public_path().'/images/top_slide3.jpg',
-        ];
+        // $imgs = [
+        //     'UW7wGfEa90ji.jpg',
+        //     '627kl8iPOAHg.jpg',
+        //     'cmxr2v1shLVU.jpg',
+        //     // public_path().'/images/top_slide1.jpg',
+        //     // public_path().'/images/top_slide2.jpg',
+        //     // public_path().'/images/top_slide3.jpg',
+        // ];
+
+        $imgs = array(); #配列であることを宣言
+        $downloadItems = $request->all();
+
+        foreach($downloadItems as $value1) {
+            foreach($value1 as $key => $value2) {
+                if($key == 'filename') {
+                    // $imgs = $value2;
+                    array_push($imgs, $value2);
+                }
+            }
+        }
+        Log::debug(print_r($imgs, true));
 
         // S3Client
         $s3Client = new S3Client(

@@ -27402,8 +27402,9 @@ exports["default"] = (0, vue_1.defineComponent)({
               console.log('CartLoginAside.vue download downloadItems', downloadItems);
               // const response = await axios.get('api/photos/zipDownLoad');
               // console.log('CartLoginAside.vue download response', response);
+              // await axios.get('api/photos/zipDownLoad', { responseType: "blob", })
               _context.next = 4;
-              return axios_1["default"].get('api/photos/zipDownLoad', {
+              return axios_1["default"].post('api/photos/zipDownLoad', downloadItems, {
                 responseType: "blob"
               }).then(function (response) {
                 var mineType = response.headers["content-type"];
