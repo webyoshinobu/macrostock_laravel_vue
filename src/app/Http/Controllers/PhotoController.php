@@ -101,16 +101,18 @@ class PhotoController extends Controller
     {
         // バケット
         $bucket = config('filesystems.disks.s3.bucket');
-        $imgDir = 'imgs';
+        // $imgDir = 'imgs'; //←恐らくs3上のバケットにフォルダ分けしていた場合の指定っぽい
+        Log::debug(print_r($bucket, true));
+        // Log::debug(print_r($imgDir, true));
 
         // 画像ファイル名
         $imgs = [
-            // 'UW7wGfEa90ji.jpg',
-            // '627kl8iPOAHg.jpg',
-            // 'cmxr2v1shLVU.jpg',
-            public_path().'/images/top_slide1.jpg',
-            public_path().'/images/top_slide2.jpg',
-            public_path().'/images/top_slide3.jpg',
+            'UW7wGfEa90ji.jpg',
+            '627kl8iPOAHg.jpg',
+            'cmxr2v1shLVU.jpg',
+            // public_path().'/images/top_slide1.jpg',
+            // public_path().'/images/top_slide2.jpg',
+            // public_path().'/images/top_slide3.jpg',
         ];
 
         // S3Client
@@ -124,6 +126,7 @@ class PhotoController extends Controller
                 ],
             ]
         );
+        // Log::debug(print_r($s3Client, true));
 
         // zipの保存先(あとで削除する)
         // $tmp = public_path() . '/tmp/';
@@ -141,22 +144,24 @@ class PhotoController extends Controller
             $now = date('Ymd');
             $zipFileName = 'macrostock_'.$now.'.zip';
             $zipFilePath = $tmp . $zipFileName;
+            $downloadPath = '/tmp/' . $zipFileName;
             Log::debug(print_r($zipFilePath, true));
 
-            // // 画像取得
-            // $commands = [];
-            // foreach ($imgs as $img) {
-            //     $key = $imgDir . $img;
-            //     $commands[] = $s3Client->getCommand(
-            //         'GetObject',
-            //         [
-            //             'Bucket' => $bucket,
-            //             'Key' => $key,
-            //         ]
-            //     );
-            // }
+            // 画像取得
+            $commands = [];
+            foreach ($imgs as $img) {
+                // $key = $imgDir . $img;
+                $key = $img;
+                $commands[] = $s3Client->getCommand(
+                    'GetObject',
+                    [
+                        'Bucket' => $bucket,
+                        'Key' => $key,
+                    ]
+                );
+            }
 
-            // $contents = CommandPool::batch($s3Client, $commands);
+            $contents = CommandPool::batch($s3Client, $commands);
 
             // Log::debug(print_r($contents, true));
 
@@ -170,20 +175,23 @@ class PhotoController extends Controller
                     Log::info('zipファイルの作成に失敗しました。');
                 }
                 // $zip_content = [];
-                foreach($imgs as $img) {
-                    $zip->addFile($img);
-                    Log::info('zipファイルに画像を追加中');
+                // foreach($imgs as $img) {
+                //     $zip->addFile($img);
+                //     Log::info('zipファイルに画像を追加中');
+                // }
+                // Log::debug(print_r($zip, true));
+
+                foreach ($contents as $i => $content) {
+                    // 取得できなかったらS3Exceptionが格納されてる。
+                    if (strpos(get_class($content), 'S3Exception') !== false) {
+                        continue;
+                    }
+
+                    header("Content-Type: {$content['ContentType']}");
+
+                    $zip->addFromString($imgs[$i], $content['Body']);
                 }
                 Log::debug(print_r($zip, true));
-
-                // foreach ($contents as $i => $content) {
-                //     // 取得できなかったらS3Exceptionが格納されてる。
-                //     if (strpos(get_class($content), 'S3Exception') !== false) {
-                //         continue;
-                //     }
-
-                //     $zip->addFromString($imgs[$i], $content['Body']);
-                // }
 
                 if (!$zip->close()) {
                     Log::info('zipファイルの作成に失敗しました。');
@@ -192,38 +200,38 @@ class PhotoController extends Controller
 
                 // レスポンスヘッダー
                 mb_http_output("pass");
+
                 // header("Content-Type: application/zip");
                 // header("Content-Transfer-Encoding: Binary");
                 // header('X-Content-Type-Options: nosniff');
                 // header('Content-Disposition: attachment; filename="'.$zipFileName.'"');
                 // header("Content-Disposition: ".rawurlencode($zipFileName));
-                $headers = [
-                    'Content-Type' => 'application/zip',
-                    'Content-Transfer-Encoding' => 'Binary',
-                    'Content-Disposition' => 'attachment; filename="'.$zipFileName.'"',
-                ];
 
+                // $mimeType = Storage::mimeType($downloadPath);
 
                 // 出力バッファを破棄
                 ob_end_clean();
 
-                // echo file_get_contents($zipFilePath);
-                readfile($zipFilePath);
-                // readfile($mimeType);
+                $headers = [
+                    'Content-Type' => 'application/zip',
+                    // 'Content-Type' => $mimeType,
+                    'Content-Transfer-Encoding' => 'Binary',
+                    // 'Content-Disposition' => 'attachment; filename="'.$zipFileName.'"',
+                    // 'Content-Disposition' => 'attachment'
+                ];
+
+                // readfile($zipFilePath);
                 // unlink($zipFilePath);
                 // exit;
-
-                $downloadPath = '/tmp/' . $zipFileName;
 
                 Log::debug(print_r($zipFilePath, true));
                 Log::debug(print_r($zipFileName, true));
                 Log::debug(print_r($headers, true));
-                Log::debug(print_r($tmp, true));
-                Log::debug(print_r($downloadPath, true));
-                // 返却
-                // return Storage::download($zipFilePath, $zipFileName, $headers);
-                return response(Storage::download($downloadPath, $zipFileName, $headers));
 
+                // 返却
+                return response()
+                    ->download($zipFilePath, $zipFileName, $headers)
+                    ->deleteFileAfterSend(true);
             }
         }catch (Exception $e) {
             Log::error("zipの作成に失敗しました\n");
