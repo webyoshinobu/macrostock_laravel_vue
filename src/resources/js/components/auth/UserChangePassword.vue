@@ -3,52 +3,52 @@
         <h2 class="userchangepassword_title">様マイページ</h2>
         <div class="userchangepassword_wrap">
             <div class="userchangepassword_wrap_title">パスワード変更</div>
-                <form method="post" class="userchangepassword_wrap_form" @submit.prevent="clickRegister">
-                <!-- laravelのトークンを使用 -->
-                <!-- <input type="hidden" name="_token" :value="token"> -->
+            <form method="post" class="userchangepassword_wrap_form" @submit.prevent="clickRegister">
+            <!-- laravelのトークンを使用 -->
+            <!-- <input type="hidden" name="_token" :value="token"> -->
 
-                <!-- <div v-if="registerErrors" class="errors">
-                    <ul v-if="registerErrors.name">
-                        <li v-for="msg in registerErrors.name" :key="msg">
-                            {{ msg }} -->
-                            <!-- 氏名を入力してください。 -->
-                        <!-- </li>
-                    </ul>
-                    <ul v-if="registerErrors.email">
-                        <li v-for="msg in registerErrors.email" :key="msg">
-                            {{ msg }} -->
-                            <!-- メールアドレスを入力してください。 -->
-                        <!-- </li>
-                    </ul>
-                    <ul v-if="registerErrors.password">
-                        <li v-for="msg in registerErrors.password" :key="msg">
-                            {{ msg }} -->
-                            <!-- パスワードを入力してください。 -->
-                        <!-- </li>
-                    </ul>
-                </div> -->
+            <!-- <div v-if="registerErrors" class="errors">
+                <ul v-if="registerErrors.name">
+                    <li v-for="msg in registerErrors.name" :key="msg">
+                        {{ msg }} -->
+                        <!-- 氏名を入力してください。 -->
+                    <!-- </li>
+                </ul>
+                <ul v-if="registerErrors.email">
+                    <li v-for="msg in registerErrors.email" :key="msg">
+                        {{ msg }} -->
+                        <!-- メールアドレスを入力してください。 -->
+                    <!-- </li>
+                </ul>
+                <ul v-if="registerErrors.password">
+                    <li v-for="msg in registerErrors.password" :key="msg">
+                        {{ msg }} -->
+                        <!-- パスワードを入力してください。 -->
+                    <!-- </li>
+                </ul>
+            </div> -->
 
-                <div class="userchangepassword_wrap_form_line">
-                    <label class="userchangepassword_wrap_form_line_label" for="userchangepassword_form_password">現在パスワード</label>
-                    <input type="text" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.currentPassword">
-                </div>
+            <div class="userchangepassword_wrap_form_line">
+                <label class="userchangepassword_wrap_form_line_label" for="userchangepassword_form_password">現在パスワード</label>
+                <input type="text" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.currentPassword">
+            </div>
 
-                <div class="userchangepassword_wrap_form_line">
-                    <label class="userchangepassword_wrap_form_line_label" for="userchangepassword_form_password">新しいパスワード</label>
-                    <input type="text" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.newPassword">
-                </div>
+            <div class="userchangepassword_wrap_form_line">
+                <label class="userchangepassword_wrap_form_line_label" for="userchangepassword_form_password">新しいパスワード</label>
+                <input type="text" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.newPassword">
+            </div>
 
-                <div class="userchangepassword_wrap_form_line">
-                    <label class="userchangepassword_wrap_form_line_label" for="userchangepassword_form_password">新しいパスワード(確認)</label>
-                    <input type="text" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.newPasswordConfirm">
-                </div>
+            <div class="userchangepassword_wrap_form_line">
+                <label class="userchangepassword_wrap_form_line_label" for="userchangepassword_form_password">新しいパスワード(確認)</label>
+                <input type="text" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.newPasswordConfirm">
+            </div>
 
-                <div class="userchangepassword_wrap_content_button">
-                    <ButtonRed>変更する</ButtonRed>
-                    <ButtonWhite class="margin-left">マイページトップへ戻る</ButtonWhite>
-                </div>
+            <div class="userchangepassword_wrap_form_button">
+                <ButtonRed>変更する</ButtonRed>
+                <ButtonWhite class="margin-left">マイページトップへ戻る</ButtonWhite>
+            </div>
 
-            </form>
+        </form>
         </div>
     </section>
 </template>
@@ -117,12 +117,24 @@ export default defineComponent({
             padding: 18.5px 0 18.5px 10px;
         }
 
-        &_content {
+        &_form {
             border: 2px solid #000000;
             padding: 20px;
             font-size: 36px;
 
+            &_line {
+                padding: 20px;
+                display: flex;
 
+                &_label {
+                    width: 40%;
+                }
+
+                &_input {
+                    width: 60%;
+                }
+
+            }
 
             &_button {
                 display: flex;

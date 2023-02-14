@@ -39,7 +39,7 @@
                     <input type="text" class="userchangeemail_wrap_form_line_input" id="userchangeemail_form_email" v-model="changeForm.emailConfirm">
                 </div>
 
-                <div class="userchangeemail_wrap_content_button">
+                <div class="userchangeemail_wrap_form_button">
                     <ButtonRed>変更する</ButtonRed>
                     <ButtonWhite class="margin-left">マイページトップへ戻る</ButtonWhite>
                 </div>
@@ -111,12 +111,24 @@ export default defineComponent({
             padding: 18.5px 0 18.5px 10px;
         }
 
-        &_content {
+        &_form {
             border: 2px solid #000000;
             padding: 20px;
             font-size: 36px;
 
+            &_line {
+                padding: 20px;
+                display: flex;
 
+                &_label {
+                    width: 40%;
+                }
+
+                &_input {
+                    width: 60%;
+                }
+
+            }
 
             &_button {
                 display: flex;

@@ -29956,7 +29956,7 @@ var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_9 = {
-  "class": "userchangeemail_wrap_content_button"
+  "class": "userchangeemail_wrap_form_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonRed = (0, vue_1.resolveComponent)("ButtonRed");
@@ -30068,7 +30068,7 @@ var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_11 = {
-  "class": "userchangepassword_wrap_content_button"
+  "class": "userchangepassword_wrap_form_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonRed = (0, vue_1.resolveComponent)("ButtonRed");
@@ -30081,7 +30081,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     function () {
       return _ctx.clickRegister && _ctx.clickRegister.apply(_ctx, arguments);
     }, ["prevent"]))
-  }, [(0, vue_1.createCommentVNode)(" laravelのトークンを使用 "), (0, vue_1.createCommentVNode)(" <input type=\"hidden\" name=\"_token\" :value=\"token\"> "), (0, vue_1.createCommentVNode)(" <div v-if=\"registerErrors\" class=\"errors\">\n                    <ul v-if=\"registerErrors.name\">\n                        <li v-for=\"msg in registerErrors.name\" :key=\"msg\">\n                            {{ msg }} "), (0, vue_1.createCommentVNode)(" 氏名を入力してください。 "), (0, vue_1.createCommentVNode)(" </li>\n                    </ul>\n                    <ul v-if=\"registerErrors.email\">\n                        <li v-for=\"msg in registerErrors.email\" :key=\"msg\">\n                            {{ msg }} "), (0, vue_1.createCommentVNode)(" メールアドレスを入力してください。 "), (0, vue_1.createCommentVNode)(" </li>\n                    </ul>\n                    <ul v-if=\"registerErrors.password\">\n                        <li v-for=\"msg in registerErrors.password\" :key=\"msg\">\n                            {{ msg }} "), (0, vue_1.createCommentVNode)(" パスワードを入力してください。 "), (0, vue_1.createCommentVNode)(" </li>\n                    </ul>\n                </div> "), (0, vue_1.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+  }, [(0, vue_1.createCommentVNode)(" laravelのトークンを使用 "), (0, vue_1.createCommentVNode)(" <input type=\"hidden\" name=\"_token\" :value=\"token\"> "), (0, vue_1.createCommentVNode)(" <div v-if=\"registerErrors\" class=\"errors\">\n                <ul v-if=\"registerErrors.name\">\n                    <li v-for=\"msg in registerErrors.name\" :key=\"msg\">\n                        {{ msg }} "), (0, vue_1.createCommentVNode)(" 氏名を入力してください。 "), (0, vue_1.createCommentVNode)(" </li>\n                </ul>\n                <ul v-if=\"registerErrors.email\">\n                    <li v-for=\"msg in registerErrors.email\" :key=\"msg\">\n                        {{ msg }} "), (0, vue_1.createCommentVNode)(" メールアドレスを入力してください。 "), (0, vue_1.createCommentVNode)(" </li>\n                </ul>\n                <ul v-if=\"registerErrors.password\">\n                    <li v-for=\"msg in registerErrors.password\" :key=\"msg\">\n                        {{ msg }} "), (0, vue_1.createCommentVNode)(" パスワードを入力してください。 "), (0, vue_1.createCommentVNode)(" </li>\n                </ul>\n            </div> "), (0, vue_1.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "text",
     "class": "userchangepassword_wrap_form_line_input",
     id: "userchangepassword_form_password",
@@ -33488,7 +33488,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".userchangeemail[data-v-07f99645] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.userchangeemail_title[data-v-07f99645] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.userchangeemail_wrap_title[data-v-07f99645] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.userchangeemail_wrap_content[data-v-07f99645] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.userchangeemail_wrap_content_button[data-v-07f99645] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-07f99645] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-07f99645] {\n  margin: 0 0 20px 0;\n}\n.errors ul[data-v-07f99645] {\n  list-style: none;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".userchangeemail[data-v-07f99645] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.userchangeemail_title[data-v-07f99645] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.userchangeemail_wrap_title[data-v-07f99645] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.userchangeemail_wrap_form[data-v-07f99645] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.userchangeemail_wrap_form_line[data-v-07f99645] {\n  padding: 20px;\n  display: flex;\n}\n.userchangeemail_wrap_form_line_label[data-v-07f99645] {\n  width: 40%;\n}\n.userchangeemail_wrap_form_line_input[data-v-07f99645] {\n  width: 60%;\n}\n.userchangeemail_wrap_form_button[data-v-07f99645] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-07f99645] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-07f99645] {\n  margin: 0 0 20px 0;\n}\n.errors ul[data-v-07f99645] {\n  list-style: none;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -33512,7 +33512,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".userchangepassword[data-v-3cbddc02] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.userchangepassword_title[data-v-3cbddc02] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.userchangepassword_wrap_title[data-v-3cbddc02] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.userchangepassword_wrap_content[data-v-3cbddc02] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.userchangepassword_wrap_content_button[data-v-3cbddc02] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-3cbddc02] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-3cbddc02] {\n  margin: 0 0 20px 0;\n}\n.errors ul[data-v-3cbddc02] {\n  list-style: none;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".userchangepassword[data-v-3cbddc02] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.userchangepassword_title[data-v-3cbddc02] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.userchangepassword_wrap_title[data-v-3cbddc02] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.userchangepassword_wrap_form[data-v-3cbddc02] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.userchangepassword_wrap_form_line[data-v-3cbddc02] {\n  padding: 20px;\n  display: flex;\n}\n.userchangepassword_wrap_form_line_label[data-v-3cbddc02] {\n  width: 40%;\n}\n.userchangepassword_wrap_form_line_input[data-v-3cbddc02] {\n  width: 60%;\n}\n.userchangepassword_wrap_form_button[data-v-3cbddc02] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-3cbddc02] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-3cbddc02] {\n  margin: 0 0 20px 0;\n}\n.errors ul[data-v-3cbddc02] {\n  list-style: none;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
