@@ -8,6 +8,7 @@ import photo from "./components/gallery/Photo.vue";
 import contact from "./components/contact/Contact.vue";
 import login from "./components/auth/Login.vue";
 import register from "./components/auth/Register.vue";
+import userMypage from "./components/auth/UserMypage.vue";
 import admin from "./components/admin/AdminLogin.vue";
 import adminRegister from "./components/admin/AdminRegister.vue";
 import adminMypage from "./components/admin/AdminMypage.vue";
@@ -86,6 +87,11 @@ const routes = [
         path: '/register',
         name: 'register',
         component: register
+    },
+    {
+        path: '/mypage',
+        name: 'mypage',
+        component: userMypage
     },
     {
         path: '/admin/login',
