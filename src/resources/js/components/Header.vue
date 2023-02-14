@@ -18,7 +18,8 @@
             <p v-else class="header_nav_menu_item" @click="clickLogout"><ButtonWhite>Logout</ButtonWhite></p>
 
             <router-link v-if="!isLoggedIn" to="/register" class="header_nav_menu_item"><ButtonBlack>Register</ButtonBlack></router-link>
-            <router-link to="/admin/mypage" v-else class="header_nav_menu_item"><ButtonBlack>{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
+            <router-link to="/admin/mypage" v-else-if="'admin_flag' in userInfo" class="header_nav_menu_item"><ButtonBlack>{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
+            <router-link to="/mypage" v-else class="header_nav_menu_item"><ButtonBlack>{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
 
         </div>
     </nav>
