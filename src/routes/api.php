@@ -60,3 +60,13 @@ Route::get('/gallery', 'App\Http\Controllers\PhotoController@index')->name('phot
 // Route::get('/photos/zipDownLoad', 'App\Http\Controllers\PhotoController@zipDownLoad')->name('photo.zipDownLoad');
 Route::post('/photos/zipDownLoad', 'App\Http\Controllers\PhotoController@zipDownLoad')->name('photo.zipDownLoad');
 
+/*
+|--------------------------------------------------------------------------
+| トークンリフレッシュ
+|--------------------------------------------------------------------------
+*/
+Route::get('/reflesh-token', function (Illuminate\Http\Request $request) {
+    $request->session()->regenerateToken();
+
+    return response()->json();
+});

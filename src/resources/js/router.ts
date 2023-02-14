@@ -14,6 +14,7 @@ import adminMypage from "./components/admin/AdminMypage.vue";
 import cart from "./components/cart/Cart.vue";
 import thanks from "./components/Thanks.vue";
 import systemError from "./components/errors/System.vue";
+import NotFound from "./components/errors/NotFound.vue";
 
 const routes = [
     {
@@ -115,6 +116,12 @@ const routes = [
         path: '/500',
         name: '500',
         component: systemError
+    },
+    {
+        // path: '*',
+        path: '/:catchAll(.*)',
+        name: 'NotFound',
+        component: NotFound
     },
 ]
 
