@@ -9,20 +9,20 @@
                 <div v-if="registerErrors" class="errors">
                     <ul v-if="registerErrors.name">
                         <li v-for="msg in registerErrors.name" :key="msg">
-                            <!-- {{ msg }} -->
-                            氏名を入力してください。
+                            {{ msg }}
+                            <!-- 氏名を入力してください。 -->
                         </li>
                     </ul>
                     <ul v-if="registerErrors.email">
                         <li v-for="msg in registerErrors.email" :key="msg">
-                            <!-- {{ msg }} -->
-                            メールアドレスを入力してください。
+                            {{ msg }}
+                            <!-- メールアドレスを入力してください。 -->
                         </li>
                     </ul>
                     <ul v-if="registerErrors.password">
                         <li v-for="msg in registerErrors.password" :key="msg">
-                            <!-- {{ msg }} -->
-                            パスワードを入力してください。
+                            {{ msg }}
+                            <!-- パスワードを入力してください。 -->
                         </li>
                     </ul>
                 </div>

@@ -79,7 +79,7 @@ export default defineComponent({
 
         // methods
         const clickLogin = async () => {
-            console.log('loginForm', loginForm)
+            // console.log('loginForm', loginForm)
             const data = loginForm;
             await login(data);
 

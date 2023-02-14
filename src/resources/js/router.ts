@@ -9,6 +9,8 @@ import contact from "./components/contact/Contact.vue";
 import login from "./components/auth/Login.vue";
 import register from "./components/auth/Register.vue";
 import userMypage from "./components/auth/UserMypage.vue";
+import userChangeEmail from "./components/auth/UserChangeEmail.vue";
+import userChangePassword from "./components/auth/UserChangePassword.vue";
 import admin from "./components/admin/AdminLogin.vue";
 import adminRegister from "./components/admin/AdminRegister.vue";
 import adminMypage from "./components/admin/AdminMypage.vue";
@@ -92,6 +94,16 @@ const routes = [
         path: '/mypage',
         name: 'mypage',
         component: userMypage
+    },
+    {
+        path: '/changeEmail',
+        name: 'changeEmail',
+        component: userChangeEmail
+    },
+    {
+        path: '/changePassword',
+        name: 'changePassword',
+        component: userChangePassword
     },
     {
         path: '/admin/login',
