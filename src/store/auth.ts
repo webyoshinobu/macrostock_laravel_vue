@@ -247,6 +247,10 @@ export const auth = defineStore('auth', {
         setRegisterErrorMessages (messages:any) {
             this.registerErrorMessages = messages
         },
+        setAuth (status:any) {
+            this.user = status
+            this.adminUser = status
+        }
 
     },
   })
