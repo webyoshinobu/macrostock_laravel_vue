@@ -31,6 +31,8 @@ Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('
 Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 // ログインユーザー
 Route::get('/user', fn() => Auth::user())->name('user');
+// パスワード変更
+Route::post('/changePassword','App\Http\Controllers\Auth\ChangePasswordController@update')->name('changePassword');
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +47,6 @@ Route::post('/admin/login', 'App\Http\Controllers\Admin\LoginController@login')-
 Route::post('/admin/logout', 'App\Http\Controllers\Admin\LoginController@logout')->name('logout');
 // ログイン管理者
 Route::get('/admin', fn() => Auth::guard('admin')->user())->name('admin');
-// Route::get('/admin/mypage', fn() => Auth::guard('admin')->user())->name('admin/mypage');
 
 /*
 |--------------------------------------------------------------------------

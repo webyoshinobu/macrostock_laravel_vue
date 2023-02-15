@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
@@ -11,7 +12,7 @@ class ChangePasswordController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data,[
-            'new_password' => 'required|string|min:8|confirmed',
+            'new_password' =>  ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -23,7 +24,10 @@ class ChangePasswordController extends Controller
         {
             // return redirect('/password/change')
             //     ->with('warning','パスワードが違います');
-            return 'パスワードが違います';
+            // return response('現在のパスワードが違います', 422);
+            return response([
+                'errorCurrent' => '現在のパスワードが違います。'
+            ], 422);
         }
 
         //新規パスワードの確認
@@ -35,6 +39,6 @@ class ChangePasswordController extends Controller
         // return redirect ('/')
         //     ->with('status','パスワードの変更が終了しました');
 
-        return 'パスワードの変更が終了しました';
+        return response('パスワードが正しく変更されました。', 200);
     }
 }
