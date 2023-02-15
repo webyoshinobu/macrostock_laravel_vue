@@ -38,6 +38,10 @@ export const auth = defineStore('auth', {
         changePasswordErrorMessagesCurrent: '',
         changePasswordErrorMessagesNewpass: '',
         changePasswordSuccess: '',
+        changeEmailStatus: null as number|null,
+        changeEmailErrorMessagesCurrentEmail: '',
+        changeEmailErrorMessagesNewemail: '',
+        changeEmailSuccess: '',
 
         //-------------------
         //管理者関連
@@ -160,6 +164,18 @@ export const auth = defineStore('auth', {
                 this.changePasswordErrorMessagesNewpass = response.data.errors
                 // console.log('auth.ts changePassword changePasswordErrorMessagesCurrent', this.changePasswordErrorMessagesCurrent)
                 // console.log('auth.ts changePassword changePasswordErrorMessagesNewpass', this.changePasswordErrorMessagesNewpass)
+            }
+        },
+
+        async changeEmail (data:any) {
+            const response = await axios.post('api/changeEmail', data)
+            console.log('auth.ts changeEmail response', response)
+            if(response.status == OK) {
+                this.changeEmailStatus = response.status
+                this.changeEmailSuccess = response.data.changeEmailSuccess
+            }else{
+                this.changeEmailErrorMessagesCurrentEmail = response.data.errorCurrent
+                this.changeEmailErrorMessagesNewemail = response.data.errors
             }
         },
 

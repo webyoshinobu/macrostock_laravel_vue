@@ -60,6 +60,7 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const authStore = auth();
+        const { changeEmail, resetChangePasswordMessage } = authStore;
         const { userInfo } = storeToRefs(authStore);
         const changeForm = ref({
             current_email: '',
@@ -67,9 +68,9 @@ export default defineComponent({
             new_email_confirmation: '',
         });
 
-        const clickChangePassword = async() => {
+        const clickChangeEmail = async() => {
 
-            // await changePassword(changeForm.value)
+            await changeEmail(changeForm.value)
 
             if(authStore.changePasswordStatus === OK){
                 router.push({ name: 'mypage' })
@@ -90,7 +91,7 @@ export default defineComponent({
 
         });
 
-        return { router, route, onMounted, watch, userInfo, changeForm };
+        return { router, route, onMounted, watch, userInfo, changeForm, clickChangeEmail };
     },
 
 });
