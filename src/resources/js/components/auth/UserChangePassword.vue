@@ -1,6 +1,6 @@
 <template>
     <section class="userchangepassword">
-        <h2 class="userchangepassword_title">様マイページ</h2>
+        <h2 class="userchangepassword_title">{{ ( userInfo || {} ).name }}様マイページ</h2>
         <div class="userchangepassword_wrap">
             <div class="userchangepassword_wrap_title">パスワード変更</div>
             <form method="post" class="userchangepassword_wrap_form" @submit.prevent="clickRegister">
@@ -15,6 +15,8 @@
                     </li>
                 </ul>
             </div> -->
+
+            <!-- エラーメッセージ -->
             <div v-if="changePasswordErrorsCurrent" class="errors">{{changePasswordErrorsCurrent}}</div>
             <div v-if="changePasswordErrorsNewpass" class="errors">
                 <ul v-if="changePasswordErrorsNewpass.new_password">
@@ -76,7 +78,7 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const authStore = auth();
-        const { changePassword } = authStore;
+        const { changePassword, resetChangePasswordMessage } = authStore;
         const { userInfo, changePasswordStatus, changePasswordErrorMessagesCurrent, changePasswordErrorMessagesNewpass } = storeToRefs(authStore);
         let changeForm = ref({
             current_password: '',
@@ -106,7 +108,7 @@ export default defineComponent({
 
             await changePassword(changeForm.value)
 
-            if(authStore.changePasswordStatus == OK){
+            if(authStore.changePasswordStatus === OK){
                 router.push({ name: 'mypage' })
             }else{
                 // error_current.value = authStore.changePasswordErrorMessagesCurrent
@@ -114,8 +116,6 @@ export default defineComponent({
                 resetInputs()
             }
         }
-
-
 
         const resetInputs = () => {
             changeForm.value = {
@@ -125,8 +125,13 @@ export default defineComponent({
             }
         }
 
-        onMounted(() => {
+        const clearError = () => {
+            resetChangePasswordMessage(null)
+            console.log('clearError');
+        }
 
+        onMounted(() => {
+            clearError();
         });
 
         return { router, route, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass };

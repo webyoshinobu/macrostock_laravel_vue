@@ -41,7 +41,7 @@ class ChangePasswordController extends Controller
 
         // return response('パスワードが正しく変更されました。', 200);
         return response([
-            'changeSuccess' => 'パスワードが正しく変更されました。。'
+            'changeSuccess' => 'パスワードが正しく変更されました。'
         ], 200);
     }
 }
