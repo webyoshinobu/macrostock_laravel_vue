@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted, reactive, watch, nextTick } from "vue"
+import { defineComponent, onMounted, watch } from "vue"
 import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { auth } from '../../../../store/auth'
@@ -70,9 +70,8 @@ export default defineComponent({
         const authStore = auth();
         const { userInfo } = storeToRefs(authStore);
 
-
         onMounted(() => {
-
+            console.log('UserMypage.vue onMounted userInfo', userInfo)
         });
 
         return { router, route, onMounted, watch, userInfo };
