@@ -33,6 +33,8 @@ Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name
 Route::get('/user', fn() => Auth::user())->name('user');
 // パスワード変更
 Route::post('/changePassword','App\Http\Controllers\Auth\ChangePasswordController@update')->name('changePassword');
+// メールアドレス変更
+Route::post('/changeEmail','App\Http\Controllers\Auth\ChangeEmailController@update')->name('changeEmail');
 
 /*
 |--------------------------------------------------------------------------
