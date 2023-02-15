@@ -1,47 +1,32 @@
 <template>
     <section class="userchangeemail">
-        <h2 class="userchangeemail_title">様マイページ</h2>
+        <h2 class="userchangeemail_title">{{ ( userInfo || {} ).name }}様マイページ</h2>
         <div class="userchangeemail_wrap">
             <div class="userchangeemail_wrap_title">メールアドレス変更</div>
             <form method="post" class="userchangeemail_wrap_form" @submit.prevent="clickRegister">
                 <!-- laravelのトークンを使用 -->
                 <!-- <input type="hidden" name="_token" :value="token"> -->
 
-                <!-- <div v-if="registerErrors" class="errors">
-                    <ul v-if="registerErrors.name">
-                        <li v-for="msg in registerErrors.name" :key="msg">
-                            {{ msg }} -->
-                            <!-- 氏名を入力してください。 -->
-                        <!-- </li>
-                    </ul>
-                    <ul v-if="registerErrors.email">
-                        <li v-for="msg in registerErrors.email" :key="msg">
-                            {{ msg }} -->
-                            <!-- メールアドレスを入力してください。 -->
-                        <!-- </li>
-                    </ul>
-                    <ul v-if="registerErrors.password">
-                        <li v-for="msg in registerErrors.password" :key="msg">
-                            {{ msg }} -->
-                            <!-- パスワードを入力してください。 -->
-                        <!-- </li>
-                    </ul>
-                </div> -->
 
 
                 <div class="userchangeemail_wrap_form_line">
-                    <label class="userchangeemail_wrap_form_line_label" for="userchangeemail_form_email">メールアドレス</label>
-                    <input type="text" class="userchangeemail_wrap_form_line_input" id="userchangeemail_form_email" v-model="changeForm.email">
+                    <label class="userchangeemail_wrap_form_line_label" for="userchangeemail_form_email">現在のメールアドレス</label>
+                    <input type="text" class="userchangeemail_wrap_form_line_input" id="userchangeemail_form_email" v-model="changeForm.current_email">
                 </div>
 
                 <div class="userchangeemail_wrap_form_line">
-                    <label class="userchangeemail_wrap_form_line_label" for="userchangeemail_form_email">メールアドレス(確認)</label>
-                    <input type="text" class="userchangeemail_wrap_form_line_input" id="userchangeemail_form_email" v-model="changeForm.emailConfirm">
+                    <label class="userchangeemail_wrap_form_line_label" for="userchangeemail_form_newemail">新しいメールアドレス</label>
+                    <input type="text" class="userchangeemail_wrap_form_line_input" id="userchangeemail_form_newemail" v-model="changeForm.new_email">
+                </div>
+
+                <div class="userchangeemail_wrap_form_line">
+                    <label class="userchangeemail_wrap_form_line_label" for="userchangeemail_form_newemail_confirmation">新しいメールアドレス(確認)</label>
+                    <input type="text" class="userchangeemail_wrap_form_line_input" id="userchangeemail_form_newemail_confirmation" v-model="changeForm.new_email_confirmation">
                 </div>
 
                 <div class="userchangeemail_wrap_form_button">
-                    <ButtonRed>変更する</ButtonRed>
-                    <ButtonWhite class="margin-left">マイページトップへ戻る</ButtonWhite>
+                    <ButtonRed @click="clickChangeEmail">変更する</ButtonRed>
+                    <router-link to="/mypage"><ButtonWhite class="margin-left">マイページトップへ戻る</ButtonWhite></router-link>
                 </div>
 
             </form>
@@ -59,6 +44,7 @@ import ButtonWhite from "../common/ButtonWhite.vue"
 import Message from "../Message.vue"
 import Loader from "../Loader.vue"
 import axios from "axios";
+import { OK, UNPROCESSABLE_ENTITY } from '../../util'
 
 export default defineComponent({
     name: 'UserChangeEmail',
@@ -75,10 +61,30 @@ export default defineComponent({
         const route = useRoute();
         const authStore = auth();
         const { userInfo } = storeToRefs(authStore);
-        const changeForm = {
-            email: '',
-            emailConfirm: '',
-        };
+        const changeForm = ref({
+            current_email: '',
+            new_email: '',
+            new_email_confirmation: '',
+        });
+
+        const clickChangePassword = async() => {
+
+            // await changePassword(changeForm.value)
+
+            if(authStore.changePasswordStatus === OK){
+                router.push({ name: 'mypage' })
+            }else{
+                resetInputs()
+            }
+        }
+
+        const resetInputs = () => {
+            changeForm.value = {
+                current_email: '',
+                new_email: '',
+                new_email_confirmation: '',
+            }
+        }
 
         onMounted(() => {
 

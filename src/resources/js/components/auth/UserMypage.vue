@@ -1,20 +1,26 @@
 <template>
     <section class="usermypage">
-        <h2 class="usermypage_title">{{ userInfo.name }}様マイページ</h2>
+        <!-- <h2 class="usermypage_title">{{ userInfo.name }}様マイページ</h2> -->
+        <h2 class="usermypage_title">{{ ( userInfo || {} ).name }}様マイページ</h2>
         <div class="usermypage_wrap">
             <div class="usermypage_wrap_title">登録情報</div>
             <div class="usermypage_wrap_content">
+
+                <div v-if="changePasswordSuccess" class="errors">{{changePasswordSuccess}}</div>
+
                 <ul class="usermypage_wrap_content_list">
                     <li class="usermypage_wrap_content_list_items">
                         <p class="usermypage_wrap_content_list_items_title">氏名</p>
-                        <p class="usermypage_wrap_content_list_items_info">{{ userInfo.name }}</p>
+                        <!-- <p class="usermypage_wrap_content_list_items_info">{{ userInfo.name }}</p> -->
+                        <p class="usermypage_wrap_content_list_items_info">{{ ( userInfo || {} ).name }}</p>
                         <!-- <div class="usermypage_wrap_content_list_items_button">
                             <button class="usermypage_wrap_content_list_items_button_word">変更</button>
                         </div> -->
                     </li>
                     <li class="usermypage_wrap_content_list_items">
                         <p class="usermypage_wrap_content_list_items_title">メールアドレス</p>
-                        <p class="usermypage_wrap_content_list_items_info">{{ userInfo.email }}</p>
+                        <!-- <p class="usermypage_wrap_content_list_items_info">{{ userInfo.email }}</p> -->
+                        <p class="usermypage_wrap_content_list_items_info">{{ ( userInfo || {} ).email }}</p>
                         <div class="usermypage_wrap_content_list_items_button">
                             <router-link to="/changeEmail">
                             <button class="usermypage_wrap_content_list_items_button_word">変更</button>
@@ -68,13 +74,19 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const authStore = auth();
-        const { userInfo } = storeToRefs(authStore);
+        const { resetChangePasswordMessage } = authStore;
+        const { userInfo, changePasswordSuccess } = storeToRefs(authStore);
+
+        const clearError = () => {
+            resetChangePasswordMessage(null)
+            console.log('clearError');
+        }
 
         onMounted(() => {
-            console.log('UserMypage.vue onMounted userInfo', userInfo)
+            clearError();
         });
 
-        return { router, route, onMounted, watch, userInfo };
+        return { router, route, onMounted, watch, userInfo, changePasswordSuccess };
     },
 
 });
@@ -148,12 +160,12 @@ export default defineComponent({
 
 .errors {
     margin: 0 0 20px 0;
+    font-size: 24px;
+    color: red;
+    font-weight: bold;
 
     ul {
         list-style: none;
-        font-size: 24px;
-        color: red;
-        font-weight: bold;
     }
 }
 

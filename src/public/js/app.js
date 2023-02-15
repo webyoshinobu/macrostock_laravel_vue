@@ -27367,6 +27367,346 @@ exports["default"] = (0, vue_1.defineComponent)({
 "use strict";
 
 
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
+}
+function _regeneratorRuntime() {
+  "use strict";
+
+  /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+  _regeneratorRuntime = function _regeneratorRuntime() {
+    return exports;
+  };
+  var exports = {},
+    Op = Object.prototype,
+    hasOwn = Op.hasOwnProperty,
+    defineProperty = Object.defineProperty || function (obj, key, desc) {
+      obj[key] = desc.value;
+    },
+    $Symbol = "function" == typeof Symbol ? Symbol : {},
+    iteratorSymbol = $Symbol.iterator || "@@iterator",
+    asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator",
+    toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+  function define(obj, key, value) {
+    return Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: !0,
+      configurable: !0,
+      writable: !0
+    }), obj[key];
+  }
+  try {
+    define({}, "");
+  } catch (err) {
+    define = function define(obj, key, value) {
+      return obj[key] = value;
+    };
+  }
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator,
+      generator = Object.create(protoGenerator.prototype),
+      context = new Context(tryLocsList || []);
+    return defineProperty(generator, "_invoke", {
+      value: makeInvokeMethod(innerFn, self, context)
+    }), generator;
+  }
+  function tryCatch(fn, obj, arg) {
+    try {
+      return {
+        type: "normal",
+        arg: fn.call(obj, arg)
+      };
+    } catch (err) {
+      return {
+        type: "throw",
+        arg: err
+      };
+    }
+  }
+  exports.wrap = wrap;
+  var ContinueSentinel = {};
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+  var IteratorPrototype = {};
+  define(IteratorPrototype, iteratorSymbol, function () {
+    return this;
+  });
+  var getProto = Object.getPrototypeOf,
+    NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype);
+  var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function (method) {
+      define(prototype, method, function (arg) {
+        return this._invoke(method, arg);
+      });
+    });
+  }
+  function AsyncIterator(generator, PromiseImpl) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if ("throw" !== record.type) {
+        var result = record.arg,
+          value = result.value;
+        return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) {
+          invoke("next", value, resolve, reject);
+        }, function (err) {
+          invoke("throw", err, resolve, reject);
+        }) : PromiseImpl.resolve(value).then(function (unwrapped) {
+          result.value = unwrapped, resolve(result);
+        }, function (error) {
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+      reject(record.arg);
+    }
+    var previousPromise;
+    defineProperty(this, "_invoke", {
+      value: function value(method, arg) {
+        function callInvokeWithMethodAndArg() {
+          return new PromiseImpl(function (resolve, reject) {
+            invoke(method, arg, resolve, reject);
+          });
+        }
+        return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+      }
+    });
+  }
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = "suspendedStart";
+    return function (method, arg) {
+      if ("executing" === state) throw new Error("Generator is already running");
+      if ("completed" === state) {
+        if ("throw" === method) throw arg;
+        return doneResult();
+      }
+      for (context.method = method, context.arg = arg;;) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+        if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) {
+          if ("suspendedStart" === state) throw state = "completed", context.arg;
+          context.dispatchException(context.arg);
+        } else "return" === context.method && context.abrupt("return", context.arg);
+        state = "executing";
+        var record = tryCatch(innerFn, self, context);
+        if ("normal" === record.type) {
+          if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue;
+          return {
+            value: record.arg,
+            done: context.done
+          };
+        }
+        "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg);
+      }
+    };
+  }
+  function maybeInvokeDelegate(delegate, context) {
+    var methodName = context.method,
+      method = delegate.iterator[methodName];
+    if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel;
+    var record = tryCatch(method, delegate.iterator, context.arg);
+    if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel;
+    var info = record.arg;
+    return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel);
+  }
+  function pushTryEntry(locs) {
+    var entry = {
+      tryLoc: locs[0]
+    };
+    1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry);
+  }
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal", delete record.arg, entry.completion = record;
+  }
+  function Context(tryLocsList) {
+    this.tryEntries = [{
+      tryLoc: "root"
+    }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0);
+  }
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) return iteratorMethod.call(iterable);
+      if ("function" == typeof iterable.next) return iterable;
+      if (!isNaN(iterable.length)) {
+        var i = -1,
+          next = function next() {
+            for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next;
+            return next.value = undefined, next.done = !0, next;
+          };
+        return next.next = next;
+      }
+    }
+    return {
+      next: doneResult
+    };
+  }
+  function doneResult() {
+    return {
+      value: undefined,
+      done: !0
+    };
+  }
+  return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", {
+    value: GeneratorFunctionPrototype,
+    configurable: !0
+  }), defineProperty(GeneratorFunctionPrototype, "constructor", {
+    value: GeneratorFunction,
+    configurable: !0
+  }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) {
+    var ctor = "function" == typeof genFun && genFun.constructor;
+    return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name));
+  }, exports.mark = function (genFun) {
+    return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun;
+  }, exports.awrap = function (arg) {
+    return {
+      __await: arg
+    };
+  }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () {
+    return this;
+  }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+    void 0 === PromiseImpl && (PromiseImpl = Promise);
+    var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl);
+    return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) {
+      return result.done ? result.value : iter.next();
+    });
+  }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () {
+    return this;
+  }), define(Gp, "toString", function () {
+    return "[object Generator]";
+  }), exports.keys = function (val) {
+    var object = Object(val),
+      keys = [];
+    for (var key in object) keys.push(key);
+    return keys.reverse(), function next() {
+      for (; keys.length;) {
+        var key = keys.pop();
+        if (key in object) return next.value = key, next.done = !1, next;
+      }
+      return next.done = !0, next;
+    };
+  }, exports.values = values, Context.prototype = {
+    constructor: Context,
+    reset: function reset(skipTempReset) {
+      if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined);
+    },
+    stop: function stop() {
+      this.done = !0;
+      var rootRecord = this.tryEntries[0].completion;
+      if ("throw" === rootRecord.type) throw rootRecord.arg;
+      return this.rval;
+    },
+    dispatchException: function dispatchException(exception) {
+      if (this.done) throw exception;
+      var context = this;
+      function handle(loc, caught) {
+        return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught;
+      }
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i],
+          record = entry.completion;
+        if ("root" === entry.tryLoc) return handle("end");
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc"),
+            hasFinally = hasOwn.call(entry, "finallyLoc");
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0);
+            if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0);
+          } else {
+            if (!hasFinally) throw new Error("try statement without catch or finally");
+            if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
+          }
+        }
+      }
+    },
+    abrupt: function abrupt(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+      finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null);
+      var record = finallyEntry ? finallyEntry.completion : {};
+      return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record);
+    },
+    complete: function complete(record, afterLoc) {
+      if ("throw" === record.type) throw record.arg;
+      return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel;
+    },
+    finish: function finish(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel;
+      }
+    },
+    "catch": function _catch(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if ("throw" === record.type) {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+      throw new Error("illegal catch attempt");
+    },
+    delegateYield: function delegateYield(iterable, resultName, nextLoc) {
+      return this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      }, "next" === this.method && (this.arg = undefined), ContinueSentinel;
+    }
+  }, exports;
+}
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -27383,6 +27723,7 @@ var ButtonRed_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonRe
 var ButtonWhite_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonWhite.vue */ "./resources/js/components/common/ButtonWhite.vue"));
 var Message_vue_1 = __importDefault(__webpack_require__(/*! ../Message.vue */ "./resources/js/components/Message.vue"));
 var Loader_vue_1 = __importDefault(__webpack_require__(/*! ../Loader.vue */ "./resources/js/components/Loader.vue"));
+var util_1 = __webpack_require__(/*! ../../util */ "./resources/js/util.ts");
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'UserChangeEmail',
   components: {
@@ -27392,15 +27733,44 @@ exports["default"] = (0, vue_1.defineComponent)({
     Message: Message_vue_1["default"]
   },
   setup: function setup() {
+    var _this = this;
     // data
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
     var authStore = (0, auth_1.auth)();
     var _ref = (0, pinia_1.storeToRefs)(authStore),
       userInfo = _ref.userInfo;
-    var changeForm = {
-      email: '',
-      emailConfirm: ''
+    var changeForm = (0, vue_1.ref)({
+      current_email: '',
+      new_email: '',
+      new_email_confirmation: ''
+    });
+    var clickChangePassword = function clickChangePassword() {
+      return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              // await changePassword(changeForm.value)
+              if (authStore.changePasswordStatus === util_1.OK) {
+                router.push({
+                  name: 'mypage'
+                });
+              } else {
+                resetInputs();
+              }
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }));
+    };
+    var resetInputs = function resetInputs() {
+      changeForm.value = {
+        current_email: '',
+        new_email: '',
+        new_email_confirmation: ''
+      };
     };
     (0, vue_1.onMounted)(function () {});
     return {
@@ -27796,7 +28166,8 @@ exports["default"] = (0, vue_1.defineComponent)({
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
     var authStore = (0, auth_1.auth)();
-    var changePassword = authStore.changePassword;
+    var changePassword = authStore.changePassword,
+      resetChangePasswordMessage = authStore.resetChangePasswordMessage;
     var _ref = (0, pinia_1.storeToRefs)(authStore),
       userInfo = _ref.userInfo,
       changePasswordStatus = _ref.changePasswordStatus,
@@ -27823,7 +28194,7 @@ exports["default"] = (0, vue_1.defineComponent)({
               _context.next = 2;
               return changePassword(changeForm.value);
             case 2:
-              if (authStore.changePasswordStatus == util_1.OK) {
+              if (authStore.changePasswordStatus === util_1.OK) {
                 router.push({
                   name: 'mypage'
                 });
@@ -27846,7 +28217,13 @@ exports["default"] = (0, vue_1.defineComponent)({
         new_password_confirmation: ''
       };
     };
-    (0, vue_1.onMounted)(function () {});
+    var clearError = function clearError() {
+      resetChangePasswordMessage(null);
+      console.log('clearError');
+    };
+    (0, vue_1.onMounted)(function () {
+      clearError();
+    });
     return {
       router: router,
       route: route,
@@ -27901,17 +28278,24 @@ exports["default"] = (0, vue_1.defineComponent)({
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
     var authStore = (0, auth_1.auth)();
+    var resetChangePasswordMessage = authStore.resetChangePasswordMessage;
     var _ref = (0, pinia_1.storeToRefs)(authStore),
-      userInfo = _ref.userInfo;
+      userInfo = _ref.userInfo,
+      changePasswordSuccess = _ref.changePasswordSuccess;
+    var clearError = function clearError() {
+      resetChangePasswordMessage(null);
+      console.log('clearError');
+    };
     (0, vue_1.onMounted)(function () {
-      console.log('UserMypage.vue onMounted userInfo', userInfo);
+      clearError();
     });
     return {
       router: router,
       route: route,
       onMounted: vue_1.onMounted,
       watch: vue_1.watch,
-      userInfo: userInfo
+      userInfo: userInfo,
+      changePasswordSuccess: changePasswordSuccess
     };
   }
 });
@@ -30310,12 +30694,9 @@ var _withScopeId = function _withScopeId(n) {
 var _hoisted_1 = {
   "class": "userchangeemail"
 };
-var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("h2", {
-    "class": "userchangeemail_title"
-  }, "様マイページ", -1 /* HOISTED */);
-});
-
+var _hoisted_2 = {
+  "class": "userchangeemail_title"
+};
 var _hoisted_3 = {
   "class": "userchangeemail_wrap"
 };
@@ -30332,7 +30713,7 @@ var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
     "class": "userchangeemail_wrap_form_line_label",
     "for": "userchangeemail_form_email"
-  }, "メールアドレス", -1 /* HOISTED */);
+  }, "現在のメールアドレス", -1 /* HOISTED */);
 });
 
 var _hoisted_7 = {
@@ -30341,49 +30722,77 @@ var _hoisted_7 = {
 var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
     "class": "userchangeemail_wrap_form_line_label",
-    "for": "userchangeemail_form_email"
-  }, "メールアドレス(確認)", -1 /* HOISTED */);
+    "for": "userchangeemail_form_newemail"
+  }, "新しいメールアドレス", -1 /* HOISTED */);
 });
 
 var _hoisted_9 = {
+  "class": "userchangeemail_wrap_form_line"
+};
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
+    "class": "userchangeemail_wrap_form_line_label",
+    "for": "userchangeemail_form_newemail_confirmation"
+  }, "新しいメールアドレス(確認)", -1 /* HOISTED */);
+});
+
+var _hoisted_11 = {
   "class": "userchangeemail_wrap_form_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonRed = (0, vue_1.resolveComponent)("ButtonRed");
   var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("form", {
+  var _component_router_link = (0, vue_1.resolveComponent)("router-link");
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createElementVNode)("h2", _hoisted_2, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + "様マイページ", 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("form", {
     method: "post",
     "class": "userchangeemail_wrap_form",
-    onSubmit: _cache[2] || (_cache[2] = (0, vue_1.withModifiers)(
+    onSubmit: _cache[3] || (_cache[3] = (0, vue_1.withModifiers)(
     //@ts-ignore
     function () {
       return _ctx.clickRegister && _ctx.clickRegister.apply(_ctx, arguments);
     }, ["prevent"]))
-  }, [(0, vue_1.createCommentVNode)(" laravelのトークンを使用 "), (0, vue_1.createCommentVNode)(" <input type=\"hidden\" name=\"_token\" :value=\"token\"> "), (0, vue_1.createCommentVNode)(" <div v-if=\"registerErrors\" class=\"errors\">\n                    <ul v-if=\"registerErrors.name\">\n                        <li v-for=\"msg in registerErrors.name\" :key=\"msg\">\n                            {{ msg }} "), (0, vue_1.createCommentVNode)(" 氏名を入力してください。 "), (0, vue_1.createCommentVNode)(" </li>\n                    </ul>\n                    <ul v-if=\"registerErrors.email\">\n                        <li v-for=\"msg in registerErrors.email\" :key=\"msg\">\n                            {{ msg }} "), (0, vue_1.createCommentVNode)(" メールアドレスを入力してください。 "), (0, vue_1.createCommentVNode)(" </li>\n                    </ul>\n                    <ul v-if=\"registerErrors.password\">\n                        <li v-for=\"msg in registerErrors.password\" :key=\"msg\">\n                            {{ msg }} "), (0, vue_1.createCommentVNode)(" パスワードを入力してください。 "), (0, vue_1.createCommentVNode)(" </li>\n                    </ul>\n                </div> "), (0, vue_1.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+  }, [(0, vue_1.createCommentVNode)(" laravelのトークンを使用 "), (0, vue_1.createCommentVNode)(" <input type=\"hidden\" name=\"_token\" :value=\"token\"> "), (0, vue_1.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "text",
     "class": "userchangeemail_wrap_form_line_input",
     id: "userchangeemail_form_email",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return _ctx.changeForm.email = $event;
+      return _ctx.changeForm.current_email = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.email]])]), (0, vue_1.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.current_email]])]), (0, vue_1.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "text",
     "class": "userchangeemail_wrap_form_line_input",
-    id: "userchangeemail_form_email",
+    id: "userchangeemail_form_newemail",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return _ctx.changeForm.emailConfirm = $event;
+      return _ctx.changeForm.new_email = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.emailConfirm]])]), (0, vue_1.createElementVNode)("div", _hoisted_9, [(0, vue_1.createVNode)(_component_ButtonRed, null, {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.new_email]])]), (0, vue_1.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+    type: "text",
+    "class": "userchangeemail_wrap_form_line_input",
+    id: "userchangeemail_form_newemail_confirmation",
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return _ctx.changeForm.new_email_confirmation = $event;
+    })
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.new_email_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_11, [(0, vue_1.createVNode)(_component_ButtonRed, {
+    onClick: _ctx.clickChangeEmail
+  }, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createTextVNode)("変更する")];
     }),
     _: 1 /* STABLE */
-  }), (0, vue_1.createVNode)(_component_ButtonWhite, {
-    "class": "margin-left"
+  }, 8 /* PROPS */, ["onClick"]), (0, vue_1.createVNode)(_component_router_link, {
+    to: "/mypage"
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [(0, vue_1.createTextVNode)("マイページトップへ戻る")];
+      return [(0, vue_1.createVNode)(_component_ButtonWhite, {
+        "class": "margin-left"
+      }, {
+        "default": (0, vue_1.withCtx)(function () {
+          return [(0, vue_1.createTextVNode)("マイページトップへ戻る")];
+        }),
+        _: 1 /* STABLE */
+      })];
     }),
+
     _: 1 /* STABLE */
   })])], 32 /* HYDRATE_EVENTS */)])]);
 }
@@ -30412,12 +30821,9 @@ var _withScopeId = function _withScopeId(n) {
 var _hoisted_1 = {
   "class": "userchangepassword"
 };
-var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("h2", {
-    "class": "userchangepassword_title"
-  }, "様マイページ", -1 /* HOISTED */);
-});
-
+var _hoisted_2 = {
+  "class": "userchangepassword_title"
+};
 var _hoisted_3 = {
   "class": "userchangepassword_wrap"
 };
@@ -30475,7 +30881,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonRed = (0, vue_1.resolveComponent)("ButtonRed");
   var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
   var _component_router_link = (0, vue_1.resolveComponent)("router-link");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("form", {
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createElementVNode)("h2", _hoisted_2, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + "様マイページ", 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("form", {
     method: "post",
     "class": "userchangepassword_wrap_form",
     onSubmit: _cache[3] || (_cache[3] = (0, vue_1.withModifiers)(
@@ -30483,7 +30889,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     function () {
       return _ctx.clickRegister && _ctx.clickRegister.apply(_ctx, arguments);
     }, ["prevent"]))
-  }, [(0, vue_1.createCommentVNode)(" laravelのトークンを使用 "), (0, vue_1.createCommentVNode)(" <input type=\"hidden\" name=\"_token\" :value=\"token\"> "), (0, vue_1.createCommentVNode)(" <div v-if=\"error_current\" class=\"errors\">{{error_current}}</div> "), (0, vue_1.createCommentVNode)(" <div v-if=\"error_newpass\" class=\"errors\">\n                <ul v-if=\"error_newpass.new_password\">\n                    <li v-for=\"msg in error_newpass.new_password\" :key=\"msg\">\n                        {{ msg }}\n                    </li>\n                </ul>\n            </div> "), _ctx.changePasswordErrorsCurrent ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_5, (0, vue_1.toDisplayString)(_ctx.changePasswordErrorsCurrent), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.changePasswordErrorsNewpass ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_6, [_ctx.changePasswordErrorsNewpass.new_password ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_7, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.changePasswordErrorsNewpass.new_password, function (msg) {
+  }, [(0, vue_1.createCommentVNode)(" laravelのトークンを使用 "), (0, vue_1.createCommentVNode)(" <input type=\"hidden\" name=\"_token\" :value=\"token\"> "), (0, vue_1.createCommentVNode)(" <div v-if=\"error_current\" class=\"errors\">{{error_current}}</div> "), (0, vue_1.createCommentVNode)(" <div v-if=\"error_newpass\" class=\"errors\">\n                <ul v-if=\"error_newpass.new_password\">\n                    <li v-for=\"msg in error_newpass.new_password\" :key=\"msg\">\n                        {{ msg }}\n                    </li>\n                </ul>\n            </div> "), (0, vue_1.createCommentVNode)(" エラーメッセージ "), _ctx.changePasswordErrorsCurrent ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_5, (0, vue_1.toDisplayString)(_ctx.changePasswordErrorsCurrent), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.changePasswordErrorsNewpass ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_6, [_ctx.changePasswordErrorsNewpass.new_password ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_7, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.changePasswordErrorsNewpass.new_password, function (msg) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: msg
     }, (0, vue_1.toDisplayString)(msg), 1 /* TEXT */);
@@ -30573,87 +30979,91 @@ var _hoisted_5 = {
   "class": "usermypage_wrap_content"
 };
 var _hoisted_6 = {
-  "class": "usermypage_wrap_content_list"
+  key: 0,
+  "class": "errors"
 };
 var _hoisted_7 = {
+  "class": "usermypage_wrap_content_list"
+};
+var _hoisted_8 = {
   "class": "usermypage_wrap_content_list_items"
 };
-var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "usermypage_wrap_content_list_items_title"
   }, "氏名", -1 /* HOISTED */);
 });
 
-var _hoisted_9 = {
+var _hoisted_10 = {
   "class": "usermypage_wrap_content_list_items_info"
 };
-var _hoisted_10 = {
+var _hoisted_11 = {
   "class": "usermypage_wrap_content_list_items"
 };
-var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "usermypage_wrap_content_list_items_title"
   }, "メールアドレス", -1 /* HOISTED */);
 });
 
-var _hoisted_12 = {
+var _hoisted_13 = {
   "class": "usermypage_wrap_content_list_items_info"
 };
-var _hoisted_13 = {
+var _hoisted_14 = {
   "class": "usermypage_wrap_content_list_items_button"
 };
-var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("button", {
     "class": "usermypage_wrap_content_list_items_button_word"
   }, "変更", -1 /* HOISTED */);
 });
 
-var _hoisted_15 = {
+var _hoisted_16 = {
   "class": "usermypage_wrap_content_list_items"
 };
-var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "usermypage_wrap_content_list_items_title"
   }, "パスワード", -1 /* HOISTED */);
 });
 
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "usermypage_wrap_content_list_items_info"
   }, "********", -1 /* HOISTED */);
 });
 
-var _hoisted_18 = {
+var _hoisted_19 = {
   "class": "usermypage_wrap_content_list_items_button"
 };
-var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("button", {
     "class": "usermypage_wrap_content_list_items_button_word"
   }, "変更", -1 /* HOISTED */);
 });
 
-var _hoisted_20 = {
+var _hoisted_21 = {
   "class": "usermypage_wrap_content_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0, vue_1.resolveComponent)("router-link");
   var _component_ButtonBlack = (0, vue_1.resolveComponent)("ButtonBlack");
   var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createElementVNode)("h2", _hoisted_2, (0, vue_1.toDisplayString)(_ctx.userInfo.name) + "様マイページ", 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("div", _hoisted_5, [(0, vue_1.createElementVNode)("ul", _hoisted_6, [(0, vue_1.createElementVNode)("li", _hoisted_7, [_hoisted_8, (0, vue_1.createElementVNode)("p", _hoisted_9, (0, vue_1.toDisplayString)(_ctx.userInfo.name), 1 /* TEXT */), (0, vue_1.createCommentVNode)(" <div class=\"usermypage_wrap_content_list_items_button\">\n                            <button class=\"usermypage_wrap_content_list_items_button_word\">変更</button>\n                        </div> ")]), (0, vue_1.createElementVNode)("li", _hoisted_10, [_hoisted_11, (0, vue_1.createElementVNode)("p", _hoisted_12, (0, vue_1.toDisplayString)(_ctx.userInfo.email), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_13, [(0, vue_1.createVNode)(_component_router_link, {
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createCommentVNode)(" <h2 class=\"usermypage_title\">{{ userInfo.name }}様マイページ</h2> "), (0, vue_1.createElementVNode)("h2", _hoisted_2, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + "様マイページ", 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("div", _hoisted_5, [_ctx.changePasswordSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_6, (0, vue_1.toDisplayString)(_ctx.changePasswordSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("ul", _hoisted_7, [(0, vue_1.createElementVNode)("li", _hoisted_8, [_hoisted_9, (0, vue_1.createCommentVNode)(" <p class=\"usermypage_wrap_content_list_items_info\">{{ userInfo.name }}</p> "), (0, vue_1.createElementVNode)("p", _hoisted_10, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name), 1 /* TEXT */), (0, vue_1.createCommentVNode)(" <div class=\"usermypage_wrap_content_list_items_button\">\n                            <button class=\"usermypage_wrap_content_list_items_button_word\">変更</button>\n                        </div> ")]), (0, vue_1.createElementVNode)("li", _hoisted_11, [_hoisted_12, (0, vue_1.createCommentVNode)(" <p class=\"usermypage_wrap_content_list_items_info\">{{ userInfo.email }}</p> "), (0, vue_1.createElementVNode)("p", _hoisted_13, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).email), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_14, [(0, vue_1.createVNode)(_component_router_link, {
     to: "/changeEmail"
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [_hoisted_14];
+      return [_hoisted_15];
     }),
     _: 1 /* STABLE */
-  })])]), (0, vue_1.createElementVNode)("li", _hoisted_15, [_hoisted_16, _hoisted_17, (0, vue_1.createElementVNode)("div", _hoisted_18, [(0, vue_1.createVNode)(_component_router_link, {
+  })])]), (0, vue_1.createElementVNode)("li", _hoisted_16, [_hoisted_17, _hoisted_18, (0, vue_1.createElementVNode)("div", _hoisted_19, [(0, vue_1.createVNode)(_component_router_link, {
     to: "/changePassword"
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [_hoisted_19];
+      return [_hoisted_20];
     }),
     _: 1 /* STABLE */
-  })])])]), (0, vue_1.createElementVNode)("div", _hoisted_20, [(0, vue_1.createVNode)(_component_ButtonBlack, null, {
+  })])])]), (0, vue_1.createElementVNode)("div", _hoisted_21, [(0, vue_1.createVNode)(_component_ButtonBlack, null, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createTextVNode)("注文履歴")];
     }),
@@ -32444,6 +32854,7 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
       changePasswordStatus: null,
       changePasswordErrorMessagesCurrent: '',
       changePasswordErrorMessagesNewpass: '',
+      changePasswordSuccess: '',
       //-------------------
       //管理者関連
       //-------------------
@@ -32623,13 +33034,16 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               console.log('auth.ts changePassword response', response);
               if (response.status == util_1.OK) {
                 this.changePasswordStatus = response.status;
-                console.log('auth.ts changePassword changePasswordStatus', this.changePasswordStatus);
+                this.changePasswordSuccess = response.data.changeSuccess;
+                // console.log('auth.ts changePassword changePasswordStatus', this.changePasswordStatus)
+                // console.log('auth.ts changePassword changePasswordSuccess', this.changePasswordSuccess)
               } else {
                 this.changePasswordErrorMessagesCurrent = response.data.errorCurrent;
                 this.changePasswordErrorMessagesNewpass = response.data.errors;
-                console.log('auth.ts changePassword changePasswordErrorMessagesCurrent', this.changePasswordErrorMessagesCurrent);
-                console.log('auth.ts changePassword changePasswordErrorMessagesNewpass', this.changePasswordErrorMessagesNewpass);
+                // console.log('auth.ts changePassword changePasswordErrorMessagesCurrent', this.changePasswordErrorMessagesCurrent)
+                // console.log('auth.ts changePassword changePasswordErrorMessagesNewpass', this.changePasswordErrorMessagesNewpass)
               }
+
             case 5:
             case "end":
               return _context5.stop();
@@ -32792,6 +33206,11 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
     setAuth: function setAuth(status) {
       this.user = status;
       this.adminUser = status;
+    },
+    resetChangePasswordMessage: function resetChangePasswordMessage(reset) {
+      this.changePasswordSuccess = reset;
+      this.changePasswordErrorMessagesCurrent = reset;
+      this.changePasswordErrorMessagesNewpass = reset;
     }
   }
 });
@@ -33982,7 +34401,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".usermypage[data-v-14969ad2] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.usermypage_title[data-v-14969ad2] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.usermypage_wrap_title[data-v-14969ad2] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.usermypage_wrap_content[data-v-14969ad2] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.usermypage_wrap_content_list[data-v-14969ad2] {\n  list-style-type: none;\n}\n.usermypage_wrap_content_list_items[data-v-14969ad2] {\n  display: flex;\n  padding: 20px 0;\n}\n.usermypage_wrap_content_list_items_title[data-v-14969ad2] {\n  width: 33.33%;\n}\n.usermypage_wrap_content_list_items_info[data-v-14969ad2] {\n  width: 46.33%;\n}\n.usermypage_wrap_content_list_items_button[data-v-14969ad2] {\n  width: 20.33%;\n  display: flex;\n  justify-content: center;\n}\n.usermypage_wrap_content_list_items_button_word[data-v-14969ad2] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.usermypage_wrap_content_button[data-v-14969ad2] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-14969ad2] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-14969ad2] {\n  margin: 0 0 20px 0;\n}\n.errors ul[data-v-14969ad2] {\n  list-style: none;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".usermypage[data-v-14969ad2] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.usermypage_title[data-v-14969ad2] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.usermypage_wrap_title[data-v-14969ad2] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.usermypage_wrap_content[data-v-14969ad2] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.usermypage_wrap_content_list[data-v-14969ad2] {\n  list-style-type: none;\n}\n.usermypage_wrap_content_list_items[data-v-14969ad2] {\n  display: flex;\n  padding: 20px 0;\n}\n.usermypage_wrap_content_list_items_title[data-v-14969ad2] {\n  width: 33.33%;\n}\n.usermypage_wrap_content_list_items_info[data-v-14969ad2] {\n  width: 46.33%;\n}\n.usermypage_wrap_content_list_items_button[data-v-14969ad2] {\n  width: 20.33%;\n  display: flex;\n  justify-content: center;\n}\n.usermypage_wrap_content_list_items_button_word[data-v-14969ad2] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.usermypage_wrap_content_button[data-v-14969ad2] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-14969ad2] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-14969ad2] {\n  margin: 0 0 20px 0;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-14969ad2] {\n  list-style: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

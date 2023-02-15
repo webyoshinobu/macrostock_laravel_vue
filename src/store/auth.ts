@@ -37,6 +37,7 @@ export const auth = defineStore('auth', {
         changePasswordStatus: null as number|null,
         changePasswordErrorMessagesCurrent: '',
         changePasswordErrorMessagesNewpass: '',
+        changePasswordSuccess: '',
 
         //-------------------
         //管理者関連
@@ -151,12 +152,14 @@ export const auth = defineStore('auth', {
             console.log('auth.ts changePassword response', response)
             if(response.status == OK) {
                 this.changePasswordStatus = response.status
-                console.log('auth.ts changePassword changePasswordStatus', this.changePasswordStatus)
+                this.changePasswordSuccess = response.data.changeSuccess
+                // console.log('auth.ts changePassword changePasswordStatus', this.changePasswordStatus)
+                // console.log('auth.ts changePassword changePasswordSuccess', this.changePasswordSuccess)
             }else{
                 this.changePasswordErrorMessagesCurrent = response.data.errorCurrent
                 this.changePasswordErrorMessagesNewpass = response.data.errors
-                console.log('auth.ts changePassword changePasswordErrorMessagesCurrent', this.changePasswordErrorMessagesCurrent);
-                console.log('auth.ts changePassword changePasswordErrorMessagesNewpass', this.changePasswordErrorMessagesNewpass);
+                // console.log('auth.ts changePassword changePasswordErrorMessagesCurrent', this.changePasswordErrorMessagesCurrent)
+                // console.log('auth.ts changePassword changePasswordErrorMessagesNewpass', this.changePasswordErrorMessagesNewpass)
             }
         },
 
@@ -267,7 +270,11 @@ export const auth = defineStore('auth', {
         setAuth (status:any) {
             this.user = status
             this.adminUser = status
+        },
+        resetChangePasswordMessage(reset:any) {
+            this.changePasswordSuccess = reset
+            this.changePasswordErrorMessagesCurrent = reset
+            this.changePasswordErrorMessagesNewpass = reset
         }
-
     },
   })
