@@ -27781,7 +27781,6 @@ var ButtonRed_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonRe
 var ButtonWhite_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonWhite.vue */ "./resources/js/components/common/ButtonWhite.vue"));
 var Message_vue_1 = __importDefault(__webpack_require__(/*! ../Message.vue */ "./resources/js/components/Message.vue"));
 var Loader_vue_1 = __importDefault(__webpack_require__(/*! ../Loader.vue */ "./resources/js/components/Loader.vue"));
-var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 var util_1 = __webpack_require__(/*! ../../util */ "./resources/js/util.ts");
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'UserChangePassword',
@@ -27797,35 +27796,43 @@ exports["default"] = (0, vue_1.defineComponent)({
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
     var authStore = (0, auth_1.auth)();
+    var changePassword = authStore.changePassword;
     var _ref = (0, pinia_1.storeToRefs)(authStore),
-      userInfo = _ref.userInfo;
+      userInfo = _ref.userInfo,
+      changePasswordStatus = _ref.changePasswordStatus,
+      changePasswordErrorMessagesCurrent = _ref.changePasswordErrorMessagesCurrent,
+      changePasswordErrorMessagesNewpass = _ref.changePasswordErrorMessagesNewpass;
     var changeForm = (0, vue_1.ref)({
       current_password: '',
       new_password: '',
       new_password_confirmation: ''
     });
-    var error_current = (0, vue_1.ref)('');
-    var error_newpass = (0, vue_1.ref)('');
-    var changePassword = function changePassword() {
+    // const error_current = ref('')
+    // const error_newpass = ref('')
+    var changePasswordErrorsCurrent = (0, vue_1.computed)(function () {
+      return authStore.changePasswordErrorMessagesCurrent;
+    });
+    var changePasswordErrorsNewpass = (0, vue_1.computed)(function () {
+      return authStore.changePasswordErrorMessagesNewpass;
+    });
+    var clickChangePassword = function clickChangePassword() {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios_1["default"].post('api/changePassword', changeForm.value);
+              return changePassword(changeForm.value);
             case 2:
-              response = _context.sent;
-              if (response.status == util_1.OK) {
+              if (authStore.changePasswordStatus == util_1.OK) {
                 router.push({
                   name: 'mypage'
                 });
               } else {
-                error_current.value = response.data.errorCurrent;
-                error_newpass.value = response.data.errors;
+                // error_current.value = authStore.changePasswordErrorMessagesCurrent
+                // error_newpass.value = authStore.changePasswordErrorMessagesNewpass
                 resetInputs();
               }
-            case 4:
+            case 3:
             case "end":
               return _context.stop();
           }
@@ -27847,9 +27854,9 @@ exports["default"] = (0, vue_1.defineComponent)({
       watch: vue_1.watch,
       userInfo: userInfo,
       changeForm: changeForm,
-      changePassword: changePassword,
-      error_current: error_current,
-      error_newpass: error_newpass
+      clickChangePassword: clickChangePassword,
+      changePasswordErrorsCurrent: changePasswordErrorsCurrent,
+      changePasswordErrorsNewpass: changePasswordErrorsNewpass
     };
   }
 });
@@ -27896,7 +27903,9 @@ exports["default"] = (0, vue_1.defineComponent)({
     var authStore = (0, auth_1.auth)();
     var _ref = (0, pinia_1.storeToRefs)(authStore),
       userInfo = _ref.userInfo;
-    (0, vue_1.onMounted)(function () {});
+    (0, vue_1.onMounted)(function () {
+      console.log('UserMypage.vue onMounted userInfo', userInfo);
+    });
     return {
       router: router,
       route: route,
@@ -30435,7 +30444,7 @@ var _hoisted_8 = {
 var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
     "class": "userchangepassword_wrap_form_line_label",
-    "for": "userchangepassword_form_password"
+    "for": "userchangepassword_form_current_password"
   }, "現在のパスワード", -1 /* HOISTED */);
 });
 
@@ -30445,7 +30454,7 @@ var _hoisted_10 = {
 var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
     "class": "userchangepassword_wrap_form_line_label",
-    "for": "userchangepassword_form_password"
+    "for": "userchangepassword_form_newpassword"
   }, "新しいパスワード", -1 /* HOISTED */);
 });
 
@@ -30455,7 +30464,7 @@ var _hoisted_12 = {
 var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
     "class": "userchangepassword_wrap_form_line_label",
-    "for": "userchangepassword_form_password"
+    "for": "userchangepassword_form_newpassword_confirmation"
   }, "新しいパスワード(確認)", -1 /* HOISTED */);
 });
 
@@ -30474,33 +30483,33 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     function () {
       return _ctx.clickRegister && _ctx.clickRegister.apply(_ctx, arguments);
     }, ["prevent"]))
-  }, [(0, vue_1.createCommentVNode)(" laravelのトークンを使用 "), (0, vue_1.createCommentVNode)(" <input type=\"hidden\" name=\"_token\" :value=\"token\"> "), _ctx.error_current ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_5, (0, vue_1.toDisplayString)(_ctx.error_current), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.error_newpass ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_6, [_ctx.error_newpass.new_password ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_7, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.error_newpass.new_password, function (msg) {
+  }, [(0, vue_1.createCommentVNode)(" laravelのトークンを使用 "), (0, vue_1.createCommentVNode)(" <input type=\"hidden\" name=\"_token\" :value=\"token\"> "), (0, vue_1.createCommentVNode)(" <div v-if=\"error_current\" class=\"errors\">{{error_current}}</div> "), (0, vue_1.createCommentVNode)(" <div v-if=\"error_newpass\" class=\"errors\">\n                <ul v-if=\"error_newpass.new_password\">\n                    <li v-for=\"msg in error_newpass.new_password\" :key=\"msg\">\n                        {{ msg }}\n                    </li>\n                </ul>\n            </div> "), _ctx.changePasswordErrorsCurrent ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_5, (0, vue_1.toDisplayString)(_ctx.changePasswordErrorsCurrent), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.changePasswordErrorsNewpass ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_6, [_ctx.changePasswordErrorsNewpass.new_password ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_7, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.changePasswordErrorsNewpass.new_password, function (msg) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: msg
     }, (0, vue_1.toDisplayString)(msg), 1 /* TEXT */);
   }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true)])) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "password",
     "class": "userchangepassword_wrap_form_line_input",
-    id: "userchangepassword_form_password",
+    id: "userchangepassword_form_current_password",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return _ctx.changeForm.current_password = $event;
     })
   }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.current_password]])]), (0, vue_1.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "password",
     "class": "userchangepassword_wrap_form_line_input",
-    id: "userchangepassword_form_password",
+    id: "userchangepassword_form_newpassword",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return _ctx.changeForm.new_password = $event;
     })
   }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.new_password]])]), (0, vue_1.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "password",
     "class": "userchangepassword_wrap_form_line_input",
-    id: "userchangepassword_form_password",
+    id: "userchangepassword_form_newpassword_confirmation",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return _ctx.changeForm.new_password_confirmation = $event;
     })
   }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.new_password_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_14, [(0, vue_1.createVNode)(_component_ButtonRed, {
-    onClick: _ctx.changePassword
+    onClick: _ctx.clickChangePassword
   }, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createTextVNode)("変更する")];
@@ -32432,6 +32441,9 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
       apiStatus: false,
       loginErrorMessages: null,
       registerErrorMessages: null,
+      changePasswordStatus: null,
+      changePasswordErrorMessagesCurrent: '',
+      changePasswordErrorMessagesNewpass: '',
       //-------------------
       //管理者関連
       //-------------------
@@ -32598,27 +32610,54 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
         }, _callee4, this);
       }));
     },
-    //-------------------
-    //管理者関連
-    //-------------------
-    adminRegister: function adminRegister(data) {
+    changePassword: function changePassword(data) {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
         var response;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
+              _context5.next = 2;
+              return axios_1["default"].post('api/changePassword', data);
+            case 2:
+              response = _context5.sent;
+              console.log('auth.ts changePassword response', response);
+              if (response.status == util_1.OK) {
+                this.changePasswordStatus = response.status;
+                console.log('auth.ts changePassword changePasswordStatus', this.changePasswordStatus);
+              } else {
+                this.changePasswordErrorMessagesCurrent = response.data.errorCurrent;
+                this.changePasswordErrorMessagesNewpass = response.data.errors;
+                console.log('auth.ts changePassword changePasswordErrorMessagesCurrent', this.changePasswordErrorMessagesCurrent);
+                console.log('auth.ts changePassword changePasswordErrorMessagesNewpass', this.changePasswordErrorMessagesNewpass);
+              }
+            case 5:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, this);
+      }));
+    },
+    //-------------------
+    //管理者関連
+    //-------------------
+    adminRegister: function adminRegister(data) {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
               this.adminUser = null;
-              _context5.next = 3;
+              _context6.next = 3;
               return axios_1["default"].post('/api/admin/register', data);
             case 3:
-              response = _context5.sent;
+              response = _context6.sent;
               if (!(response.status === util_1.CREATED)) {
-                _context5.next = 8;
+                _context6.next = 8;
                 break;
               }
               this.apiStatus = true;
               this.adminUser = response.data;
-              return _context5.abrupt("return", false);
+              return _context6.abrupt("return", false);
             case 8:
               this.apiStatus = false;
               if (response.status === util_1.UNPROCESSABLE_ENTITY) {
@@ -32628,34 +32667,34 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               }
             case 10:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
-        }, _callee5, this);
+        }, _callee6, this);
       }));
     },
     adminLogin: function adminLogin(data) {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
         var response;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
             case 0:
-              _context6.next = 2;
+              _context7.next = 2;
               return axios_1["default"].post('/api/admin/login', data)["catch"](function (err) {
                 return err.response || err;
               });
             case 2:
-              response = _context6.sent;
+              response = _context7.sent;
               console.log('adminLogin data', data);
               console.log('auth.ts login response.status1', response.status);
               if (!(response.status === util_1.OK)) {
-                _context6.next = 11;
+                _context7.next = 11;
                 break;
               }
               this.apiStatus = true;
               this.adminUser = response.data;
               this.adminFlag = response.data.admin_flag;
               console.log('adminLogin this.adminFlag', this.adminFlag);
-              return _context6.abrupt("return", false);
+              return _context7.abrupt("return", false);
             case 11:
               this.apiStatus = false;
               (0, error_1.error)().setCode(response.status);
@@ -32669,76 +32708,76 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               }
             case 17:
             case "end":
-              return _context6.stop();
+              return _context7.stop();
           }
-        }, _callee6, this);
+        }, _callee7, this);
       }));
     },
     adminLogout: function adminLogout() {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
         var response;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
             case 0:
               // const response = await axios.post('/api/logout');
               // this.user = null;
               this.apiStatus = false;
-              _context7.next = 3;
+              _context8.next = 3;
               return axios_1["default"].post('/api/admin/logout');
             case 3:
-              response = _context7.sent;
+              response = _context8.sent;
               if (!(response.status === util_1.OK)) {
-                _context7.next = 9;
+                _context8.next = 9;
                 break;
               }
               // this.apiStatus = true
               this.apiStatus = false;
               this.adminUser = null;
               this.adminFlag = null;
-              return _context7.abrupt("return", false);
+              return _context8.abrupt("return", false);
             case 9:
               this.apiStatus = false;
               this.adminFlag = null;
               (0, error_1.error)().setCode(response.status);
             case 12:
             case "end":
-              return _context7.stop();
+              return _context8.stop();
           }
-        }, _callee7, this);
+        }, _callee8, this);
       }));
     },
     currentAdmin: function currentAdmin() {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
         var response, admin;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
             case 0:
               // const response = await axios.get('/api/user');
               // const user = response.data || null;
               // this.user = user;
               this.apiStatus = false;
-              _context8.next = 3;
+              _context9.next = 3;
               return axios_1["default"].get('/api/admin');
             case 3:
-              response = _context8.sent;
+              response = _context9.sent;
               console.log('auth.ts currentUser response.data', response.data);
               admin = response.data || null;
               console.log('auth.ts currentUser admin', admin);
               if (!(response.status === util_1.OK)) {
-                _context8.next = 11;
+                _context9.next = 11;
                 break;
               }
               this.apiStatus = true;
               this.adminUser = admin;
-              return _context8.abrupt("return", false);
+              return _context9.abrupt("return", false);
             case 11:
               this.apiStatus = false;
               (0, error_1.error)().setCode(response.status);
             case 13:
             case "end":
-              return _context8.stop();
+              return _context9.stop();
           }
-        }, _callee8, this);
+        }, _callee9, this);
       }));
     },
     //-------------------

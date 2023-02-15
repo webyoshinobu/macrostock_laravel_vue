@@ -34,6 +34,9 @@ export const auth = defineStore('auth', {
         apiStatus: false,
         loginErrorMessages: null,
         registerErrorMessages: null,
+        changePasswordStatus: null as number|null,
+        changePasswordErrorMessagesCurrent: '',
+        changePasswordErrorMessagesNewpass: '',
 
         //-------------------
         //管理者関連
@@ -141,6 +144,20 @@ export const auth = defineStore('auth', {
 
             this.apiStatus = false;
             error().setCode(response.status);
+        },
+
+        async changePassword (data:any) {
+            const response = await axios.post('api/changePassword', data)
+            console.log('auth.ts changePassword response', response)
+            if(response.status == OK) {
+                this.changePasswordStatus = response.status
+                console.log('auth.ts changePassword changePasswordStatus', this.changePasswordStatus)
+            }else{
+                this.changePasswordErrorMessagesCurrent = response.data.errorCurrent
+                this.changePasswordErrorMessagesNewpass = response.data.errors
+                console.log('auth.ts changePassword changePasswordErrorMessagesCurrent', this.changePasswordErrorMessagesCurrent);
+                console.log('auth.ts changePassword changePasswordErrorMessagesNewpass', this.changePasswordErrorMessagesNewpass);
+            }
         },
 
         //-------------------

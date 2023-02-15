@@ -39,6 +39,9 @@ class ChangePasswordController extends Controller
         // return redirect ('/')
         //     ->with('status','パスワードの変更が終了しました');
 
-        return response('パスワードが正しく変更されました。', 200);
+        // return response('パスワードが正しく変更されました。', 200);
+        return response([
+            'changeSuccess' => 'パスワードが正しく変更されました。。'
+        ], 200);
     }
 }
