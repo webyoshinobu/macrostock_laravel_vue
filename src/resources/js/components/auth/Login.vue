@@ -8,14 +8,14 @@
             <div v-if="loginErrors" class="errors">
                 <ul v-if="loginErrors.email">
                     <li v-for="msg in loginErrors.email" :key="msg">
-                        <!-- {{ msg }} -->
-                        メールアドレスを入力してください。
+                        {{ msg }}
+                        <!-- メールアドレスを入力してください。 -->
                     </li>
                 </ul>
                 <ul v-if="loginErrors.password">
                     <li v-for="msg in loginErrors.password" :key="msg">
-                        <!-- {{ msg }} -->
-                        パスワードを入力してください。
+                        {{ msg }}
+                        <!-- パスワードを入力してください。 -->
                     </li>
                 </ul>
             </div>

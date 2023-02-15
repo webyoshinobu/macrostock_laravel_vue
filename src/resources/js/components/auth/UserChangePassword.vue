@@ -7,45 +7,33 @@
             <!-- laravelのトークンを使用 -->
             <!-- <input type="hidden" name="_token" :value="token"> -->
 
-            <!-- <div v-if="registerErrors" class="errors">
-                <ul v-if="registerErrors.name">
-                    <li v-for="msg in registerErrors.name" :key="msg">
-                        {{ msg }} -->
-                        <!-- 氏名を入力してください。 -->
-                    <!-- </li>
+            <div v-if="error_current" class="errors">{{error_current}}</div>
+            <div v-if="error_newpass" class="errors">
+                <ul v-if="error_newpass.new_password">
+                    <li v-for="msg in error_newpass.new_password" :key="msg">
+                        {{ msg }}
+                    </li>
                 </ul>
-                <ul v-if="registerErrors.email">
-                    <li v-for="msg in registerErrors.email" :key="msg">
-                        {{ msg }} -->
-                        <!-- メールアドレスを入力してください。 -->
-                    <!-- </li>
-                </ul>
-                <ul v-if="registerErrors.password">
-                    <li v-for="msg in registerErrors.password" :key="msg">
-                        {{ msg }} -->
-                        <!-- パスワードを入力してください。 -->
-                    <!-- </li>
-                </ul>
-            </div> -->
+            </div>
 
             <div class="userchangepassword_wrap_form_line">
-                <label class="userchangepassword_wrap_form_line_label" for="userchangepassword_form_password">現在パスワード</label>
-                <input type="text" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.currentPassword">
+                <label class="userchangepassword_wrap_form_line_label" for="userchangepassword_form_password">現在のパスワード</label>
+                <input type="password" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.current_password">
             </div>
 
             <div class="userchangepassword_wrap_form_line">
                 <label class="userchangepassword_wrap_form_line_label" for="userchangepassword_form_password">新しいパスワード</label>
-                <input type="text" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.newPassword">
+                <input type="password" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.new_password">
             </div>
 
             <div class="userchangepassword_wrap_form_line">
                 <label class="userchangepassword_wrap_form_line_label" for="userchangepassword_form_password">新しいパスワード(確認)</label>
-                <input type="text" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.newPasswordConfirm">
+                <input type="password" class="userchangepassword_wrap_form_line_input" id="userchangepassword_form_password" v-model="changeForm.new_password_confirmation">
             </div>
 
             <div class="userchangepassword_wrap_form_button">
-                <ButtonRed>変更する</ButtonRed>
-                <ButtonWhite class="margin-left">マイページトップへ戻る</ButtonWhite>
+                <ButtonRed @click="changePassword">変更する</ButtonRed>
+                <router-link to="/mypage"><ButtonWhite class="margin-left">マイページトップへ戻る</ButtonWhite></router-link>
             </div>
 
         </form>
@@ -63,6 +51,7 @@ import ButtonWhite from "../common/ButtonWhite.vue"
 import Message from "../Message.vue"
 import Loader from "../Loader.vue"
 import axios from "axios";
+import { OK, UNPROCESSABLE_ENTITY } from '../../util'
 
 
 export default defineComponent({
@@ -80,17 +69,38 @@ export default defineComponent({
         const route = useRoute();
         const authStore = auth();
         const { userInfo } = storeToRefs(authStore);
-        const changeForm = {
-            currentPassword: '',
-            newPassword: '',
-            newPasswordConfirm: '',
-        };
+        let changeForm = ref({
+            current_password: '',
+            new_password: '',
+            new_password_confirmation: '',
+        });
+        const error_current = ref('')
+        const error_newpass = ref('')
+
+        const changePassword = async() => {
+            const response = await axios.post('api/changePassword', changeForm.value)
+            if(response.status == OK){
+                router.push({ name: 'mypage' })
+            }else{
+                error_current.value = response.data.errorCurrent
+                error_newpass.value = response.data.errors
+                resetInputs()
+            }
+        }
+
+        const resetInputs = () => {
+            changeForm.value = {
+                current_password : '',
+                new_password : '',
+                new_password_confirmation : '',
+            }
+        }
 
         onMounted(() => {
 
         });
 
-        return { router, route, onMounted, watch, userInfo, changeForm };
+        return { router, route, onMounted, watch, userInfo, changeForm, changePassword, error_current, error_newpass };
     },
 
 });
@@ -150,12 +160,12 @@ export default defineComponent({
 
 .errors {
     margin: 0 0 20px 0;
+    font-size: 24px;
+    color: red;
+    font-weight: bold;
 
     ul {
         list-style: none;
-        font-size: 24px;
-        color: red;
-        font-weight: bold;
     }
 }
 
