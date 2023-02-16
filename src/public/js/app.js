@@ -28300,8 +28300,7 @@ exports["default"] = (0, vue_1.defineComponent)({
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
     var authStore = (0, auth_1.auth)();
-    var resetChangePasswordMessage = authStore.resetChangePasswordMessage,
-      resetChangeEmailMessage = authStore.resetChangeEmailMessage;
+    // const { resetChangePasswordMessage, resetChangeEmailMessage } = authStore;
     var _ref = (0, pinia_1.storeToRefs)(authStore),
       userInfo = _ref.userInfo,
       changePasswordSuccess = _ref.changePasswordSuccess,
@@ -31094,7 +31093,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0, vue_1.resolveComponent)("router-link");
   var _component_ButtonBlack = (0, vue_1.resolveComponent)("ButtonBlack");
   var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createCommentVNode)(" <h2 class=\"usermypage_title\">{{ userInfo.name }}様マイページ</h2> "), (0, vue_1.createElementVNode)("h2", _hoisted_2, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + "様マイページ", 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("div", _hoisted_5, [_ctx.changePasswordSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_6, (0, vue_1.toDisplayString)(_ctx.changePasswordSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.changeEmailSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_7, (0, vue_1.toDisplayString)(_ctx.changeEmailSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("ul", _hoisted_8, [(0, vue_1.createElementVNode)("li", _hoisted_9, [_hoisted_10, (0, vue_1.createCommentVNode)(" <p class=\"usermypage_wrap_content_list_items_info\">{{ userInfo.name }}</p> "), (0, vue_1.createElementVNode)("p", _hoisted_11, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name), 1 /* TEXT */), (0, vue_1.createCommentVNode)(" <div class=\"usermypage_wrap_content_list_items_button\">\n                            <button class=\"usermypage_wrap_content_list_items_button_word\">変更</button>\n                        </div> ")]), (0, vue_1.createElementVNode)("li", _hoisted_12, [_hoisted_13, (0, vue_1.createCommentVNode)(" <p class=\"usermypage_wrap_content_list_items_info\">{{ userInfo.email }}</p> "), (0, vue_1.createElementVNode)("p", _hoisted_14, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).email), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_15, [(0, vue_1.createVNode)(_component_router_link, {
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createCommentVNode)(" <h2 class=\"usermypage_title\">{{ userInfo.name }}様マイページ</h2> "), (0, vue_1.createElementVNode)("h2", _hoisted_2, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + "様マイページ", 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("div", _hoisted_5, [_ctx.changePasswordSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_6, (0, vue_1.toDisplayString)(_ctx.changePasswordSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.changeEmailSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_7, (0, vue_1.toDisplayString)(_ctx.changeEmailSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("ul", _hoisted_8, [(0, vue_1.createElementVNode)("li", _hoisted_9, [_hoisted_10, (0, vue_1.createElementVNode)("p", _hoisted_11, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name), 1 /* TEXT */)]), (0, vue_1.createElementVNode)("li", _hoisted_12, [_hoisted_13, (0, vue_1.createElementVNode)("p", _hoisted_14, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).email), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_15, [(0, vue_1.createVNode)(_component_router_link, {
     to: "/changeEmail"
   }, {
     "default": (0, vue_1.withCtx)(function () {
@@ -33111,14 +33110,21 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
             case 2:
               response = _context6.sent;
               console.log('auth.ts changeEmail response', response);
-              if (response.status == util_1.OK) {
-                this.changeEmailStatus = response.status;
-                this.changeEmailSuccess = response.data.changeSuccess;
-              } else {
-                this.changeEmailErrorMessagesCurrentEmail = response.data.errorCurrent;
-                this.changeEmailErrorMessagesNewemail = response.data.errors;
+              if (!(response.status == util_1.OK)) {
+                _context6.next = 11;
+                break;
               }
-            case 5:
+              this.changeEmailStatus = response.status;
+              this.changeEmailSuccess = response.data.changeSuccess;
+              _context6.next = 9;
+              return this.currentUser();
+            case 9:
+              _context6.next = 13;
+              break;
+            case 11:
+              this.changeEmailErrorMessagesCurrentEmail = response.data.errorCurrent;
+              this.changeEmailErrorMessagesNewemail = response.data.errors;
+            case 13:
             case "end":
               return _context6.stop();
           }

@@ -173,6 +173,7 @@ export const auth = defineStore('auth', {
             if(response.status == OK) {
                 this.changeEmailStatus = response.status
                 this.changeEmailSuccess = response.data.changeSuccess
+                await this.currentUser() //情報が更新s荒れたので、再取得
             }else{
                 this.changeEmailErrorMessagesCurrentEmail = response.data.errorCurrent
                 this.changeEmailErrorMessagesNewemail = response.data.errors
