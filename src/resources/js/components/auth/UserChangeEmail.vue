@@ -88,7 +88,7 @@ export default defineComponent({
 
             await changeEmail(changeForm.value)
 
-            if(authStore.changePasswordStatus === OK){
+            if(authStore.changeEmailStatus === OK){
                 router.push({ name: 'mypage' })
             }else{
                 resetInputs()

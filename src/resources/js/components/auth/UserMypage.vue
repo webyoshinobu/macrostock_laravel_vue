@@ -7,6 +7,7 @@
             <div class="usermypage_wrap_content">
 
                 <div v-if="changePasswordSuccess" class="errors">{{changePasswordSuccess}}</div>
+                <div v-if="changeEmailSuccess" class="errors">{{changeEmailSuccess}}</div>
 
                 <ul class="usermypage_wrap_content_list">
                     <li class="usermypage_wrap_content_list_items">
@@ -74,19 +75,20 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const authStore = auth();
-        const { resetChangePasswordMessage } = authStore;
-        const { userInfo, changePasswordSuccess } = storeToRefs(authStore);
+        const { resetChangePasswordMessage, resetChangeEmailMessage } = authStore;
+        const { userInfo, changePasswordSuccess, changeEmailSuccess } = storeToRefs(authStore);
 
-        const clearError = () => {
-            resetChangePasswordMessage(null)
-            console.log('clearError');
-        }
+        // const clearError = () => {
+        //     resetChangePasswordMessage(null)
+        //     resetChangeEmailMessage(null)
+        //     console.log('clearError');
+        // }
 
         onMounted(() => {
-            clearError();
+            // clearError();
         });
 
-        return { router, route, onMounted, watch, userInfo, changePasswordSuccess };
+        return { router, route, onMounted, watch, userInfo, changePasswordSuccess, changeEmailSuccess };
     },
 
 });

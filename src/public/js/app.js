@@ -27764,7 +27764,7 @@ exports["default"] = (0, vue_1.defineComponent)({
               _context.next = 2;
               return changeEmail(changeForm.value);
             case 2:
-              if (authStore.changePasswordStatus === util_1.OK) {
+              if (authStore.changeEmailStatus === util_1.OK) {
                 router.push({
                   name: 'mypage'
                 });
@@ -28300,16 +28300,19 @@ exports["default"] = (0, vue_1.defineComponent)({
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
     var authStore = (0, auth_1.auth)();
-    var resetChangePasswordMessage = authStore.resetChangePasswordMessage;
+    var resetChangePasswordMessage = authStore.resetChangePasswordMessage,
+      resetChangeEmailMessage = authStore.resetChangeEmailMessage;
     var _ref = (0, pinia_1.storeToRefs)(authStore),
       userInfo = _ref.userInfo,
-      changePasswordSuccess = _ref.changePasswordSuccess;
-    var clearError = function clearError() {
-      resetChangePasswordMessage(null);
-      console.log('clearError');
-    };
+      changePasswordSuccess = _ref.changePasswordSuccess,
+      changeEmailSuccess = _ref.changeEmailSuccess;
+    // const clearError = () => {
+    //     resetChangePasswordMessage(null)
+    //     resetChangeEmailMessage(null)
+    //     console.log('clearError');
+    // }
     (0, vue_1.onMounted)(function () {
-      clearError();
+      // clearError();
     });
     return {
       router: router,
@@ -28317,7 +28320,8 @@ exports["default"] = (0, vue_1.defineComponent)({
       onMounted: vue_1.onMounted,
       watch: vue_1.watch,
       userInfo: userInfo,
-      changePasswordSuccess: changePasswordSuccess
+      changePasswordSuccess: changePasswordSuccess,
+      changeEmailSuccess: changeEmailSuccess
     };
   }
 });
@@ -31020,87 +31024,91 @@ var _hoisted_6 = {
   "class": "errors"
 };
 var _hoisted_7 = {
-  "class": "usermypage_wrap_content_list"
+  key: 1,
+  "class": "errors"
 };
 var _hoisted_8 = {
+  "class": "usermypage_wrap_content_list"
+};
+var _hoisted_9 = {
   "class": "usermypage_wrap_content_list_items"
 };
-var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "usermypage_wrap_content_list_items_title"
   }, "氏名", -1 /* HOISTED */);
 });
 
-var _hoisted_10 = {
+var _hoisted_11 = {
   "class": "usermypage_wrap_content_list_items_info"
 };
-var _hoisted_11 = {
+var _hoisted_12 = {
   "class": "usermypage_wrap_content_list_items"
 };
-var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "usermypage_wrap_content_list_items_title"
   }, "メールアドレス", -1 /* HOISTED */);
 });
 
-var _hoisted_13 = {
+var _hoisted_14 = {
   "class": "usermypage_wrap_content_list_items_info"
 };
-var _hoisted_14 = {
+var _hoisted_15 = {
   "class": "usermypage_wrap_content_list_items_button"
 };
-var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("button", {
     "class": "usermypage_wrap_content_list_items_button_word"
   }, "変更", -1 /* HOISTED */);
 });
 
-var _hoisted_16 = {
+var _hoisted_17 = {
   "class": "usermypage_wrap_content_list_items"
 };
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "usermypage_wrap_content_list_items_title"
   }, "パスワード", -1 /* HOISTED */);
 });
 
-var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "usermypage_wrap_content_list_items_info"
   }, "********", -1 /* HOISTED */);
 });
 
-var _hoisted_19 = {
+var _hoisted_20 = {
   "class": "usermypage_wrap_content_list_items_button"
 };
-var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("button", {
     "class": "usermypage_wrap_content_list_items_button_word"
   }, "変更", -1 /* HOISTED */);
 });
 
-var _hoisted_21 = {
+var _hoisted_22 = {
   "class": "usermypage_wrap_content_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0, vue_1.resolveComponent)("router-link");
   var _component_ButtonBlack = (0, vue_1.resolveComponent)("ButtonBlack");
   var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createCommentVNode)(" <h2 class=\"usermypage_title\">{{ userInfo.name }}様マイページ</h2> "), (0, vue_1.createElementVNode)("h2", _hoisted_2, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + "様マイページ", 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("div", _hoisted_5, [_ctx.changePasswordSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_6, (0, vue_1.toDisplayString)(_ctx.changePasswordSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("ul", _hoisted_7, [(0, vue_1.createElementVNode)("li", _hoisted_8, [_hoisted_9, (0, vue_1.createCommentVNode)(" <p class=\"usermypage_wrap_content_list_items_info\">{{ userInfo.name }}</p> "), (0, vue_1.createElementVNode)("p", _hoisted_10, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name), 1 /* TEXT */), (0, vue_1.createCommentVNode)(" <div class=\"usermypage_wrap_content_list_items_button\">\n                            <button class=\"usermypage_wrap_content_list_items_button_word\">変更</button>\n                        </div> ")]), (0, vue_1.createElementVNode)("li", _hoisted_11, [_hoisted_12, (0, vue_1.createCommentVNode)(" <p class=\"usermypage_wrap_content_list_items_info\">{{ userInfo.email }}</p> "), (0, vue_1.createElementVNode)("p", _hoisted_13, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).email), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_14, [(0, vue_1.createVNode)(_component_router_link, {
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createCommentVNode)(" <h2 class=\"usermypage_title\">{{ userInfo.name }}様マイページ</h2> "), (0, vue_1.createElementVNode)("h2", _hoisted_2, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + "様マイページ", 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("div", _hoisted_5, [_ctx.changePasswordSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_6, (0, vue_1.toDisplayString)(_ctx.changePasswordSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.changeEmailSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_7, (0, vue_1.toDisplayString)(_ctx.changeEmailSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("ul", _hoisted_8, [(0, vue_1.createElementVNode)("li", _hoisted_9, [_hoisted_10, (0, vue_1.createCommentVNode)(" <p class=\"usermypage_wrap_content_list_items_info\">{{ userInfo.name }}</p> "), (0, vue_1.createElementVNode)("p", _hoisted_11, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name), 1 /* TEXT */), (0, vue_1.createCommentVNode)(" <div class=\"usermypage_wrap_content_list_items_button\">\n                            <button class=\"usermypage_wrap_content_list_items_button_word\">変更</button>\n                        </div> ")]), (0, vue_1.createElementVNode)("li", _hoisted_12, [_hoisted_13, (0, vue_1.createCommentVNode)(" <p class=\"usermypage_wrap_content_list_items_info\">{{ userInfo.email }}</p> "), (0, vue_1.createElementVNode)("p", _hoisted_14, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).email), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_15, [(0, vue_1.createVNode)(_component_router_link, {
     to: "/changeEmail"
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [_hoisted_15];
+      return [_hoisted_16];
     }),
     _: 1 /* STABLE */
-  })])]), (0, vue_1.createElementVNode)("li", _hoisted_16, [_hoisted_17, _hoisted_18, (0, vue_1.createElementVNode)("div", _hoisted_19, [(0, vue_1.createVNode)(_component_router_link, {
+  })])]), (0, vue_1.createElementVNode)("li", _hoisted_17, [_hoisted_18, _hoisted_19, (0, vue_1.createElementVNode)("div", _hoisted_20, [(0, vue_1.createVNode)(_component_router_link, {
     to: "/changePassword"
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [_hoisted_20];
+      return [_hoisted_21];
     }),
     _: 1 /* STABLE */
-  })])])]), (0, vue_1.createElementVNode)("div", _hoisted_21, [(0, vue_1.createVNode)(_component_ButtonBlack, null, {
+  })])])]), (0, vue_1.createElementVNode)("div", _hoisted_22, [(0, vue_1.createVNode)(_component_ButtonBlack, null, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createTextVNode)("注文履歴")];
     }),
@@ -33105,7 +33113,7 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               console.log('auth.ts changeEmail response', response);
               if (response.status == util_1.OK) {
                 this.changeEmailStatus = response.status;
-                this.changeEmailSuccess = response.data.changeEmailSuccess;
+                this.changeEmailSuccess = response.data.changeSuccess;
               } else {
                 this.changeEmailErrorMessagesCurrentEmail = response.data.errorCurrent;
                 this.changeEmailErrorMessagesNewemail = response.data.errors;

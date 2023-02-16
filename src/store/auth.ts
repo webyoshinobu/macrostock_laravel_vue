@@ -172,7 +172,7 @@ export const auth = defineStore('auth', {
             console.log('auth.ts changeEmail response', response)
             if(response.status == OK) {
                 this.changeEmailStatus = response.status
-                this.changeEmailSuccess = response.data.changeEmailSuccess
+                this.changeEmailSuccess = response.data.changeSuccess
             }else{
                 this.changeEmailErrorMessagesCurrentEmail = response.data.errorCurrent
                 this.changeEmailErrorMessagesNewemail = response.data.errors
