@@ -7,7 +7,15 @@
                 <!-- laravelのトークンを使用 -->
                 <!-- <input type="hidden" name="_token" :value="token"> -->
 
-
+                <!-- エラーメッセージ -->
+                <div v-if="changeEmailErrorsCurrentEmail" class="errors">{{changeEmailErrorsCurrentEmail}}</div>
+                <div v-if="changeEmailErrorsNewemail" class="errors">
+                    <ul v-if="changeEmailErrorsNewemail.new_email">
+                        <li v-for="msg in changeEmailErrorsNewemail.new_email" :key="msg">
+                            {{ msg }}
+                        </li>
+                    </ul>
+                </div>
 
                 <div class="userchangeemail_wrap_form_line">
                     <label class="userchangeemail_wrap_form_line_label" for="userchangeemail_form_email">現在のメールアドレス</label>
@@ -60,13 +68,21 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const authStore = auth();
-        const { changeEmail, resetChangePasswordMessage } = authStore;
-        const { userInfo } = storeToRefs(authStore);
+        const { changeEmail, resetChangeEmailMessage } = authStore;
+        const { userInfo, changeEmailStatus, changeEmailErrorMessagesCurrentEmail, changeEmailErrorMessagesNewemail } = storeToRefs(authStore);
         const changeForm = ref({
             current_email: '',
             new_email: '',
             new_email_confirmation: '',
         });
+
+        const changeEmailErrorsCurrentEmail = computed(() => {
+            return authStore.changeEmailErrorMessagesCurrentEmail
+        })
+
+        const changeEmailErrorsNewemail = computed(() => {
+            return authStore.changeEmailErrorMessagesNewemail
+        })
 
         const clickChangeEmail = async() => {
 
@@ -87,11 +103,16 @@ export default defineComponent({
             }
         }
 
-        onMounted(() => {
+        const clearError = () => {
+            resetChangeEmailMessage(null)
+            console.log('clearError');
+        }
 
+        onMounted(() => {
+            clearError();
         });
 
-        return { router, route, onMounted, watch, userInfo, changeForm, clickChangeEmail };
+        return { router, route, onMounted, watch, userInfo, changeForm, clickChangeEmail, changeEmailErrorsCurrentEmail, changeEmailErrorsNewemail };
     },
 
 });
@@ -151,12 +172,12 @@ export default defineComponent({
 
 .errors {
     margin: 0 0 20px 0;
+    font-size: 24px;
+    color: red;
+    font-weight: bold;
 
     ul {
         list-style: none;
-        font-size: 24px;
-        color: red;
-        font-weight: bold;
     }
 }
 
