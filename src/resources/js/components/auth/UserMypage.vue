@@ -34,7 +34,7 @@
                     </li>
                 </ul>
                 <div class="usermypage_wrap_content_button">
-                    <ButtonBlack>注文履歴</ButtonBlack>
+                    <router-link to="/orderHistory"><ButtonBlack>注文履歴</ButtonBlack></router-link>
                     <ButtonWhite class="margin-left">退会する</ButtonWhite>
                 </div>
             </div>

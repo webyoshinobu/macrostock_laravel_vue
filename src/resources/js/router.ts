@@ -9,6 +9,7 @@ import contact from "./components/contact/Contact.vue";
 import login from "./components/auth/Login.vue";
 import register from "./components/auth/Register.vue";
 import userMypage from "./components/auth/UserMypage.vue";
+import userOrderHistory from "./components/auth/UserOrderHistory.vue";
 import userChangeEmail from "./components/auth/UserChangeEmail.vue";
 import userChangePassword from "./components/auth/UserChangePassword.vue";
 import admin from "./components/admin/AdminLogin.vue";
@@ -94,6 +95,11 @@ const routes = [
         path: '/mypage',
         name: 'mypage',
         component: userMypage
+    },
+    {
+        path: '/orderHistory',
+        name: 'orderHistory',
+        component: userOrderHistory
     },
     {
         path: '/changeEmail',
