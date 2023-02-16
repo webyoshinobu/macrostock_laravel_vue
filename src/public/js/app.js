@@ -24379,6 +24379,8 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+var pinia_1 = __webpack_require__(/*! pinia */ "./node_modules/pinia/index.js");
+var auth_1 = __webpack_require__(/*! ../../../store/auth */ "./store/auth.ts");
 var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'Footer',
@@ -24388,6 +24390,9 @@ exports["default"] = (0, vue_1.defineComponent)({
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
     var isChange = (0, vue_1.ref)(false);
+    var authStore = (0, auth_1.auth)();
+    var _ref = (0, pinia_1.storeToRefs)(authStore),
+      isLoggedIn = _ref.isLoggedIn;
     // methods
     var addClass = function addClass() {
       router.afterEach(function (to) {
@@ -24403,11 +24408,14 @@ exports["default"] = (0, vue_1.defineComponent)({
     // lifecycle hooks
     (0, vue_1.onMounted)(function () {
       addClass();
+      // console.log('Footer.vue isLoggedIn', isLoggedIn);
     });
+
     return {
       router: router,
       addClass: addClass,
-      isChange: isChange
+      isChange: isChange,
+      isLoggedIn: isLoggedIn
     };
   }
 });
@@ -29546,7 +29554,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": (0, vue_1.normalizeClass)(["sns_logo fa-5x", {
       change_header: _ctx.isChange
     }])
-  }, null, 8 /* PROPS */, ["class"]), (0, vue_1.createVNode)(_component_router_link, {
+  }, null, 8 /* PROPS */, ["class"]), _ctx.isLoggedIn == false ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
+    key: 0,
     to: "/admin/login",
     "class": "footer_admin wd_color_white"
   }, {
@@ -29559,9 +29568,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
 
     _: 1 /* STABLE */
-  })]);
+  })) : (0, vue_1.createCommentVNode)("v-if", true)]);
 }
-
 exports.render = render;
 
 /***/ }),

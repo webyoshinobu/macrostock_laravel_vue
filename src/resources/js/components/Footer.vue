@@ -2,7 +2,7 @@
   <footer class="footer">
     <!-- <fa :icon="{ prefix: 'fab', iconName: 'instagram' }" style="color:white;" class="sns_logo fa-5x" /> -->
     <fa :icon="{ prefix: 'fab', iconName: 'instagram' }" class="sns_logo fa-5x" :class="{change_header: isChange}" />
-    <router-link to="/admin/login" class="footer_admin wd_color_white">
+    <router-link v-if="isLoggedIn == false" to="/admin/login" class="footer_admin wd_color_white">
         <p :class="{change_header: isChange}">Administrator Login</p>
     </router-link>
   </footer>
@@ -10,6 +10,8 @@
 
 <script lang="ts">
     import { defineComponent, ref, onMounted } from "vue";
+    import { storeToRefs } from "pinia";
+    import { auth } from '../../../store/auth';
     import { useRoute, useRouter } from 'vue-router';
     export default defineComponent({
     name: 'Footer',
@@ -21,6 +23,8 @@
             const router = useRouter();
             const route = useRoute();
             const isChange = ref(false);
+            const authStore = auth();
+            const { isLoggedIn } = storeToRefs(authStore);
 
             // methods
             const addClass = () => {
@@ -39,9 +43,10 @@
             // lifecycle hooks
             onMounted(() => {
                 addClass();
+                // console.log('Footer.vue isLoggedIn', isLoggedIn);
             });
 
-            return { router, addClass, isChange };
+            return { router, addClass, isChange, isLoggedIn };
         },
     });
 </script>
