@@ -12,15 +12,10 @@
                 <ul class="usermypage_wrap_content_list">
                     <li class="usermypage_wrap_content_list_items">
                         <p class="usermypage_wrap_content_list_items_title">氏名</p>
-                        <!-- <p class="usermypage_wrap_content_list_items_info">{{ userInfo.name }}</p> -->
                         <p class="usermypage_wrap_content_list_items_info">{{ ( userInfo || {} ).name }}</p>
-                        <!-- <div class="usermypage_wrap_content_list_items_button">
-                            <button class="usermypage_wrap_content_list_items_button_word">変更</button>
-                        </div> -->
                     </li>
                     <li class="usermypage_wrap_content_list_items">
                         <p class="usermypage_wrap_content_list_items_title">メールアドレス</p>
-                        <!-- <p class="usermypage_wrap_content_list_items_info">{{ userInfo.email }}</p> -->
                         <p class="usermypage_wrap_content_list_items_info">{{ ( userInfo || {} ).email }}</p>
                         <div class="usermypage_wrap_content_list_items_button">
                             <router-link to="/changeEmail">
@@ -75,7 +70,7 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const authStore = auth();
-        const { resetChangePasswordMessage, resetChangeEmailMessage } = authStore;
+        // const { resetChangePasswordMessage, resetChangeEmailMessage } = authStore;
         const { userInfo, changePasswordSuccess, changeEmailSuccess } = storeToRefs(authStore);
 
         // const clearError = () => {
