@@ -291,6 +291,11 @@ export const auth = defineStore('auth', {
             this.changePasswordSuccess = reset
             this.changePasswordErrorMessagesCurrent = reset
             this.changePasswordErrorMessagesNewpass = reset
+        },
+        resetChangeEmailMessage(reset:any) {
+            this.changeEmailSuccess = reset
+            this.changeEmailErrorMessagesCurrentEmail = reset
+            this.changeEmailErrorMessagesNewemail = reset
         }
     },
   })
