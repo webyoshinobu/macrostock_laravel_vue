@@ -3,17 +3,19 @@
     <h2 class="cart_title">Cart</h2>
     <div class="cart_wrap">
         <div class="cart_wrap_list">
-            <div class="cart_wrap_list_title">0個の素材がカートに入っています。</div>
+            <div v-if="items.length > 0" class="cart_wrap_list_title">{{ items.length }}個の素材がカートに入っています。</div>
+            <div v-else class="cart_wrap_list_title">カートは空です。</div>
             <ul class="cart_wrap_list_content">
                 <li v-for="item in items" :key="item" class="cart_wrap_list_content_each">
-                    <p class="cart_wrap_list_content_each_title f_40">写真No.000000</p>
+                    <p class="cart_wrap_list_content_each_title f_40">写真ID: {{ item.id }}</p>
                     <div class="cart_wrap_list_content_each_selected">
                         <div class="cart_wrap_list_content_each_selected_img">
                             <img :src="item.url" :alt="`Photo by ${item.owner.name}`">
                         </div>
                         <div class="cart_wrap_list_content_each_selected_detail">
-                            <p class="cart_wrap_list_content_each_selected_detail_word f_36">¥0000</p>
-                            <p class="cart_wrap_list_content_each_selected_detail_word f_24">画像サイズ：0000 × 0000px</p>
+                            <!-- <p class="cart_wrap_list_content_each_selected_detail_word f_36">¥{{ item.price }}</p> -->
+                            <p class="cart_wrap_list_content_each_selected_detail_word f_36">¥{{ pricePrefix(item.price) }}</p>
+                            <!-- <p class="cart_wrap_list_content_each_selected_detail_word f_24">画像サイズ：0000 × 0000px</p> -->
                             <p class="cart_wrap_list_content_each_selected_detail_word f_24">画像形式：JPEG</p>
                             <button @click="removeImg(item)" class="cart_wrap_list_content_each_selected_detail_word f_24 delete_button">削除</button>
                         </div>
@@ -24,7 +26,7 @@
         <aside class="cart_wrap_aside">
             <div class="cart_wrap_aside_amount">
                 <p class="cart_wrap_aside_amount_title">合計金額：</p>
-                <p class="cart_wrap_aside_amount_price"><span>￥</span>00000</p>
+                <p class="cart_wrap_aside_amount_price"><span>￥</span>{{ pricePrefix(cartCounter().totalPrice) }}</p>
             </div>
             <CartLoginAside />
         </aside>
@@ -33,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import { storeToRefs } from 'pinia';
 import { cartCounter } from '../../../../store/cart';
 import ButtonOrange from "../common/ButtonOrange.vue";
@@ -50,6 +52,7 @@ export default defineComponent({
         let { items } = storeToRefs(cartCounter());
         // const items = cartCounter().items;
         console.log('Cart.vue', items);
+        const tax = 1.1
 
         // methods
         const removeImg = (item:any) => {
@@ -59,7 +62,12 @@ export default defineComponent({
             console.log('Cart.vue removeImg', items)
         }
 
-        return { items, removeImg }
+        const pricePrefix = (price:number) => {
+            price = price * tax
+            return Number(price).toLocaleString('ja')
+        }
+
+        return { items, removeImg, pricePrefix, cartCounter }
     },
 
 });
