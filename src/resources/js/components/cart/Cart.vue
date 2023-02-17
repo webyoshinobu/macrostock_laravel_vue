@@ -64,7 +64,7 @@ export default defineComponent({
 
         const pricePrefix = (price:number) => {
             price = price * tax
-            return Number(price).toLocaleString('ja')
+            return Number(price).toLocaleString()
         }
 
         return { items, removeImg, pricePrefix, cartCounter }

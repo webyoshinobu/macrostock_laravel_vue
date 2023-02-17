@@ -4,6 +4,7 @@ import { error } from './error'
 import axios from "axios"
 
 type USER = {
+    id: number,
     name: string,
     email: string,
     password: string,
@@ -18,6 +19,7 @@ type USER = {
 // }
 
 type ADMIN = {
+    id: number,
     admin_name: string,
     admin_email: string,
     admin_password: string,
