@@ -7,7 +7,13 @@ export const cartCounter = defineStore('cart', {
         items: [] as any[],
     }),
     getters: ({
-
+        totalPrice(state) {
+            let total = 0
+            for (let i=0; i<state.items.length; i++) {
+                total += Number(state.items[i].price)
+            }
+            return total
+        }
     }),
     actions: {
         addCart(image:any) {

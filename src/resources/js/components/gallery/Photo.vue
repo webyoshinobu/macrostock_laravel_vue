@@ -1,14 +1,14 @@
 <template>
   <section class="photo">
-    <h2 class="photo_title">写真No.000000</h2>
+    <h2 class="photo_title">写真ID: {{ image.id }}</h2>
     <div class="photo_wrap">
         <figure class="photo_wrap_img">
             <img :src="image.url" :alt="`Photo by ${image.owner.name}`">
         </figure>
         <aside class="photo_wrap_aside">
-            <p class="photo_wrap_aside_word">画像サイズ：0000 × 0000px</p>
+            <!-- <p class="photo_wrap_aside_word">画像サイズ：0000 × 0000px</p> -->
             <p class="photo_wrap_aside_word">画像形式：JPEG</p>
-            <p class="photo_wrap_aside_word">価格：¥0000</p>
+            <p class="photo_wrap_aside_word">価格：¥{{ pricePrefix(image.price) }}</p>
             <p class="photo_wrap_aside_button"><ButtonOrange @click="toCart(image)">カートに追加する</ButtonOrange></p>
             <p ref="term" @click="termOpen" class="photo_wrap_aside_term">利用可能な用途と禁止事項について</p>
         </aside>
@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted, computed } from "vue";
 import { storeToRefs } from 'pinia';
 import ButtonOrange from "../common/ButtonOrange.vue";
 import Term from "../term.vue";
@@ -43,6 +43,7 @@ export default defineComponent({
         const image = route.params;
         const { product_imgs } = storeToRefs(galleryImgs());
         const { addCart } = cartCounter();
+        const tax = 1.1
 
         // methods
         const termOpen = () => {
@@ -54,11 +55,16 @@ export default defineComponent({
             router.push( {name: 'cart'} );
         }
 
+        const pricePrefix = (price:number) => {
+            price = price * tax
+            return Number(price).toLocaleString('ja')
+        }
+
         onMounted(() => {
 
         })
 
-        return { term, router, route, image, termOpen, addCart, toCart }
+        return { term, router, route, image, termOpen, addCart, toCart, pricePrefix }
     },
 
 });
@@ -67,7 +73,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .photo {
     width: 80%;
-    padding: 170px 10% 0 10%;
+    padding: 170px 10% 100px 10%;
 
     &_title {
         font-size: 70px;

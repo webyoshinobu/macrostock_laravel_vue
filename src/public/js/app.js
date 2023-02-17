@@ -28426,6 +28426,7 @@ exports["default"] = (0, vue_1.defineComponent)({
       items = _ref.items;
     // const items = cartCounter().items;
     console.log('Cart.vue', items);
+    var tax = 1.1;
     // methods
     var removeImg = function removeImg(item) {
       console.log('Cart.vue removeImg');
@@ -28433,9 +28434,15 @@ exports["default"] = (0, vue_1.defineComponent)({
       (0, cart_1.cartCounter)().removeItem(item);
       console.log('Cart.vue removeImg', items);
     };
+    var pricePrefix = function pricePrefix(price) {
+      price = price * tax;
+      return Number(price).toLocaleString('ja');
+    };
     return {
       items: items,
-      removeImg: removeImg
+      removeImg: removeImg,
+      pricePrefix: pricePrefix,
+      cartCounter: cart_1.cartCounter
     };
   }
 });
@@ -29501,6 +29508,7 @@ exports["default"] = (0, vue_1.defineComponent)({
       product_imgs = _ref.product_imgs;
     var _ref2 = (0, cart_1.cartCounter)(),
       addCart = _ref2.addCart;
+    var tax = 1.1;
     // methods
     var termOpen = function termOpen() {
       term.value.openModal(); //子コンポーネント(term)の呼び出し
@@ -29512,6 +29520,10 @@ exports["default"] = (0, vue_1.defineComponent)({
         name: 'cart'
       });
     };
+    var pricePrefix = function pricePrefix(price) {
+      price = price * tax;
+      return Number(price).toLocaleString('ja');
+    };
     (0, vue_1.onMounted)(function () {});
     return {
       term: term,
@@ -29520,7 +29532,8 @@ exports["default"] = (0, vue_1.defineComponent)({
       image: image,
       termOpen: termOpen,
       addCart: addCart,
-      toCart: toCart
+      toCart: toCart,
+      pricePrefix: pricePrefix
     };
   }
 });
@@ -31310,43 +31323,33 @@ var _hoisted_3 = {
 var _hoisted_4 = {
   "class": "cart_wrap_list"
 };
-var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("div", {
-    "class": "cart_wrap_list_title"
-  }, "0個の素材がカートに入っています。", -1 /* HOISTED */);
-});
-
+var _hoisted_5 = {
+  key: 0,
+  "class": "cart_wrap_list_title"
+};
 var _hoisted_6 = {
+  key: 1,
+  "class": "cart_wrap_list_title"
+};
+var _hoisted_7 = {
   "class": "cart_wrap_list_content"
 };
-var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "cart_wrap_list_content_each_title f_40"
-  }, "写真No.000000", -1 /* HOISTED */);
-});
-
 var _hoisted_8 = {
-  "class": "cart_wrap_list_content_each_selected"
+  "class": "cart_wrap_list_content_each_title f_40"
 };
 var _hoisted_9 = {
+  "class": "cart_wrap_list_content_each_selected"
+};
+var _hoisted_10 = {
   "class": "cart_wrap_list_content_each_selected_img"
 };
-var _hoisted_10 = ["src", "alt"];
-var _hoisted_11 = {
+var _hoisted_11 = ["src", "alt"];
+var _hoisted_12 = {
   "class": "cart_wrap_list_content_each_selected_detail"
 };
-var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "cart_wrap_list_content_each_selected_detail_word f_36"
-  }, "¥0000", -1 /* HOISTED */);
-});
-
-var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "cart_wrap_list_content_each_selected_detail_word f_24"
-  }, "画像サイズ：0000 × 0000px", -1 /* HOISTED */);
-});
-
+var _hoisted_13 = {
+  "class": "cart_wrap_list_content_each_selected_detail_word f_36"
+};
 var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "cart_wrap_list_content_each_selected_detail_word f_24"
@@ -31357,32 +31360,38 @@ var _hoisted_15 = ["onClick"];
 var _hoisted_16 = {
   "class": "cart_wrap_aside"
 };
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("div", {
-    "class": "cart_wrap_aside_amount"
-  }, [/*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+var _hoisted_17 = {
+  "class": "cart_wrap_aside_amount"
+};
+var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "cart_wrap_aside_amount_title"
-  }, "合計金額："), /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "cart_wrap_aside_amount_price"
-  }, [/*#__PURE__*/(0, vue_1.createElementVNode)("span", null, "￥"), /*#__PURE__*/(0, vue_1.createTextVNode)("00000")])], -1 /* HOISTED */);
+  }, "合計金額：", -1 /* HOISTED */);
+});
+
+var _hoisted_19 = {
+  "class": "cart_wrap_aside_amount_price"
+};
+var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("span", null, "￥", -1 /* HOISTED */);
 });
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_CartLoginAside = (0, vue_1.resolveComponent)("CartLoginAside");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("div", _hoisted_3, [(0, vue_1.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0, vue_1.createElementVNode)("ul", _hoisted_6, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.items, function (item) {
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("div", _hoisted_3, [(0, vue_1.createElementVNode)("div", _hoisted_4, [_ctx.items.length > 0 ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_5, (0, vue_1.toDisplayString)(_ctx.items.length) + "個の素材がカートに入っています。", 1 /* TEXT */)) : ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_6, "カートは空です。")), (0, vue_1.createElementVNode)("ul", _hoisted_7, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.items, function (item) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: item,
       "class": "cart_wrap_list_content_each"
-    }, [_hoisted_7, (0, vue_1.createElementVNode)("div", _hoisted_8, [(0, vue_1.createElementVNode)("div", _hoisted_9, [(0, vue_1.createElementVNode)("img", {
+    }, [(0, vue_1.createElementVNode)("p", _hoisted_8, "写真ID: " + (0, vue_1.toDisplayString)(item.id), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_9, [(0, vue_1.createElementVNode)("div", _hoisted_10, [(0, vue_1.createElementVNode)("img", {
       src: item.url,
       alt: "Photo by ".concat(item.owner.name)
-    }, null, 8 /* PROPS */, _hoisted_10)]), (0, vue_1.createElementVNode)("div", _hoisted_11, [_hoisted_12, _hoisted_13, _hoisted_14, (0, vue_1.createElementVNode)("button", {
+    }, null, 8 /* PROPS */, _hoisted_11)]), (0, vue_1.createElementVNode)("div", _hoisted_12, [(0, vue_1.createCommentVNode)(" <p class=\"cart_wrap_list_content_each_selected_detail_word f_36\">¥{{ item.price }}</p> "), (0, vue_1.createElementVNode)("p", _hoisted_13, "¥" + (0, vue_1.toDisplayString)(_ctx.pricePrefix(item.price)), 1 /* TEXT */), (0, vue_1.createCommentVNode)(" <p class=\"cart_wrap_list_content_each_selected_detail_word f_24\">画像サイズ：0000 × 0000px</p> "), _hoisted_14, (0, vue_1.createElementVNode)("button", {
       onClick: function onClick($event) {
         return _ctx.removeImg(item);
       },
       "class": "cart_wrap_list_content_each_selected_detail_word f_24 delete_button"
     }, "削除", 8 /* PROPS */, _hoisted_15)])])]);
-  }), 128 /* KEYED_FRAGMENT */))])]), (0, vue_1.createElementVNode)("aside", _hoisted_16, [_hoisted_17, (0, vue_1.createVNode)(_component_CartLoginAside)])])]);
+  }), 128 /* KEYED_FRAGMENT */))])]), (0, vue_1.createElementVNode)("aside", _hoisted_16, [(0, vue_1.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0, vue_1.createElementVNode)("p", _hoisted_19, [_hoisted_20, (0, vue_1.createTextVNode)((0, vue_1.toDisplayString)(_ctx.pricePrefix(_ctx.cartCounter().totalPrice)), 1 /* TEXT */)])]), (0, vue_1.createVNode)(_component_CartLoginAside)])])]);
 }
 exports.render = render;
 
@@ -31694,12 +31703,9 @@ var _withScopeId = function _withScopeId(n) {
 var _hoisted_1 = {
   "class": "photo"
 };
-var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("h2", {
-    "class": "photo_title"
-  }, "写真No.000000", -1 /* HOISTED */);
-});
-
+var _hoisted_2 = {
+  "class": "photo_title"
+};
 var _hoisted_3 = {
   "class": "photo_wrap"
 };
@@ -31713,31 +31719,22 @@ var _hoisted_6 = {
 var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "photo_wrap_aside_word"
-  }, "画像サイズ：0000 × 0000px", -1 /* HOISTED */);
-});
-
-var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "photo_wrap_aside_word"
   }, "画像形式：JPEG", -1 /* HOISTED */);
 });
 
-var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "photo_wrap_aside_word"
-  }, "価格：¥0000", -1 /* HOISTED */);
-});
-
-var _hoisted_10 = {
+var _hoisted_8 = {
+  "class": "photo_wrap_aside_word"
+};
+var _hoisted_9 = {
   "class": "photo_wrap_aside_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonOrange = (0, vue_1.resolveComponent)("ButtonOrange");
   var _component_Term = (0, vue_1.resolveComponent)("Term");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("div", _hoisted_3, [(0, vue_1.createElementVNode)("figure", _hoisted_4, [(0, vue_1.createElementVNode)("img", {
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createElementVNode)("h2", _hoisted_2, "写真ID: " + (0, vue_1.toDisplayString)(_ctx.image.id), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [(0, vue_1.createElementVNode)("figure", _hoisted_4, [(0, vue_1.createElementVNode)("img", {
     src: _ctx.image.url,
     alt: "Photo by ".concat(_ctx.image.owner.name)
-  }, null, 8 /* PROPS */, _hoisted_5)]), (0, vue_1.createElementVNode)("aside", _hoisted_6, [_hoisted_7, _hoisted_8, _hoisted_9, (0, vue_1.createElementVNode)("p", _hoisted_10, [(0, vue_1.createVNode)(_component_ButtonOrange, {
+  }, null, 8 /* PROPS */, _hoisted_5)]), (0, vue_1.createElementVNode)("aside", _hoisted_6, [(0, vue_1.createCommentVNode)(" <p class=\"photo_wrap_aside_word\">画像サイズ：0000 × 0000px</p> "), _hoisted_7, (0, vue_1.createElementVNode)("p", _hoisted_8, "価格：¥" + (0, vue_1.toDisplayString)(_ctx.pricePrefix(_ctx.image.price)), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", _hoisted_9, [(0, vue_1.createVNode)(_component_ButtonOrange, {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return _ctx.toCart(_ctx.image);
     })
@@ -33842,7 +33839,15 @@ exports.cartCounter = (0, pinia_1.defineStore)('cart', {
       items: []
     };
   },
-  getters: {},
+  getters: {
+    totalPrice: function totalPrice(state) {
+      var total = 0;
+      for (var i = 0; i < state.items.length; i++) {
+        total += Number(state.items[i].price);
+      }
+      return total;
+    }
+  },
   actions: {
     addCart: function addCart(image) {
       this.items.push(image);
@@ -35319,7 +35324,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".photo[data-v-29ed8e5a] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n}\n.photo_title[data-v-29ed8e5a] {\n  font-size: 70px;\n  margin-bottom: 20px;\n}\n.photo_wrap[data-v-29ed8e5a] {\n  display: flex;\n  justify-content: space-between;\n}\n.photo_wrap_img[data-v-29ed8e5a] {\n  width: 60%;\n}\n.photo_wrap_img img[data-v-29ed8e5a] {\n  width: 100%;\n}\n.photo_wrap_aside[data-v-29ed8e5a] {\n  width: 35%;\n  padding: 0 0 0 5%;\n}\n.photo_wrap_aside_word[data-v-29ed8e5a] {\n  font-size: 36px;\n  font-weight: bold;\n  padding-bottom: 20px;\n}\n.photo_wrap_aside_button[data-v-29ed8e5a] {\n  font-size: 30px;\n}\n.photo_wrap_aside_term[data-v-29ed8e5a] {\n  font-size: 24px;\n  padding-top: 10px;\n  text-decoration: underline;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".photo[data-v-29ed8e5a] {\n  width: 80%;\n  padding: 170px 10% 100px 10%;\n}\n.photo_title[data-v-29ed8e5a] {\n  font-size: 70px;\n  margin-bottom: 20px;\n}\n.photo_wrap[data-v-29ed8e5a] {\n  display: flex;\n  justify-content: space-between;\n}\n.photo_wrap_img[data-v-29ed8e5a] {\n  width: 60%;\n}\n.photo_wrap_img img[data-v-29ed8e5a] {\n  width: 100%;\n}\n.photo_wrap_aside[data-v-29ed8e5a] {\n  width: 35%;\n  padding: 0 0 0 5%;\n}\n.photo_wrap_aside_word[data-v-29ed8e5a] {\n  font-size: 36px;\n  font-weight: bold;\n  padding-bottom: 20px;\n}\n.photo_wrap_aside_button[data-v-29ed8e5a] {\n  font-size: 30px;\n}\n.photo_wrap_aside_term[data-v-29ed8e5a] {\n  font-size: 24px;\n  padding-top: 10px;\n  text-decoration: underline;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
