@@ -28436,7 +28436,7 @@ exports["default"] = (0, vue_1.defineComponent)({
     };
     var pricePrefix = function pricePrefix(price) {
       price = price * tax;
-      return Number(price).toLocaleString('ja');
+      return Number(price).toLocaleString();
     };
     return {
       items: items,
@@ -28811,6 +28811,8 @@ var ButtonOrange_vue_1 = __importDefault(__webpack_require__(/*! ../common/Butto
 var ButtonWhite_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonWhite.vue */ "./resources/js/components/common/ButtonWhite.vue"));
 var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
+var auth_1 = __webpack_require__(/*! ../../../../store/auth */ "./store/auth.ts");
+var pinia_1 = __webpack_require__(/*! pinia */ "./node_modules/pinia/index.js");
 var cart_1 = __webpack_require__(/*! ../../../../store/cart */ "./store/cart.ts");
 var file_saver_1 = __webpack_require__(/*! file-saver */ "./node_modules/file-saver/dist/FileSaver.min.js");
 exports["default"] = (0, vue_1.defineComponent)({
@@ -28824,10 +28826,12 @@ exports["default"] = (0, vue_1.defineComponent)({
     // data
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
+    var _ref = (0, pinia_1.storeToRefs)((0, cart_1.cartCounter)()),
+      totalPrice = _ref.totalPrice;
     // methods
     var download = function download() {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var downloadItems;
+        var downloadItems, orderData;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -28853,20 +28857,29 @@ exports["default"] = (0, vue_1.defineComponent)({
                 console.log(error.messagae);
               });
             case 4:
+              orderData = {
+                user_id: (0, auth_1.auth)().userInfo.id,
+                order_total_amount: Math.floor(totalPrice.value * 1.1),
+                order_total_number: downloadItems.length
+              };
+              console.log('CartLoginAside.vue download userInfo.id', (0, auth_1.auth)().userInfo.id);
+              console.log('CartLoginAside.vue download totalPrice', totalPrice.value);
+              console.log('CartLoginAside.vue download downloadItems.length', downloadItems.length);
+              console.log('CartLoginAside.vue download orderData', orderData);
               //注文履歴を残す
               //orderテーブルに情報を登録する。このidを取得して、order_detailのorder_idとして登録する
               //渡したいデータは、注文された写真(downloadItems)、注文合計金額、ユニークなID
-              (0, cart_1.cartCounter)().makeOrder(downloadItems);
+              (0, cart_1.cartCounter)().makeOrder(orderData);
             //order_idを追加してorder_detailテーブルに追加する
-            case 5:
+            case 10:
             case "end":
               return _context.stop();
           }
         }, _callee);
       }));
     };
-    //laravelからのレスポンスで$headersのContent-Dispositionを指定してダウンロードするとtmpファイルには正常に保存されるが、ダウンロードしたタイミングでファイルが壊れるので、Content-Dispositionのfilenameからファイル名を取り出して返す。
-    // function getFileName(contentDisposition:string){
+    //laravelからのレスポンスで$headersのContent-Dispositionを指定してダウンロードするとtmpファイルには正常に保存されるが、
+    // ダウンロードしたタイミングでファイルが壊れるので、Content-Dispositionのfilenameからファイル名を取り出して返す。
     var getFileName = function getFileName(contentDisposition) {
       var fileName = contentDisposition.substring(contentDisposition.indexOf("''") + 2, contentDisposition.length);
       //デコードするとスペースが"+"になるのでスペースへ置換します
@@ -29427,14 +29440,14 @@ exports["default"] = (0, vue_1.defineComponent)({
               (0, error_1.error)().setCode(response.status);
               return _context.abrupt("return", false);
             case 7:
-              console.log('Gallery.vue response', response.data);
+              // console.log('Gallery.vue response', response.data);
               images.value = response.data.data;
-              console.log('Gallery.vue images', images.value);
+              // console.log('Gallery.vue images', images.value)
               currentPage.value = response.data.current_page;
-              console.log('Gallery.vue currentPage', currentPage.value);
+              // console.log('Gallery.vue currentPage', currentPage.value)
               lastPage.value = response.data.last_page;
-              console.log('Gallery.vue lastPage', lastPage.value);
-            case 14:
+            // console.log('Gallery.vue lastPage', lastPage.value)
+            case 10:
             case "end":
               return _context.stop();
           }

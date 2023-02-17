@@ -72,16 +72,16 @@ export default defineComponent({
                 return false
             }
 
-            console.log('Gallery.vue response', response.data);
+            // console.log('Gallery.vue response', response.data);
 
             images.value = response.data.data
-            console.log('Gallery.vue images', images.value)
+            // console.log('Gallery.vue images', images.value)
 
             currentPage.value = response.data.current_page
-            console.log('Gallery.vue currentPage', currentPage.value)
+            // console.log('Gallery.vue currentPage', currentPage.value)
 
             lastPage.value = response.data.last_page
-            console.log('Gallery.vue lastPage', lastPage.value)
+            // console.log('Gallery.vue lastPage', lastPage.value)
         }
 
         watch(route, () => {

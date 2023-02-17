@@ -23,6 +23,7 @@ import ButtonOrange from "../common/ButtonOrange.vue";
 import ButtonWhite from "../common/ButtonWhite.vue";
 import { useRoute, useRouter } from 'vue-router';
 import axios from "axios"
+import { auth } from '../../../../store/auth';
 import { storeToRefs } from 'pinia';
 import { cartCounter } from '../../../../store/cart';
 import { saveAs } from "file-saver";
@@ -38,6 +39,7 @@ export default defineComponent({
         // data
         const router = useRouter();
         const route = useRoute();
+        const { totalPrice } = storeToRefs(cartCounter());
 
         // methods
         const download = async() => {
@@ -62,17 +64,29 @@ export default defineComponent({
                 console.log(error.messagae);
             });
 
+            const orderData = {
+                user_id: auth().userInfo!.id,
+                order_total_amount: Math.floor(totalPrice.value * 1.1),
+                order_total_number: downloadItems.length,
+            }
+
+            console.log('CartLoginAside.vue download userInfo.id',auth().userInfo!.id)
+            console.log('CartLoginAside.vue download totalPrice', totalPrice.value)
+            console.log('CartLoginAside.vue download downloadItems.length', downloadItems.length)
+            console.log('CartLoginAside.vue download orderData', orderData)
+
+
             //注文履歴を残す
             //orderテーブルに情報を登録する。このidを取得して、order_detailのorder_idとして登録する
             //渡したいデータは、注文された写真(downloadItems)、注文合計金額、ユニークなID
-            cartCounter().makeOrder(downloadItems)
+            cartCounter().makeOrder(orderData)
             //order_idを追加してorder_detailテーブルに追加する
 
 
         }
 
-        //laravelからのレスポンスで$headersのContent-Dispositionを指定してダウンロードするとtmpファイルには正常に保存されるが、ダウンロードしたタイミングでファイルが壊れるので、Content-Dispositionのfilenameからファイル名を取り出して返す。
-        // function getFileName(contentDisposition:string){
+        //laravelからのレスポンスで$headersのContent-Dispositionを指定してダウンロードするとtmpファイルには正常に保存されるが、
+        // ダウンロードしたタイミングでファイルが壊れるので、Content-Dispositionのfilenameからファイル名を取り出して返す。
         const getFileName = (contentDisposition:string) => {
             let fileName = contentDisposition.substring(contentDisposition.indexOf("''") + 2,
             contentDisposition.length
