@@ -15,6 +15,7 @@
                             <p class="cart_wrap_list_content_each_selected_detail_word f_36">¥0000</p>
                             <p class="cart_wrap_list_content_each_selected_detail_word f_24">画像サイズ：0000 × 0000px</p>
                             <p class="cart_wrap_list_content_each_selected_detail_word f_24">画像形式：JPEG</p>
+                            <button @click="removeImg(item)" class="cart_wrap_list_content_each_selected_detail_word f_24 delete_button">削除</button>
                         </div>
                     </div>
                 </li>
@@ -46,12 +47,19 @@ export default defineComponent({
 
     setup() {
         // data
-        // const { items } = storeToRefs(cartCounter());
-        const items = cartCounter().items;
+        let { items } = storeToRefs(cartCounter());
+        // const items = cartCounter().items;
         console.log('Cart.vue', items);
-        // methods
 
-        return { items }
+        // methods
+        const removeImg = (item:any) => {
+            console.log('Cart.vue removeImg')
+            console.log('Cart.vue item', item)
+            cartCounter().removeItem(item)
+            console.log('Cart.vue removeImg', items)
+        }
+
+        return { items, removeImg }
     },
 
 });
@@ -60,7 +68,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .cart {
     width: 80%;
-    padding: 170px 10% 0 10%;
+    padding: 170px 10% 100px 10%;
 
     &_title {
         font-size: 70px;
@@ -153,6 +161,11 @@ export default defineComponent({
         }
     }
 
+}
+
+.delete_button {
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .f_40 {

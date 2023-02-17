@@ -35,6 +35,8 @@ Route::get('/user', fn() => Auth::user())->name('user');
 Route::post('/changePassword','App\Http\Controllers\Auth\ChangePasswordController@update')->name('changePassword');
 // メールアドレス変更
 Route::post('/changeEmail','App\Http\Controllers\Auth\ChangeEmailController@update')->name('changeEmail');
+//注文
+Route::post('/order','App\Http\Controllers\OrderController@create')->name('order');
 
 /*
 |--------------------------------------------------------------------------

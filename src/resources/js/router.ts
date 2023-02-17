@@ -40,7 +40,8 @@ const routes = [
     },
     {
         // path: '/gallery/photo/:index?/:src?/:alt?',
-        path: '/gallery/photo/:filename?/:price?/:url?/:owner?',
+        path: '/gallery/photo/:id?/:filename?/:price?/:url?/:owner?',
+        // path: '/gallery/photo/:id?/:filename?/:price?/:owner?',
         name: 'photo',
         component: photo,
         props: true

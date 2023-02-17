@@ -62,6 +62,13 @@ export default defineComponent({
                 console.log(error.messagae);
             });
 
+            //注文履歴を残す
+            //orderテーブルに情報を登録する。このidを取得して、order_detailのorder_idとして登録する
+            //渡したいデータは、注文された写真(downloadItems)、注文合計金額、ユニークなID
+            cartCounter().makeOrder(downloadItems)
+            //order_idを追加してorder_detailテーブルに追加する
+
+
         }
 
         //laravelからのレスポンスで$headersのContent-Dispositionを指定してダウンロードするとtmpファイルには正常に保存されるが、ダウンロードしたタイミングでファイルが壊れるので、Content-Dispositionのfilenameからファイル名を取り出して返す。
