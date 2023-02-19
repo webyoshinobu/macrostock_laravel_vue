@@ -37,6 +37,8 @@ Route::post('/changePassword','App\Http\Controllers\Auth\ChangePasswordControlle
 Route::post('/changeEmail','App\Http\Controllers\Auth\ChangeEmailController@update')->name('changeEmail');
 //注文
 Route::post('/order','App\Http\Controllers\OrderController@create')->name('order');
+//注文詳細
+Route::post('/orderDetail','App\Http\Controllers\OrderDetailController@create')->name('orderDetail');
 
 /*
 |--------------------------------------------------------------------------

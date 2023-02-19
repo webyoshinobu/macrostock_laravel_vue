@@ -14,7 +14,10 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id()->autoIncrement();
+            // $table->id()->autoIncrement();
+            $table->id();
+            // $table->string('id', 255)->primary();
+            $table->uuid('uuid')->unique();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->integer('order_total_amount');

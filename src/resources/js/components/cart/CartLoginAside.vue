@@ -79,10 +79,20 @@ export default defineComponent({
             //注文履歴を残す
             //orderテーブルに情報を登録する。このidを取得して、order_detailのorder_idとして登録する
             //渡したいデータは、注文された写真(downloadItems)、注文合計金額、ユニークなID
-            cartCounter().makeOrder(orderData)
+            const orderDataResponse = await cartCounter().makeOrder(orderData)
             //order_idを追加してorder_detailテーブルに追加する
+            console.log('CartLoginAside.vue download makeOrder orderDataResponse.data', orderDataResponse)
 
-
+            for(let i=0; i<downloadItems.length; i++) {
+                downloadItems[i]['order_id'] = orderDataResponse['uuid']
+                downloadItems[i]['order_total_number'] = Number(1)
+            }
+            const orderDetails = downloadItems
+            console.log('CartLoginAside.vue download downloadItems order_id追加', downloadItems)
+            console.log('CartLoginAside.vue download orderDetails', orderDetails)
+            for(let j=0; j<orderDetails.length; j++) {
+                await cartCounter().makeOrderDetail(orderDetails[j])
+            }
         }
 
         //laravelからのレスポンスで$headersのContent-Dispositionを指定してダウンロードするとtmpファイルには正常に保存されるが、
