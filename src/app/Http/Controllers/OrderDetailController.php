@@ -18,7 +18,7 @@ class OrderDetailController extends Controller
             'order_total_number'=>$request['order_total_number'],
             'price'=>$request['price'],
             'url'=>$request['url'],
-            'owner'=>$request['owner'],
+            // 'owner'=>$request['owner'],
             'order_id'=>$request['order_id'],
             'photo_id' => $request['id'],
         ]);

@@ -14,7 +14,7 @@ class OrderDetail extends Model
         'order_total_number',
         'price',
         'url',
-        'owner',
+        // 'owner',
         'order_id',
         'photo_id',
     ];
