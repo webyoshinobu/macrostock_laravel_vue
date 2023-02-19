@@ -28831,7 +28831,7 @@ exports["default"] = (0, vue_1.defineComponent)({
     // methods
     var download = function download() {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var downloadItems, orderData;
+        var downloadItems, orderData, orderDataResponse, i, orderDetails, j;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -28869,9 +28869,32 @@ exports["default"] = (0, vue_1.defineComponent)({
               //注文履歴を残す
               //orderテーブルに情報を登録する。このidを取得して、order_detailのorder_idとして登録する
               //渡したいデータは、注文された写真(downloadItems)、注文合計金額、ユニークなID
-              (0, cart_1.cartCounter)().makeOrder(orderData);
-            //order_idを追加してorder_detailテーブルに追加する
-            case 10:
+              _context.next = 11;
+              return (0, cart_1.cartCounter)().makeOrder(orderData);
+            case 11:
+              orderDataResponse = _context.sent;
+              //order_idを追加してorder_detailテーブルに追加する
+              console.log('CartLoginAside.vue download makeOrder orderDataResponse.data', orderDataResponse);
+              for (i = 0; i < downloadItems.length; i++) {
+                downloadItems[i]['order_id'] = orderDataResponse['uuid'];
+                downloadItems[i]['order_total_number'] = Number(1);
+              }
+              orderDetails = downloadItems;
+              console.log('CartLoginAside.vue download downloadItems order_id追加', downloadItems);
+              console.log('CartLoginAside.vue download orderDetails', orderDetails);
+              j = 0;
+            case 18:
+              if (!(j < orderDetails.length)) {
+                _context.next = 24;
+                break;
+              }
+              _context.next = 21;
+              return (0, cart_1.cartCounter)().makeOrderDetail(orderDetails[j]);
+            case 21:
+              j++;
+              _context.next = 18;
+              break;
+            case 24:
             case "end":
               return _context.stop();
           }
@@ -33878,11 +33901,31 @@ exports.cartCounter = (0, pinia_1.defineStore)('cart', {
             case 2:
               response = _context.sent;
               console.log('cart.ts makeOrder response', response);
-            case 4:
+              return _context.abrupt("return", response.data);
+            case 5:
             case "end":
               return _context.stop();
           }
         }, _callee);
+      }));
+    },
+    makeOrderDetail: function makeOrderDetail(orderDetails) {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios_1["default"].post('api/orderDetail', orderDetails);
+            case 2:
+              response = _context2.sent;
+              console.log('cart.ts makeOrderDetail response', response);
+            // return response.data
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
       }));
     },
     removeItem: function removeItem(item) {

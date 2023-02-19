@@ -24,6 +24,12 @@ export const cartCounter = defineStore('cart', {
         async makeOrder(downloadItems:any) {
             const response = await axios.post('api/order', downloadItems)
             console.log('cart.ts makeOrder response', response)
+            return response.data
+        },
+        async makeOrderDetail(orderDetails:any) {
+            const response = await axios.post('api/orderDetail', orderDetails)
+            console.log('cart.ts makeOrderDetail response', response)
+            // return response.data
         },
         removeItem(item:any) {
             // console.log('cart.ts action removeItem this.items1', this.items);
