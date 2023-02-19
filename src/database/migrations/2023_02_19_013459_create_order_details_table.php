@@ -20,7 +20,7 @@ class CreateOrderDetailsTable extends Migration
             $table->integer('order_total_number');
             $table->integer('price');
             $table->string('url');
-            $table->string('owner');
+            // $table->string('owner');
             $table->string('order_id');
             $table->foreign('order_id')->references('uuid')->on('orders')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->string('photo_id', 255);
