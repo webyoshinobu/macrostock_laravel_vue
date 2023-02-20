@@ -46,10 +46,8 @@ export default defineComponent({
             const downloadItems = cartCounter().items;
             console.log('CartLoginAside.vue download downloadItems', downloadItems);
 
-            // const response = await axios.get('api/photos/zipDownLoad');
-            // console.log('CartLoginAside.vue download response', response);
+            await registerOrderData(downloadItems)
 
-            // await axios.get('api/photos/zipDownLoad', { responseType: "blob", })
             await axios.post('api/photos/zipDownLoad', downloadItems, { responseType: "blob", })
             .then((response)=>{
                 let mineType = response.headers["content-type"];
@@ -64,6 +62,15 @@ export default defineComponent({
                 console.log(error.messagae);
             });
 
+            //カート内のデータをリセット
+            await cartCounter().resetItems()
+
+            //Thanksページへ移動
+            router.push({ name: 'thanks'})
+
+        }
+
+        const registerOrderData = async(downloadItems:any) => {
             const orderData = {
                 user_id: auth().userInfo!.id,
                 order_total_amount: Math.floor(totalPrice.value * 1.1),
@@ -78,7 +85,6 @@ export default defineComponent({
 
             //注文履歴を残す
             //orderテーブルに情報を登録する。このidを取得して、order_detailのorder_idとして登録する
-            //渡したいデータは、注文された写真(downloadItems)、注文合計金額、ユニークなID
             const orderDataResponse = await cartCounter().makeOrder(orderData)
             //order_idを追加してorder_detailテーブルに追加する
             console.log('CartLoginAside.vue download makeOrder orderDataResponse.data', orderDataResponse)
@@ -107,7 +113,7 @@ export default defineComponent({
             return fileName;
         }
 
-        return { router, route, download, getFileName }
+        return { router, route, download, getFileName, registerOrderData }
     },
 
 });

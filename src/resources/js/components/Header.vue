@@ -34,6 +34,7 @@
     import { useRoute, useRouter } from 'vue-router';
     import ButtonWhite from "./common/ButtonWhite.vue";
     import ButtonBlack from "./common/ButtonBlack.vue";
+    import { cartCounter } from '../../../store/cart';
     export default defineComponent({
         name: 'Header',
         components: {
@@ -86,6 +87,7 @@
                     // }else{
                     //     router.push({ name: 'login' });
                     // }
+                    await cartCounter().resetItems()
                     router.push({ name: 'top' });
                 }
 

@@ -4,8 +4,8 @@
     <div class="thanks_wrap">
         <p class="thanks_wrap_name">〇〇 〇〇 様</p>
         <p class="thanks_wrap_word">ご購入ありがとうございます。</p>
-        <p class="thanks_wrap_word">領収書をご希望の場合は、お客様ご自身で「お客様ページ」より印刷することができます。</p>
-        <h3 class="thanks_wrap_title">注文内容</h3>
+        <p class="thanks_wrap_word">領収書をご希望の場合は、お客様ご自身で「お客様マイページ」より印刷することができます。</p>
+        <!-- <h3 class="thanks_wrap_title">注文内容</h3>
         <ul class="thanks_wrap_list_content">
             <li v-for="ordered_item in ordered_items" :key="ordered_item" class="thanks_wrap_list_content_each">
                 <p class="thanks_wrap_list_content_each_title f_40">写真No.000000</p>
@@ -20,14 +20,14 @@
                     </div>
                 </div>
             </li>
-        </ul>
+        </ul> -->
     </div>
     <div class="thanks_button">
         <router-link to="/gallery">
             <ButtonBlack class="thanks_button_component">購入を続ける</ButtonBlack>
         </router-link>
-        <router-link to="/">
-            <ButtonOrange class="thanks_button_component">トップへ戻る</ButtonOrange>
+        <router-link to="/mypage">
+            <ButtonWhite class="thanks_button_component">マイページトップへ戻る</ButtonWhite>
         </router-link>
     </div>
   </section>
@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
-import ButtonOrange from "./common/ButtonOrange.vue";
+import ButtonWhite from "./common/ButtonWhite.vue";
 import ButtonBlack from "./common/ButtonBlack.vue";
 import { useRoute, useRouter } from 'vue-router';
 import { thanksItems } from '../../../store/thanks';
@@ -43,7 +43,7 @@ import { thanksItems } from '../../../store/thanks';
 export default defineComponent({
     name: 'Photo',
     components: {
-        ButtonOrange,
+        ButtonWhite,
         ButtonBlack,
     },
 

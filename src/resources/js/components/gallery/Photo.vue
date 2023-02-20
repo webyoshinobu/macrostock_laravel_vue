@@ -12,7 +12,6 @@
             <p class="photo_wrap_aside_button"><ButtonOrange @click="toCart(image)">カートに追加する</ButtonOrange></p>
             <p ref="term" @click="termOpen" class="photo_wrap_aside_term">利用可能な用途と禁止事項について</p>
         </aside>
-        <!-- <p>カウント:{{ counter.count }}</p> -->
     </div>
     <!-- モーダルでTermで表示 -->
     <Term ref="term" />
@@ -25,6 +24,7 @@ import { storeToRefs } from 'pinia';
 import ButtonOrange from "../common/ButtonOrange.vue";
 import Term from "../term.vue";
 import { useRoute, useRouter } from 'vue-router';
+import { auth } from '../../../../store/auth';
 import { cartCounter } from '../../../../store/cart';
 import { galleryImgs } from '../../../../store/gallery';
 
@@ -41,6 +41,7 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const image = route.params;
+        const { isLoggedIn } = storeToRefs(auth());
         const { product_imgs } = storeToRefs(galleryImgs());
         const { addCart } = cartCounter();
         const tax = 1.1
@@ -51,8 +52,13 @@ export default defineComponent({
         }
 
         const toCart = (image:any) => {
-            addCart(image);
-            router.push( {name: 'cart'} );
+            if(auth().isLoggedIn==true){
+                addCart(image);
+                router.push( {name: 'cart'} );
+            }else{
+                router.push( {name: 'login'} );
+            }
+
         }
 
         const pricePrefix = (price:number) => {

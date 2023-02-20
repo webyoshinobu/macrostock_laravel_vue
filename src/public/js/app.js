@@ -24785,6 +24785,7 @@ var auth_1 = __webpack_require__(/*! ../../../store/auth */ "./store/auth.ts");
 var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 var ButtonWhite_vue_1 = __importDefault(__webpack_require__(/*! ./common/ButtonWhite.vue */ "./resources/js/components/common/ButtonWhite.vue"));
 var ButtonBlack_vue_1 = __importDefault(__webpack_require__(/*! ./common/ButtonBlack.vue */ "./resources/js/components/common/ButtonBlack.vue"));
+var cart_1 = __webpack_require__(/*! ../../../store/cart */ "./store/cart.ts");
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'Header',
   components: {
@@ -24842,18 +24843,19 @@ exports["default"] = (0, vue_1.defineComponent)({
               console.log('Header logout admin_flag end', (0, auth_1.auth)().getAdminFlag);
               // ログインページに移動する
               // if (auth().getApiStatus == true) {
-              if ((0, auth_1.auth)().getApiStatus == false) {
-                // if (auth().getAdminFlag == 1) {
-                //     router.push({ name: 'admin/login' });
-                // }else{
-                //     router.push({ name: 'login' });
-                // }
-                router.push({
-                  name: 'top'
-                });
+              if (!((0, auth_1.auth)().getApiStatus == false)) {
+                _context.next = 15;
+                break;
               }
+              _context.next = 14;
+              return (0, cart_1.cartCounter)().resetItems();
+            case 14:
+              router.push({
+                name: 'top'
+              });
+            case 15:
               console.log('clickLogout');
-            case 13:
+            case 16:
             case "end":
               return _context.stop();
           }
@@ -25034,14 +25036,14 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-var ButtonOrange_vue_1 = __importDefault(__webpack_require__(/*! ./common/ButtonOrange.vue */ "./resources/js/components/common/ButtonOrange.vue"));
+var ButtonWhite_vue_1 = __importDefault(__webpack_require__(/*! ./common/ButtonWhite.vue */ "./resources/js/components/common/ButtonWhite.vue"));
 var ButtonBlack_vue_1 = __importDefault(__webpack_require__(/*! ./common/ButtonBlack.vue */ "./resources/js/components/common/ButtonBlack.vue"));
 var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 var thanks_1 = __webpack_require__(/*! ../../../store/thanks */ "./store/thanks.ts");
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'Photo',
   components: {
-    ButtonOrange: ButtonOrange_vue_1["default"],
+    ButtonWhite: ButtonWhite_vue_1["default"],
     ButtonBlack: ButtonBlack_vue_1["default"]
   },
   setup: function setup() {
@@ -28831,16 +28833,16 @@ exports["default"] = (0, vue_1.defineComponent)({
     // methods
     var download = function download() {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var downloadItems, orderData, orderDataResponse, i, orderDetails, j;
+        var downloadItems;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               downloadItems = (0, cart_1.cartCounter)().items;
               console.log('CartLoginAside.vue download downloadItems', downloadItems);
-              // const response = await axios.get('api/photos/zipDownLoad');
-              // console.log('CartLoginAside.vue download response', response);
-              // await axios.get('api/photos/zipDownLoad', { responseType: "blob", })
               _context.next = 4;
+              return registerOrderData(downloadItems);
+            case 4:
+              _context.next = 6;
               return axios_1["default"].post('api/photos/zipDownLoad', downloadItems, {
                 responseType: "blob"
               }).then(function (response) {
@@ -28856,7 +28858,27 @@ exports["default"] = (0, vue_1.defineComponent)({
               })["catch"](function (error) {
                 console.log(error.messagae);
               });
-            case 4:
+            case 6:
+              _context.next = 8;
+              return (0, cart_1.cartCounter)().resetItems();
+            case 8:
+              //Thanksページへ移動
+              router.push({
+                name: 'thanks'
+              });
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }));
+    };
+    var registerOrderData = function registerOrderData(downloadItems) {
+      return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var orderData, orderDataResponse, i, orderDetails, j;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
               orderData = {
                 user_id: (0, auth_1.auth)().userInfo.id,
                 order_total_amount: Math.floor(totalPrice.value * 1.1),
@@ -28868,11 +28890,10 @@ exports["default"] = (0, vue_1.defineComponent)({
               console.log('CartLoginAside.vue download orderData', orderData);
               //注文履歴を残す
               //orderテーブルに情報を登録する。このidを取得して、order_detailのorder_idとして登録する
-              //渡したいデータは、注文された写真(downloadItems)、注文合計金額、ユニークなID
-              _context.next = 11;
+              _context2.next = 7;
               return (0, cart_1.cartCounter)().makeOrder(orderData);
-            case 11:
-              orderDataResponse = _context.sent;
+            case 7:
+              orderDataResponse = _context2.sent;
               //order_idを追加してorder_detailテーブルに追加する
               console.log('CartLoginAside.vue download makeOrder orderDataResponse.data', orderDataResponse);
               for (i = 0; i < downloadItems.length; i++) {
@@ -28883,22 +28904,22 @@ exports["default"] = (0, vue_1.defineComponent)({
               console.log('CartLoginAside.vue download downloadItems order_id追加', downloadItems);
               console.log('CartLoginAside.vue download orderDetails', orderDetails);
               j = 0;
-            case 18:
+            case 14:
               if (!(j < orderDetails.length)) {
-                _context.next = 24;
+                _context2.next = 20;
                 break;
               }
-              _context.next = 21;
+              _context2.next = 17;
               return (0, cart_1.cartCounter)().makeOrderDetail(orderDetails[j]);
-            case 21:
+            case 17:
               j++;
-              _context.next = 18;
+              _context2.next = 14;
               break;
-            case 24:
+            case 20:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
-        }, _callee);
+        }, _callee2);
       }));
     };
     //laravelからのレスポンスで$headersのContent-Dispositionを指定してダウンロードするとtmpファイルには正常に保存されるが、
@@ -28913,7 +28934,8 @@ exports["default"] = (0, vue_1.defineComponent)({
       router: router,
       route: route,
       download: download,
-      getFileName: getFileName
+      getFileName: getFileName,
+      registerOrderData: registerOrderData
     };
   }
 });
@@ -29526,6 +29548,7 @@ var pinia_1 = __webpack_require__(/*! pinia */ "./node_modules/pinia/index.js");
 var ButtonOrange_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonOrange.vue */ "./resources/js/components/common/ButtonOrange.vue"));
 var term_vue_1 = __importDefault(__webpack_require__(/*! ../term.vue */ "./resources/js/components/term.vue"));
 var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
+var auth_1 = __webpack_require__(/*! ../../../../store/auth */ "./store/auth.ts");
 var cart_1 = __webpack_require__(/*! ../../../../store/cart */ "./store/cart.ts");
 var gallery_1 = __webpack_require__(/*! ../../../../store/gallery */ "./store/gallery.ts");
 exports["default"] = (0, vue_1.defineComponent)({
@@ -29540,10 +29563,12 @@ exports["default"] = (0, vue_1.defineComponent)({
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
     var image = route.params;
-    var _ref = (0, pinia_1.storeToRefs)((0, gallery_1.galleryImgs)()),
-      product_imgs = _ref.product_imgs;
-    var _ref2 = (0, cart_1.cartCounter)(),
-      addCart = _ref2.addCart;
+    var _ref = (0, pinia_1.storeToRefs)((0, auth_1.auth)()),
+      isLoggedIn = _ref.isLoggedIn;
+    var _ref2 = (0, pinia_1.storeToRefs)((0, gallery_1.galleryImgs)()),
+      product_imgs = _ref2.product_imgs;
+    var _ref3 = (0, cart_1.cartCounter)(),
+      addCart = _ref3.addCart;
     var tax = 1.1;
     // methods
     var termOpen = function termOpen() {
@@ -29551,10 +29576,16 @@ exports["default"] = (0, vue_1.defineComponent)({
     };
 
     var toCart = function toCart(image) {
-      addCart(image);
-      router.push({
-        name: 'cart'
-      });
+      if ((0, auth_1.auth)().isLoggedIn == true) {
+        addCart(image);
+        router.push({
+          name: 'cart'
+        });
+      } else {
+        router.push({
+          name: 'login'
+        });
+      }
     };
     var pricePrefix = function pricePrefix(price) {
       price = price * tax;
@@ -29970,83 +30001,15 @@ var _withScopeId = function _withScopeId(n) {
 var _hoisted_1 = {
   "class": "thanks"
 };
-var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("h2", {
-    "class": "thanks_title"
-  }, "ご購入ありがとうございます。", -1 /* HOISTED */);
-});
-
-var _hoisted_3 = {
-  "class": "thanks_wrap"
-};
-var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "thanks_wrap_name"
-  }, "〇〇 〇〇 様", -1 /* HOISTED */);
-});
-
-var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "thanks_wrap_word"
-  }, "ご購入ありがとうございます。", -1 /* HOISTED */);
-});
-
-var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "thanks_wrap_word"
-  }, "領収書をご希望の場合は、お客様ご自身で「お客様ページ」より印刷することができます。", -1 /* HOISTED */);
-});
-
-var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("h3", {
-    "class": "thanks_wrap_title"
-  }, "注文内容", -1 /* HOISTED */);
-});
-
-var _hoisted_8 = {
-  "class": "thanks_wrap_list_content"
-};
-var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "thanks_wrap_list_content_each_title f_40"
-  }, "写真No.000000", -1 /* HOISTED */);
-});
-
-var _hoisted_10 = {
-  "class": "thanks_wrap_list_content_each_selected"
-};
-var _hoisted_11 = {
-  "class": "thanks_wrap_list_content_each_selected_img"
-};
-var _hoisted_12 = ["src", "alt"];
-var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("div", {
-    "class": "thanks_wrap_list_content_each_selected_detail"
-  }, [/*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "thanks_wrap_list_content_each_selected_detail_word f_36"
-  }, "¥0000"), /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "thanks_wrap_list_content_each_selected_detail_word f_24"
-  }, "画像サイズ：0000 × 0000px"), /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "thanks_wrap_list_content_each_selected_detail_word f_24"
-  }, "画像形式：JPEG")], -1 /* HOISTED */);
-});
-
-var _hoisted_14 = {
+var _hoisted_2 = /*#__PURE__*/(0, vue_1.createStaticVNode)("<h2 class=\"thanks_title\" data-v-3be69874>ご購入ありがとうございます。</h2><div class=\"thanks_wrap\" data-v-3be69874><p class=\"thanks_wrap_name\" data-v-3be69874>〇〇 〇〇 様</p><p class=\"thanks_wrap_word\" data-v-3be69874>ご購入ありがとうございます。</p><p class=\"thanks_wrap_word\" data-v-3be69874>領収書をご希望の場合は、お客様ご自身で「お客様マイページ」より印刷することができます。</p><!-- &lt;h3 class=&quot;thanks_wrap_title&quot;&gt;注文内容&lt;/h3&gt;\n        &lt;ul class=&quot;thanks_wrap_list_content&quot;&gt;\n            &lt;li v-for=&quot;ordered_item in ordered_items&quot; :key=&quot;ordered_item&quot; class=&quot;thanks_wrap_list_content_each&quot;&gt;\n                &lt;p class=&quot;thanks_wrap_list_content_each_title f_40&quot;&gt;写真No.000000&lt;/p&gt;\n                &lt;div class=&quot;thanks_wrap_list_content_each_selected&quot;&gt;\n                    &lt;div class=&quot;thanks_wrap_list_content_each_selected_img&quot;&gt;\n                        &lt;img :src=&quot;ordered_item.src&quot; :alt=&quot;ordered_item.alt&quot;&gt;\n                    &lt;/div&gt;\n                    &lt;div class=&quot;thanks_wrap_list_content_each_selected_detail&quot;&gt;\n                        &lt;p class=&quot;thanks_wrap_list_content_each_selected_detail_word f_36&quot;&gt;¥0000&lt;/p&gt;\n                        &lt;p class=&quot;thanks_wrap_list_content_each_selected_detail_word f_24&quot;&gt;画像サイズ：0000 × 0000px&lt;/p&gt;\n                        &lt;p class=&quot;thanks_wrap_list_content_each_selected_detail_word f_24&quot;&gt;画像形式：JPEG&lt;/p&gt;\n                    &lt;/div&gt;\n                &lt;/div&gt;\n            &lt;/li&gt;\n        &lt;/ul&gt; --></div>", 2);
+var _hoisted_4 = {
   "class": "thanks_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonBlack = (0, vue_1.resolveComponent)("ButtonBlack");
   var _component_router_link = (0, vue_1.resolveComponent)("router-link");
-  var _component_ButtonOrange = (0, vue_1.resolveComponent)("ButtonOrange");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, _hoisted_5, _hoisted_6, _hoisted_7, (0, vue_1.createElementVNode)("ul", _hoisted_8, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.ordered_items, function (ordered_item) {
-    return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
-      key: ordered_item,
-      "class": "thanks_wrap_list_content_each"
-    }, [_hoisted_9, (0, vue_1.createElementVNode)("div", _hoisted_10, [(0, vue_1.createElementVNode)("div", _hoisted_11, [(0, vue_1.createElementVNode)("img", {
-      src: ordered_item.src,
-      alt: ordered_item.alt
-    }, null, 8 /* PROPS */, _hoisted_12)]), _hoisted_13])]);
-  }), 128 /* KEYED_FRAGMENT */))])]), (0, vue_1.createElementVNode)("div", _hoisted_14, [(0, vue_1.createVNode)(_component_router_link, {
+  var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("div", _hoisted_4, [(0, vue_1.createVNode)(_component_router_link, {
     to: "/gallery"
   }, {
     "default": (0, vue_1.withCtx)(function () {
@@ -30062,14 +30025,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
     _: 1 /* STABLE */
   }), (0, vue_1.createVNode)(_component_router_link, {
-    to: "/"
+    to: "/mypage"
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [(0, vue_1.createVNode)(_component_ButtonOrange, {
+      return [(0, vue_1.createVNode)(_component_ButtonWhite, {
         "class": "thanks_button_component"
       }, {
         "default": (0, vue_1.withCtx)(function () {
-          return [(0, vue_1.createTextVNode)("トップへ戻る")];
+          return [(0, vue_1.createTextVNode)("マイページトップへ戻る")];
         }),
         _: 1 /* STABLE */
       })];
@@ -31787,7 +31750,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.termOpen && _ctx.termOpen.apply(_ctx, arguments);
     }),
     "class": "photo_wrap_aside_term"
-  }, "利用可能な用途と禁止事項について", 512 /* NEED_PATCH */)]), (0, vue_1.createCommentVNode)(" <p>カウント:{{ counter.count }}</p> ")]), (0, vue_1.createCommentVNode)(" モーダルでTermで表示 "), (0, vue_1.createVNode)(_component_Term, {
+  }, "利用可能な用途と禁止事項について", 512 /* NEED_PATCH */)])]), (0, vue_1.createCommentVNode)(" モーダルでTermで表示 "), (0, vue_1.createVNode)(_component_Term, {
     ref: "term"
   }, null, 512 /* NEED_PATCH */)]);
 }
@@ -33935,6 +33898,11 @@ exports.cartCounter = (0, pinia_1.defineStore)('cart', {
         return n['id'] !== item['id'];
       });
       // console.log('cart.ts action removeItem this.items2', this.items)
+    },
+
+    resetItems: function resetItems() {
+      this.items = [];
+      console.log('resetItems');
     }
   }
 });
