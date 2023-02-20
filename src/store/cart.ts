@@ -36,6 +36,10 @@ export const cartCounter = defineStore('cart', {
             // console.log('cart.ts action item', item)
             this.items = this.items.filter(n => n['id'] !== item['id'])
             // console.log('cart.ts action removeItem this.items2', this.items)
+        },
+        resetItems() {
+            this.items = []
+            console.log('resetItems')
         }
     },
   })
