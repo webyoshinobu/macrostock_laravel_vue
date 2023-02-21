@@ -10,23 +10,33 @@
                     <h3 class="userorderhistory_wrap_content_header_title">合計金額</h3>
                 </div>
                 <div class="userorderhistory_wrap_content_body">
+                    <!-- <ul class="userorderhistory_wrap_content_body_list">
+                        <li class="userorderhistory_wrap_content_body_list_item">
+                            <p class="userorderhistory_wrap_content_body_list_item_p">0000/00/00</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_p">No.00000</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_p">00000円</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_p">
+                                <button>領収書発行</button>
+                            </p>
+                        </li>
+                        <li class="userorderhistory_wrap_content_body_list_item">
+                            <p class="userorderhistory_wrap_content_body_list_item_p">0000/00/00</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_p">No.00000</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_p">00000円</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_p">
+                                <button>領収書発行</button>
+                            </p>
+                        </li>
+                        <li class="userorderhistory_wrap_content_body_list_item">
+                            <p class="userorderhistory_wrap_content_body_list_item_p">0000/00/00</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_p">No.00000</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_p">00000円</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_p">
+                                <button>領収書発行</button>
+                            </p>
+                        </li>
+                    </ul> -->
                     <ul class="userorderhistory_wrap_content_body_list">
-                        <li class="userorderhistory_wrap_content_body_list_item">
-                            <p class="userorderhistory_wrap_content_body_list_item_p">0000/00/00</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">No.00000</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">00000円</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">
-                                <button>領収書発行</button>
-                            </p>
-                        </li>
-                        <li class="userorderhistory_wrap_content_body_list_item">
-                            <p class="userorderhistory_wrap_content_body_list_item_p">0000/00/00</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">No.00000</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">00000円</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">
-                                <button>領収書発行</button>
-                            </p>
-                        </li>
                         <li class="userorderhistory_wrap_content_body_list_item">
                             <p class="userorderhistory_wrap_content_body_list_item_p">0000/00/00</p>
                             <p class="userorderhistory_wrap_content_body_list_item_p">No.00000</p>
@@ -79,13 +89,21 @@ export default defineComponent({
         const {  } = authStore;
         const { userInfo } = storeToRefs(authStore);
         const data = userInfo.value;
+        const order_history = order().order_history;
 
-        onMounted(() => {
+        const groupByOrderHistory = (data:any) => {
+            console.log('UserOrderHistory.vue groupByOrderHistory()')
+            console.log('UserOrderHistory.vue groupByOrderHistory() data', data)
+
+        }
+
+        onMounted(async() => {
             console.log('UserOrderHistory.vue data', data)
-            order().orderHistory(data)
+            const response = await order().orderHistory(data)
+            groupByOrderHistory(response)
         });
 
-        return { router, route, onMounted, watch, userInfo };
+        return { router, route, onMounted, watch, userInfo, groupByOrderHistory };
     },
 
 });
