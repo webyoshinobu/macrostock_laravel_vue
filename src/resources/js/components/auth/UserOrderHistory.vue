@@ -37,10 +37,10 @@
                         </li>
                     </ul> -->
                     <ul class="userorderhistory_wrap_content_body_list">
-                        <li class="userorderhistory_wrap_content_body_list_item">
-                            <p class="userorderhistory_wrap_content_body_list_item_p">0000/00/00</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">No.00000</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">00000円</p>
+                        <li class="userorderhistory_wrap_content_body_list_item" v-for="data in groupedData" :key="data">
+                            <p class="userorderhistory_wrap_content_body_list_item_p">{{ orderDateFormat(data[0].created_at) }}</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_p">{{ data[0].uuid }}</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_p">{{ data[0].order_total_amount }}円</p>
                             <p class="userorderhistory_wrap_content_body_list_item_p">
                                 <button>領収書発行</button>
                             </p>
@@ -58,7 +58,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, watch } from "vue"
+import { defineComponent, onMounted, watch, ref, computed } from "vue"
 import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { auth } from '../../../../store/auth'
@@ -71,6 +71,7 @@ import { CREATED, UNPROCESSABLE_ENTITY } from '../../util'
 import { error } from '../../../../store/error'
 import { message } from '../../../../store/message'
 import { order } from '../../../../store/order'
+import _ from 'lodash'
 
 export default defineComponent({
     name: 'UserOrderHistory',
@@ -90,20 +91,41 @@ export default defineComponent({
         const { userInfo } = storeToRefs(authStore);
         const data = userInfo.value;
         const order_history = order().order_history;
+        // let groupedData:any = []
+        let groupedData = ref<any>([])
 
         const groupByOrderHistory = (data:any) => {
             console.log('UserOrderHistory.vue groupByOrderHistory()')
             console.log('UserOrderHistory.vue groupByOrderHistory() data', data)
+            // const groupedData = _.groupBy(data, 'uuid')
+            // groupedData = _.groupBy(data, 'uuid')
+            groupedData.value = Object.values(_.groupBy(data, 'uuid'))
+            console.log('UserOrderHistory.vue groupByOrderHistory() groupedData', groupedData.value)
 
+        }
+
+        const orderDateFormat = (date:Date) => {
+            let date_obj = new Date(date);
+            let order_year  = date_obj.getFullYear(); // 西暦年取得
+            let order_month = date_obj.getMonth();    // 月取得
+            let order_day   = date_obj.getDate();     // 日取得
+            // 文字列として連結
+            let format_date = ('0000' + order_year).slice(-4)
+            + '/'
+            + ('00' + (order_month + 1)).slice(-2)
+            + '/'
+            + ('00' + order_day).slice(-2);
+            console.log('UserOrderHistory.vue orderDateFormat', format_date)
+            return format_date
         }
 
         onMounted(async() => {
             console.log('UserOrderHistory.vue data', data)
             const response = await order().orderHistory(data)
-            groupByOrderHistory(response)
+            await groupByOrderHistory(response)
         });
 
-        return { router, route, onMounted, watch, userInfo, groupByOrderHistory };
+        return { router, route, onMounted, watch, userInfo, groupByOrderHistory, groupedData, orderDateFormat };
     },
 
 });
