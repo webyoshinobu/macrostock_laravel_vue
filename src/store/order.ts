@@ -13,6 +13,7 @@ export const order = defineStore('order', {
         async orderHistory(data:any) {
             const response = await axios.post('api/orderHistory', data)
             console.log('order.ts orderHistory response', response)
+            this.order_history = response.data
             return response.data
         },
     },
