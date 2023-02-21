@@ -60,6 +60,7 @@ import axios from "axios";
 import { CREATED, UNPROCESSABLE_ENTITY } from '../../util'
 import { error } from '../../../../store/error'
 import { message } from '../../../../store/message'
+import { order } from '../../../../store/order'
 
 export default defineComponent({
     name: 'UserOrderHistory',
@@ -77,10 +78,11 @@ export default defineComponent({
         const authStore = auth();
         const {  } = authStore;
         const { userInfo } = storeToRefs(authStore);
-
+        const data = userInfo.value;
 
         onMounted(() => {
-
+            console.log('UserOrderHistory.vue data', data)
+            order().orderHistory(data)
         });
 
         return { router, route, onMounted, watch, userInfo };
