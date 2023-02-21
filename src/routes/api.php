@@ -39,6 +39,8 @@ Route::post('/changeEmail','App\Http\Controllers\Auth\ChangeEmailController@upda
 Route::post('/order','App\Http\Controllers\OrderController@create')->name('order');
 //注文詳細
 Route::post('/orderDetail','App\Http\Controllers\OrderDetailController@create')->name('orderDetail');
+//注文一覧
+Route::post('/orderHistory','App\Http\Controllers\OrderHistoryController@getOrderHistory')->name('orderHistory');
 
 /*
 |--------------------------------------------------------------------------
