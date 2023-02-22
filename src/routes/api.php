@@ -41,6 +41,8 @@ Route::post('/order','App\Http\Controllers\OrderController@create')->name('order
 Route::post('/orderDetail','App\Http\Controllers\OrderDetailController@create')->name('orderDetail');
 //注文一覧
 Route::post('/orderHistory','App\Http\Controllers\OrderHistoryController@getOrderHistory')->name('orderHistory');
+//PDF
+Route::post('/orderHistoryPdf','App\Http\Controllers\PdfController@createPdf')->name('orderHistoryPdf');
 
 /*
 |--------------------------------------------------------------------------

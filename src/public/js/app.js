@@ -28746,6 +28746,9 @@ exports["default"] = (0, vue_1.defineComponent)({
       console.log('UserOrderHistory.vue orderDateFormat', format_date);
       return format_date;
     };
+    var outputPdf = function outputPdf(data) {
+      (0, order_1.order)().createPdf(data);
+    };
     (0, vue_1.onMounted)(function () {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var response;
@@ -28774,7 +28777,8 @@ exports["default"] = (0, vue_1.defineComponent)({
       userInfo: userInfo,
       groupByOrderHistory: groupByOrderHistory,
       groupedData: groupedData,
-      orderDateFormat: orderDateFormat
+      orderDateFormat: orderDateFormat,
+      outputPdf: outputPdf
     };
   }
 });
@@ -31675,24 +31679,26 @@ var _hoisted_10 = {
 var _hoisted_11 = {
   "class": "userorderhistory_wrap_content_body_list_item_p"
 };
-var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "userorderhistory_wrap_content_body_list_item_p"
-  }, [/*#__PURE__*/(0, vue_1.createElementVNode)("button", null, "領収書発行")], -1 /* HOISTED */);
-});
-
-var _hoisted_13 = {
+var _hoisted_12 = {
+  "class": "userorderhistory_wrap_content_body_list_item_p"
+};
+var _hoisted_13 = ["onClick"];
+var _hoisted_14 = {
   "class": "userorderhistory_wrap_content_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
   var _component_router_link = (0, vue_1.resolveComponent)("router-link");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createElementVNode)("h2", _hoisted_2, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + "様マイページ", 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0, vue_1.createElementVNode)("div", _hoisted_7, [(0, vue_1.createCommentVNode)(" <ul class=\"userorderhistory_wrap_content_body_list\">\n                        <li class=\"userorderhistory_wrap_content_body_list_item\">\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">0000/00/00</p>\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">No.00000</p>\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">00000円</p>\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">\n                                <button>領収書発行</button>\n                            </p>\n                        </li>\n                        <li class=\"userorderhistory_wrap_content_body_list_item\">\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">0000/00/00</p>\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">No.00000</p>\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">00000円</p>\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">\n                                <button>領収書発行</button>\n                            </p>\n                        </li>\n                        <li class=\"userorderhistory_wrap_content_body_list_item\">\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">0000/00/00</p>\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">No.00000</p>\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">00000円</p>\n                            <p class=\"userorderhistory_wrap_content_body_list_item_p\">\n                                <button>領収書発行</button>\n                            </p>\n                        </li>\n                    </ul> "), (0, vue_1.createElementVNode)("ul", _hoisted_8, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.groupedData, function (data) {
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createElementVNode)("h2", _hoisted_2, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + "様マイページ", 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0, vue_1.createElementVNode)("div", _hoisted_7, [(0, vue_1.createElementVNode)("ul", _hoisted_8, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.groupedData, function (data) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       "class": "userorderhistory_wrap_content_body_list_item",
       key: data
-    }, [(0, vue_1.createElementVNode)("p", _hoisted_9, (0, vue_1.toDisplayString)(_ctx.orderDateFormat(data[0].created_at)), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", _hoisted_10, (0, vue_1.toDisplayString)(data[0].uuid), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", _hoisted_11, (0, vue_1.toDisplayString)(data[0].order_total_amount) + "円", 1 /* TEXT */), _hoisted_12]);
-  }), 128 /* KEYED_FRAGMENT */))])]), (0, vue_1.createElementVNode)("div", _hoisted_13, [(0, vue_1.createCommentVNode)(" <ButtonBlack>注文履歴</ButtonBlack> "), (0, vue_1.createVNode)(_component_router_link, {
+    }, [(0, vue_1.createElementVNode)("p", _hoisted_9, (0, vue_1.toDisplayString)(_ctx.orderDateFormat(data[0].created_at)), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", _hoisted_10, (0, vue_1.toDisplayString)(data[0].uuid), 1 /* TEXT */), (0, vue_1.createCommentVNode)(" <p class=\"userorderhistory_wrap_content_body_list_item_p\">{{ data[0].order_total_amount }}円</p> "), (0, vue_1.createElementVNode)("p", _hoisted_11, (0, vue_1.toDisplayString)(data[0].orders_table_total_amount) + "円", 1 /* TEXT */), (0, vue_1.createElementVNode)("p", _hoisted_12, [(0, vue_1.createElementVNode)("button", {
+      onClick: function onClick($event) {
+        return _ctx.outputPdf(data);
+      }
+    }, "領収書発行", 8 /* PROPS */, _hoisted_13)])]);
+  }), 128 /* KEYED_FRAGMENT */))])]), (0, vue_1.createElementVNode)("div", _hoisted_14, [(0, vue_1.createCommentVNode)(" <ButtonBlack>注文履歴</ButtonBlack> "), (0, vue_1.createVNode)(_component_router_link, {
     to: "/mypage"
   }, {
     "default": (0, vue_1.withCtx)(function () {
@@ -35226,7 +35232,45 @@ exports.order = (0, pinia_1.defineStore)('order', {
           }
         }, _callee, this);
       }));
-    }
+    },
+    createPdf: function createPdf(data) {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios_1["default"].post('api/orderHistoryPdf', data, {
+                responseType: "blob"
+              }).then(function (response) {
+                var mineType = response.headers["content-type"];
+                // const name = response.headers["content-disposition"];
+                var contentDisposition = response.headers["content-disposition"];
+                // const fileName = getFileName(contentDisposition)
+                // const fileName = contentDisposition
+                var blob = new Blob([response.data], {
+                  type: mineType
+                });
+                // saveAs(blob, decodeURIComponent( fileName ));
+                var fileUrl = URL.createObjectURL(blob);
+                console.log('order.ts createPdf fileUrl', fileUrl);
+                window.open(fileUrl);
+              });
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }));
+    } // //laravelからのレスポンスで$headersのContent-Dispositionを指定してダウンロードするとtmpファイルには正常に保存されるが、
+    // // ダウンロードしたタイミングでファイルが壊れるので、Content-Dispositionのfilenameからファイル名を取り出して返す。
+    // getFileName (contentDisposition:string) {
+    //     let fileName = contentDisposition.substring(contentDisposition.indexOf("''") + 2,
+    //     contentDisposition.length
+    //     );
+    //     //デコードするとスペースが"+"になるのでスペースへ置換します
+    //     fileName = decodeURI(fileName).replace(/\+/g, " ");
+    //     return fileName;
+    // },
   }
 });
 
