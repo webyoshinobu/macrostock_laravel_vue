@@ -10,39 +10,14 @@
                     <h3 class="userorderhistory_wrap_content_header_title">合計金額</h3>
                 </div>
                 <div class="userorderhistory_wrap_content_body">
-                    <!-- <ul class="userorderhistory_wrap_content_body_list">
-                        <li class="userorderhistory_wrap_content_body_list_item">
-                            <p class="userorderhistory_wrap_content_body_list_item_p">0000/00/00</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">No.00000</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">00000円</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">
-                                <button>領収書発行</button>
-                            </p>
-                        </li>
-                        <li class="userorderhistory_wrap_content_body_list_item">
-                            <p class="userorderhistory_wrap_content_body_list_item_p">0000/00/00</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">No.00000</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">00000円</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">
-                                <button>領収書発行</button>
-                            </p>
-                        </li>
-                        <li class="userorderhistory_wrap_content_body_list_item">
-                            <p class="userorderhistory_wrap_content_body_list_item_p">0000/00/00</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">No.00000</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">00000円</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">
-                                <button>領収書発行</button>
-                            </p>
-                        </li>
-                    </ul> -->
                     <ul class="userorderhistory_wrap_content_body_list">
                         <li class="userorderhistory_wrap_content_body_list_item" v-for="data in groupedData" :key="data">
                             <p class="userorderhistory_wrap_content_body_list_item_p">{{ orderDateFormat(data[0].created_at) }}</p>
                             <p class="userorderhistory_wrap_content_body_list_item_p">{{ data[0].uuid }}</p>
-                            <p class="userorderhistory_wrap_content_body_list_item_p">{{ data[0].order_total_amount }}円</p>
+                            <!-- <p class="userorderhistory_wrap_content_body_list_item_p">{{ data[0].order_total_amount }}円</p> -->
+                            <p class="userorderhistory_wrap_content_body_list_item_p">{{ data[0].orders_table_total_amount }}円</p>
                             <p class="userorderhistory_wrap_content_body_list_item_p">
-                                <button>領収書発行</button>
+                                <button @click="outputPdf(data)">領収書発行</button>
                             </p>
                         </li>
                     </ul>
@@ -119,13 +94,17 @@ export default defineComponent({
             return format_date
         }
 
+        const outputPdf = (data:any) => {
+            order().createPdf(data)
+        }
+
         onMounted(async() => {
             console.log('UserOrderHistory.vue data', data)
             const response = await order().orderHistory(data)
             await groupByOrderHistory(response)
         });
 
-        return { router, route, onMounted, watch, userInfo, groupByOrderHistory, groupedData, orderDateFormat };
+        return { router, route, onMounted, watch, userInfo, groupByOrderHistory, groupedData, orderDateFormat, outputPdf };
     },
 
 });
