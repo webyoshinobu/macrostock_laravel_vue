@@ -12,6 +12,7 @@ import userMypage from "./components/auth/UserMypage.vue";
 import userOrderHistory from "./components/auth/UserOrderHistory.vue";
 import userChangeEmail from "./components/auth/UserChangeEmail.vue";
 import userChangePassword from "./components/auth/UserChangePassword.vue";
+import userDeleteAccount from "./components/auth/UserDeleteAccount.vue";
 import admin from "./components/admin/AdminLogin.vue";
 import adminRegister from "./components/admin/AdminRegister.vue";
 import adminMypage from "./components/admin/AdminMypage.vue";
@@ -111,6 +112,11 @@ const routes = [
         path: '/changePassword',
         name: 'changePassword',
         component: userChangePassword
+    },
+    {
+        path: '/deleteAccount',
+        name: 'deleteAccount',
+        component: userDeleteAccount
     },
     {
         path: '/admin/login',
