@@ -182,6 +182,18 @@ export const auth = defineStore('auth', {
             }
         },
 
+        async confirmUserPass(currentPass:any) {
+            const response = await axios.post('api/deleteAccountPasswordConfirm', currentPass)
+            console.log('auth.ts confirmUserPass response', response)
+            return response
+        },
+
+        async deleteAccount (data:number) {
+            const response = await axios.post('api/deleteAccount', data)
+            console.log('auth.ts deleteAccount response', response)
+            return response
+        },
+
         //-------------------
         //管理者関連
         //-------------------

@@ -28300,6 +28300,346 @@ exports["default"] = (0, vue_1.defineComponent)({
 "use strict";
 
 
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
+}
+function _regeneratorRuntime() {
+  "use strict";
+
+  /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+  _regeneratorRuntime = function _regeneratorRuntime() {
+    return exports;
+  };
+  var exports = {},
+    Op = Object.prototype,
+    hasOwn = Op.hasOwnProperty,
+    defineProperty = Object.defineProperty || function (obj, key, desc) {
+      obj[key] = desc.value;
+    },
+    $Symbol = "function" == typeof Symbol ? Symbol : {},
+    iteratorSymbol = $Symbol.iterator || "@@iterator",
+    asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator",
+    toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+  function define(obj, key, value) {
+    return Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: !0,
+      configurable: !0,
+      writable: !0
+    }), obj[key];
+  }
+  try {
+    define({}, "");
+  } catch (err) {
+    define = function define(obj, key, value) {
+      return obj[key] = value;
+    };
+  }
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator,
+      generator = Object.create(protoGenerator.prototype),
+      context = new Context(tryLocsList || []);
+    return defineProperty(generator, "_invoke", {
+      value: makeInvokeMethod(innerFn, self, context)
+    }), generator;
+  }
+  function tryCatch(fn, obj, arg) {
+    try {
+      return {
+        type: "normal",
+        arg: fn.call(obj, arg)
+      };
+    } catch (err) {
+      return {
+        type: "throw",
+        arg: err
+      };
+    }
+  }
+  exports.wrap = wrap;
+  var ContinueSentinel = {};
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+  var IteratorPrototype = {};
+  define(IteratorPrototype, iteratorSymbol, function () {
+    return this;
+  });
+  var getProto = Object.getPrototypeOf,
+    NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype);
+  var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function (method) {
+      define(prototype, method, function (arg) {
+        return this._invoke(method, arg);
+      });
+    });
+  }
+  function AsyncIterator(generator, PromiseImpl) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if ("throw" !== record.type) {
+        var result = record.arg,
+          value = result.value;
+        return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) {
+          invoke("next", value, resolve, reject);
+        }, function (err) {
+          invoke("throw", err, resolve, reject);
+        }) : PromiseImpl.resolve(value).then(function (unwrapped) {
+          result.value = unwrapped, resolve(result);
+        }, function (error) {
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+      reject(record.arg);
+    }
+    var previousPromise;
+    defineProperty(this, "_invoke", {
+      value: function value(method, arg) {
+        function callInvokeWithMethodAndArg() {
+          return new PromiseImpl(function (resolve, reject) {
+            invoke(method, arg, resolve, reject);
+          });
+        }
+        return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+      }
+    });
+  }
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = "suspendedStart";
+    return function (method, arg) {
+      if ("executing" === state) throw new Error("Generator is already running");
+      if ("completed" === state) {
+        if ("throw" === method) throw arg;
+        return doneResult();
+      }
+      for (context.method = method, context.arg = arg;;) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+        if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) {
+          if ("suspendedStart" === state) throw state = "completed", context.arg;
+          context.dispatchException(context.arg);
+        } else "return" === context.method && context.abrupt("return", context.arg);
+        state = "executing";
+        var record = tryCatch(innerFn, self, context);
+        if ("normal" === record.type) {
+          if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue;
+          return {
+            value: record.arg,
+            done: context.done
+          };
+        }
+        "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg);
+      }
+    };
+  }
+  function maybeInvokeDelegate(delegate, context) {
+    var methodName = context.method,
+      method = delegate.iterator[methodName];
+    if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel;
+    var record = tryCatch(method, delegate.iterator, context.arg);
+    if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel;
+    var info = record.arg;
+    return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel);
+  }
+  function pushTryEntry(locs) {
+    var entry = {
+      tryLoc: locs[0]
+    };
+    1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry);
+  }
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal", delete record.arg, entry.completion = record;
+  }
+  function Context(tryLocsList) {
+    this.tryEntries = [{
+      tryLoc: "root"
+    }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0);
+  }
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) return iteratorMethod.call(iterable);
+      if ("function" == typeof iterable.next) return iterable;
+      if (!isNaN(iterable.length)) {
+        var i = -1,
+          next = function next() {
+            for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next;
+            return next.value = undefined, next.done = !0, next;
+          };
+        return next.next = next;
+      }
+    }
+    return {
+      next: doneResult
+    };
+  }
+  function doneResult() {
+    return {
+      value: undefined,
+      done: !0
+    };
+  }
+  return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", {
+    value: GeneratorFunctionPrototype,
+    configurable: !0
+  }), defineProperty(GeneratorFunctionPrototype, "constructor", {
+    value: GeneratorFunction,
+    configurable: !0
+  }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) {
+    var ctor = "function" == typeof genFun && genFun.constructor;
+    return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name));
+  }, exports.mark = function (genFun) {
+    return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun;
+  }, exports.awrap = function (arg) {
+    return {
+      __await: arg
+    };
+  }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () {
+    return this;
+  }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+    void 0 === PromiseImpl && (PromiseImpl = Promise);
+    var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl);
+    return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) {
+      return result.done ? result.value : iter.next();
+    });
+  }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () {
+    return this;
+  }), define(Gp, "toString", function () {
+    return "[object Generator]";
+  }), exports.keys = function (val) {
+    var object = Object(val),
+      keys = [];
+    for (var key in object) keys.push(key);
+    return keys.reverse(), function next() {
+      for (; keys.length;) {
+        var key = keys.pop();
+        if (key in object) return next.value = key, next.done = !1, next;
+      }
+      return next.done = !0, next;
+    };
+  }, exports.values = values, Context.prototype = {
+    constructor: Context,
+    reset: function reset(skipTempReset) {
+      if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined);
+    },
+    stop: function stop() {
+      this.done = !0;
+      var rootRecord = this.tryEntries[0].completion;
+      if ("throw" === rootRecord.type) throw rootRecord.arg;
+      return this.rval;
+    },
+    dispatchException: function dispatchException(exception) {
+      if (this.done) throw exception;
+      var context = this;
+      function handle(loc, caught) {
+        return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught;
+      }
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i],
+          record = entry.completion;
+        if ("root" === entry.tryLoc) return handle("end");
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc"),
+            hasFinally = hasOwn.call(entry, "finallyLoc");
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0);
+            if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0);
+          } else {
+            if (!hasFinally) throw new Error("try statement without catch or finally");
+            if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
+          }
+        }
+      }
+    },
+    abrupt: function abrupt(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+      finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null);
+      var record = finallyEntry ? finallyEntry.completion : {};
+      return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record);
+    },
+    complete: function complete(record, afterLoc) {
+      if ("throw" === record.type) throw record.arg;
+      return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel;
+    },
+    finish: function finish(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel;
+      }
+    },
+    "catch": function _catch(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if ("throw" === record.type) {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+      throw new Error("illegal catch attempt");
+    },
+    delegateYield: function delegateYield(iterable, resultName, nextLoc) {
+      return this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      }, "next" === this.method && (this.arg = undefined), ContinueSentinel;
+    }
+  }, exports;
+}
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -28314,26 +28654,136 @@ var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-rou
 var auth_1 = __webpack_require__(/*! ../../../../store/auth */ "./store/auth.ts");
 var ButtonOrange_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonOrange.vue */ "./resources/js/components/common/ButtonOrange.vue"));
 var ButtonWhite_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonWhite.vue */ "./resources/js/components/common/ButtonWhite.vue"));
+var ButtonRed_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonRed.vue */ "./resources/js/components/common/ButtonRed.vue"));
+var ButtonGreen_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonGreen.vue */ "./resources/js/components/common/ButtonGreen.vue"));
 var Message_vue_1 = __importDefault(__webpack_require__(/*! ../Message.vue */ "./resources/js/components/Message.vue"));
 var Loader_vue_1 = __importDefault(__webpack_require__(/*! ../Loader.vue */ "./resources/js/components/Loader.vue"));
+var util_1 = __webpack_require__(/*! ../../util */ "./resources/js/util.ts");
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'UserMypage',
   components: {
     ButtonWhite: ButtonWhite_vue_1["default"],
     ButtonBlack: ButtonOrange_vue_1["default"],
+    ButtonRed: ButtonRed_vue_1["default"],
+    ButtonGreen: ButtonGreen_vue_1["default"],
     Loader: Loader_vue_1["default"],
     Message: Message_vue_1["default"]
   },
   setup: function setup() {
+    var _this = this;
     // data
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
     var authStore = (0, auth_1.auth)();
-    // const { resetChangePasswordMessage, resetChangeEmailMessage } = authStore;
+    var confirmUserPass = authStore.confirmUserPass,
+      logout = authStore.logout;
     var _ref = (0, pinia_1.storeToRefs)(authStore),
       userInfo = _ref.userInfo,
       changePasswordSuccess = _ref.changePasswordSuccess,
       changeEmailSuccess = _ref.changeEmailSuccess;
+    var delete_modal = (0, vue_1.ref)(false);
+    var deleteForm = (0, vue_1.ref)({
+      current_password: ''
+    });
+    var password_error = (0, vue_1.ref)('');
+    var deleteModalOpen = function deleteModalOpen() {
+      delete_modal.value = true;
+    };
+    var deleteModalClose = function deleteModalClose() {
+      delete_modal.value = false;
+      password_error.value = '';
+      deleteForm.value = {
+        current_password: ''
+      };
+    };
+    var deleteAccount = function deleteAccount(data) {
+      return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var response, confirm_pass_status, delete_account_response;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              console.log('UserMypage.vue deleteAccount data', data);
+              console.log('UserMypage.vue deleteAccount deleteForm', deleteForm.value);
+              // try {
+              //     const confirm_pass_status = await confirmUserPass(deleteForm.value)
+              //     console.log('UserMypage.vue deleteAccount confirm_pass_status', confirm_pass_status)
+              //     if(confirm_pass_status == OK) {
+              //         console.log('UserMypage.vue deleteAccount パスワードは合ってます')
+              //         // await authStore.deleteAccount(data)
+              //     }else{
+              //         error_mismatch_pass.value = 'パスワードが違います。'
+              //         throw new Error(error_mismatch_pass.value)
+              //     }
+              //     // await authStore.deleteAccount(data)
+              // }catch(e:any){
+              //     console.error( "エラー：", e.message );
+              // }
+              _context.prev = 2;
+              _context.next = 5;
+              return confirmUserPass(deleteForm.value);
+            case 5:
+              response = _context.sent;
+              console.log('UserMypage.vue deleteAccount response', response);
+              confirm_pass_status = response.status;
+              console.log('UserMypage.vue deleteAccount confirm_pass_status', confirm_pass_status);
+              if (deleteForm.value.current_password) {
+                _context.next = 13;
+                break;
+              }
+              password_error.value = 'パスワードを入力してください。';
+              _context.next = 35;
+              break;
+            case 13:
+              if (!(confirm_pass_status != util_1.OK)) {
+                _context.next = 17;
+                break;
+              }
+              password_error.value = response.data.errorMessage;
+              // throw new Error(error_mismatch_pass.value)
+              _context.next = 35;
+              break;
+            case 17:
+              _context.prev = 17;
+              _context.next = 20;
+              return authStore.deleteAccount(data);
+            case 20:
+              delete_account_response = _context.sent;
+              console.log('UserMypage.vue deleteAccount response.status', delete_account_response.status);
+              if (!(delete_account_response.status == util_1.OK)) {
+                _context.next = 28;
+                break;
+              }
+              _context.next = 25;
+              return authStore.logout();
+            case 25:
+              router.push({
+                name: 'deleteAccount'
+              });
+              _context.next = 30;
+              break;
+            case 28:
+              password_error.value = 'アカウントの削除に失敗しました。';
+              throw new Error(password_error.value);
+            case 30:
+              _context.next = 35;
+              break;
+            case 32:
+              _context.prev = 32;
+              _context.t0 = _context["catch"](17);
+              console.error("エラー：", _context.t0.message);
+            case 35:
+              throw new Error(password_error.value);
+            case 38:
+              _context.prev = 38;
+              _context.t1 = _context["catch"](2);
+              console.error("エラー：", _context.t1.message);
+            case 41:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[2, 38], [17, 32]]);
+      }));
+    };
     // const clearError = () => {
     //     resetChangePasswordMessage(null)
     //     resetChangeEmailMessage(null)
@@ -28349,7 +28799,13 @@ exports["default"] = (0, vue_1.defineComponent)({
       watch: vue_1.watch,
       userInfo: userInfo,
       changePasswordSuccess: changePasswordSuccess,
-      changeEmailSuccess: changeEmailSuccess
+      changeEmailSuccess: changeEmailSuccess,
+      delete_modal: delete_modal,
+      deleteModalOpen: deleteModalOpen,
+      deleteModalClose: deleteModalClose,
+      deleteAccount: deleteAccount,
+      deleteForm: deleteForm,
+      password_error: password_error
     };
   }
 });
@@ -31643,10 +32099,58 @@ var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_22 = {
   "class": "usermypage_wrap_content_button"
 };
+var _hoisted_23 = {
+  id: "deleteaccount_overlay"
+};
+var _hoisted_24 = {
+  "class": "deleteaccount_modal_content",
+  id: "deleteaccount_modal_content"
+};
+var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("h2", null, "退会の確認", -1 /* HOISTED */);
+});
+
+var _hoisted_26 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "deleteaccount_modal_content_word"
+  }, "お客様のアカウントを削除します。", -1 /* HOISTED */);
+});
+
+var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "deleteaccount_modal_content_word"
+  }, "削除を実行するとお客様の全ての情報が削除され、復元もできなくなります。", -1 /* HOISTED */);
+});
+
+var _hoisted_28 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "deleteaccount_modal_content_word"
+  }, "アカウント削除を実行しますか？", -1 /* HOISTED */);
+});
+
+var _hoisted_29 = {
+  "class": "deleteaccount_modal_content_form",
+  method: "post"
+};
+var _hoisted_30 = {
+  key: 0,
+  "class": "errors"
+};
+var _hoisted_31 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
+    "for": "deleteaccount_modal_content_form_label"
+  }, "パスワード確認", -1 /* HOISTED */);
+});
+
+var _hoisted_32 = {
+  "class": "deleteaccount_modal_content_button"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0, vue_1.resolveComponent)("router-link");
   var _component_ButtonBlack = (0, vue_1.resolveComponent)("ButtonBlack");
   var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
+  var _component_ButtonRed = (0, vue_1.resolveComponent)("ButtonRed");
+  var _component_ButtonGreen = (0, vue_1.resolveComponent)("ButtonGreen");
   return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createCommentVNode)(" <h2 class=\"usermypage_title\">{{ userInfo.name }}様マイページ</h2> "), (0, vue_1.createElementVNode)("h2", _hoisted_2, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + "様マイページ", 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0, vue_1.createElementVNode)("div", _hoisted_5, [_ctx.changePasswordSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_6, (0, vue_1.toDisplayString)(_ctx.changePasswordSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.changeEmailSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_7, (0, vue_1.toDisplayString)(_ctx.changeEmailSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("ul", _hoisted_8, [(0, vue_1.createElementVNode)("li", _hoisted_9, [_hoisted_10, (0, vue_1.createElementVNode)("p", _hoisted_11, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name), 1 /* TEXT */)]), (0, vue_1.createElementVNode)("li", _hoisted_12, [_hoisted_13, (0, vue_1.createElementVNode)("p", _hoisted_14, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).email), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_15, [(0, vue_1.createVNode)(_component_router_link, {
     to: "/changeEmail"
   }, {
@@ -31674,22 +32178,47 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
 
     _: 1 /* STABLE */
-  }), (0, vue_1.createVNode)(_component_router_link, {
-    to: "/deleteAccount"
+  }), (0, vue_1.createVNode)(_component_ButtonWhite, {
+    onClick: _ctx.deleteModalOpen,
+    "class": "margin-left"
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [(0, vue_1.createVNode)(_component_ButtonWhite, {
+      return [(0, vue_1.createTextVNode)("退会")];
+    }),
+    _: 1 /* STABLE */
+  }, 8 /* PROPS */, ["onClick"])])])]), (0, vue_1.createCommentVNode)(" モーダル "), (0, vue_1.createVNode)(vue_1.Transition, {
+    name: "modal",
+    persisted: ""
+  }, {
+    "default": (0, vue_1.withCtx)(function () {
+      return [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("div", _hoisted_23, [(0, vue_1.createElementVNode)("div", _hoisted_24, [_hoisted_25, _hoisted_26, _hoisted_27, _hoisted_28, (0, vue_1.createElementVNode)("form", _hoisted_29, [_ctx.password_error ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("p", _hoisted_30, (0, vue_1.toDisplayString)(_ctx.password_error), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _hoisted_31, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+        type: "password",
+        "class": "deleteaccount_modal_content_form_label",
+        id: "deleteaccount_modal_content_form_label",
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+          return _ctx.deleteForm.current_password = $event;
+        })
+      }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.deleteForm.current_password]])]), (0, vue_1.createElementVNode)("p", _hoisted_32, [(0, vue_1.createVNode)(_component_ButtonRed, {
+        onClick: _cache[1] || (_cache[1] = function ($event) {
+          return _ctx.deleteAccount(_ctx.userInfo);
+        })
+      }, {
+        "default": (0, vue_1.withCtx)(function () {
+          return [(0, vue_1.createTextVNode)("削除")];
+        }),
+        _: 1 /* STABLE */
+      }), (0, vue_1.createVNode)(_component_ButtonGreen, {
+        onClick: _ctx.deleteModalClose,
         "class": "margin-left"
       }, {
         "default": (0, vue_1.withCtx)(function () {
-          return [(0, vue_1.createTextVNode)("退会する")];
+          return [(0, vue_1.createTextVNode)("Close")];
         }),
         _: 1 /* STABLE */
-      })];
+      }, 8 /* PROPS */, ["onClick"])])])], 512 /* NEED_PATCH */), [[vue_1.vShow, _ctx.delete_modal]])];
     }),
-
     _: 1 /* STABLE */
-  })])])])]);
+  })]);
 }
 
 exports.render = render;
@@ -33814,27 +34343,65 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
         }, _callee6, this);
       }));
     },
-    //-------------------
-    //管理者関連
-    //-------------------
-    adminRegister: function adminRegister(data) {
+    confirmUserPass: function confirmUserPass(currentPass) {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
         var response;
         return _regeneratorRuntime().wrap(function _callee7$(_context7) {
           while (1) switch (_context7.prev = _context7.next) {
             case 0:
+              _context7.next = 2;
+              return axios_1["default"].post('api/deleteAccountPasswordConfirm', currentPass);
+            case 2:
+              response = _context7.sent;
+              console.log('auth.ts confirmUserPass response', response);
+              return _context7.abrupt("return", response);
+            case 5:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7);
+      }));
+    },
+    deleteAccount: function deleteAccount(data) {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.next = 2;
+              return axios_1["default"].post('api/deleteAccount', data);
+            case 2:
+              response = _context8.sent;
+              console.log('auth.ts deleteAccount response', response);
+              return _context8.abrupt("return", response);
+            case 5:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8);
+      }));
+    },
+    //-------------------
+    //管理者関連
+    //-------------------
+    adminRegister: function adminRegister(data) {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
               this.adminUser = null;
-              _context7.next = 3;
+              _context9.next = 3;
               return axios_1["default"].post('/api/admin/register', data);
             case 3:
-              response = _context7.sent;
+              response = _context9.sent;
               if (!(response.status === util_1.CREATED)) {
-                _context7.next = 8;
+                _context9.next = 8;
                 break;
               }
               this.apiStatus = true;
               this.adminUser = response.data;
-              return _context7.abrupt("return", false);
+              return _context9.abrupt("return", false);
             case 8:
               this.apiStatus = false;
               if (response.status === util_1.UNPROCESSABLE_ENTITY) {
@@ -33844,34 +34411,34 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               }
             case 10:
             case "end":
-              return _context7.stop();
+              return _context9.stop();
           }
-        }, _callee7, this);
+        }, _callee9, this);
       }));
     },
     adminLogin: function adminLogin(data) {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
         var response;
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
+        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
             case 0:
-              _context8.next = 2;
+              _context10.next = 2;
               return axios_1["default"].post('/api/admin/login', data)["catch"](function (err) {
                 return err.response || err;
               });
             case 2:
-              response = _context8.sent;
+              response = _context10.sent;
               console.log('adminLogin data', data);
               console.log('auth.ts login response.status1', response.status);
               if (!(response.status === util_1.OK)) {
-                _context8.next = 11;
+                _context10.next = 11;
                 break;
               }
               this.apiStatus = true;
               this.adminUser = response.data;
               this.adminFlag = response.data.admin_flag;
               console.log('adminLogin this.adminFlag', this.adminFlag);
-              return _context8.abrupt("return", false);
+              return _context10.abrupt("return", false);
             case 11:
               this.apiStatus = false;
               (0, error_1.error)().setCode(response.status);
@@ -33885,76 +34452,76 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               }
             case 17:
             case "end":
-              return _context8.stop();
+              return _context10.stop();
           }
-        }, _callee8, this);
+        }, _callee10, this);
       }));
     },
     adminLogout: function adminLogout() {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
         var response;
-        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-          while (1) switch (_context9.prev = _context9.next) {
+        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
             case 0:
               // const response = await axios.post('/api/logout');
               // this.user = null;
               this.apiStatus = false;
-              _context9.next = 3;
+              _context11.next = 3;
               return axios_1["default"].post('/api/admin/logout');
             case 3:
-              response = _context9.sent;
+              response = _context11.sent;
               if (!(response.status === util_1.OK)) {
-                _context9.next = 9;
+                _context11.next = 9;
                 break;
               }
               // this.apiStatus = true
               this.apiStatus = false;
               this.adminUser = null;
               this.adminFlag = null;
-              return _context9.abrupt("return", false);
+              return _context11.abrupt("return", false);
             case 9:
               this.apiStatus = false;
               this.adminFlag = null;
               (0, error_1.error)().setCode(response.status);
             case 12:
             case "end":
-              return _context9.stop();
+              return _context11.stop();
           }
-        }, _callee9, this);
+        }, _callee11, this);
       }));
     },
     currentAdmin: function currentAdmin() {
-      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
         var response, admin;
-        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
+        return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) switch (_context12.prev = _context12.next) {
             case 0:
               // const response = await axios.get('/api/user');
               // const user = response.data || null;
               // this.user = user;
               this.apiStatus = false;
-              _context10.next = 3;
+              _context12.next = 3;
               return axios_1["default"].get('/api/admin');
             case 3:
-              response = _context10.sent;
+              response = _context12.sent;
               console.log('auth.ts currentUser response.data', response.data);
               admin = response.data || null;
               console.log('auth.ts currentUser admin', admin);
               if (!(response.status === util_1.OK)) {
-                _context10.next = 11;
+                _context12.next = 11;
                 break;
               }
               this.apiStatus = true;
               this.adminUser = admin;
-              return _context10.abrupt("return", false);
+              return _context12.abrupt("return", false);
             case 11:
               this.apiStatus = false;
               (0, error_1.error)().setCode(response.status);
             case 13:
             case "end":
-              return _context10.stop();
+              return _context12.stop();
           }
-        }, _callee10, this);
+        }, _callee12, this);
       }));
     },
     //-------------------
@@ -35814,7 +36381,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_public_images_top_slide1_jpg__WEBPACK_IMPORTED_MODULE_2__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.top[data-v-5c6cb28c] {\n  width: 100%;\n  height: 100vh;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: cover;\n  background-position: center;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  text-align: center;\n  flex-flow: column;\n}\n.top_site_title[data-v-5c6cb28c] {\n  font-size: 144px;\n}\n.top_sub_site_title[data-v-5c6cb28c] {\n  font-size: 48px;\n}\n.top_what_macro_photo[data-v-5c6cb28c] {\n  background-color: #F87D09;\n  border-radius: 20px;\n  border: none;\n  outline: none;\n  padding: 13px 50px;\n  margin-top: 50px;\n  font-size: 36px;\n  cursor: pointer;\n}\n#top_overlay[data-v-5c6cb28c] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 1;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#top_modal_content[data-v-5c6cb28c] {\n  z-index: 2;\n  width: 50%;\n  padding: 1em;\n  background: #fff;\n  border-radius: 20px;\n}\n.top_modal_content h2[data-v-5c6cb28c] {\n  font-size: 36px;\n  margin: 20px 0;\n}\n.top_modal_content_word[data-v-5c6cb28c] {\n  font-size: 24px;\n  text-align: left;\n}\n.top_modal_content_button[data-v-5c6cb28c] {\n  display: flex;\n  justify-content: flex-end;\n}\n.top_modal_content_button_content[data-v-5c6cb28c] {\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #3cb371;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n.modal-enter-active[data-v-5c6cb28c], .modal-leave-active[data-v-5c6cb28c] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-5c6cb28c], .modal-leave-active .modal-content[data-v-5c6cb28c] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-5c6cb28c], .modal-leave-to[data-v-5c6cb28c] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-5c6cb28c], .modal-leave-to .modal-content[data-v-5c6cb28c] {\n  transform: scale(1);\n}\n.wd_color_white[data-v-5c6cb28c] {\n  color: #ffffff;\n  font-weight: bold;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.top[data-v-5c6cb28c] {\n  width: 100%;\n  height: 100vh;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: cover;\n  background-position: center;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  text-align: center;\n  flex-flow: column;\n}\n.top_site_title[data-v-5c6cb28c] {\n  font-size: 144px;\n}\n.top_sub_site_title[data-v-5c6cb28c] {\n  font-size: 48px;\n}\n.top_what_macro_photo[data-v-5c6cb28c] {\n  background-color: #F87D09;\n  border-radius: 20px;\n  border: none;\n  outline: none;\n  padding: 13px 50px;\n  margin-top: 50px;\n  font-size: 36px;\n  cursor: pointer;\n}\n#top_overlay[data-v-5c6cb28c] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#top_modal_content[data-v-5c6cb28c] {\n  z-index: 2;\n  width: 50%;\n  padding: 1em;\n  background: #fff;\n  border-radius: 20px;\n}\n.top_modal_content h2[data-v-5c6cb28c] {\n  font-size: 36px;\n  margin: 20px 0;\n}\n.top_modal_content_word[data-v-5c6cb28c] {\n  font-size: 24px;\n  text-align: left;\n}\n.top_modal_content_button[data-v-5c6cb28c] {\n  display: flex;\n  justify-content: flex-end;\n}\n.top_modal_content_button_content[data-v-5c6cb28c] {\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #3cb371;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n.modal-enter-active[data-v-5c6cb28c], .modal-leave-active[data-v-5c6cb28c] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-5c6cb28c], .modal-leave-active .modal-content[data-v-5c6cb28c] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-5c6cb28c], .modal-leave-to[data-v-5c6cb28c] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-5c6cb28c], .modal-leave-to .modal-content[data-v-5c6cb28c] {\n  transform: scale(1);\n}\n.wd_color_white[data-v-5c6cb28c] {\n  color: #ffffff;\n  font-weight: bold;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36030,7 +36597,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".usermypage[data-v-14969ad2] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.usermypage_title[data-v-14969ad2] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.usermypage_wrap_title[data-v-14969ad2] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.usermypage_wrap_content[data-v-14969ad2] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.usermypage_wrap_content_list[data-v-14969ad2] {\n  list-style-type: none;\n}\n.usermypage_wrap_content_list_items[data-v-14969ad2] {\n  display: flex;\n  padding: 20px 0;\n}\n.usermypage_wrap_content_list_items_title[data-v-14969ad2] {\n  width: 33.33%;\n}\n.usermypage_wrap_content_list_items_info[data-v-14969ad2] {\n  width: 46.33%;\n}\n.usermypage_wrap_content_list_items_button[data-v-14969ad2] {\n  width: 20.33%;\n  display: flex;\n  justify-content: center;\n}\n.usermypage_wrap_content_list_items_button_word[data-v-14969ad2] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.usermypage_wrap_content_button[data-v-14969ad2] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-14969ad2] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-14969ad2] {\n  margin: 0 0 20px 0;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-14969ad2] {\n  list-style: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.usermypage[data-v-14969ad2] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.usermypage_title[data-v-14969ad2] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.usermypage_wrap_title[data-v-14969ad2] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.usermypage_wrap_content[data-v-14969ad2] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.usermypage_wrap_content_list[data-v-14969ad2] {\n  list-style-type: none;\n}\n.usermypage_wrap_content_list_items[data-v-14969ad2] {\n  display: flex;\n  padding: 20px 0;\n}\n.usermypage_wrap_content_list_items_title[data-v-14969ad2] {\n  width: 33.33%;\n}\n.usermypage_wrap_content_list_items_info[data-v-14969ad2] {\n  width: 46.33%;\n}\n.usermypage_wrap_content_list_items_button[data-v-14969ad2] {\n  width: 20.33%;\n  display: flex;\n  justify-content: center;\n}\n.usermypage_wrap_content_list_items_button_word[data-v-14969ad2] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.usermypage_wrap_content_button[data-v-14969ad2] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-14969ad2] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-14969ad2] {\n  margin: 0 0 20px 0;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-14969ad2] {\n  list-style: none;\n}\n#deleteaccount_overlay[data-v-14969ad2] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#deleteaccount_modal_content[data-v-14969ad2] {\n  z-index: 2;\n  width: 50%;\n  padding: 1em;\n  background: #fff;\n  border-radius: 20px;\n}\n.deleteaccount_modal_content h2[data-v-14969ad2] {\n  font-size: 36px;\n  margin: 20px 0;\n}\n.deleteaccount_modal_content_word[data-v-14969ad2] {\n  font-size: 24px;\n  text-align: left;\n}\n.deleteaccount_modal_content_form[data-v-14969ad2] {\n  margin: 20px 0;\n  font-size: 24px;\n}\n.deleteaccount_modal_content_form_label[data-v-14969ad2] {\n  margin: 0 0 0 20px;\n}\n.deleteaccount_modal_content_button[data-v-14969ad2] {\n  display: flex;\n  justify-content: flex-end;\n  font-size: 24px;\n}\n.deleteaccount_modal_content_button_content[data-v-14969ad2] {\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #3cb371;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n.modal-enter-active[data-v-14969ad2], .modal-leave-active[data-v-14969ad2] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-14969ad2], .modal-leave-active .modal-content[data-v-14969ad2] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-14969ad2], .modal-leave-to[data-v-14969ad2] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-14969ad2], .modal-leave-to .modal-content[data-v-14969ad2] {\n  transform: scale(1);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

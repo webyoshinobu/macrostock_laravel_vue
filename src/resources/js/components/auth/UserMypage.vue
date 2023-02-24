@@ -35,24 +35,49 @@
                 </ul>
                 <div class="usermypage_wrap_content_button">
                     <router-link to="/orderHistory"><ButtonBlack>注文履歴</ButtonBlack></router-link>
-                    <router-link to="/deleteAccount"><ButtonWhite class="margin-left">退会する</ButtonWhite></router-link>
+                    <ButtonWhite @click="deleteModalOpen" class="margin-left">退会</ButtonWhite>
                 </div>
             </div>
         </div>
+
+        <!-- モーダル -->
+        <transition name="modal">
+            <div id="deleteaccount_overlay" v-show="delete_modal">
+                <div class="deleteaccount_modal_content" id="deleteaccount_modal_content">
+                    <h2>退会の確認</h2>
+                    <p class="deleteaccount_modal_content_word">お客様のアカウントを削除します。</p>
+                    <p class="deleteaccount_modal_content_word">削除を実行するとお客様の全ての情報が削除され、復元もできなくなります。</p>
+                    <p class="deleteaccount_modal_content_word">アカウント削除を実行しますか？</p>
+
+                    <form class="deleteaccount_modal_content_form" method="post">
+                        <p v-if="password_error" class="errors">{{password_error}}</p>
+                        <label for="deleteaccount_modal_content_form_label">パスワード確認</label>
+                        <input type="password" class="deleteaccount_modal_content_form_label" id="deleteaccount_modal_content_form_label" v-model="deleteForm.current_password">
+                    </form>
+                    <p class="deleteaccount_modal_content_button">
+                        <ButtonRed @click="deleteAccount(userInfo)">削除</ButtonRed>
+                        <ButtonGreen @click="deleteModalClose" class="margin-left">Close</ButtonGreen>
+                    </p>
+                </div>
+            </div>
+        </transition>
+
     </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, watch } from "vue"
+import { defineComponent, onMounted, watch, ref } from "vue"
 import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { auth } from '../../../../store/auth'
 import ButtonBlack from "../common/ButtonOrange.vue"
 import ButtonWhite from "../common/ButtonWhite.vue"
+import ButtonRed from "../common/ButtonRed.vue"
+import ButtonGreen from "../common/ButtonGreen.vue"
 import Message from "../Message.vue"
 import Loader from "../Loader.vue"
 import axios from "axios";
-import { CREATED, UNPROCESSABLE_ENTITY } from '../../util'
+import { OK } from '../../util'
 import { error } from '../../../../store/error'
 import { message } from '../../../../store/message'
 
@@ -61,6 +86,8 @@ export default defineComponent({
     components: {
         ButtonWhite,
         ButtonBlack,
+        ButtonRed,
+        ButtonGreen,
         Loader,
         Message,
     },
@@ -70,8 +97,73 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const authStore = auth();
-        // const { resetChangePasswordMessage, resetChangeEmailMessage } = authStore;
+        const { confirmUserPass, logout } = authStore;
         const { userInfo, changePasswordSuccess, changeEmailSuccess } = storeToRefs(authStore);
+        let delete_modal = ref<boolean>(false);
+        let deleteForm = ref({
+            current_password: '',
+        });
+        let password_error = ref('');
+
+        const deleteModalOpen = () => {
+            delete_modal.value = true
+        }
+        const deleteModalClose = () => {
+            delete_modal.value = false;
+            password_error.value = ''
+            deleteForm.value = {current_password: ''}
+        }
+
+        const deleteAccount = async(data:any) => {
+            console.log('UserMypage.vue deleteAccount data', data)
+            console.log('UserMypage.vue deleteAccount deleteForm', deleteForm.value)
+            // try {
+            //     const confirm_pass_status = await confirmUserPass(deleteForm.value)
+            //     console.log('UserMypage.vue deleteAccount confirm_pass_status', confirm_pass_status)
+            //     if(confirm_pass_status == OK) {
+            //         console.log('UserMypage.vue deleteAccount パスワードは合ってます')
+            //         // await authStore.deleteAccount(data)
+            //     }else{
+            //         error_mismatch_pass.value = 'パスワードが違います。'
+            //         throw new Error(error_mismatch_pass.value)
+            //     }
+            //     // await authStore.deleteAccount(data)
+            // }catch(e:any){
+            //     console.error( "エラー：", e.message );
+            // }
+
+            try {
+                const response = await confirmUserPass(deleteForm.value)
+                console.log('UserMypage.vue deleteAccount response', response)
+                const confirm_pass_status = response.status
+                console.log('UserMypage.vue deleteAccount confirm_pass_status', confirm_pass_status)
+                if(!deleteForm.value.current_password) {
+                    password_error.value = 'パスワードを入力してください。'
+                }else if(confirm_pass_status != OK) {
+                    password_error.value = response.data.errorMessage
+                    // throw new Error(error_mismatch_pass.value)
+                }else{
+
+                    try {
+                        const delete_account_response = await authStore.deleteAccount(data)
+                        console.log('UserMypage.vue deleteAccount response.status', delete_account_response.status)
+                        if(delete_account_response.status == OK) {
+                            await authStore.logout()
+                            router.push({name: 'deleteAccount'})
+                        }else{
+                            password_error.value = 'アカウントの削除に失敗しました。'
+                            throw new Error(password_error.value)
+                        }
+                    }catch(e:any){
+                        console.error( "エラー：", e.message )
+                    }
+
+                }
+                throw new Error(password_error.value)
+            }catch(e:any){
+                console.error( "エラー：", e.message )
+            }
+        }
 
         // const clearError = () => {
         //     resetChangePasswordMessage(null)
@@ -83,7 +175,7 @@ export default defineComponent({
             // clearError();
         });
 
-        return { router, route, onMounted, watch, userInfo, changePasswordSuccess, changeEmailSuccess };
+        return { router, route, onMounted, watch, userInfo, changePasswordSuccess, changeEmailSuccess, delete_modal, deleteModalOpen, deleteModalClose, deleteAccount, deleteForm, password_error };
     },
 
 });
@@ -164,6 +256,95 @@ export default defineComponent({
     ul {
         list-style: none;
     }
+}
+
+//-----------------------
+// モーダル関連
+//-----------------------
+#deleteaccount_overlay{
+  /*　要素を重ねた時の順番　*/
+  z-index:999;
+
+  /*　画面全体を覆う設定　*/
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,0.5);
+
+  /*　画面の中央に要素を表示させる設定　*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#deleteaccount_modal_content{
+  z-index:2;
+  width:50%;
+  padding: 1em;
+  background:#fff;
+  border-radius: 20px;
+}
+
+.deleteaccount_modal_content {
+
+    h2 {
+        font-size: 36px;
+        margin: 20px 0;
+    }
+
+    &_word {
+        font-size: 24px;
+        text-align: left;
+    }
+
+    &_form {
+        margin: 20px 0;
+        font-size: 24px;
+
+        &_label {
+            margin: 0 0 0 20px;
+        }
+    }
+
+    &_button {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 24px;
+
+        &_content {
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #3cb371;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+    }
+
+}
+
+.modal-enter-active, .modal-leave-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s;
+
+  .modal-content{
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
+}
+
+.modal-enter, .modal-leave-to {
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.5s, transform 0s 0.5s;
+
+  .modal-content{
+    transform: scale(1);
+  }
 }
 
 </style>
