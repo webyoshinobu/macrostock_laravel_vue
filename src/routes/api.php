@@ -35,6 +35,10 @@ Route::get('/user', fn() => Auth::user())->name('user');
 Route::post('/changePassword','App\Http\Controllers\Auth\ChangePasswordController@update')->name('changePassword');
 // メールアドレス変更
 Route::post('/changeEmail','App\Http\Controllers\Auth\ChangeEmailController@update')->name('changeEmail');
+// パスワード確認
+Route::post('/deleteAccountPasswordConfirm','App\Http\Controllers\Auth\DeleteAccountController@confirmPassword')->name('deleteAccountPasswordConfirm');
+// アカウント削除
+Route::post('/deleteAccount','App\Http\Controllers\Auth\DeleteAccountController@destroy')->name('deleteAccount');
 //注文
 Route::post('/order','App\Http\Controllers\OrderController@create')->name('order');
 //注文詳細
