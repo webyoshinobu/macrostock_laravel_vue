@@ -59,6 +59,8 @@ Route::post('/admin/register', 'App\Http\Controllers\Admin\RegisterController@re
 Route::post('/admin/login', 'App\Http\Controllers\Admin\LoginController@login')->name('login');
 // ログアウト
 Route::post('/admin/logout', 'App\Http\Controllers\Admin\LoginController@logout')->name('logout');
+// アップロード写真一覧
+Route::post('/admin/photoList', 'App\Http\Controllers\PhotoListController@getPhotoList')->name('photoList');
 // ログイン管理者
 Route::get('/admin', fn() => Auth::guard('admin')->user())->name('admin');
 

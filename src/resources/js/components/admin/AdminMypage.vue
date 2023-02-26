@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted, reactive, watch, nextTick } from "vue"
+import { defineComponent, ref, onMounted, watch, nextTick, onUpdated, onBeforeUnmount } from "vue"
 import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { auth } from '../../../../store/auth'
@@ -45,6 +45,7 @@ import axios from "axios";
 import { CREATED, UNPROCESSABLE_ENTITY } from '../../util'
 import { error } from '../../../../store/error'
 import { message } from '../../../../store/message'
+import { galleryImgs } from '../../../../store/gallery'
 
 export default defineComponent({
     name: 'AdminMypage',
@@ -59,21 +60,34 @@ export default defineComponent({
         // data
         const router = useRouter();
         const route = useRoute();
+        const authStore = auth();
         // let preview = ref<string | ArrayBuffer>('');
         let preview = null
         let photo:any = null
         let errors:any = null
         let loading = ref<boolean>(false)
         let input = ref<boolean>(true)
+        const { userInfo } = storeToRefs(authStore) as any|null;
 
-        // watch(preview, () => {
-        //     console.log('watch preview', preview)
-        // },
-        // {
-        //     deep: true
-        // })
+        watch(userInfo, () => {
+            console.log('watch userInfo', userInfo.value)
+            photoList(userInfo.value)
+        },
+        {
+            // deep: true,
+            // immediate: true
+        })
 
         //methods
+        const photoList = async(data:any) => {
+            console.log('AdminMypage.vue photoList()', data)
+            // if(userInfo.value!=null){
+                // const admin_id = userInfo.value.id
+                const photo_list_response = await galleryImgs().getPhotoList(data)
+                console.log('AdminMypage.vue photoList() photo_list_response', photo_list_response)
+            // }
+        }
+
         // フォームでファイルが選択されたら実行される
         const onFileChange = (event: Event) => {
             console.log('onFileChange');
@@ -160,11 +174,13 @@ export default defineComponent({
             message().setContent(content,timeout)
         }
 
-        onMounted(() => {
-            console.log('input1', input.value);
+        onMounted(async() => {
+            console.log('onMounted');
+            console.log('watch userInfo', userInfo.value)
+            photoList(userInfo.value)
         });
 
-        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick };
+        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList };
     },
 
 });
