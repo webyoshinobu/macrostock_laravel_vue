@@ -117,20 +117,6 @@ export default defineComponent({
         const deleteAccount = async(data:any) => {
             console.log('UserMypage.vue deleteAccount data', data)
             console.log('UserMypage.vue deleteAccount deleteForm', deleteForm.value)
-            // try {
-            //     const confirm_pass_status = await confirmUserPass(deleteForm.value)
-            //     console.log('UserMypage.vue deleteAccount confirm_pass_status', confirm_pass_status)
-            //     if(confirm_pass_status == OK) {
-            //         console.log('UserMypage.vue deleteAccount パスワードは合ってます')
-            //         // await authStore.deleteAccount(data)
-            //     }else{
-            //         error_mismatch_pass.value = 'パスワードが違います。'
-            //         throw new Error(error_mismatch_pass.value)
-            //     }
-            //     // await authStore.deleteAccount(data)
-            // }catch(e:any){
-            //     console.error( "エラー：", e.message );
-            // }
 
             try {
                 const response = await confirmUserPass(deleteForm.value)
@@ -175,7 +161,7 @@ export default defineComponent({
             // clearError();
         });
 
-        return { router, route, onMounted, watch, userInfo, changePasswordSuccess, changeEmailSuccess, delete_modal, deleteModalOpen, deleteModalClose, deleteAccount, deleteForm, password_error };
+        return { router, route, onMounted, watch, userInfo, changePasswordSuccess, changeEmailSuccess, delete_modal, deleteModalOpen, deleteModalClose, deleteAccount, deleteForm, password_error, logout };
     },
 
 });
