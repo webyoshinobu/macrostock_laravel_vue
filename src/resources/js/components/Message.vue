@@ -1,6 +1,6 @@
 <template>
   <div class="message" v-show="isVisible" :showMessage="showMessage">
-        {{ showMessage }}test
+        {{ showMessage }}
   </div>
 </template>
 
@@ -42,3 +42,10 @@
     },
   })
 </script>
+
+<style lang="scss" scoped>
+.message {
+    font-weight: bold;
+    padding: 0 0 20px 0;
+}
+</style>

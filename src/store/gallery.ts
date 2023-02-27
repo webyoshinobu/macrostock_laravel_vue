@@ -9,6 +9,7 @@ export const galleryImgs = defineStore('gallery', {
     //保持したいデータ
     state: () =>({
         product_imgs: null as IMAGES|null,
+        photo_list: null as IMAGES|null,
     }),
     getters: ({
 
@@ -25,6 +26,8 @@ export const galleryImgs = defineStore('gallery', {
             // console.log('gallery.ts getPhotoList data', data)
             const response = await axios.post('/api/admin/photoList', data);
             console.log('gallery.ts getPhotoList response.data', response.data);
+            this.photo_list = response.data
+            console.log('gallery.ts getPhotoList this.photo_list', this.photo_list);
             return response.data
         }
     },

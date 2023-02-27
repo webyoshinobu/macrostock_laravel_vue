@@ -7,8 +7,6 @@
             <Loader>Sending your photo...</Loader>
         </div>
 
-        <Message></Message>
-
         <form v-show="! loading" class="adminmypage_form" @submit.prevent="submit">
 
             <!-- <input type="hidden" name="_token" :value="token"> -->
@@ -20,6 +18,10 @@
                 </ul>
             </div>
 
+            <h3>写真のアップロード</h3>
+
+            <Message></Message>
+
             <input class="adminmypage_form_item" id="photo_upload" type="file" v-if="input" @change="onFileChange">
             <output class="form_output" v-show="preview">
                 <img :src="preview" alt="">
@@ -29,6 +31,21 @@
             </div>
 
         </form>
+
+        <ul class="adminmypage_list">
+            <li class="adminmypage_list_items" v-for="photo in photos" :key="photo.index">
+            <!-- <li class="adminmypage_list_items" v-for="photo in photo_list" :key="photo.index"> -->
+                <div class="adminmypage_list_items_img">
+                    <img class="adminmypage_list_items_img_content" :src="photo.img_url" :alt="photo.filename">
+                </div>
+                <div class="adminmypage_list_items_detail">
+                    <p>ファイル名：{{photo.filename}}</p>
+                    <p>所有者：{{photo.name}}</p>
+                    <p>価格：{{photo.price}}</p>
+                    <button>削除</button>
+                </div>
+            </li>
+        </ul>
     </section>
 </template>
 
@@ -61,6 +78,7 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const authStore = auth();
+        const galleryStore = galleryImgs()
         // let preview = ref<string | ArrayBuffer>('');
         let preview = null
         let photo:any = null
@@ -68,6 +86,8 @@ export default defineComponent({
         let loading = ref<boolean>(false)
         let input = ref<boolean>(true)
         const { userInfo } = storeToRefs(authStore) as any|null;
+        const { photo_list } = storeToRefs(galleryStore) as any|null;
+        let photos = ref([]);
 
         watch(userInfo, () => {
             console.log('watch userInfo', userInfo.value)
@@ -81,11 +101,9 @@ export default defineComponent({
         //methods
         const photoList = async(data:any) => {
             console.log('AdminMypage.vue photoList()', data)
-            // if(userInfo.value!=null){
-                // const admin_id = userInfo.value.id
-                const photo_list_response = await galleryImgs().getPhotoList(data)
-                console.log('AdminMypage.vue photoList() photo_list_response', photo_list_response)
-            // }
+            photos.value = await galleryImgs().getPhotoList(data)
+            console.log('AdminMypage.vue photoList() photos', photos)
+            // console.log('AdminMypage.vue photoList() photo_list', photo_list)
         }
 
         // フォームでファイルが選択されたら実行される
@@ -169,9 +187,11 @@ export default defineComponent({
             }
 
             // メッセージ登録
-            const content = '写真が投稿されました！'
+            const content = '写真がアップロードされました。'
             const timeout = 6000
             message().setContent(content,timeout)
+
+            photoList(userInfo.value)
         }
 
         onMounted(async() => {
@@ -180,7 +200,7 @@ export default defineComponent({
             photoList(userInfo.value)
         });
 
-        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList };
+        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list };
     },
 
 });
@@ -196,6 +216,77 @@ export default defineComponent({
         font-size: 70px;
         margin-bottom: 50px;
     }
+
+    &_form {
+        margin: 0 0 20px 0;
+        border: 2px solid #000000;
+        padding: 20px;
+
+        h3 {
+            padding: 0 0 20px 0;
+            font-size: 24px;
+        }
+
+        &_item {
+            margin: 0 0 20px 0;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 10px;
+        }
+    }
+
+    &_list {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        list-style-type: none;
+
+        &::after{
+            content: "";
+            display: block;
+            width: 32%;
+        }
+
+        &_items {
+            width: 32%;
+            display: flex;
+            flex-direction: column;
+            margin: 0 0 20px 0;
+
+            &_img {
+                width: 100%;
+                display: flex;
+
+                &_content {
+                    width: 100%;
+                    height: 500px;
+                    object-fit: cover;
+                }
+            }
+
+            &_detail {
+                padding: 20px 0;
+
+                p {
+                    padding: 0 0 10px 0;
+                }
+
+                button {
+                    padding: 10px;
+                    border-radius: 10px;
+                }
+            }
+        }
+    }
+}
+
+.panel {
+    border: 2px solid #000000;
+    width: 97%;
+    padding: 20px;
+    margin: 0 0 20px 0;
 }
 
 .errors {
