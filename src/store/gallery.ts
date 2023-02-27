@@ -29,6 +29,12 @@ export const galleryImgs = defineStore('gallery', {
             this.photo_list = response.data
             console.log('gallery.ts getPhotoList this.photo_list', this.photo_list);
             return response.data
+        },
+        async deletePhoto (data:any) {
+            console.log('gallery.ts deletePhoto');
+            const response = await axios.post('/api/admin/photoDelete', data)
+            console.log('gallery.ts deletePhoto response', response)
+            return response.data
         }
     },
 })

@@ -61,6 +61,8 @@ Route::post('/admin/login', 'App\Http\Controllers\Admin\LoginController@login')-
 Route::post('/admin/logout', 'App\Http\Controllers\Admin\LoginController@logout')->name('logout');
 // アップロード写真一覧
 Route::post('/admin/photoList', 'App\Http\Controllers\PhotoListController@getPhotoList')->name('photoList');
+// アップロード写真の削除
+Route::post('/admin/photoDelete', 'App\Http\Controllers\PhotoListController@deletePhoto')->name('photoDelete');
 // ログイン管理者
 Route::get('/admin', fn() => Auth::guard('admin')->user())->name('admin');
 

@@ -42,10 +42,33 @@
                     <p>ファイル名：{{photo.filename}}</p>
                     <p>所有者：{{photo.name}}</p>
                     <p>価格：{{photo.price}}</p>
-                    <button>削除</button>
+                    <button @click="deleteModalOpen(photo)">削除</button>
                 </div>
             </li>
         </ul>
+
+        <!-- モーダル -->
+        <transition name="modal">
+            <div id="deletephoto_overlay" v-show="delete_modal">
+                <div class="deletephoto_modal_content" id="deletephoto_modal_content">
+                    <h2>写真削除の確認</h2>
+                    <p class="deletephoto_modal_content_word">写真を削除します。</p>
+                    <p class="deletephoto_modal_content_word">削除を実行すると復元できなくなり、再アップロードが必要になります。</p>
+                    <p class="deletephoto_modal_content_word">写真の削除を実行しますか？</p>
+
+                    <form class="deletephoto_modal_content_form" method="post">
+                        <p v-if="password_error" class="errors">{{password_error}}</p>
+                        <label for="deletephoto_modal_content_form_label">パスワード確認</label>
+                        <input type="password" class="deletephoto_modal_content_form_label" id="deletephoto_modal_content_form_label" v-model="deleteForm.current_password">
+                    </form>
+                    <p class="deletephoto_modal_content_button">
+                        <ButtonRed @click="delete_img">削除</ButtonRed>
+                        <ButtonGreen @click="deleteModalClose" class="margin-left">Close</ButtonGreen>
+                    </p>
+                </div>
+            </div>
+        </transition>
+
     </section>
 </template>
 
@@ -56,6 +79,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { auth } from '../../../../store/auth'
 import ButtonWhite from "../common/ButtonWhite.vue"
 import ButtonBlack from "../common/ButtonBlack.vue"
+import ButtonRed from "../common/ButtonRed.vue"
+import ButtonGreen from "../common/ButtonGreen.vue"
 import Message from "../Message.vue"
 import Loader from "../Loader.vue"
 import axios from "axios";
@@ -69,6 +94,8 @@ export default defineComponent({
     components: {
         ButtonWhite,
         ButtonBlack,
+        ButtonRed,
+        ButtonGreen,
         Loader,
         Message,
     },
@@ -88,6 +115,12 @@ export default defineComponent({
         const { userInfo } = storeToRefs(authStore) as any|null;
         const { photo_list } = storeToRefs(galleryStore) as any|null;
         let photos = ref([]);
+        let delete_modal = ref<boolean>(false);
+        let deleteForm = ref({
+            current_password: '',
+        });
+        let password_error = ref('');
+        let selectedDeletePhoto = ref([]);
 
         watch(userInfo, () => {
             console.log('watch userInfo', userInfo.value)
@@ -194,13 +227,38 @@ export default defineComponent({
             photoList(userInfo.value)
         }
 
+        const deleteModalOpen = (photo:any) => {
+            delete_modal.value = true
+            console.log('AdminMypage.vue deleModalOpen photo', photo)
+            selectedDeletePhoto.value = photo
+            console.log('AdminMypage.vue deleModalOpen selectedDeletePhoto', selectedDeletePhoto)
+        }
+        const deleteModalClose = () => {
+            delete_modal.value = false;
+            password_error.value = ''
+            deleteForm.value = {current_password: ''}
+            selectedDeletePhoto.value = []
+        }
+
+        const delete_img = async () => {
+            console.log('UserMypage.vue deleteAccount deleteForm', deleteForm.value)
+
+            // const response = await galleryStore.deletePhoto(selectedDeletePhoto.value)
+            // console.log('AdminMypage.vue delete_img response', response)
+
+            selectedDeletePhoto.value = []
+            deleteForm.value = {current_password: ''}
+            delete_modal.value = false;
+            photoList(userInfo.value)
+        }
+
         onMounted(async() => {
             console.log('onMounted');
             console.log('watch userInfo', userInfo.value)
             photoList(userInfo.value)
         });
 
-        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list };
+        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, delete_img, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error };
     },
 
 });
@@ -250,7 +308,7 @@ export default defineComponent({
         }
 
         &_items {
-            width: 32%;
+            width: 19%;
             display: flex;
             flex-direction: column;
             margin: 0 0 20px 0;
@@ -261,7 +319,7 @@ export default defineComponent({
 
                 &_content {
                     width: 100%;
-                    height: 500px;
+                    height: 300px;
                     object-fit: cover;
                 }
             }
@@ -289,6 +347,10 @@ export default defineComponent({
     margin: 0 0 20px 0;
 }
 
+.margin-left {
+    margin: 0 0 0 10px;
+}
+
 .errors {
     margin: 0 0 20px 0;
 
@@ -298,6 +360,95 @@ export default defineComponent({
         color: red;
         font-weight: bold;
     }
+}
+
+//-----------------------
+// モーダル関連
+//-----------------------
+#deletephoto_overlay{
+  /*　要素を重ねた時の順番　*/
+  z-index:999;
+
+  /*　画面全体を覆う設定　*/
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,0.5);
+
+  /*　画面の中央に要素を表示させる設定　*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#deletephoto_modal_content{
+  z-index:2;
+  width:50%;
+  padding: 1em;
+  background:#fff;
+  border-radius: 20px;
+}
+
+.deletephoto_modal_content {
+
+    h2 {
+        font-size: 36px;
+        margin: 20px 0;
+    }
+
+    &_word {
+        font-size: 24px;
+        text-align: left;
+    }
+
+    &_form {
+        margin: 20px 0;
+        font-size: 24px;
+
+        &_label {
+            margin: 0 0 0 20px;
+        }
+    }
+
+    &_button {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 24px;
+
+        &_content {
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #3cb371;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+    }
+
+}
+
+.modal-enter-active, .modal-leave-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s;
+
+  .modal-content{
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
+}
+
+.modal-enter, .modal-leave-to {
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.5s, transform 0s 0.5s;
+
+  .modal-content{
+    transform: scale(1);
+  }
 }
 
 </style>
