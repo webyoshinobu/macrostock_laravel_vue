@@ -32,11 +32,6 @@
 
         </form>
 
-        <!-- 写真削除完了メッセージ -->
-        <div class="delete_success" v-if="success">
-            <p>{{success}}</p>
-        </div>
-
         <ul class="adminmypage_list">
             <li class="adminmypage_list_items" v-for="photo in photos" :key="photo.index">
             <!-- <li class="adminmypage_list_items" v-for="photo in photo_list" :key="photo.index"> -->
@@ -55,7 +50,8 @@
         <!-- モーダル -->
         <transition name="modal">
             <div id="deletephoto_overlay" v-show="delete_modal">
-                <div class="deletephoto_modal_content" id="deletephoto_modal_content">
+
+                <div v-if="!success_flag" class="deletephoto_modal_content" id="deletephoto_modal_content">
                     <h2>写真削除の確認</h2>
                     <p class="deletephoto_modal_content_word">写真を削除します。</p>
                     <p class="deletephoto_modal_content_word">削除を実行すると復元できなくなり、再アップロードが必要になります。</p>
@@ -71,6 +67,14 @@
                         <ButtonGreen @click="deleteModalClose" class="margin-left">キャンセル</ButtonGreen>
                     </p>
                 </div>
+
+                <div v-else class="deletephoto_modal_content" id="deletephoto_modal_content">
+                    <h2>{{success}}</h2>
+                    <p class="deletephoto_modal_content_button">
+                        <ButtonGreen @click="deleteModalClose">OK</ButtonGreen>
+                    </p>
+                </div>
+
             </div>
         </transition>
 
@@ -127,6 +131,7 @@ export default defineComponent({
         });
         let password_error = ref('');
         let selectedDeletePhoto = ref([]);
+        let success_flag = ref<boolean>(false)
         let success = ref('');
 
         watch(userInfo, () => {
@@ -242,9 +247,10 @@ export default defineComponent({
         }
         const deleteModalClose = () => {
             delete_modal.value = false;
-            password_error.value = ''
-            deleteForm.value = {current_password: ''}
-            selectedDeletePhoto.value = []
+            // password_error.value = ''
+            // deleteForm.value = {current_password: ''}
+            // selectedDeletePhoto.value = []
+            resetVals()
         }
 
         const deleteImg = async () => {
@@ -271,6 +277,7 @@ export default defineComponent({
                             resetVals()
                             success.value = '写真が削除されました。'
                             console.log(success.value)
+                            success_flag.value = true
                             photoList(userInfo.value)
                             return
                         }else{
@@ -285,19 +292,16 @@ export default defineComponent({
             }catch(e:any){
                 console.error( "エラー：", e.message )
             }
-            // const response = await galleryStore.deletePhoto(selectedDeletePhoto.value)
-            // console.log('AdminMypage.vue deleteImg response', response)
-
-            // selectedDeletePhoto.value = []
-            // deleteForm.value = {current_password: ''}
-            // delete_modal.value = false;
-            // photoList(userInfo.value)
         }
 
         const resetVals = () => {
             selectedDeletePhoto.value = []
             deleteForm.value = {current_password: ''}
-            delete_modal.value = false
+            // delete_modal.value = false
+            password_error.value = ''
+            deleteForm.value = {current_password: ''}
+            selectedDeletePhoto.value = []
+            success_flag.value = false
             console.log('resetVals')
         }
 
@@ -307,7 +311,7 @@ export default defineComponent({
             photoList(userInfo.value)
         });
 
-        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals };
+        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals, success_flag };
     },
 
 });
@@ -419,13 +423,6 @@ export default defineComponent({
     ul {
         list-style: none;
     }
-}
-
-.delete_success {
-    color: red;
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0 0 20px 0;
 }
 
 //-----------------------
