@@ -25926,6 +25926,7 @@ var util_1 = __webpack_require__(/*! ../../util */ "./resources/js/util.ts");
 var error_1 = __webpack_require__(/*! ../../../../store/error */ "./store/error.ts");
 var message_1 = __webpack_require__(/*! ../../../../store/message */ "./store/message.ts");
 var gallery_1 = __webpack_require__(/*! ../../../../store/gallery */ "./store/gallery.ts");
+var util_2 = __webpack_require__(/*! ../../util */ "./resources/js/util.ts");
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'AdminMypage',
   components: {
@@ -25960,6 +25961,7 @@ exports["default"] = (0, vue_1.defineComponent)({
     });
     var password_error = (0, vue_1.ref)('');
     var selectedDeletePhoto = (0, vue_1.ref)([]);
+    var success = (0, vue_1.ref)('');
     (0, vue_1.watch)(userInfo, function () {
       console.log('watch userInfo', userInfo.value);
       photoList(userInfo.value);
@@ -26090,26 +26092,86 @@ exports["default"] = (0, vue_1.defineComponent)({
       };
       selectedDeletePhoto.value = [];
     };
-    var delete_img = function delete_img() {
+    var deleteImg = function deleteImg() {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response, confirm_pass_status, delete_photo_response;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              console.log('UserMypage.vue deleteAccount deleteForm', deleteForm.value);
-              // const response = await galleryStore.deletePhoto(selectedDeletePhoto.value)
-              // console.log('AdminMypage.vue delete_img response', response)
-              selectedDeletePhoto.value = [];
-              deleteForm.value = {
-                current_password: ''
-              };
-              delete_modal.value = false;
+              console.log('AdminMypage.vue deleteImg deleteForm', deleteForm.value);
+              _context3.prev = 1;
+              _context3.next = 4;
+              return authStore.confirmAdminPass(deleteForm.value);
+            case 4:
+              response = _context3.sent;
+              console.log('AdminMypage.vue deleteImg confirmAdminPass response', response);
+              confirm_pass_status = response.status;
+              console.log('AdminMypage.vue deleteImg confirm_pass_status', confirm_pass_status);
+              if (deleteForm.value.current_password) {
+                _context3.next = 12;
+                break;
+              }
+              password_error.value = 'パスワードを入力してください。';
+              _context3.next = 36;
+              break;
+            case 12:
+              if (!(confirm_pass_status != util_2.OK)) {
+                _context3.next = 16;
+                break;
+              }
+              password_error.value = response.data.errorMessage;
+              // throw new Error(error_mismatch_pass.value)
+              _context3.next = 36;
+              break;
+            case 16:
+              _context3.prev = 16;
+              _context3.next = 19;
+              return galleryStore.deletePhoto(selectedDeletePhoto.value);
+            case 19:
+              delete_photo_response = _context3.sent;
+              console.log('AdminMypage.vue deleteImg delete_photo_response.status', delete_photo_response.status);
+              if (!(delete_photo_response.status == util_2.OK)) {
+                _context3.next = 29;
+                break;
+              }
+              // selectedDeletePhoto.value = []
+              // deleteForm.value = {current_password: ''}
+              // delete_modal.value = false
+              resetVals();
+              success.value = '写真が削除されました。';
+              console.log(success.value);
               photoList(userInfo.value);
-            case 5:
+              return _context3.abrupt("return");
+            case 29:
+              password_error.value = 'アカウントの削除に失敗しました。';
+              throw new Error(password_error.value);
+            case 31:
+              _context3.next = 36;
+              break;
+            case 33:
+              _context3.prev = 33;
+              _context3.t0 = _context3["catch"](16);
+              console.error("エラー：", _context3.t0.message);
+            case 36:
+              throw new Error(password_error.value);
+            case 39:
+              _context3.prev = 39;
+              _context3.t1 = _context3["catch"](1);
+              console.error("エラー：", _context3.t1.message);
+            case 42:
             case "end":
               return _context3.stop();
           }
-        }, _callee3);
+        }, _callee3, null, [[1, 39], [16, 33]]);
       }));
+    };
+    var resetVals = function resetVals() {
+      selectedDeletePhoto.value = [];
+      deleteForm.value = {
+        current_password: ''
+      };
+      delete_modal.value = false;
+      console.log('resetVals');
     };
     (0, vue_1.onMounted)(function () {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
@@ -26142,12 +26204,14 @@ exports["default"] = (0, vue_1.defineComponent)({
       photoList: photoList,
       photos: photos,
       photo_list: photo_list,
-      delete_img: delete_img,
+      deleteImg: deleteImg,
       deleteModalOpen: deleteModalOpen,
       deleteModalClose: deleteModalClose,
       delete_modal: delete_modal,
       deleteForm: deleteForm,
-      password_error: password_error
+      password_error: password_error,
+      success: success,
+      resetVals: resetVals
     };
   }
 });
@@ -31266,60 +31330,64 @@ var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_10 = {
-  "class": "adminmypage_list"
+  key: 0,
+  "class": "delete_success"
 };
 var _hoisted_11 = {
+  "class": "adminmypage_list"
+};
+var _hoisted_12 = {
   "class": "adminmypage_list_items_img"
 };
-var _hoisted_12 = ["src", "alt"];
-var _hoisted_13 = {
+var _hoisted_13 = ["src", "alt"];
+var _hoisted_14 = {
   "class": "adminmypage_list_items_detail"
 };
-var _hoisted_14 = ["onClick"];
-var _hoisted_15 = {
+var _hoisted_15 = ["onClick"];
+var _hoisted_16 = {
   id: "deletephoto_overlay"
 };
-var _hoisted_16 = {
+var _hoisted_17 = {
   "class": "deletephoto_modal_content",
   id: "deletephoto_modal_content"
 };
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("h2", null, "写真削除の確認", -1 /* HOISTED */);
-});
-
 var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
-    "class": "deletephoto_modal_content_word"
-  }, "写真を削除します。", -1 /* HOISTED */);
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("h2", null, "写真削除の確認", -1 /* HOISTED */);
 });
 
 var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "deletephoto_modal_content_word"
-  }, "削除を実行すると復元できなくなり、再アップロードが必要になります。", -1 /* HOISTED */);
+  }, "写真を削除します。", -1 /* HOISTED */);
 });
 
 var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "deletephoto_modal_content_word"
+  }, "削除を実行すると復元できなくなり、再アップロードが必要になります。", -1 /* HOISTED */);
+});
+
+var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "deletephoto_modal_content_word"
   }, "写真の削除を実行しますか？", -1 /* HOISTED */);
 });
 
-var _hoisted_21 = {
+var _hoisted_22 = {
   "class": "deletephoto_modal_content_form",
   method: "post"
 };
-var _hoisted_22 = {
+var _hoisted_23 = {
   key: 0,
   "class": "errors"
 };
-var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_24 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
     "for": "deletephoto_modal_content_form_label"
   }, "パスワード確認", -1 /* HOISTED */);
 });
 
-var _hoisted_24 = {
+var _hoisted_25 = {
   "class": "deletephoto_modal_content_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -31356,33 +31424,33 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 32 /* HYDRATE_EVENTS */)) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("output", _hoisted_7, [(0, vue_1.createElementVNode)("img", {
     src: _ctx.preview,
     alt: ""
-  }, null, 8 /* PROPS */, _hoisted_8)], 512 /* NEED_PATCH */), [[vue_1.vShow, _ctx.preview]]), _hoisted_9], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue_1.vShow, !_ctx.loading]]), (0, vue_1.createElementVNode)("ul", _hoisted_10, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.photos, function (photo) {
+  }, null, 8 /* PROPS */, _hoisted_8)], 512 /* NEED_PATCH */), [[vue_1.vShow, _ctx.preview]]), _hoisted_9], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue_1.vShow, !_ctx.loading]]), (0, vue_1.createCommentVNode)(" 写真削除完了メッセージ "), _ctx.success ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_10, [(0, vue_1.createElementVNode)("p", null, (0, vue_1.toDisplayString)(_ctx.success), 1 /* TEXT */)])) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("ul", _hoisted_11, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.photos, function (photo) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       "class": "adminmypage_list_items",
       key: photo.index
-    }, [(0, vue_1.createCommentVNode)(" <li class=\"adminmypage_list_items\" v-for=\"photo in photo_list\" :key=\"photo.index\"> "), (0, vue_1.createElementVNode)("div", _hoisted_11, [(0, vue_1.createElementVNode)("img", {
+    }, [(0, vue_1.createCommentVNode)(" <li class=\"adminmypage_list_items\" v-for=\"photo in photo_list\" :key=\"photo.index\"> "), (0, vue_1.createElementVNode)("div", _hoisted_12, [(0, vue_1.createElementVNode)("img", {
       "class": "adminmypage_list_items_img_content",
       src: photo.img_url,
       alt: photo.filename
-    }, null, 8 /* PROPS */, _hoisted_12)]), (0, vue_1.createElementVNode)("div", _hoisted_13, [(0, vue_1.createElementVNode)("p", null, "ファイル名：" + (0, vue_1.toDisplayString)(photo.filename), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", null, "所有者：" + (0, vue_1.toDisplayString)(photo.name), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", null, "価格：" + (0, vue_1.toDisplayString)(photo.price), 1 /* TEXT */), (0, vue_1.createElementVNode)("button", {
+    }, null, 8 /* PROPS */, _hoisted_13)]), (0, vue_1.createElementVNode)("div", _hoisted_14, [(0, vue_1.createElementVNode)("p", null, "ファイル名：" + (0, vue_1.toDisplayString)(photo.filename), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", null, "所有者：" + (0, vue_1.toDisplayString)(photo.name), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", null, "価格：" + (0, vue_1.toDisplayString)(photo.price), 1 /* TEXT */), (0, vue_1.createElementVNode)("button", {
       onClick: function onClick($event) {
         return _ctx.deleteModalOpen(photo);
       }
-    }, "削除", 8 /* PROPS */, _hoisted_14)])]);
+    }, "削除", 8 /* PROPS */, _hoisted_15)])]);
   }), 128 /* KEYED_FRAGMENT */))]), (0, vue_1.createCommentVNode)(" モーダル "), (0, vue_1.createVNode)(vue_1.Transition, {
     name: "modal",
     persisted: ""
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("div", _hoisted_15, [(0, vue_1.createElementVNode)("div", _hoisted_16, [_hoisted_17, _hoisted_18, _hoisted_19, _hoisted_20, (0, vue_1.createElementVNode)("form", _hoisted_21, [_ctx.password_error ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("p", _hoisted_22, (0, vue_1.toDisplayString)(_ctx.password_error), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _hoisted_23, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+      return [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("div", _hoisted_16, [(0, vue_1.createElementVNode)("div", _hoisted_17, [_hoisted_18, _hoisted_19, _hoisted_20, _hoisted_21, (0, vue_1.createElementVNode)("form", _hoisted_22, [_ctx.password_error ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("p", _hoisted_23, (0, vue_1.toDisplayString)(_ctx.password_error), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _hoisted_24, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
         type: "password",
         "class": "deletephoto_modal_content_form_label",
         id: "deletephoto_modal_content_form_label",
         "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
           return _ctx.deleteForm.current_password = $event;
         })
-      }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.deleteForm.current_password]])]), (0, vue_1.createElementVNode)("p", _hoisted_24, [(0, vue_1.createVNode)(_component_ButtonRed, {
-        onClick: _ctx.delete_img
+      }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.deleteForm.current_password]])]), (0, vue_1.createElementVNode)("p", _hoisted_25, [(0, vue_1.createVNode)(_component_ButtonRed, {
+        onClick: _ctx.deleteImg
       }, {
         "default": (0, vue_1.withCtx)(function () {
           return [(0, vue_1.createTextVNode)("削除")];
@@ -31393,7 +31461,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "margin-left"
       }, {
         "default": (0, vue_1.withCtx)(function () {
-          return [(0, vue_1.createTextVNode)("Close")];
+          return [(0, vue_1.createTextVNode)("キャンセル")];
         }),
         _: 1 /* STABLE */
       }, 8 /* PROPS */, ["onClick"])])])], 512 /* NEED_PATCH */), [[vue_1.vShow, _ctx.delete_modal]])];
@@ -34718,6 +34786,25 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
         }, _callee12, this);
       }));
     },
+    confirmAdminPass: function confirmAdminPass(currentPass) {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+          while (1) switch (_context13.prev = _context13.next) {
+            case 0:
+              _context13.next = 2;
+              return axios_1["default"].post('/api/admin/adminPassConfirm', currentPass);
+            case 2:
+              response = _context13.sent;
+              console.log('auth.ts confirmUserPass response', response);
+              return _context13.abrupt("return", response);
+            case 5:
+            case "end":
+              return _context13.stop();
+          }
+        }, _callee13);
+      }));
+    },
     //-------------------
     //ユーザー、管理者共通
     //-------------------
@@ -35642,7 +35729,7 @@ exports.galleryImgs = (0, pinia_1.defineStore)('gallery', {
             case 3:
               response = _context3.sent;
               console.log('gallery.ts deletePhoto response', response);
-              return _context3.abrupt("return", response.data);
+              return _context3.abrupt("return", response);
             case 6:
             case "end":
               return _context3.stop();
@@ -36655,7 +36742,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.adminmypage[data-v-78e4e3cf] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.adminmypage_title[data-v-78e4e3cf] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.adminmypage_form[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n  border: 2px solid #000000;\n  padding: 20px;\n}\n.adminmypage_form h3[data-v-78e4e3cf] {\n  padding: 0 0 20px 0;\n  font-size: 24px;\n}\n.adminmypage_form_item[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n}\n.adminmypage_form button[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.adminmypage_list[data-v-78e4e3cf] {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  list-style-type: none;\n}\n.adminmypage_list[data-v-78e4e3cf]::after {\n  content: \"\";\n  display: block;\n  width: 32%;\n}\n.adminmypage_list_items[data-v-78e4e3cf] {\n  width: 19%;\n  display: flex;\n  flex-direction: column;\n  margin: 0 0 20px 0;\n}\n.adminmypage_list_items_img[data-v-78e4e3cf] {\n  width: 100%;\n  display: flex;\n}\n.adminmypage_list_items_img_content[data-v-78e4e3cf] {\n  width: 100%;\n  height: 300px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.adminmypage_list_items_detail[data-v-78e4e3cf] {\n  padding: 20px 0;\n}\n.adminmypage_list_items_detail p[data-v-78e4e3cf] {\n  padding: 0 0 10px 0;\n}\n.adminmypage_list_items_detail button[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.panel[data-v-78e4e3cf] {\n  border: 2px solid #000000;\n  width: 97%;\n  padding: 20px;\n  margin: 0 0 20px 0;\n}\n.margin-left[data-v-78e4e3cf] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n}\n.errors ul[data-v-78e4e3cf] {\n  list-style: none;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}\n#deletephoto_overlay[data-v-78e4e3cf] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#deletephoto_modal_content[data-v-78e4e3cf] {\n  z-index: 2;\n  width: 50%;\n  padding: 1em;\n  background: #fff;\n  border-radius: 20px;\n}\n.deletephoto_modal_content h2[data-v-78e4e3cf] {\n  font-size: 36px;\n  margin: 20px 0;\n}\n.deletephoto_modal_content_word[data-v-78e4e3cf] {\n  font-size: 24px;\n  text-align: left;\n}\n.deletephoto_modal_content_form[data-v-78e4e3cf] {\n  margin: 20px 0;\n  font-size: 24px;\n}\n.deletephoto_modal_content_form_label[data-v-78e4e3cf] {\n  margin: 0 0 0 20px;\n}\n.deletephoto_modal_content_button[data-v-78e4e3cf] {\n  display: flex;\n  justify-content: flex-end;\n  font-size: 24px;\n}\n.deletephoto_modal_content_button_content[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #3cb371;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n.modal-enter-active[data-v-78e4e3cf], .modal-leave-active[data-v-78e4e3cf] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-78e4e3cf], .modal-leave-active .modal-content[data-v-78e4e3cf] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-78e4e3cf], .modal-leave-to[data-v-78e4e3cf] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-78e4e3cf], .modal-leave-to .modal-content[data-v-78e4e3cf] {\n  transform: scale(1);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.adminmypage[data-v-78e4e3cf] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.adminmypage_title[data-v-78e4e3cf] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.adminmypage_form[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n  border: 2px solid #000000;\n  padding: 20px;\n}\n.adminmypage_form h3[data-v-78e4e3cf] {\n  padding: 0 0 20px 0;\n  font-size: 24px;\n}\n.adminmypage_form_item[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n}\n.adminmypage_form button[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.adminmypage_list[data-v-78e4e3cf] {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  list-style-type: none;\n}\n.adminmypage_list[data-v-78e4e3cf]::after {\n  content: \"\";\n  display: block;\n  width: 32%;\n}\n.adminmypage_list_items[data-v-78e4e3cf] {\n  width: 19%;\n  display: flex;\n  flex-direction: column;\n  margin: 0 0 20px 0;\n}\n.adminmypage_list_items_img[data-v-78e4e3cf] {\n  width: 100%;\n  display: flex;\n}\n.adminmypage_list_items_img_content[data-v-78e4e3cf] {\n  width: 100%;\n  height: 300px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.adminmypage_list_items_detail[data-v-78e4e3cf] {\n  padding: 20px 0;\n}\n.adminmypage_list_items_detail p[data-v-78e4e3cf] {\n  padding: 0 0 10px 0;\n}\n.adminmypage_list_items_detail button[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.panel[data-v-78e4e3cf] {\n  border: 2px solid #000000;\n  width: 97%;\n  padding: 20px;\n  margin: 0 0 20px 0;\n}\n.margin-left[data-v-78e4e3cf] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-78e4e3cf] {\n  list-style: none;\n}\n.delete_success[data-v-78e4e3cf] {\n  color: red;\n  font-size: 24px;\n  font-weight: bold;\n  margin: 0 0 20px 0;\n}\n#deletephoto_overlay[data-v-78e4e3cf] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#deletephoto_modal_content[data-v-78e4e3cf] {\n  z-index: 2;\n  width: 50%;\n  padding: 1em;\n  background: #fff;\n  border-radius: 20px;\n}\n.deletephoto_modal_content h2[data-v-78e4e3cf] {\n  font-size: 36px;\n  margin: 20px 0;\n}\n.deletephoto_modal_content_word[data-v-78e4e3cf] {\n  font-size: 24px;\n  text-align: left;\n}\n.deletephoto_modal_content_form[data-v-78e4e3cf] {\n  margin: 20px 0;\n  font-size: 24px;\n}\n.deletephoto_modal_content_form_label[data-v-78e4e3cf] {\n  margin: 0 0 0 20px;\n}\n.deletephoto_modal_content_button[data-v-78e4e3cf] {\n  display: flex;\n  justify-content: flex-end;\n  font-size: 24px;\n}\n.deletephoto_modal_content_button_content[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #3cb371;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n.modal-enter-active[data-v-78e4e3cf], .modal-leave-active[data-v-78e4e3cf] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-78e4e3cf], .modal-leave-active .modal-content[data-v-78e4e3cf] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-78e4e3cf], .modal-leave-to[data-v-78e4e3cf] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-78e4e3cf], .modal-leave-to .modal-content[data-v-78e4e3cf] {\n  transform: scale(1);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

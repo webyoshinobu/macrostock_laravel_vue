@@ -32,6 +32,11 @@
 
         </form>
 
+        <!-- 写真削除完了メッセージ -->
+        <div class="delete_success" v-if="success">
+            <p>{{success}}</p>
+        </div>
+
         <ul class="adminmypage_list">
             <li class="adminmypage_list_items" v-for="photo in photos" :key="photo.index">
             <!-- <li class="adminmypage_list_items" v-for="photo in photo_list" :key="photo.index"> -->
@@ -62,8 +67,8 @@
                         <input type="password" class="deletephoto_modal_content_form_label" id="deletephoto_modal_content_form_label" v-model="deleteForm.current_password">
                     </form>
                     <p class="deletephoto_modal_content_button">
-                        <ButtonRed @click="delete_img">削除</ButtonRed>
-                        <ButtonGreen @click="deleteModalClose" class="margin-left">Close</ButtonGreen>
+                        <ButtonRed @click="deleteImg">削除</ButtonRed>
+                        <ButtonGreen @click="deleteModalClose" class="margin-left">キャンセル</ButtonGreen>
                     </p>
                 </div>
             </div>
@@ -88,6 +93,7 @@ import { CREATED, UNPROCESSABLE_ENTITY } from '../../util'
 import { error } from '../../../../store/error'
 import { message } from '../../../../store/message'
 import { galleryImgs } from '../../../../store/gallery'
+import { OK } from '../../util'
 
 export default defineComponent({
     name: 'AdminMypage',
@@ -121,6 +127,7 @@ export default defineComponent({
         });
         let password_error = ref('');
         let selectedDeletePhoto = ref([]);
+        let success = ref('');
 
         watch(userInfo, () => {
             console.log('watch userInfo', userInfo.value)
@@ -240,16 +247,58 @@ export default defineComponent({
             selectedDeletePhoto.value = []
         }
 
-        const delete_img = async () => {
-            console.log('UserMypage.vue deleteAccount deleteForm', deleteForm.value)
+        const deleteImg = async () => {
+            console.log('AdminMypage.vue deleteImg deleteForm', deleteForm.value)
 
+            try {
+                const response = await authStore.confirmAdminPass(deleteForm.value)
+                console.log('AdminMypage.vue deleteImg confirmAdminPass response', response)
+                const confirm_pass_status = response.status
+                console.log('AdminMypage.vue deleteImg confirm_pass_status', confirm_pass_status)
+                if(!deleteForm.value.current_password) {
+                        password_error.value = 'パスワードを入力してください。'
+                }else if(confirm_pass_status != OK) {
+                    password_error.value = response.data.errorMessage
+                    // throw new Error(error_mismatch_pass.value)
+                }else{
+                    try {
+                        const delete_photo_response = await galleryStore.deletePhoto(selectedDeletePhoto.value)
+                        console.log('AdminMypage.vue deleteImg delete_photo_response.status', delete_photo_response.status)
+                        if(delete_photo_response.status == OK) {
+                            // selectedDeletePhoto.value = []
+                            // deleteForm.value = {current_password: ''}
+                            // delete_modal.value = false
+                            resetVals()
+                            success.value = '写真が削除されました。'
+                            console.log(success.value)
+                            photoList(userInfo.value)
+                            return
+                        }else{
+                            password_error.value = 'アカウントの削除に失敗しました。'
+                            throw new Error(password_error.value)
+                        }
+                    }catch(e:any){
+                        console.error( "エラー：", e.message )
+                    }
+                }
+                throw new Error(password_error.value)
+            }catch(e:any){
+                console.error( "エラー：", e.message )
+            }
             // const response = await galleryStore.deletePhoto(selectedDeletePhoto.value)
-            // console.log('AdminMypage.vue delete_img response', response)
+            // console.log('AdminMypage.vue deleteImg response', response)
 
+            // selectedDeletePhoto.value = []
+            // deleteForm.value = {current_password: ''}
+            // delete_modal.value = false;
+            // photoList(userInfo.value)
+        }
+
+        const resetVals = () => {
             selectedDeletePhoto.value = []
             deleteForm.value = {current_password: ''}
-            delete_modal.value = false;
-            photoList(userInfo.value)
+            delete_modal.value = false
+            console.log('resetVals')
         }
 
         onMounted(async() => {
@@ -258,7 +307,7 @@ export default defineComponent({
             photoList(userInfo.value)
         });
 
-        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, delete_img, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error };
+        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals };
     },
 
 });
@@ -351,15 +400,32 @@ export default defineComponent({
     margin: 0 0 0 10px;
 }
 
+// .errors {
+//     margin: 0 0 20px 0;
+
+//     ul {
+//         list-style: none;
+//         font-size: 24px;
+//         color: red;
+//         font-weight: bold;
+//     }
+// }
 .errors {
     margin: 0 0 20px 0;
+    font-size: 24px;
+    color: red;
+    font-weight: bold;
 
     ul {
         list-style: none;
-        font-size: 24px;
-        color: red;
-        font-weight: bold;
     }
+}
+
+.delete_success {
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 20px 0;
 }
 
 //-----------------------
