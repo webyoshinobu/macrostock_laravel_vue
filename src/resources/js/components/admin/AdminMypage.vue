@@ -2,17 +2,83 @@
     <section class="adminmypage">
         <h2 class="adminmypage_title">管理者マイページ</h2>
 
-        <!-- ローディング -->
-        <div v-show="loading" class="panel">
-            <Loader>Sending your photo...</Loader>
+        <!-- 登録情報エリア -->
+        <div class="adminmypage_wrap_content">
+
+            <div v-if="changePasswordSuccess" class="errors">{{changePasswordSuccess}}</div>
+            <div v-if="changeEmailSuccess" class="errors">{{changeEmailSuccess}}</div>
+
+            <ul class="adminmypage_wrap_content_list">
+                <li class="adminmypage_wrap_content_list_items">
+                    <p class="adminmypage_wrap_content_list_items_title">氏名</p>
+                    <p class="adminmypage_wrap_content_list_items_info">{{ ( userInfo || {} ).name }}</p>
+                </li>
+                <li class="adminmypage_wrap_content_list_items">
+                    <p class="adminmypage_wrap_content_list_items_title">メールアドレス</p>
+                    <p class="adminmypage_wrap_content_list_items_info">{{ ( userInfo || {} ).email }}</p>
+                    <div class="adminmypage_wrap_content_list_items_button">
+                        <router-link to="/adminchangeEmail">
+                        <button class="adminmypage_wrap_content_list_items_button_word">変更</button>
+                        </router-link>
+                    </div>
+                </li>
+                <li class="adminmypage_wrap_content_list_items">
+                    <p class="adminmypage_wrap_content_list_items_title">パスワード</p>
+                    <p class="adminmypage_wrap_content_list_items_info">********</p>
+                    <div class="adminmypage_wrap_content_list_items_button">
+                        <router-link to="/adminChangePassword">
+                        <button class="adminmypage_wrap_content_list_items_button_word">変更</button>
+                        </router-link>
+                    </div>
+                </li>
+            </ul>
+
+             <!-- ローディング -->
+            <div v-show="loading" class="panel">
+                <Loader>Sending your photo...</Loader>
+            </div>
+
+            <form v-show="! loading" class="adminmypage_form" @submit.prevent="submit">
+
+                <!-- <input type="hidden" name="_token" :value="token"> -->
+
+                <!-- エラーメッセージ -->
+                <div class="errors" v-if="errors">
+                    <ul v-if="errors.photo">
+                        <li v-for="msg in errors.photo" :key="msg">{{ msg }}</li>
+                    </ul>
+                </div>
+
+                <p class="margin-bottom">写真のアップロード</p>
+
+                <Message></Message>
+
+                <input class="adminmypage_form_item" id="photo_upload" type="file" v-if="input" @change="onFileChange">
+                <output class="form_output" v-show="preview">
+                    <img :src="preview" alt="">
+                </output>
+                <div class="adminmypage_form_button">
+                    <button type="submit" class="button button--inverse">submit</button>
+                </div>
+
+            </form>
+
+            <div class="adminmypage_wrap_content_button">
+                <ButtonWhite class="margin-left">退会</ButtonWhite>
+            </div>
         </div>
 
-        <form v-show="! loading" class="adminmypage_form" @submit.prevent="submit">
+        <!-- ローディング -->
+        <!-- <div v-show="loading" class="panel">
+            <Loader>Sending your photo...</Loader>
+        </div> -->
+
+        <!-- <form v-show="! loading" class="adminmypage_form" @submit.prevent="submit"> -->
 
             <!-- <input type="hidden" name="_token" :value="token"> -->
 
             <!-- エラーメッセージ -->
-            <div class="errors" v-if="errors">
+            <!-- <div class="errors" v-if="errors">
                 <ul v-if="errors.photo">
                     <li v-for="msg in errors.photo" :key="msg">{{ msg }}</li>
                 </ul>
@@ -28,9 +94,11 @@
             </output>
             <div class="adminmypage_form_button">
                 <button type="submit" class="button button--inverse">submit</button>
-            </div>
+            </div> -->
 
-        </form>
+        <!-- </form> -->
+
+        <h3 class="f-40 margin-bottom">{{( userInfo || {} ).name}}様が販売中の写真一覧</h3>
 
         <ul class="adminmypage_list">
             <li class="adminmypage_list_items" v-for="photo in photos" :key="photo.index">
@@ -122,7 +190,7 @@ export default defineComponent({
         let errors:any = null
         let loading = ref<boolean>(false)
         let input = ref<boolean>(true)
-        const { userInfo } = storeToRefs(authStore) as any|null;
+        const { userInfo, changePasswordSuccess, changeEmailSuccess } = storeToRefs(authStore) as any|null;
         const { photo_list } = storeToRefs(galleryStore) as any|null;
         let photos = ref([]);
         let delete_modal = ref<boolean>(false);
@@ -311,7 +379,7 @@ export default defineComponent({
             photoList(userInfo.value)
         });
 
-        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals, success_flag };
+        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals, success_flag, userInfo, changePasswordSuccess, changeEmailSuccess };
     },
 
 });
@@ -326,6 +394,57 @@ export default defineComponent({
     &_title {
         font-size: 70px;
         margin-bottom: 50px;
+    }
+
+    &_wrap{
+
+        &_title {
+            background-color: #000000;
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: bold;
+            padding: 18.5px 0 18.5px 10px;
+        }
+
+        &_content {
+            border: 2px solid #000000;
+            padding: 20px;
+            font-size: 36px;
+            margin: 0 0 40px 0;
+
+            &_list {
+                list-style-type: none;
+
+                &_items {
+                    display: flex;
+                    padding: 20px 0;
+
+                    &_title{
+                        width: 33.33%;
+                    }
+
+                    &_info{
+                        width: 46.33%;
+                    }
+
+                    &_button{
+                        width: 20.33%;
+                        display: flex;
+                        justify-content: center;
+
+                        &_word {
+                            padding: 10px;
+                            border-radius: 10px;
+                        }
+                    }
+                }
+            }
+
+            &_button {
+                display: flex;
+                justify-content: center;
+            }
+        }
     }
 
     &_form {
@@ -393,6 +512,10 @@ export default defineComponent({
     }
 }
 
+.f-40 {
+    font-size: 40px;
+}
+
 .panel {
     border: 2px solid #000000;
     width: 97%;
@@ -402,6 +525,10 @@ export default defineComponent({
 
 .margin-left {
     margin: 0 0 0 10px;
+}
+
+.margin-bottom {
+    margin: 0 0 20px 0;
 }
 
 // .errors {
