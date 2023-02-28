@@ -59,6 +59,8 @@ Route::post('/admin/register', 'App\Http\Controllers\Admin\RegisterController@re
 Route::post('/admin/login', 'App\Http\Controllers\Admin\LoginController@login')->name('login');
 // ログアウト
 Route::post('/admin/logout', 'App\Http\Controllers\Admin\LoginController@logout')->name('logout');
+// パスワード確認
+Route::post('/admin/adminPassConfirm', 'App\Http\Controllers\Admin\AdminPasswordConfirmController@confirmPassword')->name('adminPassConfirm');
 // アップロード写真一覧
 Route::post('/admin/photoList', 'App\Http\Controllers\PhotoListController@getPhotoList')->name('photoList');
 // アップロード写真の削除

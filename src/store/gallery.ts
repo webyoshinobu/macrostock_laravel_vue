@@ -34,7 +34,7 @@ export const galleryImgs = defineStore('gallery', {
             console.log('gallery.ts deletePhoto');
             const response = await axios.post('/api/admin/photoDelete', data)
             console.log('gallery.ts deletePhoto response', response)
-            return response.data
-        }
+            return response
+        },
     },
 })

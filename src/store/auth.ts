@@ -287,6 +287,12 @@ export const auth = defineStore('auth', {
             error().setCode(response.status);
         },
 
+        async confirmAdminPass(currentPass:any) {
+            const response = await axios.post('/api/admin/adminPassConfirm', currentPass)
+            console.log('auth.ts confirmUserPass response', response)
+            return response
+        },
+
         //-------------------
         //ユーザー、管理者共通
         //-------------------
