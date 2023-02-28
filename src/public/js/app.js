@@ -25951,7 +25951,9 @@ exports["default"] = (0, vue_1.defineComponent)({
     var loading = (0, vue_1.ref)(false);
     var input = (0, vue_1.ref)(true);
     var _ref = (0, pinia_1.storeToRefs)(authStore),
-      userInfo = _ref.userInfo;
+      userInfo = _ref.userInfo,
+      changePasswordSuccess = _ref.changePasswordSuccess,
+      changeEmailSuccess = _ref.changeEmailSuccess;
     var _ref2 = (0, pinia_1.storeToRefs)(galleryStore),
       photo_list = _ref2.photo_list;
     var photos = (0, vue_1.ref)([]);
@@ -26219,7 +26221,10 @@ exports["default"] = (0, vue_1.defineComponent)({
       password_error: password_error,
       success: success,
       resetVals: resetVals,
-      success_flag: success_flag
+      success_flag: success_flag,
+      userInfo: userInfo,
+      changePasswordSuccess: changePasswordSuccess,
+      changeEmailSuccess: changeEmailSuccess
     };
   }
 });
@@ -31311,24 +31316,97 @@ var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_3 = {
-  "class": "panel"
+  "class": "adminmypage_wrap_content"
 };
 var _hoisted_4 = {
   key: 0,
   "class": "errors"
 };
 var _hoisted_5 = {
-  key: 0
+  key: 1,
+  "class": "errors"
 };
-var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("h3", null, "写真のアップロード", -1 /* HOISTED */);
+var _hoisted_6 = {
+  "class": "adminmypage_wrap_content_list"
+};
+var _hoisted_7 = {
+  "class": "adminmypage_wrap_content_list_items"
+};
+var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "adminmypage_wrap_content_list_items_title"
+  }, "氏名", -1 /* HOISTED */);
 });
 
-var _hoisted_7 = {
+var _hoisted_9 = {
+  "class": "adminmypage_wrap_content_list_items_info"
+};
+var _hoisted_10 = {
+  "class": "adminmypage_wrap_content_list_items"
+};
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "adminmypage_wrap_content_list_items_title"
+  }, "メールアドレス", -1 /* HOISTED */);
+});
+
+var _hoisted_12 = {
+  "class": "adminmypage_wrap_content_list_items_info"
+};
+var _hoisted_13 = {
+  "class": "adminmypage_wrap_content_list_items_button"
+};
+var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("button", {
+    "class": "adminmypage_wrap_content_list_items_button_word"
+  }, "変更", -1 /* HOISTED */);
+});
+
+var _hoisted_15 = {
+  "class": "adminmypage_wrap_content_list_items"
+};
+var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "adminmypage_wrap_content_list_items_title"
+  }, "パスワード", -1 /* HOISTED */);
+});
+
+var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "adminmypage_wrap_content_list_items_info"
+  }, "********", -1 /* HOISTED */);
+});
+
+var _hoisted_18 = {
+  "class": "adminmypage_wrap_content_list_items_button"
+};
+var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("button", {
+    "class": "adminmypage_wrap_content_list_items_button_word"
+  }, "変更", -1 /* HOISTED */);
+});
+
+var _hoisted_20 = {
+  "class": "panel"
+};
+var _hoisted_21 = {
+  key: 0,
+  "class": "errors"
+};
+var _hoisted_22 = {
+  key: 0
+};
+var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "margin-bottom"
+  }, "写真のアップロード", -1 /* HOISTED */);
+});
+
+var _hoisted_24 = {
   "class": "form_output"
 };
-var _hoisted_8 = ["src"];
-var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_25 = ["src"];
+var _hoisted_26 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("div", {
     "class": "adminmypage_form_button"
   }, [/*#__PURE__*/(0, vue_1.createElementVNode)("button", {
@@ -31337,78 +31415,100 @@ var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   }, "submit")], -1 /* HOISTED */);
 });
 
-var _hoisted_10 = {
+var _hoisted_27 = {
+  "class": "adminmypage_wrap_content_button"
+};
+var _hoisted_28 = {
+  "class": "f-40 margin-bottom"
+};
+var _hoisted_29 = {
   "class": "adminmypage_list"
 };
-var _hoisted_11 = {
+var _hoisted_30 = {
   "class": "adminmypage_list_items_img"
 };
-var _hoisted_12 = ["src", "alt"];
-var _hoisted_13 = {
+var _hoisted_31 = ["src", "alt"];
+var _hoisted_32 = {
   "class": "adminmypage_list_items_detail"
 };
-var _hoisted_14 = ["onClick"];
-var _hoisted_15 = {
+var _hoisted_33 = ["onClick"];
+var _hoisted_34 = {
   id: "deletephoto_overlay"
 };
-var _hoisted_16 = {
+var _hoisted_35 = {
   key: 0,
   "class": "deletephoto_modal_content",
   id: "deletephoto_modal_content"
 };
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_36 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("h2", null, "写真削除の確認", -1 /* HOISTED */);
 });
 
-var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_37 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "deletephoto_modal_content_word"
   }, "写真を削除します。", -1 /* HOISTED */);
 });
 
-var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_38 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "deletephoto_modal_content_word"
   }, "削除を実行すると復元できなくなり、再アップロードが必要になります。", -1 /* HOISTED */);
 });
 
-var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_39 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
     "class": "deletephoto_modal_content_word"
   }, "写真の削除を実行しますか？", -1 /* HOISTED */);
 });
 
-var _hoisted_21 = {
+var _hoisted_40 = {
   "class": "deletephoto_modal_content_form",
   method: "post"
 };
-var _hoisted_22 = {
+var _hoisted_41 = {
   key: 0,
   "class": "errors"
 };
-var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_42 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
     "for": "deletephoto_modal_content_form_label"
   }, "パスワード確認", -1 /* HOISTED */);
 });
 
-var _hoisted_24 = {
+var _hoisted_43 = {
   "class": "deletephoto_modal_content_button"
 };
-var _hoisted_25 = {
+var _hoisted_44 = {
   key: 1,
   "class": "deletephoto_modal_content",
   id: "deletephoto_modal_content"
 };
-var _hoisted_26 = {
+var _hoisted_45 = {
   "class": "deletephoto_modal_content_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_router_link = (0, vue_1.resolveComponent)("router-link");
   var _component_Loader = (0, vue_1.resolveComponent)("Loader");
   var _component_Message = (0, vue_1.resolveComponent)("Message");
+  var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
   var _component_ButtonRed = (0, vue_1.resolveComponent)("ButtonRed");
   var _component_ButtonGreen = (0, vue_1.resolveComponent)("ButtonGreen");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createCommentVNode)(" ローディング "), (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("div", _hoisted_3, [(0, vue_1.createVNode)(_component_Loader, null, {
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createCommentVNode)(" 登録情報エリア "), (0, vue_1.createElementVNode)("div", _hoisted_3, [_ctx.changePasswordSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_4, (0, vue_1.toDisplayString)(_ctx.changePasswordSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.changeEmailSuccess ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_5, (0, vue_1.toDisplayString)(_ctx.changeEmailSuccess), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("ul", _hoisted_6, [(0, vue_1.createElementVNode)("li", _hoisted_7, [_hoisted_8, (0, vue_1.createElementVNode)("p", _hoisted_9, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name), 1 /* TEXT */)]), (0, vue_1.createElementVNode)("li", _hoisted_10, [_hoisted_11, (0, vue_1.createElementVNode)("p", _hoisted_12, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).email), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_13, [(0, vue_1.createVNode)(_component_router_link, {
+    to: "/adminchangeEmail"
+  }, {
+    "default": (0, vue_1.withCtx)(function () {
+      return [_hoisted_14];
+    }),
+    _: 1 /* STABLE */
+  })])]), (0, vue_1.createElementVNode)("li", _hoisted_15, [_hoisted_16, _hoisted_17, (0, vue_1.createElementVNode)("div", _hoisted_18, [(0, vue_1.createVNode)(_component_router_link, {
+    to: "/adminChangePassword"
+  }, {
+    "default": (0, vue_1.withCtx)(function () {
+      return [_hoisted_19];
+    }),
+    _: 1 /* STABLE */
+  })])])]), (0, vue_1.createCommentVNode)(" ローディング "), (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("div", _hoisted_20, [(0, vue_1.createVNode)(_component_Loader, null, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createTextVNode)("Sending your photo...")];
     }),
@@ -31420,11 +31520,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     function () {
       return _ctx.submit && _ctx.submit.apply(_ctx, arguments);
     }, ["prevent"]))
-  }, [(0, vue_1.createCommentVNode)(" <input type=\"hidden\" name=\"_token\" :value=\"token\"> "), (0, vue_1.createCommentVNode)(" エラーメッセージ "), _ctx.errors ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_4, [_ctx.errors.photo ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_5, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.errors.photo, function (msg) {
+  }, [(0, vue_1.createCommentVNode)(" <input type=\"hidden\" name=\"_token\" :value=\"token\"> "), (0, vue_1.createCommentVNode)(" エラーメッセージ "), _ctx.errors ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_21, [_ctx.errors.photo ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_22, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.errors.photo, function (msg) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: msg
     }, (0, vue_1.toDisplayString)(msg), 1 /* TEXT */);
-  }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true)])) : (0, vue_1.createCommentVNode)("v-if", true), _hoisted_6, (0, vue_1.createVNode)(_component_Message), _ctx.input ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("input", {
+  }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true)])) : (0, vue_1.createCommentVNode)("v-if", true), _hoisted_23, (0, vue_1.createVNode)(_component_Message), _ctx.input ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("input", {
     key: 1,
     "class": "adminmypage_form_item",
     id: "photo_upload",
@@ -31434,35 +31534,42 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     function () {
       return _ctx.onFileChange && _ctx.onFileChange.apply(_ctx, arguments);
     })
-  }, null, 32 /* HYDRATE_EVENTS */)) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("output", _hoisted_7, [(0, vue_1.createElementVNode)("img", {
+  }, null, 32 /* HYDRATE_EVENTS */)) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("output", _hoisted_24, [(0, vue_1.createElementVNode)("img", {
     src: _ctx.preview,
     alt: ""
-  }, null, 8 /* PROPS */, _hoisted_8)], 512 /* NEED_PATCH */), [[vue_1.vShow, _ctx.preview]]), _hoisted_9], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue_1.vShow, !_ctx.loading]]), (0, vue_1.createElementVNode)("ul", _hoisted_10, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.photos, function (photo) {
+  }, null, 8 /* PROPS */, _hoisted_25)], 512 /* NEED_PATCH */), [[vue_1.vShow, _ctx.preview]]), _hoisted_26], 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue_1.vShow, !_ctx.loading]]), (0, vue_1.createElementVNode)("div", _hoisted_27, [(0, vue_1.createVNode)(_component_ButtonWhite, {
+    "class": "margin-left"
+  }, {
+    "default": (0, vue_1.withCtx)(function () {
+      return [(0, vue_1.createTextVNode)("退会")];
+    }),
+    _: 1 /* STABLE */
+  })])]), (0, vue_1.createCommentVNode)(" ローディング "), (0, vue_1.createCommentVNode)(" <div v-show=\"loading\" class=\"panel\">\n            <Loader>Sending your photo...</Loader>\n        </div> "), (0, vue_1.createCommentVNode)(" <form v-show=\"! loading\" class=\"adminmypage_form\" @submit.prevent=\"submit\"> "), (0, vue_1.createCommentVNode)(" <input type=\"hidden\" name=\"_token\" :value=\"token\"> "), (0, vue_1.createCommentVNode)(" エラーメッセージ "), (0, vue_1.createCommentVNode)(" <div class=\"errors\" v-if=\"errors\">\n                <ul v-if=\"errors.photo\">\n                    <li v-for=\"msg in errors.photo\" :key=\"msg\">{{ msg }}</li>\n                </ul>\n            </div>\n\n            <h3>写真のアップロード</h3>\n\n            <Message></Message>\n\n            <input class=\"adminmypage_form_item\" id=\"photo_upload\" type=\"file\" v-if=\"input\" @change=\"onFileChange\">\n            <output class=\"form_output\" v-show=\"preview\">\n                <img :src=\"preview\" alt=\"\">\n            </output>\n            <div class=\"adminmypage_form_button\">\n                <button type=\"submit\" class=\"button button--inverse\">submit</button>\n            </div> "), (0, vue_1.createCommentVNode)(" </form> "), (0, vue_1.createElementVNode)("h3", _hoisted_28, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + "様が販売中の写真一覧", 1 /* TEXT */), (0, vue_1.createElementVNode)("ul", _hoisted_29, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.photos, function (photo) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       "class": "adminmypage_list_items",
       key: photo.index
-    }, [(0, vue_1.createCommentVNode)(" <li class=\"adminmypage_list_items\" v-for=\"photo in photo_list\" :key=\"photo.index\"> "), (0, vue_1.createElementVNode)("div", _hoisted_11, [(0, vue_1.createElementVNode)("img", {
+    }, [(0, vue_1.createCommentVNode)(" <li class=\"adminmypage_list_items\" v-for=\"photo in photo_list\" :key=\"photo.index\"> "), (0, vue_1.createElementVNode)("div", _hoisted_30, [(0, vue_1.createElementVNode)("img", {
       "class": "adminmypage_list_items_img_content",
       src: photo.img_url,
       alt: photo.filename
-    }, null, 8 /* PROPS */, _hoisted_12)]), (0, vue_1.createElementVNode)("div", _hoisted_13, [(0, vue_1.createElementVNode)("p", null, "ファイル名：" + (0, vue_1.toDisplayString)(photo.filename), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", null, "所有者：" + (0, vue_1.toDisplayString)(photo.name), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", null, "価格：" + (0, vue_1.toDisplayString)(photo.price), 1 /* TEXT */), (0, vue_1.createElementVNode)("button", {
+    }, null, 8 /* PROPS */, _hoisted_31)]), (0, vue_1.createElementVNode)("div", _hoisted_32, [(0, vue_1.createElementVNode)("p", null, "ファイル名：" + (0, vue_1.toDisplayString)(photo.filename), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", null, "所有者：" + (0, vue_1.toDisplayString)(photo.name), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", null, "価格：" + (0, vue_1.toDisplayString)(photo.price), 1 /* TEXT */), (0, vue_1.createElementVNode)("button", {
       onClick: function onClick($event) {
         return _ctx.deleteModalOpen(photo);
       }
-    }, "削除", 8 /* PROPS */, _hoisted_14)])]);
+    }, "削除", 8 /* PROPS */, _hoisted_33)])]);
   }), 128 /* KEYED_FRAGMENT */))]), (0, vue_1.createCommentVNode)(" モーダル "), (0, vue_1.createVNode)(vue_1.Transition, {
     name: "modal",
     persisted: ""
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("div", _hoisted_15, [!_ctx.success_flag ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_16, [_hoisted_17, _hoisted_18, _hoisted_19, _hoisted_20, (0, vue_1.createElementVNode)("form", _hoisted_21, [_ctx.password_error ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("p", _hoisted_22, (0, vue_1.toDisplayString)(_ctx.password_error), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _hoisted_23, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+      return [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("div", _hoisted_34, [!_ctx.success_flag ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_35, [_hoisted_36, _hoisted_37, _hoisted_38, _hoisted_39, (0, vue_1.createElementVNode)("form", _hoisted_40, [_ctx.password_error ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("p", _hoisted_41, (0, vue_1.toDisplayString)(_ctx.password_error), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true), _hoisted_42, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
         type: "password",
         "class": "deletephoto_modal_content_form_label",
         id: "deletephoto_modal_content_form_label",
         "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
           return _ctx.deleteForm.current_password = $event;
         })
-      }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.deleteForm.current_password]])]), (0, vue_1.createElementVNode)("p", _hoisted_24, [(0, vue_1.createVNode)(_component_ButtonRed, {
+      }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.deleteForm.current_password]])]), (0, vue_1.createElementVNode)("p", _hoisted_43, [(0, vue_1.createVNode)(_component_ButtonRed, {
         onClick: _ctx.deleteImg
       }, {
         "default": (0, vue_1.withCtx)(function () {
@@ -31477,7 +31584,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return [(0, vue_1.createTextVNode)("キャンセル")];
         }),
         _: 1 /* STABLE */
-      }, 8 /* PROPS */, ["onClick"])])])) : ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_25, [(0, vue_1.createElementVNode)("h2", null, (0, vue_1.toDisplayString)(_ctx.success), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", _hoisted_26, [(0, vue_1.createVNode)(_component_ButtonGreen, {
+      }, 8 /* PROPS */, ["onClick"])])])) : ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_44, [(0, vue_1.createElementVNode)("h2", null, (0, vue_1.toDisplayString)(_ctx.success), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", _hoisted_45, [(0, vue_1.createVNode)(_component_ButtonGreen, {
         onClick: _ctx.deleteModalClose
       }, {
         "default": (0, vue_1.withCtx)(function () {
@@ -36762,7 +36869,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.adminmypage[data-v-78e4e3cf] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.adminmypage_title[data-v-78e4e3cf] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.adminmypage_form[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n  border: 2px solid #000000;\n  padding: 20px;\n}\n.adminmypage_form h3[data-v-78e4e3cf] {\n  padding: 0 0 20px 0;\n  font-size: 24px;\n}\n.adminmypage_form_item[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n}\n.adminmypage_form button[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.adminmypage_list[data-v-78e4e3cf] {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  list-style-type: none;\n}\n.adminmypage_list[data-v-78e4e3cf]::after {\n  content: \"\";\n  display: block;\n  width: 32%;\n}\n.adminmypage_list_items[data-v-78e4e3cf] {\n  width: 19%;\n  display: flex;\n  flex-direction: column;\n  margin: 0 0 20px 0;\n}\n.adminmypage_list_items_img[data-v-78e4e3cf] {\n  width: 100%;\n  display: flex;\n}\n.adminmypage_list_items_img_content[data-v-78e4e3cf] {\n  width: 100%;\n  height: 300px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.adminmypage_list_items_detail[data-v-78e4e3cf] {\n  padding: 20px 0;\n}\n.adminmypage_list_items_detail p[data-v-78e4e3cf] {\n  padding: 0 0 10px 0;\n}\n.adminmypage_list_items_detail button[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.panel[data-v-78e4e3cf] {\n  border: 2px solid #000000;\n  width: 97%;\n  padding: 20px;\n  margin: 0 0 20px 0;\n}\n.margin-left[data-v-78e4e3cf] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-78e4e3cf] {\n  list-style: none;\n}\n#deletephoto_overlay[data-v-78e4e3cf] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#deletephoto_modal_content[data-v-78e4e3cf] {\n  z-index: 2;\n  width: 50%;\n  padding: 1em;\n  background: #fff;\n  border-radius: 20px;\n}\n.deletephoto_modal_content h2[data-v-78e4e3cf] {\n  font-size: 36px;\n  margin: 20px 0;\n}\n.deletephoto_modal_content_word[data-v-78e4e3cf] {\n  font-size: 24px;\n  text-align: left;\n}\n.deletephoto_modal_content_form[data-v-78e4e3cf] {\n  margin: 20px 0;\n  font-size: 24px;\n}\n.deletephoto_modal_content_form_label[data-v-78e4e3cf] {\n  margin: 0 0 0 20px;\n}\n.deletephoto_modal_content_button[data-v-78e4e3cf] {\n  display: flex;\n  justify-content: flex-end;\n  font-size: 24px;\n}\n.deletephoto_modal_content_button_content[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #3cb371;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n.modal-enter-active[data-v-78e4e3cf], .modal-leave-active[data-v-78e4e3cf] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-78e4e3cf], .modal-leave-active .modal-content[data-v-78e4e3cf] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-78e4e3cf], .modal-leave-to[data-v-78e4e3cf] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-78e4e3cf], .modal-leave-to .modal-content[data-v-78e4e3cf] {\n  transform: scale(1);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.adminmypage[data-v-78e4e3cf] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.adminmypage_title[data-v-78e4e3cf] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.adminmypage_wrap_title[data-v-78e4e3cf] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.adminmypage_wrap_content[data-v-78e4e3cf] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n  margin: 0 0 40px 0;\n}\n.adminmypage_wrap_content_list[data-v-78e4e3cf] {\n  list-style-type: none;\n}\n.adminmypage_wrap_content_list_items[data-v-78e4e3cf] {\n  display: flex;\n  padding: 20px 0;\n}\n.adminmypage_wrap_content_list_items_title[data-v-78e4e3cf] {\n  width: 33.33%;\n}\n.adminmypage_wrap_content_list_items_info[data-v-78e4e3cf] {\n  width: 46.33%;\n}\n.adminmypage_wrap_content_list_items_button[data-v-78e4e3cf] {\n  width: 20.33%;\n  display: flex;\n  justify-content: center;\n}\n.adminmypage_wrap_content_list_items_button_word[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.adminmypage_wrap_content_button[data-v-78e4e3cf] {\n  display: flex;\n  justify-content: center;\n}\n.adminmypage_form[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n  border: 2px solid #000000;\n  padding: 20px;\n}\n.adminmypage_form h3[data-v-78e4e3cf] {\n  padding: 0 0 20px 0;\n  font-size: 24px;\n}\n.adminmypage_form_item[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n}\n.adminmypage_form button[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.adminmypage_list[data-v-78e4e3cf] {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  list-style-type: none;\n}\n.adminmypage_list[data-v-78e4e3cf]::after {\n  content: \"\";\n  display: block;\n  width: 32%;\n}\n.adminmypage_list_items[data-v-78e4e3cf] {\n  width: 19%;\n  display: flex;\n  flex-direction: column;\n  margin: 0 0 20px 0;\n}\n.adminmypage_list_items_img[data-v-78e4e3cf] {\n  width: 100%;\n  display: flex;\n}\n.adminmypage_list_items_img_content[data-v-78e4e3cf] {\n  width: 100%;\n  height: 300px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.adminmypage_list_items_detail[data-v-78e4e3cf] {\n  padding: 20px 0;\n}\n.adminmypage_list_items_detail p[data-v-78e4e3cf] {\n  padding: 0 0 10px 0;\n}\n.adminmypage_list_items_detail button[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.f-40[data-v-78e4e3cf] {\n  font-size: 40px;\n}\n.panel[data-v-78e4e3cf] {\n  border: 2px solid #000000;\n  width: 97%;\n  padding: 20px;\n  margin: 0 0 20px 0;\n}\n.margin-left[data-v-78e4e3cf] {\n  margin: 0 0 0 10px;\n}\n.margin-bottom[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n}\n.errors[data-v-78e4e3cf] {\n  margin: 0 0 20px 0;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-78e4e3cf] {\n  list-style: none;\n}\n#deletephoto_overlay[data-v-78e4e3cf] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#deletephoto_modal_content[data-v-78e4e3cf] {\n  z-index: 2;\n  width: 50%;\n  padding: 1em;\n  background: #fff;\n  border-radius: 20px;\n}\n.deletephoto_modal_content h2[data-v-78e4e3cf] {\n  font-size: 36px;\n  margin: 20px 0;\n}\n.deletephoto_modal_content_word[data-v-78e4e3cf] {\n  font-size: 24px;\n  text-align: left;\n}\n.deletephoto_modal_content_form[data-v-78e4e3cf] {\n  margin: 20px 0;\n  font-size: 24px;\n}\n.deletephoto_modal_content_form_label[data-v-78e4e3cf] {\n  margin: 0 0 0 20px;\n}\n.deletephoto_modal_content_button[data-v-78e4e3cf] {\n  display: flex;\n  justify-content: flex-end;\n  font-size: 24px;\n}\n.deletephoto_modal_content_button_content[data-v-78e4e3cf] {\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #3cb371;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n.modal-enter-active[data-v-78e4e3cf], .modal-leave-active[data-v-78e4e3cf] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-78e4e3cf], .modal-leave-active .modal-content[data-v-78e4e3cf] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-78e4e3cf], .modal-leave-to[data-v-78e4e3cf] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-78e4e3cf], .modal-leave-to .modal-content[data-v-78e4e3cf] {\n  transform: scale(1);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
