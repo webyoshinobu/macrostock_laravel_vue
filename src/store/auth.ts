@@ -179,7 +179,7 @@ export const auth = defineStore('auth', {
             if(response.status == OK) {
                 this.changeEmailStatus = response.status
                 this.changeEmailSuccess = response.data.changeSuccess
-                await this.currentUser() //情報が更新s荒れたので、再取得
+                await this.currentUser() //情報が更新されたので、再取得
             }else{
                 this.changeEmailErrorMessagesCurrentEmail = response.data.errorCurrent
                 this.changeEmailErrorMessagesNewemail = response.data.errors
@@ -299,7 +299,7 @@ export const auth = defineStore('auth', {
 
         async changePasswordAdmin (data:any) {
             const response = await axios.post('/api/admin/changePassword', data)
-            console.log('auth.ts changePassword response', response)
+            console.log('auth.ts changePasswordAdmin response', response)
             if(response.status == OK) {
                 this.changePasswordStatus = response.status
                 this.changePasswordSuccess = response.data.changeSuccess
@@ -310,6 +310,18 @@ export const auth = defineStore('auth', {
                 this.changePasswordErrorMessagesNewpass = response.data.errors
                 // console.log('auth.ts changePassword changePasswordErrorMessagesCurrent', this.changePasswordErrorMessagesCurrent)
                 // console.log('auth.ts changePassword changePasswordErrorMessagesNewpass', this.changePasswordErrorMessagesNewpass)
+            }
+        },
+        async changeEmailAdmin (data:any) {
+            const response = await axios.post('/api/admin/changeEmail', data)
+            console.log('auth.ts changeEmailAdmin response', response)
+            if(response.status == OK) {
+                this.changeEmailStatus = response.status
+                this.changeEmailSuccess = response.data.changeSuccess
+                await this.currentAdmin() //情報が更新されたので、再取得
+            }else{
+                this.changeEmailErrorMessagesCurrentEmail = response.data.errorCurrent
+                this.changeEmailErrorMessagesNewemail = response.data.errors
             }
         },
 
