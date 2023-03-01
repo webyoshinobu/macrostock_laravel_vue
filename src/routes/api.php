@@ -65,6 +65,8 @@ Route::post('/admin/adminPassConfirm', 'App\Http\Controllers\Admin\AdminPassword
 Route::post('/admin/changePassword','App\Http\Controllers\Admin\AdminChangePasswordController@update')->name('changePasswordAdmin');
 // メールアドレス変更
 Route::post('/admin/changeEmail','App\Http\Controllers\Admin\AdminChangeEmailController@update')->name('changeEmailAdmin');
+// アカウント削除
+Route::post('/admin/deleteAccount','App\Http\Controllers\Admin\AdminDeleteAccountController@destroy')->name('deleteAccountAdmin');
 // アップロード写真一覧
 Route::post('/admin/photoList', 'App\Http\Controllers\PhotoListController@getPhotoList')->name('photoList');
 // アップロード写真の削除

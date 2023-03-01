@@ -56,7 +56,7 @@
                     </form>
                     <p class="deleteaccount_modal_content_button">
                         <ButtonRed @click="deleteAccount(userInfo)">削除</ButtonRed>
-                        <ButtonGreen @click="deleteModalClose" class="margin-left">Close</ButtonGreen>
+                        <ButtonGreen @click="deleteModalClose" class="margin-left">キャンセル</ButtonGreen>
                     </p>
                 </div>
             </div>
