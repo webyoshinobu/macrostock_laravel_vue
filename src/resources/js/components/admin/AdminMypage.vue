@@ -64,7 +64,7 @@
             </form>
 
             <div class="adminmypage_wrap_content_button">
-                <ButtonWhite class="margin-left">退会</ButtonWhite>
+                <ButtonWhite @click="deleteAccountModalOpen" class="margin-left">退会</ButtonWhite>
             </div>
         </div>
 
@@ -115,7 +115,7 @@
             </li>
         </ul>
 
-        <!-- モーダル -->
+        <!-- 写真削除モーダル -->
         <transition name="modal">
             <div id="deletephoto_overlay" v-show="delete_modal">
 
@@ -143,6 +143,28 @@
                     </p>
                 </div>
 
+            </div>
+        </transition>
+
+        <!-- アカウント削除モーダル -->
+        <transition name="modal">
+            <div id="deleteaccount_overlay" v-show="delete_account_modal">
+                <div class="deleteaccount_modal_content" id="deleteaccount_modal_content">
+                    <h2>退会の確認</h2>
+                    <p class="deleteaccount_modal_content_word">お客様のアカウントを削除します。</p>
+                    <p class="deleteaccount_modal_content_word">削除を実行するとお客様の全ての情報が削除され、復元もできなくなります。</p>
+                    <p class="deleteaccount_modal_content_word">アカウント削除を実行しますか？</p>
+
+                    <form class="deleteaccount_modal_content_form" method="post">
+                        <p v-if="password_error" class="errors">{{password_error}}</p>
+                        <label for="deleteaccount_modal_content_form_label">パスワード確認</label>
+                        <input type="password" class="deleteaccount_modal_content_form_label" id="deleteaccount_modal_content_form_label" v-model="deleteAccountForm.current_password">
+                    </form>
+                    <p class="deleteaccount_modal_content_button">
+                        <ButtonRed @click="deleteAccount(userInfo)">削除</ButtonRed>
+                        <ButtonGreen @click="deleteAccountModalClose" class="margin-left">キャンセル</ButtonGreen>
+                    </p>
+                </div>
             </div>
         </transition>
 
@@ -190,6 +212,7 @@ export default defineComponent({
         let errors:any = null
         let loading = ref<boolean>(false)
         let input = ref<boolean>(true)
+        const { deleteAccountAdmin, adminLogout } = authStore;
         const { userInfo, changePasswordSuccess, changeEmailSuccess } = storeToRefs(authStore) as any|null;
         const { photo_list } = storeToRefs(galleryStore) as any|null;
         let photos = ref([]);
@@ -201,6 +224,10 @@ export default defineComponent({
         let selectedDeletePhoto = ref([]);
         let success_flag = ref<boolean>(false)
         let success = ref('');
+        let delete_account_modal = ref<boolean>(false);
+        let deleteAccountForm = ref({
+            current_password: '',
+        });
 
         watch(userInfo, () => {
             console.log('watch userInfo', userInfo.value)
@@ -373,13 +400,59 @@ export default defineComponent({
             console.log('resetVals')
         }
 
+        const deleteAccountModalOpen = () => {
+            delete_account_modal.value = true
+        }
+        const deleteAccountModalClose = () => {
+            delete_account_modal.value = false;
+            password_error.value = ''
+            deleteAccountForm.value = {current_password: ''}
+        }
+
+        const deleteAccount = async(data:any) => {
+            console.log('AdminMypage.vue deleteAccount data', data)
+            console.log('AdminMypage.vue deleteAccount deleteForm', deleteAccountForm.value)
+
+            try {
+                const response = await authStore.confirmAdminPass(deleteAccountForm.value)
+                console.log('AdminMypage.vue confirmAdminPass response', response)
+                const confirm_pass_status = response.status
+                console.log('AdminMypage.vue deleteAccount confirm_pass_status', confirm_pass_status)
+                if(!deleteAccountForm.value.current_password) {
+                    password_error.value = 'パスワードを入力してください。'
+                }else if(confirm_pass_status != OK) {
+                    password_error.value = response.data.errorMessage
+                    // throw new Error(error_mismatch_pass.value)
+                }else{
+
+                    try {
+                        const delete_account_response = await authStore.deleteAccountAdmin(data)
+                        console.log('AdminMypage.vue deleteAccount response.status', delete_account_response.status)
+                        if(delete_account_response.status == OK) {
+                            await authStore.adminLogout()
+                            return router.push({name: 'deleteAccount'})
+                        }else{
+                            password_error.value = 'アカウントの削除に失敗しました。'
+                            throw new Error(password_error.value)
+                        }
+                    }catch(e:any){
+                        console.error( "エラー：", e.message )
+                    }
+
+                }
+                throw new Error(password_error.value)
+            }catch(e:any){
+                console.error( "エラー：", e.message )
+            }
+        }
+
         onMounted(async() => {
             console.log('onMounted');
             console.log('watch userInfo', userInfo.value)
             photoList(userInfo.value)
         });
 
-        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals, success_flag, userInfo, changePasswordSuccess, changeEmailSuccess };
+        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals, success_flag, userInfo, changePasswordSuccess, changeEmailSuccess, deleteAccount, deleteAccountModalOpen, delete_account_modal, deleteAccountModalClose, deleteAccountForm };
     },
 
 });
@@ -553,7 +626,7 @@ export default defineComponent({
 }
 
 //-----------------------
-// モーダル関連
+// 写真削除モーダル関連
 //-----------------------
 #deletephoto_overlay{
   /*　要素を重ねた時の順番　*/
@@ -620,6 +693,98 @@ export default defineComponent({
 
 }
 
+// .modal-enter-active, .modal-leave-active {
+//   opacity: 1;
+//   transform: scale(1);
+//   transition: opacity 0.5s;
+
+//   .modal-content{
+//     transform: scale(1.2);
+//     transition: 0.5s;
+//   }
+// }
+
+// .modal-enter, .modal-leave-to {
+//   opacity: 0;
+//   transform: scale(0);
+//   transition: opacity 0.5s, transform 0s 0.5s;
+
+//   .modal-content{
+//     transform: scale(1);
+//   }
+// }
+
+//-----------------------
+// 写真削除モーダル関連
+//-----------------------
+#deleteaccount_overlay{
+  /*　要素を重ねた時の順番　*/
+  z-index:999;
+
+  /*　画面全体を覆う設定　*/
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,0.5);
+
+  /*　画面の中央に要素を表示させる設定　*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#deleteaccount_modal_content{
+  z-index:2;
+  width:50%;
+  padding: 1em;
+  background:#fff;
+  border-radius: 20px;
+}
+
+.deleteaccount_modal_content {
+
+    h2 {
+        font-size: 36px;
+        margin: 20px 0;
+    }
+
+    &_word {
+        font-size: 24px;
+        text-align: left;
+    }
+
+    &_form {
+        margin: 20px 0;
+        font-size: 24px;
+
+        &_label {
+            margin: 0 0 0 20px;
+        }
+    }
+
+    &_button {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 24px;
+
+        &_content {
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #3cb371;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+    }
+
+}
+
+//-----------------------
+// モーダル関連共通
+//-----------------------
 .modal-enter-active, .modal-leave-active {
   opacity: 1;
   transform: scale(1);
@@ -640,5 +805,4 @@ export default defineComponent({
     transform: scale(1);
   }
 }
-
 </style>
