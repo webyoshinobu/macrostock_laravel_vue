@@ -17,7 +17,7 @@
                     <p class="adminmypage_wrap_content_list_items_title">メールアドレス</p>
                     <p class="adminmypage_wrap_content_list_items_info">{{ ( userInfo || {} ).email }}</p>
                     <div class="adminmypage_wrap_content_list_items_button">
-                        <router-link to="/adminchangeEmail">
+                        <router-link to="/admin/changeEmail">
                         <button class="adminmypage_wrap_content_list_items_button_word">変更</button>
                         </router-link>
                     </div>
