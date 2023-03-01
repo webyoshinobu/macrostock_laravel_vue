@@ -36,6 +36,17 @@ export const auth = defineStore('auth', {
         apiStatus: false,
         loginErrorMessages: null,
         registerErrorMessages: null,
+
+        //-------------------
+        //管理者関連
+        //-------------------
+        adminUser: null as ADMIN|null,
+        adminRegisterErrorMessages: null,
+        adminFlag: null,
+
+        //-------------------
+        //ユーザー、管理者共通
+        //-------------------
         changePasswordStatus: null as number|null,
         changePasswordErrorMessagesCurrent: '',
         changePasswordErrorMessagesNewpass: '',
@@ -44,13 +55,6 @@ export const auth = defineStore('auth', {
         changeEmailErrorMessagesCurrentEmail: '',
         changeEmailErrorMessagesNewemail: '',
         changeEmailSuccess: '',
-
-        //-------------------
-        //管理者関連
-        //-------------------
-        adminUser: null as ADMIN|null,
-        adminRegisterErrorMessages: null,
-        adminFlag: null,
     }),
     getters: ({
         //ユーザー、管理者共用
@@ -291,6 +295,22 @@ export const auth = defineStore('auth', {
             const response = await axios.post('/api/admin/adminPassConfirm', currentPass)
             console.log('auth.ts confirmUserPass response', response)
             return response
+        },
+
+        async changePasswordAdmin (data:any) {
+            const response = await axios.post('/api/admin/changePassword', data)
+            console.log('auth.ts changePassword response', response)
+            if(response.status == OK) {
+                this.changePasswordStatus = response.status
+                this.changePasswordSuccess = response.data.changeSuccess
+                // console.log('auth.ts changePassword changePasswordStatus', this.changePasswordStatus)
+                // console.log('auth.ts changePassword changePasswordSuccess', this.changePasswordSuccess)
+            }else{
+                this.changePasswordErrorMessagesCurrent = response.data.errorCurrent
+                this.changePasswordErrorMessagesNewpass = response.data.errors
+                // console.log('auth.ts changePassword changePasswordErrorMessagesCurrent', this.changePasswordErrorMessagesCurrent)
+                // console.log('auth.ts changePassword changePasswordErrorMessagesNewpass', this.changePasswordErrorMessagesNewpass)
+            }
         },
 
         //-------------------

@@ -61,6 +61,8 @@ Route::post('/admin/login', 'App\Http\Controllers\Admin\LoginController@login')-
 Route::post('/admin/logout', 'App\Http\Controllers\Admin\LoginController@logout')->name('logout');
 // パスワード確認
 Route::post('/admin/adminPassConfirm', 'App\Http\Controllers\Admin\AdminPasswordConfirmController@confirmPassword')->name('adminPassConfirm');
+// パスワード変更
+Route::post('/admin/changePassword','App\Http\Controllers\Admin\AdminChangePasswordController@update')->name('changePasswordAdmin');
 // アップロード写真一覧
 Route::post('/admin/photoList', 'App\Http\Controllers\PhotoListController@getPhotoList')->name('photoList');
 // アップロード写真の削除

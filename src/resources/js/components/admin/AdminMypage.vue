@@ -26,7 +26,7 @@
                     <p class="adminmypage_wrap_content_list_items_title">パスワード</p>
                     <p class="adminmypage_wrap_content_list_items_info">********</p>
                     <div class="adminmypage_wrap_content_list_items_button">
-                        <router-link to="/adminChangePassword">
+                        <router-link to="/admin/changePassword">
                         <button class="adminmypage_wrap_content_list_items_button_word">変更</button>
                         </router-link>
                     </div>
