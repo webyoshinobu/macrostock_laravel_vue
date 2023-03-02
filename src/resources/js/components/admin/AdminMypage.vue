@@ -409,8 +409,8 @@ export default defineComponent({
             deleteAccountForm.value = {current_password: ''}
         }
 
-        const deleteAccount = async(data:any) => {
-            console.log('AdminMypage.vue deleteAccount data', data)
+        const deleteAccount = async(admin:any) => {
+            console.log('AdminMypage.vue deleteAccount data', admin)
             console.log('AdminMypage.vue deleteAccount deleteForm', deleteAccountForm.value)
 
             try {
@@ -426,7 +426,9 @@ export default defineComponent({
                 }else{
 
                     try {
-                        const delete_account_response = await authStore.deleteAccountAdmin(data)
+                        console.log('AdminMypage.vue deleteAccount photos', photos.value)
+                        const delete_photos = photos.value
+                        const delete_account_response = await authStore.deleteAccountAdmin(admin, delete_photos)
                         console.log('AdminMypage.vue deleteAccount response.status', delete_account_response.status)
                         if(delete_account_response.status == OK) {
                             await authStore.adminLogout()

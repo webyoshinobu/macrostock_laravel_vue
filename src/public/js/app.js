@@ -27100,13 +27100,13 @@ exports["default"] = (0, vue_1.defineComponent)({
         current_password: ''
       };
     };
-    var deleteAccount = function deleteAccount(data) {
+    var deleteAccount = function deleteAccount(admin) {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var response, confirm_pass_status, delete_account_response;
+        var response, confirm_pass_status, delete_photos, delete_account_response;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              console.log('AdminMypage.vue deleteAccount data', data);
+              console.log('AdminMypage.vue deleteAccount data', admin);
               console.log('AdminMypage.vue deleteAccount deleteForm', deleteAccountForm.value);
               _context4.prev = 2;
               _context4.next = 5;
@@ -27121,7 +27121,7 @@ exports["default"] = (0, vue_1.defineComponent)({
                 break;
               }
               password_error.value = 'パスワードを入力してください。';
-              _context4.next = 35;
+              _context4.next = 37;
               break;
             case 13:
               if (!(confirm_pass_status != util_2.OK)) {
@@ -27130,46 +27130,48 @@ exports["default"] = (0, vue_1.defineComponent)({
               }
               password_error.value = response.data.errorMessage;
               // throw new Error(error_mismatch_pass.value)
-              _context4.next = 35;
+              _context4.next = 37;
               break;
             case 17:
               _context4.prev = 17;
-              _context4.next = 20;
-              return authStore.deleteAccountAdmin(data);
-            case 20:
+              console.log('AdminMypage.vue deleteAccount photos', photos.value);
+              delete_photos = photos.value;
+              _context4.next = 22;
+              return authStore.deleteAccountAdmin(admin, delete_photos);
+            case 22:
               delete_account_response = _context4.sent;
               console.log('AdminMypage.vue deleteAccount response.status', delete_account_response.status);
               if (!(delete_account_response.status == util_2.OK)) {
-                _context4.next = 28;
+                _context4.next = 30;
                 break;
               }
-              _context4.next = 25;
+              _context4.next = 27;
               return authStore.adminLogout();
-            case 25:
+            case 27:
               return _context4.abrupt("return", router.push({
                 name: 'deleteAccount'
               }));
-            case 28:
+            case 30:
               password_error.value = 'アカウントの削除に失敗しました。';
               throw new Error(password_error.value);
-            case 30:
-              _context4.next = 35;
-              break;
             case 32:
-              _context4.prev = 32;
+              _context4.next = 37;
+              break;
+            case 34:
+              _context4.prev = 34;
               _context4.t0 = _context4["catch"](17);
               console.error("エラー：", _context4.t0.message);
-            case 35:
+            case 37:
               throw new Error(password_error.value);
-            case 38:
-              _context4.prev = 38;
+            case 40:
+              _context4.prev = 40;
               _context4.t1 = _context4["catch"](2);
               console.error("エラー：", _context4.t1.message);
-            case 41:
+            case 43:
             case "end":
               return _context4.stop();
           }
-        }, _callee4, null, [[2, 38], [17, 32]]);
+        }, _callee4, null, [[2, 40], [17, 34]]);
       }));
     };
     (0, vue_1.onMounted)(function () {
@@ -36365,14 +36367,17 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
         }, _callee15, this);
       }));
     },
-    deleteAccountAdmin: function deleteAccountAdmin(data) {
+    deleteAccountAdmin: function deleteAccountAdmin(admin, photos) {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee16() {
         var response;
         return _regeneratorRuntime().wrap(function _callee16$(_context16) {
           while (1) switch (_context16.prev = _context16.next) {
             case 0:
               _context16.next = 2;
-              return axios_1["default"].post('/api/admin/deleteAccount', data);
+              return axios_1["default"].post('/api/admin/deleteAccount', {
+                admin: admin,
+                photos: photos
+              });
             case 2:
               response = _context16.sent;
               console.log('auth.ts deleteAccountAdmin response', response);

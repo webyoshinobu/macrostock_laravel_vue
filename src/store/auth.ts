@@ -324,8 +324,8 @@ export const auth = defineStore('auth', {
                 this.changeEmailErrorMessagesNewemail = response.data.errors
             }
         },
-        async deleteAccountAdmin (data:any) {
-            const response = await axios.post('/api/admin/deleteAccount', data)
+        async deleteAccountAdmin (admin:any, photos:any) {
+            const response = await axios.post('/api/admin/deleteAccount', {admin, photos})
             console.log('auth.ts deleteAccountAdmin response', response)
             return response
         },
