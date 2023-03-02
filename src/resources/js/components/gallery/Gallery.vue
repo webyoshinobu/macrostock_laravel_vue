@@ -7,7 +7,7 @@
             <img :src="image.url" :alt="image.filename" @click="pushImg(image)">
         </li>
     </ul>
-    <Pagination :current-page="currentPage" :last-page="lastPage" />
+    <Pagination :current-page="currentPage" :last-page="lastPage" class="pagination_component" />
   </section>
 </template>
 
@@ -27,19 +27,7 @@ export default defineComponent({
         Pagination,
     },
 
-    // props: {
-    //     page: {
-    //         type: Number,
-    //         required: false,
-    //         default: 1
-    //     },
-    //     route: {
-    //         type: String,
-    //         required: false,
-    //     }
-    // },
-
-    setup(props) {
+    setup() {
         //data
         const router = useRouter()
         const route = useRoute();
@@ -133,6 +121,10 @@ export default defineComponent({
             }
         }
     }
+}
+
+.pagination_component{
+    margin: 100px 0 0 0;
 }
 
 </style>
