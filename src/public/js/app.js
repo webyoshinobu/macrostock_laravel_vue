@@ -24804,7 +24804,12 @@ exports["default"] = (0, vue_1.defineComponent)({
       isLoggedIn = _ref.isLoggedIn,
       getAdminFlag = _ref.getAdminFlag;
     var token = (0, auth_1.auth)().csrf;
+    var iconActive = (0, vue_1.ref)(false);
     // methods
+    var humburgerIcon = function humburgerIcon() {
+      iconActive.value = !iconActive.value;
+      console.log('Header.vue humburgerIcon() iconActive', iconActive.value);
+    };
     var addClass = function addClass() {
       // console.log('addClass()');
       router.afterEach(function (to) {
@@ -24875,7 +24880,9 @@ exports["default"] = (0, vue_1.defineComponent)({
       userInfo: userInfo,
       token: token,
       isLoggedIn: isLoggedIn,
-      onMounted: vue_1.onMounted
+      onMounted: vue_1.onMounted,
+      humburgerIcon: humburgerIcon,
+      iconActive: iconActive
     };
   }
 });
@@ -31800,6 +31807,19 @@ var _hoisted_4 = {
 var _hoisted_5 = {
   "class": "header_nav_menu"
 };
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("span", null, null, -1 /* HOISTED */);
+});
+
+var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("span", null, null, -1 /* HOISTED */);
+});
+
+var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("span", null, null, -1 /* HOISTED */);
+});
+
+var _hoisted_9 = [_hoisted_6, _hoisted_7, _hoisted_8];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0, vue_1.resolveComponent)("router-link");
   var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
@@ -31821,17 +31841,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0, vue_1.createTextVNode)("Gallery")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["class"]), (0, vue_1.createVNode)(_component_router_link, {
-    to: "/contact",
-    "class": (0, vue_1.normalizeClass)(["header_nav_menu_item wd_color_white", {
-      change_header: _ctx.isChange
-    }])
-  }, {
-    "default": (0, vue_1.withCtx)(function () {
-      return [(0, vue_1.createTextVNode)("Contact")];
-    }),
-    _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["class"]), !_ctx.isLoggedIn ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
+  }, 8 /* PROPS */, ["class"]), (0, vue_1.createCommentVNode)(" <router-link to=\"/contact\" class=\"header_nav_menu_item wd_color_white\" :class=\"{change_header: isChange}\">Contact</router-link> "), !_ctx.isLoggedIn ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
     key: 0,
     to: "/login",
     "class": "header_nav_menu_item"
@@ -31906,7 +31916,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
 
     _: 1 /* STABLE */
-  }))])])]);
+  }))])]), (0, vue_1.createElementVNode)("button", {
+    "class": (0, vue_1.normalizeClass)([{
+      iconActive: _ctx.iconActive
+    }, "menu-trigger"]),
+    onClick: _cache[1] || (_cache[1] =
+    //@ts-ignore
+    function () {
+      return _ctx.humburgerIcon && _ctx.humburgerIcon.apply(_ctx, arguments);
+    })
+  }, _hoisted_9, 2 /* CLASS */)]);
 }
 
 exports.render = render;
@@ -35549,6 +35568,9 @@ function getCookieValue(searchKey) {
   return val;
 }
 exports.getCookieValue = getCookieValue;
+/**
+ * ステータスコード
+ */
 exports.OK = 200;
 exports.CREATED = 201;
 exports.INTERNAL_SERVER_ERROR = 500;
@@ -38265,7 +38287,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header[data-v-1f42fb90] {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  position: fixed;\n  top: 0;\n  z-index: 999;\n}\n.header_logo[data-v-1f42fb90] {\n  width: 170px;\n  margin: 0 0 0 27px;\n}\n.header_logo a[data-v-1f42fb90] {\n  width: 100%;\n  height: 100%;\n}\n.header_logo a img[data-v-1f42fb90] {\n  width: 100%;\n}\n.header_nav[data-v-1f42fb90] {\n  height: 170px;\n  margin-right: 27px;\n  display: flex;\n  align-items: center;\n  font-size: 24px;\n}\n.header_nav_menu[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  list-style-type: none;\n}\n.header_nav_menu_item[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  text-decoration: none;\n}\n.header_nav_menu_item[data-v-1f42fb90]:not(:first-child) {\n  margin-left: 50px;\n}\n.wd_color_white[data-v-1f42fb90] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-1f42fb90] {\n  color: #000000;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.header[data-v-1f42fb90] {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  position: fixed;\n  top: 0;\n  z-index: 999;\n}\n.header_logo[data-v-1f42fb90] {\n  width: 170px;\n  margin: 0 0 0 27px;\n}\n.header_logo a[data-v-1f42fb90] {\n  width: 100%;\n  height: 100%;\n}\n.header_logo a img[data-v-1f42fb90] {\n  width: 100%;\n}\n.header_nav[data-v-1f42fb90] {\n  height: 170px;\n  margin-right: 27px;\n  display: flex;\n  align-items: center;\n  font-size: 24px;\n}\n.header_nav_menu[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  list-style-type: none;\n}\n.header_nav_menu_item[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  text-decoration: none;\n}\n.header_nav_menu_item[data-v-1f42fb90]:not(:first-child) {\n  margin-left: 50px;\n}\n.wd_color_white[data-v-1f42fb90] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-1f42fb90] {\n  color: #000000;\n}\n.menu-trigger[data-v-1f42fb90] {\n  display: none;\n}\n@media screen and (max-width: 1024px) {\n  /*　画面サイズが1024pxからはここを読み込む　*/\n.menu-trigger[data-v-1f42fb90] {\n    display: inline-block;\n    transition: all 0.4s;\n    box-sizing: border-box;\n    position: relative;\n    z-index: 100;\n    width: 32px;\n    height: 26px;\n    background: none;\n    border: none;\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n    cursor: pointer;\n}\n.menu-trigger span[data-v-1f42fb90] {\n    display: inline-block;\n    transition: all 0.4s;\n    box-sizing: border-box;\n    z-index: 100;\n    position: absolute;\n    left: 0;\n    width: 100%;\n    height: 4px;\n    background-color: #172a22;\n    border-radius: 4px;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(1) {\n    top: 0;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(2) {\n    top: 11px;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(3) {\n    bottom: 0;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(1) {\n    transform: translateY(11px) rotate(-45deg);\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(2) {\n    opacity: 0;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(3) {\n    transform: translateY(-11px) rotate(45deg);\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
