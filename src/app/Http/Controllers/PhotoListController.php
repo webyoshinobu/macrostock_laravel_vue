@@ -33,8 +33,10 @@ class PhotoListController extends Controller
         $deletePhoto = $request->all();
         Log::debug(print_r($deletePhoto, true));
         // $photoList = PhotoList::find($deletePhoto->photo_id);
+        // データベースから削除
         $photoList = Photo::find($deletePhoto['photo_id']);
         $photoList->delete();
+        // s3から削除
         Storage::disk('s3')->delete($deletePhoto['filename']);
         return response(['message' => '写真が削除されました。'], 200);
     }
