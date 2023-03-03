@@ -14,6 +14,9 @@ import axios from '../../plugins/axios';
 import bootstrap from './bootstrap';
 import { error } from '../../store/error';
 import { message } from '../../store/message';
+// import '../../public/css/mediaQuery.css';
+
+// require('../../resources/sass/mediaQuery.scss');
 
 library.add(faInstagram)
 bootstrap()

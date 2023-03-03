@@ -7,28 +7,32 @@
         </router-link>
     </h1>
 
-    <nav class="header_nav">
+    <nav class="header_nav" :class="{iconActive: iconActive}">
         <div class="header_nav_menu">
 
-            <router-link to="/gallery" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange}">Gallery</router-link>
+            <router-link to="/gallery" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange, iconActive: iconActive}" @click="resetIconActive">Gallery</router-link>
 
             <!-- <router-link to="/contact" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange}">Contact</router-link> -->
 
-            <router-link v-if="!isLoggedIn" to="/login" class="header_nav_menu_item"><ButtonWhite>Login</ButtonWhite></router-link>
-            <p v-else class="header_nav_menu_item" @click="clickLogout"><ButtonWhite>Logout</ButtonWhite></p>
+            <router-link v-if="!isLoggedIn" to="/login" class="header_nav_menu_item"><ButtonWhite @click="resetIconActive">Login</ButtonWhite></router-link>
+            <p v-else class="header_nav_menu_item" @click="clickLogout"><ButtonWhite @click="resetIconActive">Logout</ButtonWhite></p>
 
-            <router-link v-if="!isLoggedIn" to="/register" class="header_nav_menu_item"><ButtonBlack>Register</ButtonBlack></router-link>
-            <router-link to="/admin/mypage" v-else-if="'admin_flag' in userInfo" class="header_nav_menu_item"><ButtonBlack>{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
-            <router-link to="/mypage" v-else class="header_nav_menu_item"><ButtonBlack>{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
+            <router-link v-if="!isLoggedIn" to="/register" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">Register</ButtonBlack></router-link>
+            <router-link to="/admin/mypage" v-else-if="'admin_flag' in userInfo" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
+            <router-link to="/mypage" v-else class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
 
         </div>
     </nav>
 
-    <button :class="{iconActive}" @click="humburgerIcon" class="menu-trigger">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+    <div class="menu_wrap">
+        <button :class="{iconActive}" @click="humburgerIcon" class="menu-trigger">
+            <span :class="{change_header: isChange}"></span>
+            <span :class="{change_header: isChange}"></span>
+            <span :class="{change_header: isChange}"></span>
+        </button>
+    </div>
+
+    <div class="overlay" :class="{iconActive: iconActive}"></div>
 
   </header>
 </template>
@@ -64,6 +68,10 @@
                 iconActive.value = !iconActive.value
                 console.log('Header.vue humburgerIcon() iconActive', iconActive.value)
             };
+
+            const resetIconActive = () => {
+                iconActive.value = !iconActive.value
+            }
 
             const addClass = () => {
                 // console.log('addClass()');
@@ -114,12 +122,13 @@
                 addClass();
             });
 
-            return { router, addClass, clickLogout, isChange, userInfo, token, isLoggedIn, onMounted, humburgerIcon, iconActive };
+            return { router, addClass, clickLogout, isChange, userInfo, token, isLoggedIn, onMounted, humburgerIcon, iconActive, resetIconActive };
         },
     });
 </script>
 
 <style lang="scss" scoped>
+@import "../../sass/_mediaQuery.scss";
 .header {
     width: 100%;
     display: flex;
@@ -150,10 +159,30 @@
         align-items: center;
         font-size: 24px;
 
+        @include md {
+            // display: none;
+            display: block;
+            transform: translateX(100vw);
+            transition: all .3s linear;
+            position: absolute;
+            right: 0;
+            margin: 0;
+            z-index: 99999;
+        }
+
         &_menu {
             display: flex;
             justify-content: space-between;
             list-style-type: none;
+
+            @include md {
+                display: block;
+                width: 60vw;
+                height: 100vh;
+                background-color: #ffffff;
+                flex-direction: column;
+                padding: 50px 0 0 0;
+            }
 
             &_item {
                 display: flex;
@@ -161,11 +190,45 @@
                 align-items: center;
                 text-decoration: none;
 
+                @include md {
+                    margin: 0 0 30px 0;
+                }
+
+                &:first-child {
+                    @include md {
+                        color: #000000;
+                        margin: 0 0 30px 50px;
+                    }
+                }
+
                 &:not(:first-child) {
                     margin-left: 50px;
                 }
             }
         }
+    }
+    .iconActive{
+        @include md {
+            // display: block;
+            transform: translateX(0);
+        }
+    }
+}
+
+.overlay {
+    display: none;
+
+    @include md {
+        position: absolute;
+        left: 0; top: 0;
+        width: 100%; height: 100vh;
+        background: rgba(100, 100, 100, .8);
+        z-index: 9999;
+    }
+}
+.iconActive{
+    @include md {
+        display: block;
     }
 }
 
@@ -179,24 +242,30 @@
 }
 
 //ハンバーガーメニュー
-.menu-trigger {
+.menu_wrap {
     display: none;
+
+    @include md {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
-@media screen and (max-width:1024px) {
-// @include md {
-/*　画面サイズが1024pxからはここを読み込む　*/
+// @media screen and (max-width:1024px) {
+@include md {
     .menu-trigger {
         display: inline-block;
         transition: all 0.4s;
         box-sizing: border-box;
         position: relative;
-        z-index: 100;
-        width: 32px;
-        height: 26px;
+        z-index: 99999;
+        width: 50px;
+        height: 30px;
         background: none;
         border: none;
         appearance: none;
         cursor: pointer;
+        margin: 0 27px 0 0;
 
         span {
             display: inline-block;
@@ -208,7 +277,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background-color: #172a22;
+            background-color: #ffffff;
             border-radius: 4px;
 
             &:nth-of-type(1) {
@@ -216,19 +285,24 @@
             }
 
             &:nth-of-type(2) {
-                top: 11px;
+                top: 13px;
             }
 
             &:nth-of-type(3) {
                 bottom: 0;
             }
         }
+        .change_header {
+            background-color: #000000;
+        }
+
     }
     .iconActive {
 
         span {
             &:nth-of-type(1){
-                transform: translateY(11px) rotate(-45deg);
+                transform: translateY(13px) rotate(-45deg);
+                background-color: #000000;
             }
 
             &:nth-of-type(2){
@@ -236,7 +310,8 @@
             }
 
             &:nth-of-type(3){
-                transform: translateY(-11px) rotate(45deg);
+                transform: translateY(-13px) rotate(45deg);
+                background-color: #000000;
             }
         }
     }
