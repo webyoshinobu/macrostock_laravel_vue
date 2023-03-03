@@ -1,0 +1,47 @@
+$xl: 1440px;
+$lg: 1280px;
+$md: 1024px;
+$tb: 768px;
+$sm: 576px;
+$xs: 414px;
+
+@mixin xl {
+    // 1440px以上の時に適応
+    @media screen and (min-width: ($xl)) {
+      @content;
+    }
+}
+@mixin lg {
+    // 1280px以上の時に適応
+    @media screen and (min-width: ($lg)) {
+      @content;
+    }
+}
+
+@mixin md {
+    // 1024px以上の時に適応
+    @media screen and (max-width: ($md)) {
+      @content;
+    }
+}
+
+@mixin tb {
+    // 768px以上の時に適応
+    @media screen and (min-width: ($tb)) {
+      @content;
+    }
+}
+
+@mixin sm {
+    // 576px以上の時に適応
+    @media screen and (min-width: ($sm)) {
+      @content;
+    }
+}
+
+@mixin xs {
+    // 414px以上の時に適応
+    @media screen and (min-width: ($xs)) {
+      @content;
+    }
+}

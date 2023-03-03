@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <!-- <fa :icon="{ prefix: 'fab', iconName: 'instagram' }" style="color:white;" class="sns_logo fa-5x" /> -->
-    <fa :icon="{ prefix: 'fab', iconName: 'instagram' }" class="sns_logo fa-5x" :class="{change_header: isChange}" />
+    <a href="https://instagram.com/macro.stock?igshid=YmMyMTA2M2Y=" target="_blank"><fa :icon="{ prefix: 'fab', iconName: 'instagram' }" class="sns_logo fa-5x" :class="{change_header: isChange}" /></a>
     <router-link v-if="isLoggedIn == false" to="/admin/login" class="footer_admin wd_color_white">
         <p :class="{change_header: isChange}">Administrator Login</p>
     </router-link>
@@ -52,11 +52,12 @@
 </script>
 
 <style lang="scss" scoped>
+@import "../../sass/_mediaQuery.scss";
 .footer {
     width: 100%;
     position: fixed;
     bottom: 0;
-    z-index: 999;
+    z-index: 998;
     display: flex;
     justify-content: space-between;
 
@@ -66,6 +67,10 @@
         margin: 0 27px 20px 0;
         font-size: 24px;
         text-decoration: none;
+
+        @include md {
+            display: none;
+        }
     }
 }
 
