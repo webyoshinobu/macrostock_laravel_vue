@@ -17,13 +17,19 @@
 </script>
 
 <style lang="scss" scoped>
-    .button-orange {
-        background-color: #F87D09;
-        color: #ffffff;
-        font-weight: bold;
-        border-radius: 20px;
-        padding: 22px 68px;
-        border: none;
-        outline: none;
+@import "../../../sass/prepends.scss";
+.button-orange {
+    background-color: #F87D09;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 20px;
+    // padding: 22px 68px;
+    padding: 22px 10px;
+    border: none;
+    outline: none;
+
+    @include md {
+        padding: 20px 10px;
     }
+}
 </style>

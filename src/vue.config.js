@@ -1,10 +1,8 @@
 module.exports = {
     css: {
       loaderOptions: {
-        scss: {
-          prependData: `
-            @import "./resources/sass/mediaQuery.scss";
-          `
+        sass: {
+          prependData: `@import "./src/resources/sass/_mediaQuery.scss";`,
         }
       }
     }

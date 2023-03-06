@@ -74,12 +74,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../../sass/prepends.scss";
 .cart {
     width: 80%;
     padding: 170px 10% 100px 10%;
 
+    @include sm {
+        padding: 107px 10% 100px 10%;
+    }
+
     &_title {
-        font-size: 70px;
+        // font-size: 70px;
+        @include f-80;
         margin-bottom: 20px;
     }
 
@@ -87,13 +93,22 @@ export default defineComponent({
         display: flex;
         justify-content: space-between;
 
+        @include tb {
+            display: block;
+        }
+
         &_list {
-            width: 60%;
+            width: 55%;
+
+            @include tb {
+                width: 100%;
+            }
 
             &_title {
                 background-color: #000000;
                 color: #ffffff;
-                font-size: 36px;
+                // font-size: 36px;
+                @include f-36;
                 padding: 18.5px 0 18.5px 10px;
             }
 
@@ -141,8 +156,13 @@ export default defineComponent({
         }
 
         &_aside {
-            width: 35%;
+            width: 45%;
             padding: 0 0 0 5%;
+
+            @include tb {
+                width: 100%;
+                padding: 20px 0 0 0;
+            }
 
             &_amount{
                 width: 100%;
@@ -152,18 +172,28 @@ export default defineComponent({
                 border-bottom: 2px solid #000000;
 
                 &_title {
-                    width: 30%;
+                    width: 47%;
                     font-size: 24px;
+                    // @include f-24;
                     display: flex;
                     align-items: center;
                 }
 
                 &_price {
-                    width: 70%;
+                    width: 53%;
                     font-size: 48px;
+                    // @include f-48;
                     display: flex;
                     justify-content: flex-end;
                     align-items: center;
+
+                    @include md {
+                        font-size: 40px;
+                    }
+
+                    @include xs {
+                        font-size: 30px;
+                    }
                 }
             }
         }
@@ -177,15 +207,18 @@ export default defineComponent({
 }
 
 .f_40 {
-    font-size: 40px;
+    // font-size: 40px;
+    @include f-40;
 }
 
 .f_36 {
-    font-size: 36px;
+    // font-size: 36px;
+    @include f-36;
 }
 
 .f_24 {
-    font-size: 24px;
+    // font-size: 24px;
+    @include f-24;
 }
 
 </style>

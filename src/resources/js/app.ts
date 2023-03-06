@@ -15,8 +15,9 @@ import bootstrap from './bootstrap';
 import { error } from '../../store/error';
 import { message } from '../../store/message';
 // import '../../public/css/mediaQuery.css';
+// import '../sass/prepends.scss';
 
-// require('../../resources/sass/mediaQuery.scss');
+// require('../../resources/sass/_mediaQuery.scss');
 
 library.add(faInstagram)
 bootstrap()

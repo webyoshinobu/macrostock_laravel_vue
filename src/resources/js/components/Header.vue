@@ -66,7 +66,7 @@
             // methods
             const humburgerIcon = () => {
                 iconActive.value = !iconActive.value
-                console.log('Header.vue humburgerIcon() iconActive', iconActive.value)
+                // console.log('Header.vue humburgerIcon() iconActive', iconActive.value)
             };
 
             const resetIconActive = () => {
@@ -97,8 +97,8 @@
                     await authStore.logout();
                 }
 
-                console.log('Header logout apiStatus end', auth().getApiStatus);
-                console.log('Header logout admin_flag end', auth().getAdminFlag);
+                // console.log('Header logout apiStatus end', auth().getApiStatus);
+                // console.log('Header logout admin_flag end', auth().getAdminFlag);
 
                 // ログインページに移動する
                 // if (auth().getApiStatus == true) {
@@ -128,7 +128,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import "../../sass/_mediaQuery.scss";
+@import "../../sass/prepends.scss";
 .header {
     width: 100%;
     display: flex;
@@ -140,6 +140,10 @@
     &_logo {
         width: 170px;
         margin: 0 0 0 27px;
+
+        @include sm {
+            width: 100px;
+        }
 
         a {
             width: 100%;
@@ -184,6 +188,10 @@
                 padding: 50px 0 0 0;
             }
 
+            @include tb {
+                width: 100vw;
+            }
+
             &_item {
                 display: flex;
                 justify-content: space-between;
@@ -199,10 +207,18 @@
                         color: #000000;
                         margin: 0 0 30px 50px;
                     }
+
+                    @include sm {
+                        margin: 0 0 30px 25px;
+                    }
                 }
 
                 &:not(:first-child) {
                     margin-left: 50px;
+
+                    @include sm {
+                        margin-left: 25px;
+                    }
                 }
             }
         }

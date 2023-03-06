@@ -42,8 +42,12 @@
             </div>
 
             <div class="userchangepassword_wrap_form_button">
-                <ButtonRed @click="clickChangePassword">変更する</ButtonRed>
-                <router-link to="/mypage"><ButtonWhite class="margin-left">マイページトップへ戻る</ButtonWhite></router-link>
+                <div class="userchangepassword_wrap_form_button_common">
+                    <ButtonRed @click="clickChangePassword">変更する</ButtonRed>
+                </div>
+                <router-link to="/mypage" class="userchangepassword_wrap_form_button_common">
+                    <ButtonWhite class="margin-left">マイページトップへ戻る</ButtonWhite>
+                </router-link>
             </div>
 
         </form>
@@ -141,14 +145,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../../sass/prepends.scss";
 .userchangepassword {
     width: 80%;
     padding: 170px 10% 0 10%;
     margin: 0 0 100px 0;
 
+    @include sm {
+        padding: 107px 10% 100px 10%;
+    }
+
     &_title {
-        font-size: 70px;
+        // font-size: 70px;
+        @include f-80;
         margin-bottom: 50px;
+
+        @include sm {
+            @include f-33;
+            margin-bottom: 30px;
+        }
     }
 
     &_wrap{
@@ -156,7 +171,8 @@ export default defineComponent({
         &_title {
             background-color: #000000;
             color: #ffffff;
-            font-size: 36px;
+            // font-size: 36px;
+            @include f-36;
             font-weight: bold;
             padding: 18.5px 0 18.5px 10px;
         }
@@ -164,18 +180,35 @@ export default defineComponent({
         &_form {
             border: 2px solid #000000;
             padding: 20px;
-            font-size: 36px;
+            // font-size: 36px;
+            @include f-36;
 
             &_line {
                 padding: 20px;
                 display: flex;
 
+                @include md {
+                    flex-direction: column;
+
+                    &:not(:last-child) {
+                        padding: 0 0 20px 0;
+                    }
+                }
+
                 &_label {
                     width: 40%;
+
+                    @include md {
+                        width: 100%;
+                    }
                 }
 
                 &_input {
                     width: 60%;
+
+                    @include md {
+                        width: 100%;
+                    }
                 }
 
             }
@@ -183,18 +216,39 @@ export default defineComponent({
             &_button {
                 display: flex;
                 justify-content: center;
+                margin: 20px 0 0 0;
+
+                @include tb {
+                    flex-direction: column;
+                }
+
+                &_common {
+                    display: flex;
+                    justify-content: center;
+                    text-decoration: none;
+                    @include f-36;
+
+                    &:last-child {
+                        margin: 0 0 0 10px;
+
+                        @include tb {
+                            margin: 10px 0 0 0;
+                        }
+                    }
+                }
             }
         }
     }
 }
 
-.margin-left {
-    margin: 0 0 0 10px;
-}
+// .margin-left {
+//     margin: 0 0 0 10px;
+// }
 
 .errors {
     margin: 0 0 20px 0;
-    font-size: 24px;
+    // font-size: 24px;
+    @include f-24;
     color: red;
     font-weight: bold;
 

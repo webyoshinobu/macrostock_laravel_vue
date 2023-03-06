@@ -22,7 +22,8 @@
     color: #ffffff;
     font-weight: bold;
     border-radius: 20px;
-    padding: 22px 68px;
+    // padding: 22px 68px;
+    padding: 22px 10px;
     border: none;
     outline: none;
 }

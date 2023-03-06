@@ -23,7 +23,8 @@
     font-weight: bold;
     border: 1px solid #000000;
     border-radius: 20px;
-    padding: 22px 68px;
+    // padding: 22px 68px;
+    padding: 22px 10px;
     outline: none;
 }
 </style>

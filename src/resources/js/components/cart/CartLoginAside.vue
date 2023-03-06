@@ -120,6 +120,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../../sass/prepends.scss";
 .logined {
     border: solid 1px #000000;
     margin: 50px 0 0 0;
@@ -145,7 +146,8 @@ export default defineComponent({
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 24px;
+            // font-size: 24px;
+            @include f-24;
 
             &_component {
 

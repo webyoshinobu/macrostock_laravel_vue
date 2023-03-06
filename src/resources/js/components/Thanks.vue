@@ -2,9 +2,9 @@
   <section class="thanks">
     <h2 class="thanks_title">ご購入ありがとうございます。</h2>
     <div class="thanks_wrap">
-        <p class="thanks_wrap_name">〇〇 〇〇 様</p>
+        <p class="thanks_wrap_name">{{ ( userInfo || {} ).name }} 様</p>
         <p class="thanks_wrap_word">ご購入ありがとうございます。</p>
-        <p class="thanks_wrap_word">領収書をご希望の場合は、お客様ご自身で「お客様マイページ」より印刷することができます。</p>
+        <p class="thanks_wrap_word">領収書をご希望の場合は、お客様ご自身で「お客様マイページ」よりPDFでダウンロードすることができます。</p>
         <!-- <h3 class="thanks_wrap_title">注文内容</h3>
         <ul class="thanks_wrap_list_content">
             <li v-for="ordered_item in ordered_items" :key="ordered_item" class="thanks_wrap_list_content_each">
@@ -35,10 +35,12 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
+import { storeToRefs } from "pinia";
 import ButtonWhite from "./common/ButtonWhite.vue";
 import ButtonBlack from "./common/ButtonBlack.vue";
 import { useRoute, useRouter } from 'vue-router';
 import { thanksItems } from '../../../store/thanks';
+import { auth } from '../../../store/auth';
 
 export default defineComponent({
     name: 'Photo',
@@ -52,6 +54,7 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const ordered_items = thanksItems().ordered_imgs;
+        const { userInfo } = storeToRefs(auth());
 
         // methods
 
@@ -59,26 +62,37 @@ export default defineComponent({
 
         })
 
-        return { router, route, ordered_items }
+        return { router, route, ordered_items, userInfo }
     },
 
 });
 </script>
 
 <style lang="scss" scoped>
+@import "../../sass/prepends.scss";
 .thanks {
     width: 80%;
     padding: 170px 10% 0 10%;
     margin: 0 0 100px 0;
 
+    @include sm {
+        padding: 107px 10% 100px 10%;
+    }
+
     &_title {
-        font-size: 48px;
+        // font-size: 48px;
+        @include f-80;
+
+        @include tb {
+            font-size: 36px
+        }
     }
 
     &_wrap{
 
         &_name {
-            font-size: 36px;
+            // font-size: 36px;
+            @include f-36;
             padding: 18.5px 0 18.5px 0;
         }
 
@@ -87,7 +101,8 @@ export default defineComponent({
         }
 
         &_title {
-            font-size: 36px;
+            // font-size: 36px;
+            @include f-36;
             color: #ffffff;
             background-color: #000000;
             padding: 18.5px 0 18.5px 10px;
@@ -153,23 +168,35 @@ export default defineComponent({
         justify-content: center;
         align-items: center;
         margin: 100px 0 0 0;
+        @include f-30;
+
+        @include tb {
+            flex-direction: column;
+        }
 
         :last-child {
             margin: 0 0 0 10px;
+
+            @include tb {
+                margin: 10px 0 0 0;
+            }
         }
     }
 }
 
 .f_40 {
-    font-size: 40px;
+    // font-size: 40px;
+    @include f-40;
 }
 
 .f_36 {
-    font-size: 36px;
+    // font-size: 36px;
+    @include f-36;
 }
 
 .f_24 {
-    font-size: 24px;
+    // font-size: 24px;
+    @include f-24;
 }
 
 </style>

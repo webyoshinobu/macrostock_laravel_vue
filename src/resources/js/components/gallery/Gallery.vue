@@ -97,19 +97,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../../sass/prepends.scss";
 .gallery {
     width: 80%;
     padding: 170px 10% 0 10%;
     margin: 0 0 100px 0;
 
+    @include sm {
+        padding: 107px 10% 100px 10%;
+    }
+
     &_title {
-        font-size: 70px;
+        // font-size: 70px;
+        @include f-80;
         margin-bottom: 20px;
     }
 
     &_list {
         columns: 3;/*段組みの数*/
         list-style-type: none;
+
+        @include sm {
+            columns: 1;
+        }
 
         &_item{
             margin-bottom: 20px;/*各画像下に余白をつける*/
