@@ -114,6 +114,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../sass/prepends.scss";
 #term_overlay{
   /*　要素を重ねた時の順番　*/
   z-index:999;
@@ -135,14 +136,20 @@ export default defineComponent({
 
 .term_content {
     width:80%;
-    height: 600px;
+    // height: 600px;
+    height: auto;
     padding: 1em;
     border-radius: 20px;
     background-color: #ffffff;
     padding: 10px;
 
+    // @include xs {
+    //     height: auto;
+    // }
+
     &_title {
-        font-size: 70px;
+        // font-size: 70px;
+        @include f-80;
         margin-bottom: 20px;
     }
 

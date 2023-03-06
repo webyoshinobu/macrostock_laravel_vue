@@ -52,7 +52,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import "../../sass/_mediaQuery.scss";
+@import "../../sass/prepends.scss";
 .footer {
     width: 100%;
     position: fixed;
@@ -77,6 +77,10 @@
 .sns_logo {
     margin: 0 0 20px 27px;
     color: #ffffff;
+
+    @include xs {
+        font-size: 50px;
+    }
 }
 
 .wd_color_white {

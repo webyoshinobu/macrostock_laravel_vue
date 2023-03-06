@@ -1,0 +1,31 @@
+@mixin f-144 {
+    font-size: clamp(2.5rem, 4vw + 1.75rem, 9rem);
+}
+
+@mixin f-80 {
+    font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);
+}
+
+@mixin f-48 {
+    font-size: clamp(1.5rem, 1vw + 1rem, 3rem);
+}
+
+@mixin f-40 {
+    font-size: clamp(1.563rem, 1vw + 1rem, 2.5rem);
+}
+
+@mixin f-36 {
+    font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);
+}
+
+@mixin f-33 {
+    font-size: clamp(1.688rem, 1vw + 1rem, 2.125rem);
+}
+
+@mixin f-30 {
+    font-size: clamp(1rem, 1vw + 1rem, 1.875rem);
+}
+
+@mixin f-24 {
+    font-size: clamp(1rem, 1vw + 1rem, 1.5rem);
+}

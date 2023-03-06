@@ -12,9 +12,12 @@
                 <div class="userorderhistory_wrap_content_body">
                     <ul class="userorderhistory_wrap_content_body_list">
                         <li class="userorderhistory_wrap_content_body_list_item" v-for="data in groupedData" :key="data">
+                            <p class="userorderhistory_wrap_content_body_list_item_title">注文日時</p>
                             <p class="userorderhistory_wrap_content_body_list_item_p">{{ orderDateFormat(data[0].created_at) }}</p>
+                            <p class="userorderhistory_wrap_content_body_list_item_title">注文No.</p>
                             <p class="userorderhistory_wrap_content_body_list_item_p">{{ data[0].uuid }}</p>
                             <!-- <p class="userorderhistory_wrap_content_body_list_item_p">{{ data[0].order_total_amount }}円</p> -->
+                            <p class="userorderhistory_wrap_content_body_list_item_title">合計金額</p>
                             <p class="userorderhistory_wrap_content_body_list_item_p">{{ data[0].orders_table_total_amount }}円</p>
                             <p class="userorderhistory_wrap_content_body_list_item_p">
                                 <button @click="outputPdf(data)">領収書発行</button>
@@ -111,14 +114,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../../sass/prepends.scss";
 .userorderhistory {
     width: 80%;
     padding: 170px 10% 0 10%;
     margin: 0 0 100px 0;
 
+    @include sm {
+        padding: 107px 10% 100px 10%;
+    }
+
     &_title {
-        font-size: 70px;
+        // font-size: 70px;
+        @include f-80;
         margin-bottom: 50px;
+
+        @include sm {
+            @include f-33;
+            margin-bottom: 30px;
+        }
     }
 
     &_wrap{
@@ -126,7 +140,8 @@ export default defineComponent({
         &_title {
             background-color: #000000;
             color: #ffffff;
-            font-size: 36px;
+            // font-size: 36px;
+            @include f-36;
             font-weight: bold;
             padding: 18.5px 0 18.5px 10px;
         }
@@ -134,13 +149,19 @@ export default defineComponent({
         &_content {
             border: 2px solid #000000;
             padding: 20px;
-            font-size: 36px;
+            // font-size: 36px;
+            @include f-36;
 
             &_header {
                 display: flex;
-                font-size: 24px;
+                // font-size: 24px;
+                @include f-24;
                 background-color: #F2F0ED;
                 padding: 20px 0;
+
+                @include tb {
+                    display: none;
+                }
 
                 &_title {
                     width: 25%;
@@ -149,7 +170,8 @@ export default defineComponent({
             }
 
             &_body {
-                font-size: 24px;
+                // font-size: 24px;
+                @include f-24;
 
                 &_list {
                     list-style-type: none;
@@ -158,11 +180,36 @@ export default defineComponent({
                         display: flex;
                         margin: 20px 0;
 
+                        @include tb {
+                            flex-direction: column;
+                        }
+
+                        &_title {
+                            display: none;
+
+                            @include tb {
+                                display: block;
+                                font-weight: bold;
+                            }
+                        }
+
                         &_p {
                             width: 25%;
                             display: flex;
                             justify-content: center;
                             align-items: center;
+                            overflow-wrap: break-all;
+                            @include f-24;
+
+                            @include tb {
+                                width: 95%;
+                                justify-content: flex-start;
+                                margin: 0 0 20px 5%;
+
+                                &:last-child {
+                                    justify-content: flex-end;
+                                }
+                            }
 
                             button {
                                 border-radius: 10px;
@@ -188,7 +235,8 @@ export default defineComponent({
 
 .errors {
     margin: 0 0 20px 0;
-    font-size: 24px;
+    // font-size: 24px;
+    @include f-24;
     color: red;
     font-weight: bold;
 

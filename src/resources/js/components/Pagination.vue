@@ -111,6 +111,7 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
+@import "../../sass/prepends.scss";
 .pagination_wrap {
     display: flex;
     justify-content: center;
@@ -119,7 +120,8 @@ export default defineComponent({
 .pagination {
     list-style-type: none;
     display: flex;
-    font-size: 36px;
+    // font-size: 36px;
+    @include f-36;
 
     &_item{
         border: 1px solid #000000;

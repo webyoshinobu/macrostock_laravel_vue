@@ -24808,8 +24808,9 @@ exports["default"] = (0, vue_1.defineComponent)({
     // methods
     var humburgerIcon = function humburgerIcon() {
       iconActive.value = !iconActive.value;
-      console.log('Header.vue humburgerIcon() iconActive', iconActive.value);
+      // console.log('Header.vue humburgerIcon() iconActive', iconActive.value)
     };
+
     var resetIconActive = function resetIconActive() {
       iconActive.value = !iconActive.value;
     };
@@ -24847,23 +24848,19 @@ exports["default"] = (0, vue_1.defineComponent)({
               _context.next = 9;
               return authStore.logout();
             case 9:
-              console.log('Header logout apiStatus end', (0, auth_1.auth)().getApiStatus);
-              console.log('Header logout admin_flag end', (0, auth_1.auth)().getAdminFlag);
-              // ログインページに移動する
-              // if (auth().getApiStatus == true) {
               if (!((0, auth_1.auth)().getApiStatus == false)) {
-                _context.next = 15;
+                _context.next = 13;
                 break;
               }
-              _context.next = 14;
+              _context.next = 12;
               return (0, cart_1.cartCounter)().resetItems();
-            case 14:
+            case 12:
               router.push({
                 name: 'top'
               });
-            case 15:
+            case 13:
               console.log('clickLogout');
-            case 16:
+            case 14:
             case "end":
               return _context.stop();
           }
@@ -25066,10 +25063,12 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 var vue_1 = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+var pinia_1 = __webpack_require__(/*! pinia */ "./node_modules/pinia/index.js");
 var ButtonWhite_vue_1 = __importDefault(__webpack_require__(/*! ./common/ButtonWhite.vue */ "./resources/js/components/common/ButtonWhite.vue"));
 var ButtonBlack_vue_1 = __importDefault(__webpack_require__(/*! ./common/ButtonBlack.vue */ "./resources/js/components/common/ButtonBlack.vue"));
 var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 var thanks_1 = __webpack_require__(/*! ../../../store/thanks */ "./store/thanks.ts");
+var auth_1 = __webpack_require__(/*! ../../../store/auth */ "./store/auth.ts");
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'Photo',
   components: {
@@ -25081,12 +25080,15 @@ exports["default"] = (0, vue_1.defineComponent)({
     var router = (0, vue_router_1.useRouter)();
     var route = (0, vue_router_1.useRoute)();
     var ordered_items = (0, thanks_1.thanksItems)().ordered_imgs;
+    var _ref = (0, pinia_1.storeToRefs)((0, auth_1.auth)()),
+      userInfo = _ref.userInfo;
     // methods
     (0, vue_1.onMounted)(function () {});
     return {
       router: router,
       route: route,
-      ordered_items: ordered_items
+      ordered_items: ordered_items,
+      userInfo: userInfo
     };
   }
 });
@@ -32134,15 +32136,38 @@ var _withScopeId = function _withScopeId(n) {
 var _hoisted_1 = {
   "class": "thanks"
 };
-var _hoisted_2 = /*#__PURE__*/(0, vue_1.createStaticVNode)("<h2 class=\"thanks_title\" data-v-3be69874>ご購入ありがとうございます。</h2><div class=\"thanks_wrap\" data-v-3be69874><p class=\"thanks_wrap_name\" data-v-3be69874>〇〇 〇〇 様</p><p class=\"thanks_wrap_word\" data-v-3be69874>ご購入ありがとうございます。</p><p class=\"thanks_wrap_word\" data-v-3be69874>領収書をご希望の場合は、お客様ご自身で「お客様マイページ」より印刷することができます。</p><!-- &lt;h3 class=&quot;thanks_wrap_title&quot;&gt;注文内容&lt;/h3&gt;\n        &lt;ul class=&quot;thanks_wrap_list_content&quot;&gt;\n            &lt;li v-for=&quot;ordered_item in ordered_items&quot; :key=&quot;ordered_item&quot; class=&quot;thanks_wrap_list_content_each&quot;&gt;\n                &lt;p class=&quot;thanks_wrap_list_content_each_title f_40&quot;&gt;写真No.000000&lt;/p&gt;\n                &lt;div class=&quot;thanks_wrap_list_content_each_selected&quot;&gt;\n                    &lt;div class=&quot;thanks_wrap_list_content_each_selected_img&quot;&gt;\n                        &lt;img :src=&quot;ordered_item.src&quot; :alt=&quot;ordered_item.alt&quot;&gt;\n                    &lt;/div&gt;\n                    &lt;div class=&quot;thanks_wrap_list_content_each_selected_detail&quot;&gt;\n                        &lt;p class=&quot;thanks_wrap_list_content_each_selected_detail_word f_36&quot;&gt;¥0000&lt;/p&gt;\n                        &lt;p class=&quot;thanks_wrap_list_content_each_selected_detail_word f_24&quot;&gt;画像サイズ：0000 × 0000px&lt;/p&gt;\n                        &lt;p class=&quot;thanks_wrap_list_content_each_selected_detail_word f_24&quot;&gt;画像形式：JPEG&lt;/p&gt;\n                    &lt;/div&gt;\n                &lt;/div&gt;\n            &lt;/li&gt;\n        &lt;/ul&gt; --></div>", 2);
+var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("h2", {
+    "class": "thanks_title"
+  }, "ご購入ありがとうございます。", -1 /* HOISTED */);
+});
+
+var _hoisted_3 = {
+  "class": "thanks_wrap"
+};
 var _hoisted_4 = {
+  "class": "thanks_wrap_name"
+};
+var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "thanks_wrap_word"
+  }, "ご購入ありがとうございます。", -1 /* HOISTED */);
+});
+
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "thanks_wrap_word"
+  }, "領収書をご希望の場合は、お客様ご自身で「お客様マイページ」よりPDFでダウンロードすることができます。", -1 /* HOISTED */);
+});
+
+var _hoisted_7 = {
   "class": "thanks_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonBlack = (0, vue_1.resolveComponent)("ButtonBlack");
   var _component_router_link = (0, vue_1.resolveComponent)("router-link");
   var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("div", _hoisted_4, [(0, vue_1.createVNode)(_component_router_link, {
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createElementVNode)("div", _hoisted_3, [(0, vue_1.createElementVNode)("p", _hoisted_4, (0, vue_1.toDisplayString)((_ctx.userInfo || {}).name) + " 様", 1 /* TEXT */), _hoisted_5, _hoisted_6, (0, vue_1.createCommentVNode)(" <h3 class=\"thanks_wrap_title\">注文内容</h3>\n        <ul class=\"thanks_wrap_list_content\">\n            <li v-for=\"ordered_item in ordered_items\" :key=\"ordered_item\" class=\"thanks_wrap_list_content_each\">\n                <p class=\"thanks_wrap_list_content_each_title f_40\">写真No.000000</p>\n                <div class=\"thanks_wrap_list_content_each_selected\">\n                    <div class=\"thanks_wrap_list_content_each_selected_img\">\n                        <img :src=\"ordered_item.src\" :alt=\"ordered_item.alt\">\n                    </div>\n                    <div class=\"thanks_wrap_list_content_each_selected_detail\">\n                        <p class=\"thanks_wrap_list_content_each_selected_detail_word f_36\">¥0000</p>\n                        <p class=\"thanks_wrap_list_content_each_selected_detail_word f_24\">画像サイズ：0000 × 0000px</p>\n                        <p class=\"thanks_wrap_list_content_each_selected_detail_word f_24\">画像形式：JPEG</p>\n                    </div>\n                </div>\n            </li>\n        </ul> ")]), (0, vue_1.createElementVNode)("div", _hoisted_7, [(0, vue_1.createVNode)(_component_router_link, {
     to: "/gallery"
   }, {
     "default": (0, vue_1.withCtx)(function () {
@@ -32269,7 +32294,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     persisted: ""
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("div", _hoisted_4, [(0, vue_1.createElementVNode)("div", _hoisted_5, [_hoisted_6, _hoisted_7, _hoisted_8, _hoisted_9, _hoisted_10, _hoisted_11, (0, vue_1.createElementVNode)("p", _hoisted_12, [(0, vue_1.createVNode)(_component_ButtonGreen, {
+      return [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("div", _hoisted_4, [(0, vue_1.createElementVNode)("div", _hoisted_5, [_hoisted_6, _hoisted_7, _hoisted_8, _hoisted_9, _hoisted_10, _hoisted_11, (0, vue_1.createElementVNode)("div", _hoisted_12, [(0, vue_1.createVNode)(_component_ButtonGreen, {
         onClick: _ctx.closeModal
       }, {
         "default": (0, vue_1.withCtx)(function () {
@@ -33588,6 +33613,9 @@ var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_14 = {
   "class": "userchangeemail_wrap_form_button"
 };
+var _hoisted_15 = {
+  "class": "userchangeemail_wrap_form_button_common"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonRed = (0, vue_1.resolveComponent)("ButtonRed");
   var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
@@ -33625,20 +33653,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return _ctx.changeForm.new_email_confirmation = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.new_email_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_14, [(0, vue_1.createVNode)(_component_ButtonRed, {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.new_email_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_14, [(0, vue_1.createElementVNode)("div", _hoisted_15, [(0, vue_1.createVNode)(_component_ButtonRed, {
     onClick: _ctx.clickChangeEmail
   }, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createTextVNode)("変更する")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["onClick"]), (0, vue_1.createVNode)(_component_router_link, {
-    to: "/mypage"
+  }, 8 /* PROPS */, ["onClick"])]), (0, vue_1.createVNode)(_component_router_link, {
+    to: "/mypage",
+    "class": "userchangeemail_wrap_form_button_common"
   }, {
     "default": (0, vue_1.withCtx)(function () {
-      return [(0, vue_1.createVNode)(_component_ButtonWhite, {
-        "class": "margin-left"
-      }, {
+      return [(0, vue_1.createVNode)(_component_ButtonWhite, null, {
         "default": (0, vue_1.withCtx)(function () {
           return [(0, vue_1.createTextVNode)("マイページトップへ戻る")];
         }),
@@ -33730,6 +33757,9 @@ var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_14 = {
   "class": "userchangepassword_wrap_form_button"
 };
+var _hoisted_15 = {
+  "class": "userchangepassword_wrap_form_button_common"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonRed = (0, vue_1.resolveComponent)("ButtonRed");
   var _component_ButtonWhite = (0, vue_1.resolveComponent)("ButtonWhite");
@@ -33767,15 +33797,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return _ctx.changeForm.new_password_confirmation = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.new_password_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_14, [(0, vue_1.createVNode)(_component_ButtonRed, {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.changeForm.new_password_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_14, [(0, vue_1.createElementVNode)("div", _hoisted_15, [(0, vue_1.createVNode)(_component_ButtonRed, {
     onClick: _ctx.clickChangePassword
   }, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createTextVNode)("変更する")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["onClick"]), (0, vue_1.createVNode)(_component_router_link, {
-    to: "/mypage"
+  }, 8 /* PROPS */, ["onClick"])]), (0, vue_1.createVNode)(_component_router_link, {
+    to: "/mypage",
+    "class": "userchangepassword_wrap_form_button_common"
   }, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createVNode)(_component_ButtonWhite, {
@@ -34133,20 +34164,38 @@ var _hoisted_7 = {
 var _hoisted_8 = {
   "class": "userorderhistory_wrap_content_body_list"
 };
-var _hoisted_9 = {
-  "class": "userorderhistory_wrap_content_body_list_item_p"
-};
+var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "userorderhistory_wrap_content_body_list_item_title"
+  }, "注文日時", -1 /* HOISTED */);
+});
+
 var _hoisted_10 = {
   "class": "userorderhistory_wrap_content_body_list_item_p"
 };
-var _hoisted_11 = {
-  "class": "userorderhistory_wrap_content_body_list_item_p"
-};
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "userorderhistory_wrap_content_body_list_item_title"
+  }, "注文No.", -1 /* HOISTED */);
+});
+
 var _hoisted_12 = {
   "class": "userorderhistory_wrap_content_body_list_item_p"
 };
-var _hoisted_13 = ["onClick"];
+var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("p", {
+    "class": "userorderhistory_wrap_content_body_list_item_title"
+  }, "合計金額", -1 /* HOISTED */);
+});
+
 var _hoisted_14 = {
+  "class": "userorderhistory_wrap_content_body_list_item_p"
+};
+var _hoisted_15 = {
+  "class": "userorderhistory_wrap_content_body_list_item_p"
+};
+var _hoisted_16 = ["onClick"];
+var _hoisted_17 = {
   "class": "userorderhistory_wrap_content_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -34156,12 +34205,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       "class": "userorderhistory_wrap_content_body_list_item",
       key: data
-    }, [(0, vue_1.createElementVNode)("p", _hoisted_9, (0, vue_1.toDisplayString)(_ctx.orderDateFormat(data[0].created_at)), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", _hoisted_10, (0, vue_1.toDisplayString)(data[0].uuid), 1 /* TEXT */), (0, vue_1.createCommentVNode)(" <p class=\"userorderhistory_wrap_content_body_list_item_p\">{{ data[0].order_total_amount }}円</p> "), (0, vue_1.createElementVNode)("p", _hoisted_11, (0, vue_1.toDisplayString)(data[0].orders_table_total_amount) + "円", 1 /* TEXT */), (0, vue_1.createElementVNode)("p", _hoisted_12, [(0, vue_1.createElementVNode)("button", {
+    }, [_hoisted_9, (0, vue_1.createElementVNode)("p", _hoisted_10, (0, vue_1.toDisplayString)(_ctx.orderDateFormat(data[0].created_at)), 1 /* TEXT */), _hoisted_11, (0, vue_1.createElementVNode)("p", _hoisted_12, (0, vue_1.toDisplayString)(data[0].uuid), 1 /* TEXT */), (0, vue_1.createCommentVNode)(" <p class=\"userorderhistory_wrap_content_body_list_item_p\">{{ data[0].order_total_amount }}円</p> "), _hoisted_13, (0, vue_1.createElementVNode)("p", _hoisted_14, (0, vue_1.toDisplayString)(data[0].orders_table_total_amount) + "円", 1 /* TEXT */), (0, vue_1.createElementVNode)("p", _hoisted_15, [(0, vue_1.createElementVNode)("button", {
       onClick: function onClick($event) {
         return _ctx.outputPdf(data);
       }
-    }, "領収書発行", 8 /* PROPS */, _hoisted_13)])]);
-  }), 128 /* KEYED_FRAGMENT */))])]), (0, vue_1.createElementVNode)("div", _hoisted_14, [(0, vue_1.createCommentVNode)(" <ButtonBlack>注文履歴</ButtonBlack> "), (0, vue_1.createVNode)(_component_router_link, {
+    }, "領収書発行", 8 /* PROPS */, _hoisted_16)])]);
+  }), 128 /* KEYED_FRAGMENT */))])]), (0, vue_1.createElementVNode)("div", _hoisted_17, [(0, vue_1.createCommentVNode)(" <ButtonBlack>注文履歴</ButtonBlack> "), (0, vue_1.createVNode)(_component_router_link, {
     to: "/mypage"
   }, {
     "default": (0, vue_1.withCtx)(function () {
@@ -35122,7 +35171,8 @@ var bootstrap_1 = __importDefault(__webpack_require__(/*! ./bootstrap */ "./reso
 var error_1 = __webpack_require__(/*! ../../store/error */ "./store/error.ts");
 var message_1 = __webpack_require__(/*! ../../store/message */ "./store/message.ts");
 // import '../../public/css/mediaQuery.css';
-// require('../../resources/sass/mediaQuery.scss');
+// import '../sass/prepends.scss';
+// require('../../resources/sass/_mediaQuery.scss');
 fontawesome_svg_core_1.library.add(free_brands_svg_icons_1.faInstagram);
 (0, bootstrap_1["default"])();
 var app = (0, vue_1.createApp)(App_vue_1["default"]);
@@ -38288,7 +38338,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".footer[data-v-61a7c374] {\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 998;\n  display: flex;\n  justify-content: space-between;\n}\n.footer_admin[data-v-61a7c374] {\n  display: flex;\n  align-items: center;\n  margin: 0 27px 20px 0;\n  font-size: 24px;\n  text-decoration: none;\n}\n@media screen and (max-width: 1024px) {\n.footer_admin[data-v-61a7c374] {\n    display: none;\n}\n}\n.sns_logo[data-v-61a7c374] {\n  margin: 0 0 20px 27px;\n  color: #ffffff;\n}\n.wd_color_white[data-v-61a7c374] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-61a7c374] {\n  color: #000000;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".footer[data-v-61a7c374] {\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 998;\n  display: flex;\n  justify-content: space-between;\n}\n.footer_admin[data-v-61a7c374] {\n  display: flex;\n  align-items: center;\n  margin: 0 27px 20px 0;\n  font-size: 24px;\n  text-decoration: none;\n}\n@media screen and (max-width: 1024px) {\n.footer_admin[data-v-61a7c374] {\n    display: none;\n}\n}\n.sns_logo[data-v-61a7c374] {\n  margin: 0 0 20px 27px;\n  color: #ffffff;\n}\n@media screen and (max-width: 414px) {\n.sns_logo[data-v-61a7c374] {\n    font-size: 50px;\n}\n}\n.wd_color_white[data-v-61a7c374] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-61a7c374] {\n  color: #000000;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38312,7 +38362,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header[data-v-1f42fb90] {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  position: fixed;\n  top: 0;\n  z-index: 999;\n}\n.header_logo[data-v-1f42fb90] {\n  width: 170px;\n  margin: 0 0 0 27px;\n}\n.header_logo a[data-v-1f42fb90] {\n  width: 100%;\n  height: 100%;\n}\n.header_logo a img[data-v-1f42fb90] {\n  width: 100%;\n}\n.header_nav[data-v-1f42fb90] {\n  height: 170px;\n  margin-right: 27px;\n  display: flex;\n  align-items: center;\n  font-size: 24px;\n}\n@media screen and (max-width: 1024px) {\n.header_nav[data-v-1f42fb90] {\n    display: block;\n    transform: translateX(100vw);\n    transition: all 0.3s linear;\n    position: absolute;\n    right: 0;\n    margin: 0;\n    z-index: 99999;\n}\n}\n.header_nav_menu[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  list-style-type: none;\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu[data-v-1f42fb90] {\n    display: block;\n    width: 60vw;\n    height: 100vh;\n    background-color: #ffffff;\n    flex-direction: column;\n    padding: 50px 0 0 0;\n}\n}\n.header_nav_menu_item[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  text-decoration: none;\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu_item[data-v-1f42fb90] {\n    margin: 0 0 30px 0;\n}\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu_item[data-v-1f42fb90]:first-child {\n    color: #000000;\n    margin: 0 0 30px 50px;\n}\n}\n.header_nav_menu_item[data-v-1f42fb90]:not(:first-child) {\n  margin-left: 50px;\n}\n@media screen and (max-width: 1024px) {\n.header .iconActive[data-v-1f42fb90] {\n    transform: translateX(0);\n}\n}\n.overlay[data-v-1f42fb90] {\n  display: none;\n}\n@media screen and (max-width: 1024px) {\n.overlay[data-v-1f42fb90] {\n    position: absolute;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100vh;\n    background: rgba(100, 100, 100, 0.8);\n    z-index: 9999;\n}\n}\n@media screen and (max-width: 1024px) {\n.iconActive[data-v-1f42fb90] {\n    display: block;\n}\n}\n.wd_color_white[data-v-1f42fb90] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-1f42fb90] {\n  color: #000000;\n}\n.menu_wrap[data-v-1f42fb90] {\n  display: none;\n}\n@media screen and (max-width: 1024px) {\n.menu_wrap[data-v-1f42fb90] {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n}\n@media screen and (max-width: 1024px) {\n.menu-trigger[data-v-1f42fb90] {\n    display: inline-block;\n    transition: all 0.4s;\n    box-sizing: border-box;\n    position: relative;\n    z-index: 99999;\n    width: 50px;\n    height: 30px;\n    background: none;\n    border: none;\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n    cursor: pointer;\n    margin: 0 27px 0 0;\n}\n.menu-trigger span[data-v-1f42fb90] {\n    display: inline-block;\n    transition: all 0.4s;\n    box-sizing: border-box;\n    z-index: 100;\n    position: absolute;\n    left: 0;\n    width: 100%;\n    height: 4px;\n    background-color: #ffffff;\n    border-radius: 4px;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(1) {\n    top: 0;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(2) {\n    top: 13px;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(3) {\n    bottom: 0;\n}\n.menu-trigger .change_header[data-v-1f42fb90] {\n    background-color: #000000;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(1) {\n    transform: translateY(13px) rotate(-45deg);\n    background-color: #000000;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(2) {\n    opacity: 0;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(3) {\n    transform: translateY(-13px) rotate(45deg);\n    background-color: #000000;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".header[data-v-1f42fb90] {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  position: fixed;\n  top: 0;\n  z-index: 999;\n}\n.header_logo[data-v-1f42fb90] {\n  width: 170px;\n  margin: 0 0 0 27px;\n}\n@media screen and (max-width: 576px) {\n.header_logo[data-v-1f42fb90] {\n    width: 100px;\n}\n}\n.header_logo a[data-v-1f42fb90] {\n  width: 100%;\n  height: 100%;\n}\n.header_logo a img[data-v-1f42fb90] {\n  width: 100%;\n}\n.header_nav[data-v-1f42fb90] {\n  height: 170px;\n  margin-right: 27px;\n  display: flex;\n  align-items: center;\n  font-size: 24px;\n}\n@media screen and (max-width: 1024px) {\n.header_nav[data-v-1f42fb90] {\n    display: block;\n    transform: translateX(100vw);\n    transition: all 0.3s linear;\n    position: absolute;\n    right: 0;\n    margin: 0;\n    z-index: 99999;\n}\n}\n.header_nav_menu[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  list-style-type: none;\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu[data-v-1f42fb90] {\n    display: block;\n    width: 60vw;\n    height: 100vh;\n    background-color: #ffffff;\n    flex-direction: column;\n    padding: 50px 0 0 0;\n}\n}\n@media screen and (max-width: 768px) {\n.header_nav_menu[data-v-1f42fb90] {\n    width: 100vw;\n}\n}\n.header_nav_menu_item[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  text-decoration: none;\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu_item[data-v-1f42fb90] {\n    margin: 0 0 30px 0;\n}\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu_item[data-v-1f42fb90]:first-child {\n    color: #000000;\n    margin: 0 0 30px 50px;\n}\n}\n@media screen and (max-width: 576px) {\n.header_nav_menu_item[data-v-1f42fb90]:first-child {\n    margin: 0 0 30px 25px;\n}\n}\n.header_nav_menu_item[data-v-1f42fb90]:not(:first-child) {\n  margin-left: 50px;\n}\n@media screen and (max-width: 576px) {\n.header_nav_menu_item[data-v-1f42fb90]:not(:first-child) {\n    margin-left: 25px;\n}\n}\n@media screen and (max-width: 1024px) {\n.header .iconActive[data-v-1f42fb90] {\n    transform: translateX(0);\n}\n}\n.overlay[data-v-1f42fb90] {\n  display: none;\n}\n@media screen and (max-width: 1024px) {\n.overlay[data-v-1f42fb90] {\n    position: absolute;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100vh;\n    background: rgba(100, 100, 100, 0.8);\n    z-index: 9999;\n}\n}\n@media screen and (max-width: 1024px) {\n.iconActive[data-v-1f42fb90] {\n    display: block;\n}\n}\n.wd_color_white[data-v-1f42fb90] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-1f42fb90] {\n  color: #000000;\n}\n.menu_wrap[data-v-1f42fb90] {\n  display: none;\n}\n@media screen and (max-width: 1024px) {\n.menu_wrap[data-v-1f42fb90] {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n}\n@media screen and (max-width: 1024px) {\n.menu-trigger[data-v-1f42fb90] {\n    display: inline-block;\n    transition: all 0.4s;\n    box-sizing: border-box;\n    position: relative;\n    z-index: 99999;\n    width: 50px;\n    height: 30px;\n    background: none;\n    border: none;\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n    cursor: pointer;\n    margin: 0 27px 0 0;\n}\n.menu-trigger span[data-v-1f42fb90] {\n    display: inline-block;\n    transition: all 0.4s;\n    box-sizing: border-box;\n    z-index: 100;\n    position: absolute;\n    left: 0;\n    width: 100%;\n    height: 4px;\n    background-color: #ffffff;\n    border-radius: 4px;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(1) {\n    top: 0;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(2) {\n    top: 13px;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(3) {\n    bottom: 0;\n}\n.menu-trigger .change_header[data-v-1f42fb90] {\n    background-color: #000000;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(1) {\n    transform: translateY(13px) rotate(-45deg);\n    background-color: #000000;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(2) {\n    opacity: 0;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(3) {\n    transform: translateY(-13px) rotate(45deg);\n    background-color: #000000;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38360,7 +38410,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".pagination_wrap[data-v-d7acf176] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.pagination[data-v-d7acf176] {\n  list-style-type: none;\n  display: flex;\n  font-size: 36px;\n}\n.pagination_item[data-v-d7acf176] {\n  border: 1px solid #000000;\n  padding: 10px;\n}\n.pagination_item[data-v-d7acf176]:first-child {\n  border-radius: 10px 0 0 10px;\n}\n.pagination_item[data-v-d7acf176]:last-child {\n  border-radius: 0 10px 10px 0;\n}\n.page-link[data-v-d7acf176] {\n  text-decoration: none;\n  color: #000000;\n}\n.disabled .page-link[data-v-d7acf176] {\n  color: #6c757d;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".pagination_wrap[data-v-d7acf176] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.pagination[data-v-d7acf176] {\n  list-style-type: none;\n  display: flex;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n.pagination_item[data-v-d7acf176] {\n  border: 1px solid #000000;\n  padding: 10px;\n}\n.pagination_item[data-v-d7acf176]:first-child {\n  border-radius: 10px 0 0 10px;\n}\n.pagination_item[data-v-d7acf176]:last-child {\n  border-radius: 0 10px 10px 0;\n}\n.page-link[data-v-d7acf176] {\n  text-decoration: none;\n  color: #000000;\n}\n.disabled .page-link[data-v-d7acf176] {\n  color: #6c757d;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38384,7 +38434,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".thanks[data-v-3be69874] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.thanks_title[data-v-3be69874] {\n  font-size: 48px;\n}\n.thanks_wrap_name[data-v-3be69874] {\n  font-size: 36px;\n  padding: 18.5px 0 18.5px 0;\n}\n.thanks_wrap_word[data-v-3be69874] {\n  font-size: 24px;\n}\n.thanks_wrap_title[data-v-3be69874] {\n  font-size: 36px;\n  color: #ffffff;\n  background-color: #000000;\n  padding: 18.5px 0 18.5px 10px;\n  margin: 20px 0 0 0;\n}\n.thanks_wrap_list[data-v-3be69874] {\n  width: 60%;\n}\n.thanks_wrap_list_title[data-v-3be69874] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 18px;\n  padding: 18.5px 0 18.5px 10px;\n}\n.thanks_wrap_list_content[data-v-3be69874] {\n  width: 100%;\n  list-style-type: none;\n  margin: 50px 0 0 0;\n}\n.thanks_wrap_list_content_each[data-v-3be69874] {\n  width: 100%;\n}\n.thanks_wrap_list_content_each_title[data-v-3be69874] {\n  margin: 0 0 10px 0;\n}\n.thanks_wrap_list_content_each[data-v-3be69874]:not(:last-child) {\n  padding: 0 0 10px 0;\n}\n.thanks_wrap_list_content_each_selected[data-v-3be69874] {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n}\n.thanks_wrap_list_content_each_selected_img[data-v-3be69874] {\n  width: 40%;\n}\n.thanks_wrap_list_content_each_selected_img img[data-v-3be69874] {\n  width: 100%;\n  height: auto;\n}\n.thanks_wrap_list_content_each_selected_detail[data-v-3be69874] {\n  width: 55%;\n  margin: 0 0 0 5%;\n}\n.thanks_wrap_list_content_each_selected_detail_word[data-v-3be69874] {\n  margin: 0 0 10px 0;\n}\n.thanks_button[data-v-3be69874] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 100px 0 0 0;\n}\n.thanks_button[data-v-3be69874] :last-child {\n  margin: 0 0 0 10px;\n}\n.f_40[data-v-3be69874] {\n  font-size: 40px;\n}\n.f_36[data-v-3be69874] {\n  font-size: 36px;\n}\n.f_24[data-v-3be69874] {\n  font-size: 24px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".thanks[data-v-3be69874] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.thanks[data-v-3be69874] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.thanks_title[data-v-3be69874] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n}\n@media screen and (max-width: 768px) {\n.thanks_title[data-v-3be69874] {\n    font-size: 36px;\n}\n}\n.thanks_wrap_name[data-v-3be69874] {\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n  padding: 18.5px 0 18.5px 0;\n}\n.thanks_wrap_word[data-v-3be69874] {\n  font-size: 24px;\n}\n.thanks_wrap_title[data-v-3be69874] {\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n  color: #ffffff;\n  background-color: #000000;\n  padding: 18.5px 0 18.5px 10px;\n  margin: 20px 0 0 0;\n}\n.thanks_wrap_list[data-v-3be69874] {\n  width: 60%;\n}\n.thanks_wrap_list_title[data-v-3be69874] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 18px;\n  padding: 18.5px 0 18.5px 10px;\n}\n.thanks_wrap_list_content[data-v-3be69874] {\n  width: 100%;\n  list-style-type: none;\n  margin: 50px 0 0 0;\n}\n.thanks_wrap_list_content_each[data-v-3be69874] {\n  width: 100%;\n}\n.thanks_wrap_list_content_each_title[data-v-3be69874] {\n  margin: 0 0 10px 0;\n}\n.thanks_wrap_list_content_each[data-v-3be69874]:not(:last-child) {\n  padding: 0 0 10px 0;\n}\n.thanks_wrap_list_content_each_selected[data-v-3be69874] {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n}\n.thanks_wrap_list_content_each_selected_img[data-v-3be69874] {\n  width: 40%;\n}\n.thanks_wrap_list_content_each_selected_img img[data-v-3be69874] {\n  width: 100%;\n  height: auto;\n}\n.thanks_wrap_list_content_each_selected_detail[data-v-3be69874] {\n  width: 55%;\n  margin: 0 0 0 5%;\n}\n.thanks_wrap_list_content_each_selected_detail_word[data-v-3be69874] {\n  margin: 0 0 10px 0;\n}\n.thanks_button[data-v-3be69874] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 100px 0 0 0;\n  font-size: clamp(1rem, 1vw + 1rem, 1.875rem);\n}\n@media screen and (max-width: 768px) {\n.thanks_button[data-v-3be69874] {\n    flex-direction: column;\n}\n}\n.thanks_button[data-v-3be69874] :last-child {\n  margin: 0 0 0 10px;\n}\n@media screen and (max-width: 768px) {\n.thanks_button[data-v-3be69874] :last-child {\n    margin: 10px 0 0 0;\n}\n}\n.f_40[data-v-3be69874] {\n  font-size: clamp(1.563rem, 1vw + 1rem, 2.5rem);\n}\n.f_36[data-v-3be69874] {\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n.f_24[data-v-3be69874] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38414,7 +38464,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_public_images_top_slide1_jpg__WEBPACK_IMPORTED_MODULE_2__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.top[data-v-5c6cb28c] {\n  width: 100%;\n  height: 100vh;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: cover;\n  background-position: center;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  text-align: center;\n  flex-flow: column;\n}\n.top_site_title[data-v-5c6cb28c] {\n  font-size: 144px;\n}\n.top_sub_site_title[data-v-5c6cb28c] {\n  font-size: 48px;\n}\n.top_what_macro_photo[data-v-5c6cb28c] {\n  background-color: #F87D09;\n  border-radius: 20px;\n  border: none;\n  outline: none;\n  padding: 13px 50px;\n  margin-top: 50px;\n  font-size: 36px;\n  cursor: pointer;\n}\n#top_overlay[data-v-5c6cb28c] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#top_modal_content[data-v-5c6cb28c] {\n  z-index: 2;\n  width: 50%;\n  padding: 1em;\n  background: #fff;\n  border-radius: 20px;\n}\n.top_modal_content h2[data-v-5c6cb28c] {\n  font-size: 36px;\n  margin: 20px 0;\n}\n.top_modal_content_word[data-v-5c6cb28c] {\n  font-size: 24px;\n  text-align: left;\n}\n.top_modal_content_button[data-v-5c6cb28c] {\n  display: flex;\n  justify-content: flex-end;\n}\n.top_modal_content_button_content[data-v-5c6cb28c] {\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #3cb371;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n.modal-enter-active[data-v-5c6cb28c], .modal-leave-active[data-v-5c6cb28c] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-5c6cb28c], .modal-leave-active .modal-content[data-v-5c6cb28c] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-5c6cb28c], .modal-leave-to[data-v-5c6cb28c] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-5c6cb28c], .modal-leave-to .modal-content[data-v-5c6cb28c] {\n  transform: scale(1);\n}\n.wd_color_white[data-v-5c6cb28c] {\n  color: #ffffff;\n  font-weight: bold;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.top[data-v-5c6cb28c] {\n  width: 100%;\n  height: 100vh;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: cover;\n  background-position: center;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  text-align: center;\n  flex-flow: column;\n}\n.top_site_title[data-v-5c6cb28c] {\n  font-size: clamp(2.5rem, 4vw + 1.75rem, 9rem);\n}\n.top_sub_site_title[data-v-5c6cb28c] {\n  font-size: clamp(1.5rem, 1vw + 1rem, 3rem);\n}\n.top_what_macro_photo[data-v-5c6cb28c] {\n  background-color: #F87D09;\n  border-radius: 20px;\n  border: none;\n  outline: none;\n  padding: 13px 50px;\n  margin-top: 50px;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n  cursor: pointer;\n}\n@media screen and (max-width: 768px) {\n.top_what_macro_photo[data-v-5c6cb28c] {\n    margin-top: 30px;\n}\n}\n#top_overlay[data-v-5c6cb28c] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#top_modal_content[data-v-5c6cb28c] {\n  z-index: 2;\n  width: 50%;\n  padding: 1em;\n  background: #fff;\n  border-radius: 20px;\n}\n@media screen and (max-width: 768px) {\n#top_modal_content[data-v-5c6cb28c] {\n    width: 80%;\n}\n}\n.top_modal_content h2[data-v-5c6cb28c] {\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n  margin: 20px 0;\n}\n.top_modal_content_word[data-v-5c6cb28c] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  text-align: left;\n}\n.top_modal_content_button[data-v-5c6cb28c] {\n  display: flex;\n  justify-content: flex-end;\n  margin: 10px 0 0 0;\n}\n.top_modal_content_button_content[data-v-5c6cb28c] {\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #3cb371;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n.modal-enter-active[data-v-5c6cb28c], .modal-leave-active[data-v-5c6cb28c] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-5c6cb28c], .modal-leave-active .modal-content[data-v-5c6cb28c] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-5c6cb28c], .modal-leave-to[data-v-5c6cb28c] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-5c6cb28c], .modal-leave-to .modal-content[data-v-5c6cb28c] {\n  transform: scale(1);\n}\n.wd_color_white[data-v-5c6cb28c] {\n  color: #ffffff;\n  font-weight: bold;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38606,7 +38656,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".userchangeemail[data-v-07f99645] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.userchangeemail_title[data-v-07f99645] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.userchangeemail_wrap_title[data-v-07f99645] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.userchangeemail_wrap_form[data-v-07f99645] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.userchangeemail_wrap_form_line[data-v-07f99645] {\n  padding: 20px;\n  display: flex;\n}\n.userchangeemail_wrap_form_line_label[data-v-07f99645] {\n  width: 40%;\n}\n.userchangeemail_wrap_form_line_input[data-v-07f99645] {\n  width: 60%;\n}\n.userchangeemail_wrap_form_button[data-v-07f99645] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-07f99645] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-07f99645] {\n  margin: 0 0 20px 0;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-07f99645] {\n  list-style: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".userchangeemail[data-v-07f99645] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.userchangeemail[data-v-07f99645] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.userchangeemail_title[data-v-07f99645] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 50px;\n}\n@media screen and (max-width: 576px) {\n.userchangeemail_title[data-v-07f99645] {\n    font-size: clamp(1.688rem, 1vw + 1rem, 2.125rem);\n    margin-bottom: 30px;\n}\n}\n.userchangeemail_wrap_title[data-v-07f99645] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.userchangeemail_wrap_form[data-v-07f99645] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n.userchangeemail_wrap_form_line[data-v-07f99645] {\n  padding: 20px;\n  display: flex;\n}\n@media screen and (max-width: 1024px) {\n.userchangeemail_wrap_form_line[data-v-07f99645] {\n    flex-direction: column;\n}\n.userchangeemail_wrap_form_line[data-v-07f99645]:not(:last-child) {\n    padding: 0 0 20px 0;\n}\n}\n.userchangeemail_wrap_form_line_label[data-v-07f99645] {\n  width: 40%;\n}\n@media screen and (max-width: 1024px) {\n.userchangeemail_wrap_form_line_label[data-v-07f99645] {\n    width: 100%;\n}\n}\n.userchangeemail_wrap_form_line_input[data-v-07f99645] {\n  width: 60%;\n}\n@media screen and (max-width: 1024px) {\n.userchangeemail_wrap_form_line_input[data-v-07f99645] {\n    width: 100%;\n}\n}\n.userchangeemail_wrap_form_button[data-v-07f99645] {\n  display: flex;\n  justify-content: center;\n  margin: 20px 0 0 0;\n}\n@media screen and (max-width: 768px) {\n.userchangeemail_wrap_form_button[data-v-07f99645] {\n    flex-direction: column;\n}\n}\n.userchangeemail_wrap_form_button_common[data-v-07f99645] {\n  display: flex;\n  justify-content: center;\n  text-decoration: none;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n.userchangeemail_wrap_form_button_common[data-v-07f99645]:last-child {\n  margin: 0 0 0 10px;\n}\n@media screen and (max-width: 768px) {\n.userchangeemail_wrap_form_button_common[data-v-07f99645]:last-child {\n    margin: 10px 0 0 0;\n}\n}\n.errors[data-v-07f99645] {\n  margin: 0 0 20px 0;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-07f99645] {\n  list-style: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38630,7 +38680,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".userchangepassword[data-v-3cbddc02] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.userchangepassword_title[data-v-3cbddc02] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.userchangepassword_wrap_title[data-v-3cbddc02] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.userchangepassword_wrap_form[data-v-3cbddc02] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.userchangepassword_wrap_form_line[data-v-3cbddc02] {\n  padding: 20px;\n  display: flex;\n}\n.userchangepassword_wrap_form_line_label[data-v-3cbddc02] {\n  width: 40%;\n}\n.userchangepassword_wrap_form_line_input[data-v-3cbddc02] {\n  width: 60%;\n}\n.userchangepassword_wrap_form_button[data-v-3cbddc02] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-3cbddc02] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-3cbddc02] {\n  margin: 0 0 20px 0;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-3cbddc02] {\n  list-style: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".userchangepassword[data-v-3cbddc02] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.userchangepassword[data-v-3cbddc02] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.userchangepassword_title[data-v-3cbddc02] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 50px;\n}\n@media screen and (max-width: 576px) {\n.userchangepassword_title[data-v-3cbddc02] {\n    font-size: clamp(1.688rem, 1vw + 1rem, 2.125rem);\n    margin-bottom: 30px;\n}\n}\n.userchangepassword_wrap_title[data-v-3cbddc02] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.userchangepassword_wrap_form[data-v-3cbddc02] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n.userchangepassword_wrap_form_line[data-v-3cbddc02] {\n  padding: 20px;\n  display: flex;\n}\n@media screen and (max-width: 1024px) {\n.userchangepassword_wrap_form_line[data-v-3cbddc02] {\n    flex-direction: column;\n}\n.userchangepassword_wrap_form_line[data-v-3cbddc02]:not(:last-child) {\n    padding: 0 0 20px 0;\n}\n}\n.userchangepassword_wrap_form_line_label[data-v-3cbddc02] {\n  width: 40%;\n}\n@media screen and (max-width: 1024px) {\n.userchangepassword_wrap_form_line_label[data-v-3cbddc02] {\n    width: 100%;\n}\n}\n.userchangepassword_wrap_form_line_input[data-v-3cbddc02] {\n  width: 60%;\n}\n@media screen and (max-width: 1024px) {\n.userchangepassword_wrap_form_line_input[data-v-3cbddc02] {\n    width: 100%;\n}\n}\n.userchangepassword_wrap_form_button[data-v-3cbddc02] {\n  display: flex;\n  justify-content: center;\n  margin: 20px 0 0 0;\n}\n@media screen and (max-width: 768px) {\n.userchangepassword_wrap_form_button[data-v-3cbddc02] {\n    flex-direction: column;\n}\n}\n.userchangepassword_wrap_form_button_common[data-v-3cbddc02] {\n  display: flex;\n  justify-content: center;\n  text-decoration: none;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n.userchangepassword_wrap_form_button_common[data-v-3cbddc02]:last-child {\n  margin: 0 0 0 10px;\n}\n@media screen and (max-width: 768px) {\n.userchangepassword_wrap_form_button_common[data-v-3cbddc02]:last-child {\n    margin: 10px 0 0 0;\n}\n}\n.errors[data-v-3cbddc02] {\n  margin: 0 0 20px 0;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-3cbddc02] {\n  list-style: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38678,7 +38728,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.usermypage[data-v-14969ad2] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.usermypage_title[data-v-14969ad2] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.usermypage_wrap_title[data-v-14969ad2] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.usermypage_wrap_content[data-v-14969ad2] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.usermypage_wrap_content_list[data-v-14969ad2] {\n  list-style-type: none;\n}\n.usermypage_wrap_content_list_items[data-v-14969ad2] {\n  display: flex;\n  padding: 20px 0;\n}\n.usermypage_wrap_content_list_items_title[data-v-14969ad2] {\n  width: 33.33%;\n}\n.usermypage_wrap_content_list_items_info[data-v-14969ad2] {\n  width: 46.33%;\n}\n.usermypage_wrap_content_list_items_button[data-v-14969ad2] {\n  width: 20.33%;\n  display: flex;\n  justify-content: center;\n}\n.usermypage_wrap_content_list_items_button_word[data-v-14969ad2] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.usermypage_wrap_content_button[data-v-14969ad2] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-14969ad2] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-14969ad2] {\n  margin: 0 0 20px 0;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-14969ad2] {\n  list-style: none;\n}\n#deleteaccount_overlay[data-v-14969ad2] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#deleteaccount_modal_content[data-v-14969ad2] {\n  z-index: 2;\n  width: 50%;\n  padding: 1em;\n  background: #fff;\n  border-radius: 20px;\n}\n.deleteaccount_modal_content h2[data-v-14969ad2] {\n  font-size: 36px;\n  margin: 20px 0;\n}\n.deleteaccount_modal_content_word[data-v-14969ad2] {\n  font-size: 24px;\n  text-align: left;\n}\n.deleteaccount_modal_content_form[data-v-14969ad2] {\n  margin: 20px 0;\n  font-size: 24px;\n}\n.deleteaccount_modal_content_form_label[data-v-14969ad2] {\n  margin: 0 0 0 20px;\n}\n.deleteaccount_modal_content_button[data-v-14969ad2] {\n  display: flex;\n  justify-content: flex-end;\n  font-size: 24px;\n}\n.deleteaccount_modal_content_button_content[data-v-14969ad2] {\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #3cb371;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n.modal-enter-active[data-v-14969ad2], .modal-leave-active[data-v-14969ad2] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-14969ad2], .modal-leave-active .modal-content[data-v-14969ad2] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-14969ad2], .modal-leave-to[data-v-14969ad2] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-14969ad2], .modal-leave-to .modal-content[data-v-14969ad2] {\n  transform: scale(1);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.usermypage[data-v-14969ad2] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.usermypage[data-v-14969ad2] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.usermypage_title[data-v-14969ad2] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 50px;\n}\n@media screen and (max-width: 576px) {\n.usermypage_title[data-v-14969ad2] {\n    font-size: clamp(1.688rem, 1vw + 1rem, 2.125rem);\n    margin-bottom: 30px;\n}\n}\n.usermypage_wrap_title[data-v-14969ad2] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.usermypage_wrap_content[data-v-14969ad2] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n.usermypage_wrap_content_list[data-v-14969ad2] {\n  list-style-type: none;\n}\n.usermypage_wrap_content_list_items[data-v-14969ad2] {\n  display: flex;\n  padding: 20px 0;\n}\n@media screen and (max-width: 1024px) {\n.usermypage_wrap_content_list_items[data-v-14969ad2] {\n    flex-direction: column;\n}\n}\n.usermypage_wrap_content_list_items_title[data-v-14969ad2] {\n  width: 33.33%;\n  overflow-wrap: break-word;\n}\n@media screen and (max-width: 1024px) {\n.usermypage_wrap_content_list_items_title[data-v-14969ad2] {\n    width: 100%;\n}\n}\n.usermypage_wrap_content_list_items_info[data-v-14969ad2] {\n  width: 46.33%;\n  overflow-wrap: break-word;\n}\n@media screen and (max-width: 1024px) {\n.usermypage_wrap_content_list_items_info[data-v-14969ad2] {\n    margin: 0 0 20px 5%;\n    width: 95%;\n}\n}\n.usermypage_wrap_content_list_items_button[data-v-14969ad2] {\n  width: 20.33%;\n  display: flex;\n  justify-content: center;\n}\n@media screen and (max-width: 1024px) {\n.usermypage_wrap_content_list_items_button[data-v-14969ad2] {\n    width: 100%;\n    justify-content: flex-end;\n}\n}\n.usermypage_wrap_content_list_items_button_word[data-v-14969ad2] {\n  padding: 10px;\n  border-radius: 10px;\n}\n.usermypage_wrap_content_button[data-v-14969ad2] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-14969ad2] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-14969ad2] {\n  margin: 0 0 20px 0;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-14969ad2] {\n  list-style: none;\n}\n#deleteaccount_overlay[data-v-14969ad2] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n#deleteaccount_modal_content[data-v-14969ad2] {\n  z-index: 2;\n  width: 50%;\n  padding: 1em;\n  background: #fff;\n  border-radius: 20px;\n}\n@media screen and (max-width: 768px) {\n#deleteaccount_modal_content[data-v-14969ad2] {\n    width: 80%;\n}\n}\n.deleteaccount_modal_content h2[data-v-14969ad2] {\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n  margin: 20px 0;\n}\n.deleteaccount_modal_content_word[data-v-14969ad2] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  text-align: left;\n}\n.deleteaccount_modal_content_form[data-v-14969ad2] {\n  margin: 20px 0;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n}\n.deleteaccount_modal_content_form_label[data-v-14969ad2] {\n  margin: 0 0 0 20px;\n}\n.deleteaccount_modal_content_button[data-v-14969ad2] {\n  display: flex;\n  justify-content: flex-end;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n}\n.deleteaccount_modal_content_button_content[data-v-14969ad2] {\n  padding: 10px;\n  border-radius: 10px;\n  background-color: #3cb371;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n.modal-enter-active[data-v-14969ad2], .modal-leave-active[data-v-14969ad2] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-14969ad2], .modal-leave-active .modal-content[data-v-14969ad2] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-14969ad2], .modal-leave-to[data-v-14969ad2] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-14969ad2], .modal-leave-to .modal-content[data-v-14969ad2] {\n  transform: scale(1);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38702,7 +38752,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".userorderhistory[data-v-c8bd8d86] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.userorderhistory_title[data-v-c8bd8d86] {\n  font-size: 70px;\n  margin-bottom: 50px;\n}\n.userorderhistory_wrap_title[data-v-c8bd8d86] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.userorderhistory_wrap_content[data-v-c8bd8d86] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: 36px;\n}\n.userorderhistory_wrap_content_header[data-v-c8bd8d86] {\n  display: flex;\n  font-size: 24px;\n  background-color: #F2F0ED;\n  padding: 20px 0;\n}\n.userorderhistory_wrap_content_header_title[data-v-c8bd8d86] {\n  width: 25%;\n  text-align: center;\n}\n.userorderhistory_wrap_content_body[data-v-c8bd8d86] {\n  font-size: 24px;\n}\n.userorderhistory_wrap_content_body_list[data-v-c8bd8d86] {\n  list-style-type: none;\n}\n.userorderhistory_wrap_content_body_list_item[data-v-c8bd8d86] {\n  display: flex;\n  margin: 20px 0;\n}\n.userorderhistory_wrap_content_body_list_item_p[data-v-c8bd8d86] {\n  width: 25%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.userorderhistory_wrap_content_body_list_item_p button[data-v-c8bd8d86] {\n  border-radius: 10px;\n  padding: 10px;\n}\n.userorderhistory_wrap_content_button[data-v-c8bd8d86] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-c8bd8d86] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-c8bd8d86] {\n  margin: 0 0 20px 0;\n  font-size: 24px;\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-c8bd8d86] {\n  list-style: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".userorderhistory[data-v-c8bd8d86] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.userorderhistory[data-v-c8bd8d86] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.userorderhistory_title[data-v-c8bd8d86] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 50px;\n}\n@media screen and (max-width: 576px) {\n.userorderhistory_title[data-v-c8bd8d86] {\n    font-size: clamp(1.688rem, 1vw + 1rem, 2.125rem);\n    margin-bottom: 30px;\n}\n}\n.userorderhistory_wrap_title[data-v-c8bd8d86] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n  font-weight: bold;\n  padding: 18.5px 0 18.5px 10px;\n}\n.userorderhistory_wrap_content[data-v-c8bd8d86] {\n  border: 2px solid #000000;\n  padding: 20px;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n.userorderhistory_wrap_content_header[data-v-c8bd8d86] {\n  display: flex;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  background-color: #F2F0ED;\n  padding: 20px 0;\n}\n@media screen and (max-width: 768px) {\n.userorderhistory_wrap_content_header[data-v-c8bd8d86] {\n    display: none;\n}\n}\n.userorderhistory_wrap_content_header_title[data-v-c8bd8d86] {\n  width: 25%;\n  text-align: center;\n}\n.userorderhistory_wrap_content_body[data-v-c8bd8d86] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n}\n.userorderhistory_wrap_content_body_list[data-v-c8bd8d86] {\n  list-style-type: none;\n}\n.userorderhistory_wrap_content_body_list_item[data-v-c8bd8d86] {\n  display: flex;\n  margin: 20px 0;\n}\n@media screen and (max-width: 768px) {\n.userorderhistory_wrap_content_body_list_item[data-v-c8bd8d86] {\n    flex-direction: column;\n}\n}\n.userorderhistory_wrap_content_body_list_item_title[data-v-c8bd8d86] {\n  display: none;\n}\n@media screen and (max-width: 768px) {\n.userorderhistory_wrap_content_body_list_item_title[data-v-c8bd8d86] {\n    display: block;\n    font-weight: bold;\n}\n}\n.userorderhistory_wrap_content_body_list_item_p[data-v-c8bd8d86] {\n  width: 25%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  overflow-wrap: break-all;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n}\n@media screen and (max-width: 768px) {\n.userorderhistory_wrap_content_body_list_item_p[data-v-c8bd8d86] {\n    width: 95%;\n    justify-content: flex-start;\n    margin: 0 0 20px 5%;\n}\n.userorderhistory_wrap_content_body_list_item_p[data-v-c8bd8d86]:last-child {\n    justify-content: flex-end;\n}\n}\n.userorderhistory_wrap_content_body_list_item_p button[data-v-c8bd8d86] {\n  border-radius: 10px;\n  padding: 10px;\n}\n.userorderhistory_wrap_content_button[data-v-c8bd8d86] {\n  display: flex;\n  justify-content: center;\n}\n.margin-left[data-v-c8bd8d86] {\n  margin: 0 0 0 10px;\n}\n.errors[data-v-c8bd8d86] {\n  margin: 0 0 20px 0;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  color: red;\n  font-weight: bold;\n}\n.errors ul[data-v-c8bd8d86] {\n  list-style: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38726,7 +38776,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".cart[data-v-61043394] {\n  width: 80%;\n  padding: 170px 10% 100px 10%;\n}\n.cart_title[data-v-61043394] {\n  font-size: 70px;\n  margin-bottom: 20px;\n}\n.cart_wrap[data-v-61043394] {\n  display: flex;\n  justify-content: space-between;\n}\n.cart_wrap_list[data-v-61043394] {\n  width: 60%;\n}\n.cart_wrap_list_title[data-v-61043394] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: 36px;\n  padding: 18.5px 0 18.5px 10px;\n}\n.cart_wrap_list_content[data-v-61043394] {\n  width: 100%;\n  list-style-type: none;\n  margin: 50px 0 0 0;\n}\n.cart_wrap_list_content_each[data-v-61043394] {\n  width: 100%;\n}\n.cart_wrap_list_content_each_title[data-v-61043394] {\n  margin: 0 0 10px 0;\n}\n.cart_wrap_list_content_each[data-v-61043394]:not(:last-child) {\n  padding: 0 0 10px 0;\n}\n.cart_wrap_list_content_each_selected[data-v-61043394] {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n}\n.cart_wrap_list_content_each_selected_img[data-v-61043394] {\n  width: 40%;\n}\n.cart_wrap_list_content_each_selected_img img[data-v-61043394] {\n  width: 100%;\n  height: auto;\n}\n.cart_wrap_list_content_each_selected_detail[data-v-61043394] {\n  width: 55%;\n  margin: 0 0 0 5%;\n}\n.cart_wrap_list_content_each_selected_detail_word[data-v-61043394] {\n  margin: 0 0 10px 0;\n}\n.cart_wrap_aside[data-v-61043394] {\n  width: 35%;\n  padding: 0 0 0 5%;\n}\n.cart_wrap_aside_amount[data-v-61043394] {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  font-weight: bold;\n  border-bottom: 2px solid #000000;\n}\n.cart_wrap_aside_amount_title[data-v-61043394] {\n  width: 30%;\n  font-size: 24px;\n  display: flex;\n  align-items: center;\n}\n.cart_wrap_aside_amount_price[data-v-61043394] {\n  width: 70%;\n  font-size: 48px;\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n}\n.delete_button[data-v-61043394] {\n  border-radius: 10px;\n  padding: 10px;\n}\n.f_40[data-v-61043394] {\n  font-size: 40px;\n}\n.f_36[data-v-61043394] {\n  font-size: 36px;\n}\n.f_24[data-v-61043394] {\n  font-size: 24px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".cart[data-v-61043394] {\n  width: 80%;\n  padding: 170px 10% 100px 10%;\n}\n@media screen and (max-width: 576px) {\n.cart[data-v-61043394] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.cart_title[data-v-61043394] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 20px;\n}\n.cart_wrap[data-v-61043394] {\n  display: flex;\n  justify-content: space-between;\n}\n@media screen and (max-width: 768px) {\n.cart_wrap[data-v-61043394] {\n    display: block;\n}\n}\n.cart_wrap_list[data-v-61043394] {\n  width: 55%;\n}\n@media screen and (max-width: 768px) {\n.cart_wrap_list[data-v-61043394] {\n    width: 100%;\n}\n}\n.cart_wrap_list_title[data-v-61043394] {\n  background-color: #000000;\n  color: #ffffff;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n  padding: 18.5px 0 18.5px 10px;\n}\n.cart_wrap_list_content[data-v-61043394] {\n  width: 100%;\n  list-style-type: none;\n  margin: 50px 0 0 0;\n}\n.cart_wrap_list_content_each[data-v-61043394] {\n  width: 100%;\n}\n.cart_wrap_list_content_each_title[data-v-61043394] {\n  margin: 0 0 10px 0;\n}\n.cart_wrap_list_content_each[data-v-61043394]:not(:last-child) {\n  padding: 0 0 10px 0;\n}\n.cart_wrap_list_content_each_selected[data-v-61043394] {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n}\n.cart_wrap_list_content_each_selected_img[data-v-61043394] {\n  width: 40%;\n}\n.cart_wrap_list_content_each_selected_img img[data-v-61043394] {\n  width: 100%;\n  height: auto;\n}\n.cart_wrap_list_content_each_selected_detail[data-v-61043394] {\n  width: 55%;\n  margin: 0 0 0 5%;\n}\n.cart_wrap_list_content_each_selected_detail_word[data-v-61043394] {\n  margin: 0 0 10px 0;\n}\n.cart_wrap_aside[data-v-61043394] {\n  width: 45%;\n  padding: 0 0 0 5%;\n}\n@media screen and (max-width: 768px) {\n.cart_wrap_aside[data-v-61043394] {\n    width: 100%;\n    padding: 20px 0 0 0;\n}\n}\n.cart_wrap_aside_amount[data-v-61043394] {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  font-weight: bold;\n  border-bottom: 2px solid #000000;\n}\n.cart_wrap_aside_amount_title[data-v-61043394] {\n  width: 47%;\n  font-size: 24px;\n  display: flex;\n  align-items: center;\n}\n.cart_wrap_aside_amount_price[data-v-61043394] {\n  width: 53%;\n  font-size: 48px;\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n}\n@media screen and (max-width: 1024px) {\n.cart_wrap_aside_amount_price[data-v-61043394] {\n    font-size: 40px;\n}\n}\n@media screen and (max-width: 414px) {\n.cart_wrap_aside_amount_price[data-v-61043394] {\n    font-size: 30px;\n}\n}\n.delete_button[data-v-61043394] {\n  border-radius: 10px;\n  padding: 10px;\n}\n.f_40[data-v-61043394] {\n  font-size: clamp(1.563rem, 1vw + 1rem, 2.5rem);\n}\n.f_36[data-v-61043394] {\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n.f_24[data-v-61043394] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38750,7 +38800,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".logined[data-v-13ead483] {\n  border: solid 1px #000000;\n  margin: 50px 0 0 0;\n}\n.logined_title[data-v-13ead483] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-bottom: solid 1px #000000;\n  padding: 10px 0;\n  background-color: #F2F0ED;\n}\n.logined_detail[data-v-13ead483] {\n  padding: 10px;\n}\n.logined_detail_word[data-v-13ead483] {\n  margin: 0 0 10px 0;\n  font-size: 24px;\n}\n.logined_detail_button[data-v-13ead483] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  font-size: 24px;\n}\n.logined_detail_button_component[data-v-13ead483]:last-child {\n  margin: 0 0 0 10px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".logined[data-v-13ead483] {\n  border: solid 1px #000000;\n  margin: 50px 0 0 0;\n}\n.logined_title[data-v-13ead483] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-bottom: solid 1px #000000;\n  padding: 10px 0;\n  background-color: #F2F0ED;\n}\n.logined_detail[data-v-13ead483] {\n  padding: 10px;\n}\n.logined_detail_word[data-v-13ead483] {\n  margin: 0 0 10px 0;\n  font-size: 24px;\n}\n.logined_detail_button[data-v-13ead483] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n}\n.logined_detail_button_component[data-v-13ead483]:last-child {\n  margin: 0 0 0 10px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38774,7 +38824,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button-black[data-v-c491e298] {\n  background-color: #000000;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 68px;\n  border: none;\n  outline: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".button-black[data-v-c491e298] {\n  background-color: #000000;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  border: none;\n  outline: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38798,7 +38848,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button-green[data-v-6cfda890] {\n  background-color: #3cb371;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 68px;\n  border: none;\n  outline: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".button-green[data-v-6cfda890] {\n  background-color: #3cb371;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  border: none;\n  outline: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38822,7 +38872,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button-orange[data-v-3c77a1c9] {\n  background-color: #F87D09;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 68px;\n  border: none;\n  outline: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".button-orange[data-v-3c77a1c9] {\n  background-color: #F87D09;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  border: none;\n  outline: none;\n}\n@media screen and (max-width: 1024px) {\n.button-orange[data-v-3c77a1c9] {\n    padding: 20px 10px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38846,7 +38896,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button-red[data-v-c4f63cf4] {\n  background-color: #F54335;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 68px;\n  outline: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".button-red[data-v-c4f63cf4] {\n  background-color: #F54335;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  outline: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38870,7 +38920,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button-white[data-v-28a1b444] {\n  background-color: #ffffff;\n  color: #000000;\n  font-weight: bold;\n  border: 1px solid #000000;\n  border-radius: 20px;\n  padding: 22px 68px;\n  outline: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".button-white[data-v-28a1b444] {\n  background-color: #ffffff;\n  color: #000000;\n  font-weight: bold;\n  border: 1px solid #000000;\n  border-radius: 20px;\n  padding: 22px 10px;\n  outline: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38942,7 +38992,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.gallery[data-v-3c14590c] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n.gallery_title[data-v-3c14590c] {\n  font-size: 70px;\n  margin-bottom: 20px;\n}\n.gallery_list[data-v-3c14590c] {\n  -moz-columns: 3;\n       columns: 3; /*段組みの数*/\n  list-style-type: none;\n}\n.gallery_list_item[data-v-3c14590c] {\n  margin-bottom: 20px; /*各画像下に余白をつける*/\n}\n.gallery_list_item img[data-v-3c14590c] {\n  width: 100%;\n  height: auto;\n  vertical-align: bottom; /*画像の下にできる余白を削除*/\n}\n.pagination_component[data-v-3c14590c] {\n  margin: 100px 0 0 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.gallery[data-v-3c14590c] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.gallery[data-v-3c14590c] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.gallery_title[data-v-3c14590c] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 20px;\n}\n.gallery_list[data-v-3c14590c] {\n  -moz-columns: 3;\n       columns: 3; /*段組みの数*/\n  list-style-type: none;\n}\n@media screen and (max-width: 576px) {\n.gallery_list[data-v-3c14590c] {\n    -moz-columns: 1;\n         columns: 1;\n}\n}\n.gallery_list_item[data-v-3c14590c] {\n  margin-bottom: 20px; /*各画像下に余白をつける*/\n}\n.gallery_list_item img[data-v-3c14590c] {\n  width: 100%;\n  height: auto;\n  vertical-align: bottom; /*画像の下にできる余白を削除*/\n}\n.pagination_component[data-v-3c14590c] {\n  margin: 100px 0 0 0;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38966,7 +39016,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".photo[data-v-29ed8e5a] {\n  width: 80%;\n  padding: 170px 10% 100px 10%;\n}\n.photo_title[data-v-29ed8e5a] {\n  font-size: 70px;\n  margin-bottom: 20px;\n}\n.photo_wrap[data-v-29ed8e5a] {\n  display: flex;\n  justify-content: space-between;\n}\n.photo_wrap_img[data-v-29ed8e5a] {\n  width: 60%;\n}\n.photo_wrap_img img[data-v-29ed8e5a] {\n  width: 100%;\n}\n.photo_wrap_aside[data-v-29ed8e5a] {\n  width: 35%;\n  padding: 0 0 0 5%;\n}\n.photo_wrap_aside_word[data-v-29ed8e5a] {\n  font-size: 36px;\n  font-weight: bold;\n  padding-bottom: 20px;\n}\n.photo_wrap_aside_button[data-v-29ed8e5a] {\n  font-size: 30px;\n}\n.photo_wrap_aside_term[data-v-29ed8e5a] {\n  font-size: 24px;\n  padding-top: 10px;\n  text-decoration: underline;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".photo[data-v-29ed8e5a] {\n  width: 80%;\n  padding: 170px 10% 100px 10%;\n}\n@media screen and (max-width: 576px) {\n.photo[data-v-29ed8e5a] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.photo_title[data-v-29ed8e5a] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 20px;\n  overflow-wrap: break-word;\n}\n@media screen and (max-width: 576px) {\n.photo_title[data-v-29ed8e5a] {\n    font-size: clamp(1.688rem, 1vw + 1rem, 2.125rem);\n}\n}\n.photo_wrap[data-v-29ed8e5a] {\n  display: flex;\n  justify-content: space-between;\n}\n@media screen and (max-width: 768px) {\n.photo_wrap[data-v-29ed8e5a] {\n    display: block;\n}\n}\n.photo_wrap_img[data-v-29ed8e5a] {\n  width: 60%;\n}\n@media screen and (max-width: 768px) {\n.photo_wrap_img[data-v-29ed8e5a] {\n    width: 100%;\n}\n}\n.photo_wrap_img img[data-v-29ed8e5a] {\n  width: 100%;\n}\n.photo_wrap_aside[data-v-29ed8e5a] {\n  width: 35%;\n  padding: 0 0 0 5%;\n}\n@media screen and (max-width: 768px) {\n.photo_wrap_aside[data-v-29ed8e5a] {\n    width: 100%;\n    padding: 20px 0 0 0;\n}\n}\n.photo_wrap_aside_word[data-v-29ed8e5a] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.875rem);\n  font-weight: bold;\n  padding-bottom: 20px;\n}\n.photo_wrap_aside_button[data-v-29ed8e5a] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.875rem);\n}\n@media screen and (max-width: 768px) {\n.photo_wrap_aside_button[data-v-29ed8e5a] {\n    display: flex;\n    justify-content: center;\n}\n}\n.photo_wrap_aside_term[data-v-29ed8e5a] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  padding-top: 10px;\n  text-decoration: underline;\n}\n@media screen and (max-width: 768px) {\n.photo_wrap_aside_term[data-v-29ed8e5a] {\n    display: flex;\n    justify-content: center;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38990,7 +39040,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n#term_overlay[data-v-59534137] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.term_content[data-v-59534137] {\n  width: 80%;\n  height: 600px;\n  padding: 1em;\n  border-radius: 20px;\n  background-color: #ffffff;\n  padding: 10px;\n}\n.term_content_title[data-v-59534137] {\n  font-size: 70px;\n  margin-bottom: 20px;\n}\n.term_content_box[data-v-59534137] {\n  height: 400px;\n  border: 1px solid #000;\n  overflow-y: scroll;\n  padding: 10px;\n}\n.term_content_button[data-v-59534137] {\n  display: flex;\n  justify-content: flex-end;\n  padding: 10px 0 0 0;\n}\n.modal-enter-active[data-v-59534137], .modal-leave-active[data-v-59534137] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-59534137], .modal-leave-active .modal-content[data-v-59534137] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-59534137], .modal-leave-to[data-v-59534137] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-59534137], .modal-leave-to .modal-content[data-v-59534137] {\n  transform: scale(1);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n#term_overlay[data-v-59534137] {\n  /*　要素を重ねた時の順番　*/\n  z-index: 999;\n  /*　画面全体を覆う設定　*/\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /*　画面の中央に要素を表示させる設定　*/\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.term_content[data-v-59534137] {\n  width: 80%;\n  height: auto;\n  padding: 1em;\n  border-radius: 20px;\n  background-color: #ffffff;\n  padding: 10px;\n}\n.term_content_title[data-v-59534137] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 20px;\n}\n.term_content_box[data-v-59534137] {\n  height: 400px;\n  border: 1px solid #000;\n  overflow-y: scroll;\n  padding: 10px;\n}\n.term_content_button[data-v-59534137] {\n  display: flex;\n  justify-content: flex-end;\n  padding: 10px 0 0 0;\n}\n.modal-enter-active[data-v-59534137], .modal-leave-active[data-v-59534137] {\n  opacity: 1;\n  transform: scale(1);\n  transition: opacity 0.5s;\n}\n.modal-enter-active .modal-content[data-v-59534137], .modal-leave-active .modal-content[data-v-59534137] {\n  transform: scale(1.2);\n  transition: 0.5s;\n}\n.modal-enter[data-v-59534137], .modal-leave-to[data-v-59534137] {\n  opacity: 0;\n  transform: scale(0);\n  transition: opacity 0.5s, transform 0s 0.5s;\n}\n.modal-enter .modal-content[data-v-59534137], .modal-leave-to .modal-content[data-v-59534137] {\n  transform: scale(1);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -7,13 +7,13 @@ $xs: 414px;
 
 @mixin xl {
     // 1440px以上の時に適応
-    @media screen and (min-width: ($xl)) {
+    @media screen and (max-width: ($xl)) {
       @content;
     }
 }
 @mixin lg {
     // 1280px以上の時に適応
-    @media screen and (min-width: ($lg)) {
+    @media screen and (max-width: ($lg)) {
       @content;
     }
 }
@@ -27,21 +27,21 @@ $xs: 414px;
 
 @mixin tb {
     // 768px以上の時に適応
-    @media screen and (min-width: ($tb)) {
+    @media screen and (max-width: ($tb)) {
       @content;
     }
 }
 
 @mixin sm {
     // 576px以上の時に適応
-    @media screen and (min-width: ($sm)) {
+    @media screen and (max-width: ($sm)) {
       @content;
     }
 }
 
 @mixin xs {
     // 414px以上の時に適応
-    @media screen and (min-width: ($xs)) {
+    @media screen and (max-width: ($xs)) {
       @content;
     }
 }

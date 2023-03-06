@@ -14,9 +14,9 @@
                 <p class="top_modal_content_word">いわゆる接写の同義語になります。</p>
                 <p class="top_modal_content_word">MacroStockはマクロ写真を専門にしたストックフォトサイトです。</p>
                 <p class="top_modal_content_word">ぜひ、マクロの世界を楽しんでみてください。</p>
-                <p class="top_modal_content_button">
+                <div class="top_modal_content_button">
                     <ButtonGreen @click="closeModal">Close</ButtonGreen>
-                </p>
+                </div>
             </div>
         </div>
     </transition>
@@ -62,6 +62,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+// @import "../../sass/_fontSize.scss";
+@import "../../sass/prepends.scss";
 .top {
     width: 100%;
     height: 100vh;
@@ -76,11 +78,14 @@ export default defineComponent({
 }
 
 .top_site_title {
-    font-size: 144px;
+    // font-size: 144px;
+    // font-size: clamp(2.5rem, 4vw + 1.75rem, 9rem);
+    @include f-144;
 }
 
 .top_sub_site_title {
-    font-size: 48px;
+    // font-size: 48px;
+    @include f-48;
 }
 
 .top_what_macro_photo {
@@ -90,8 +95,13 @@ export default defineComponent({
     outline: none;
     padding: 13px 50px;
     margin-top: 50px;
-    font-size: 36px;
+    // font-size: 36px;
+    @include f-36;
     cursor: pointer;
+
+    @include tb {
+        margin-top: 30px;
+    }
 }
 
 #top_overlay{
@@ -119,23 +129,30 @@ export default defineComponent({
   padding: 1em;
   background:#fff;
   border-radius: 20px;
+
+  @include tb {
+    width: 80%;
+  }
 }
 
 .top_modal_content {
 
     h2 {
-        font-size: 36px;
+        // font-size: 36px;
+        @include f-36;
         margin: 20px 0;
     }
 
     &_word {
-        font-size: 24px;
+        // font-size: 24px;
+        @include f-24;
         text-align: left;
     }
 
     &_button {
         display: flex;
         justify-content: flex-end;
+        margin: 10px 0 0 0;
 
         &_content {
             padding: 10px;
