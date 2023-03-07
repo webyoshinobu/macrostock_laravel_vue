@@ -27,6 +27,7 @@
     padding: 22px 10px;
     border: none;
     outline: none;
+    cursor: pointer;
 
     @include md {
         padding: 20px 10px;

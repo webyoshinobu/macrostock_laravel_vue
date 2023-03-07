@@ -104,7 +104,7 @@
             <li class="adminmypage_list_items" v-for="photo in photos" :key="photo.index">
             <!-- <li class="adminmypage_list_items" v-for="photo in photo_list" :key="photo.index"> -->
                 <div class="adminmypage_list_items_img">
-                    <img class="adminmypage_list_items_img_content" :src="photo.img_url" :alt="photo.filename">
+                    <img class="adminmypage_list_items_img_content" :src="photo.img_url" :alt="photo.filename" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                 </div>
                 <div class="adminmypage_list_items_detail">
                     <p>ファイル名：{{photo.filename}}</p>

@@ -10,7 +10,7 @@
                     <p class="cart_wrap_list_content_each_title f_40">写真ID: {{ item.id }}</p>
                     <div class="cart_wrap_list_content_each_selected">
                         <div class="cart_wrap_list_content_each_selected_img">
-                            <img :src="item.url" :alt="`Photo by ${item.owner.name}`">
+                            <img :src="item.url" :alt="`Photo by ${item.owner.name}`" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                         </div>
                         <div class="cart_wrap_list_content_each_selected_detail">
                             <!-- <p class="cart_wrap_list_content_each_selected_detail_word f_36">¥{{ item.price }}</p> -->

@@ -26,5 +26,6 @@
     // padding: 22px 68px;
     padding: 22px 10px;
     outline: none;
+    cursor: pointer;
 }
 </style>

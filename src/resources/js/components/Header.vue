@@ -3,7 +3,7 @@
 
     <h1 class="header_logo">
         <router-link to="/">
-            <img src="../../../public/images/logo_transparent.png" alt="macrostockのロゴ">
+            <img src="../../../public/images/logo_transparent.png" alt="macrostockのロゴ" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
         </router-link>
     </h1>
 
@@ -197,6 +197,7 @@
                 justify-content: space-between;
                 align-items: center;
                 text-decoration: none;
+                cursor: pointer;
 
                 @include md {
                     margin: 0 0 30px 0;
