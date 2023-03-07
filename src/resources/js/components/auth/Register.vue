@@ -10,20 +10,22 @@
                     <ul v-if="registerErrors.name">
                         <li v-for="msg in registerErrors.name" :key="msg">
                             {{ msg }}
-                            <!-- 氏名を入力してください。 -->
                         </li>
                     </ul>
                     <ul v-if="registerErrors.email">
                         <li v-for="msg in registerErrors.email" :key="msg">
                             {{ msg }}
-                            <!-- メールアドレスを入力してください。 -->
                         </li>
                     </ul>
                     <ul v-if="registerErrors.password">
                         <li v-for="msg in registerErrors.password" :key="msg">
                             {{ msg }}
-                            <!-- パスワードを入力してください。 -->
                         </li>
+                    </ul>
+                </div>
+                <div v-if="term_error" class="errors">
+                    <ul>
+                        <li>{{ term_error }}</li>
                     </ul>
                 </div>
 
@@ -48,7 +50,7 @@
                 </div>
 
                 <div class="register_form_term">
-                    <input class="register_form_term_checkbox" id="register_form_checkbox" type="checkbox">
+                    <input class="register_form_term_checkbox" id="register_form_checkbox" type="checkbox" v-model="term_checked">
                     <!-- <label class="register_form_term_link" for="register_form_checkbox" >Macro Stock<span class="term">利用規約</span>に同意する（ご登録前に必ずご確認ください。）</label> -->
                     <label class="register_form_term_link">Macro Stock<span class="term" @click="termOpen">利用規約</span>に同意する（ご登録前に必ずご確認ください。）</label>
                 </div>
@@ -93,6 +95,8 @@ export default defineComponent({
         const token = auth().csrf;
         const { getApiStatus } = storeToRefs(auth());
         let term = ref();
+        let term_checked = ref(false);
+        let term_error = ref('');
 
         //computed
         const registerErrors = computed(() => {
@@ -105,7 +109,13 @@ export default defineComponent({
         }
 
         const clickRegister = async () => {
-            console.log('registerForm', registerForm);
+            // console.log('term_checked', term_checked);
+            // console.log('registerForm', registerForm);
+            if(term_checked.value == false) {
+                term_error.value = '利用規約に同意をお願いいたします。'
+                return term_error
+            }
+
             const data = registerForm;
             // authストアのresigterアクションを呼び出す
             await register(data);
@@ -121,6 +131,7 @@ export default defineComponent({
 
         const clearError = () => {
             setRegisterErrorMessages(null)
+            term_error.value = ''
             console.log('clearError');
         }
 
@@ -128,7 +139,7 @@ export default defineComponent({
             clearError();
         });
 
-        return { router, route, registerForm, token, clickRegister, register, registerErrors, clearError, termOpen, term };
+        return { router, route, registerForm, token, clickRegister, register, registerErrors, clearError, termOpen, term, term_checked, term_error };
     }
 
 });
