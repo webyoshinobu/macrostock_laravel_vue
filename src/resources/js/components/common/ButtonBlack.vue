@@ -26,5 +26,6 @@
     padding: 22px 10px;
     border: none;
     outline: none;
+    cursor: pointer;
 }
 </style>

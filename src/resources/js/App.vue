@@ -64,4 +64,7 @@ export default {
     padding: 0;
     margin: 0;
 }
+// img {
+//   pointer-events: none;
+// }
 </style>

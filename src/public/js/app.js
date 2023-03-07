@@ -31807,7 +31807,10 @@ var _hoisted_2 = {
 var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("img", {
     src: logo_transparent_png_1["default"],
-    alt: "macrostockのロゴ"
+    alt: "macrostockのロゴ",
+    oncontextmenu: "return false;",
+    onselectstart: "return false;",
+    onmousedown: "return false;"
   }, null, -1 /* HOISTED */);
 });
 
@@ -32046,47 +32049,68 @@ var _hoisted_3 = {
 };
 var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("span", {
-    "class": "page-link"
+    "class": "page-link mobile_pagination_disable"
   }, "« prev", -1 /* HOISTED */);
 });
 
-var _hoisted_5 = [_hoisted_4];
+var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("span", {
+    "class": "page-link mobile_pagination prev"
+  }, "«", -1 /* HOISTED */);
+});
+
 var _hoisted_6 = {
   key: 1,
   "class": "pagination_item"
 };
 var _hoisted_7 = {
   key: 1,
-  "class": "page-link"
+  "class": "page-link w_color"
 };
 var _hoisted_8 = {
+  "class": "pagination_item mobile_pagination"
+};
+var _hoisted_9 = {
   key: 2,
   "class": "pagination_item"
 };
-var _hoisted_9 = {
+var _hoisted_10 = {
   key: 3,
   "class": "pagination_item disabled"
 };
-var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("span", {
-    "class": "page-link"
+    "class": "page-link mobile_pagination_disable"
   }, "next »", -1 /* HOISTED */);
 });
 
-var _hoisted_11 = [_hoisted_10];
+var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("span", {
+    "class": "page-link mobile_pagination next"
+  }, "»", -1 /* HOISTED */);
+});
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0, vue_1.resolveComponent)("router-link");
-  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)(vue_1.Fragment, null, [(0, vue_1.createCommentVNode)(" <div class=\"pagination\">\n    <router-link\n      v-if=\"! isFirstPage\"\n      :to=\"`/gallery?page=${currentPage - 1}`\"\n      class=\"button\"\n    >&laquo; prev</router-link>\n    <router-link\n      v-if=\"! isLastPage\"\n      :to=\"`/gallery?page=${currentPage + 1}`\"\n      class=\"button\"\n    >next &raquo;</router-link>\n  </div> "), (0, vue_1.createElementVNode)("div", _hoisted_1, [(0, vue_1.createElementVNode)("ul", _hoisted_2, [(0, vue_1.createCommentVNode)(" Previous Page Link "), _ctx.isFirstPage ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", _hoisted_3, _hoisted_5)) : (0, vue_1.createCommentVNode)("v-if", true), !_ctx.isFirstPage ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", _hoisted_6, [(0, vue_1.createVNode)(_component_router_link, {
+  return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)(vue_1.Fragment, null, [(0, vue_1.createCommentVNode)(" <div class=\"pagination\">\n    <router-link\n      v-if=\"! isFirstPage\"\n      :to=\"`/gallery?page=${currentPage - 1}`\"\n      class=\"button\"\n    >&laquo; prev</router-link>\n    <router-link\n      v-if=\"! isLastPage\"\n      :to=\"`/gallery?page=${currentPage + 1}`\"\n      class=\"button\"\n    >next &raquo;</router-link>\n  </div> "), (0, vue_1.createElementVNode)("div", _hoisted_1, [(0, vue_1.createElementVNode)("ul", _hoisted_2, [(0, vue_1.createCommentVNode)(" Previous Page Link "), _ctx.isFirstPage ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", _hoisted_3, [(0, vue_1.createCommentVNode)(" PC用 "), _hoisted_4, (0, vue_1.createCommentVNode)(" モバイル用 "), _hoisted_5])) : (0, vue_1.createCommentVNode)("v-if", true), !_ctx.isFirstPage ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", _hoisted_6, [(0, vue_1.createCommentVNode)(" PC用 "), (0, vue_1.createVNode)(_component_router_link, {
     to: "/gallery?page=".concat(_ctx.currentPage - 1),
-    "class": "page-link"
+    "class": "page-link mobile_pagination_disable"
   }, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createTextVNode)(" « prev ")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["to"])])) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createCommentVNode)(" Pagination Elements "), ((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.displayList, function (page) {
+  }, 8 /* PROPS */, ["to"]), (0, vue_1.createCommentVNode)(" モバイル用 "), (0, vue_1.createVNode)(_component_router_link, {
+    to: "/gallery?page=".concat(_ctx.currentPage - 1),
+    "class": "page-link mobile_pagination prev"
+  }, {
+    "default": (0, vue_1.withCtx)(function () {
+      return [(0, vue_1.createTextVNode)(" « ")];
+    }),
+    _: 1 /* STABLE */
+  }, 8 /* PROPS */, ["to"])])) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createCommentVNode)(" Pagination Elements "), (0, vue_1.createCommentVNode)(" PC用 "), ((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.displayList, function (page) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
-      "class": (0, vue_1.normalizeClass)(["pagination_item", {
+      "class": (0, vue_1.normalizeClass)(["pagination_item mobile_pagination_disable", {
         active: _ctx.currentPage == page
       }]),
       key: page
@@ -32101,15 +32125,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       _: 2 /* DYNAMIC */
     }, 1032 /* PROPS, DYNAMIC_SLOTS */, ["to"])) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.currentPage == page ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("span", _hoisted_7, (0, vue_1.toDisplayString)(page), 1 /* TEXT */)) : (0, vue_1.createCommentVNode)("v-if", true)], 2 /* CLASS */);
-  }), 128 /* KEYED_FRAGMENT */)), (0, vue_1.createCommentVNode)(" Next Page Link "), !_ctx.isLastPage ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", _hoisted_8, [(0, vue_1.createVNode)(_component_router_link, {
+  }), 128 /* KEYED_FRAGMENT */)), (0, vue_1.createCommentVNode)(" モバイル用 "), (0, vue_1.createElementVNode)("li", _hoisted_8, "Page " + (0, vue_1.toDisplayString)(_ctx.currentPage) + " / " + (0, vue_1.toDisplayString)(_ctx.lastPage), 1 /* TEXT */), (0, vue_1.createCommentVNode)(" Next Page Link "), !_ctx.isLastPage ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", _hoisted_9, [(0, vue_1.createCommentVNode)(" PC用 "), (0, vue_1.createVNode)(_component_router_link, {
     to: "/gallery?page=".concat(_ctx.currentPage + 1),
-    "class": "page-link"
+    "class": "page-link mobile_pagination_disable"
   }, {
     "default": (0, vue_1.withCtx)(function () {
       return [(0, vue_1.createTextVNode)(" next » ")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["to"])])) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.isLastPage ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", _hoisted_9, _hoisted_11)) : (0, vue_1.createCommentVNode)("v-if", true)])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
+  }, 8 /* PROPS */, ["to"]), (0, vue_1.createCommentVNode)(" モバイル用 "), (0, vue_1.createVNode)(_component_router_link, {
+    to: "/gallery?page=".concat(_ctx.currentPage + 1),
+    "class": "page-link mobile_pagination next"
+  }, {
+    "default": (0, vue_1.withCtx)(function () {
+      return [(0, vue_1.createTextVNode)(" » ")];
+    }),
+    _: 1 /* STABLE */
+  }, 8 /* PROPS */, ["to"])])) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.isLastPage ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", _hoisted_10, [(0, vue_1.createCommentVNode)(" PC用 "), _hoisted_11, (0, vue_1.createCommentVNode)(" モバイル用 "), _hoisted_12])) : (0, vue_1.createCommentVNode)("v-if", true)])])], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
 }
 
 exports.render = render;
@@ -33006,7 +33038,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, [(0, vue_1.createCommentVNode)(" <li class=\"adminmypage_list_items\" v-for=\"photo in photo_list\" :key=\"photo.index\"> "), (0, vue_1.createElementVNode)("div", _hoisted_30, [(0, vue_1.createElementVNode)("img", {
       "class": "adminmypage_list_items_img_content",
       src: photo.img_url,
-      alt: photo.filename
+      alt: photo.filename,
+      oncontextmenu: "return false;",
+      onselectstart: "return false;",
+      onmousedown: "return false;"
     }, null, 8 /* PROPS */, _hoisted_31)]), (0, vue_1.createElementVNode)("div", _hoisted_32, [(0, vue_1.createElementVNode)("p", null, "ファイル名：" + (0, vue_1.toDisplayString)(photo.filename), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", null, "所有者：" + (0, vue_1.toDisplayString)(photo.name), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", null, "価格：" + (0, vue_1.toDisplayString)(photo.price), 1 /* TEXT */), (0, vue_1.createElementVNode)("button", {
       onClick: function onClick($event) {
         return _ctx.deleteModalOpen(photo);
@@ -34317,7 +34352,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": "cart_wrap_list_content_each"
     }, [(0, vue_1.createElementVNode)("p", _hoisted_8, "写真ID: " + (0, vue_1.toDisplayString)(item.id), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_9, [(0, vue_1.createElementVNode)("div", _hoisted_10, [(0, vue_1.createElementVNode)("img", {
       src: item.url,
-      alt: "Photo by ".concat(item.owner.name)
+      alt: "Photo by ".concat(item.owner.name),
+      oncontextmenu: "return false;",
+      onselectstart: "return false;",
+      onmousedown: "return false;"
     }, null, 8 /* PROPS */, _hoisted_11)]), (0, vue_1.createElementVNode)("div", _hoisted_12, [(0, vue_1.createCommentVNode)(" <p class=\"cart_wrap_list_content_each_selected_detail_word f_36\">¥{{ item.price }}</p> "), (0, vue_1.createElementVNode)("p", _hoisted_13, "¥" + (0, vue_1.toDisplayString)(_ctx.pricePrefix(item.price)), 1 /* TEXT */), (0, vue_1.createCommentVNode)(" <p class=\"cart_wrap_list_content_each_selected_detail_word f_24\">画像サイズ：0000 × 0000px</p> "), _hoisted_14, (0, vue_1.createElementVNode)("button", {
       onClick: function onClick($event) {
         return _ctx.removeImg(item);
@@ -34605,7 +34643,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       alt: image.filename,
       onClick: function onClick($event) {
         return _ctx.pushImg(image);
-      }
+      },
+      oncontextmenu: "return false;",
+      onselectstart: "return false;",
+      onmousedown: "return false;"
     }, null, 8 /* PROPS */, _hoisted_5)], 8 /* PROPS */, _hoisted_4);
   }), 128 /* KEYED_FRAGMENT */))]), (0, vue_1.createVNode)(_component_Pagination, {
     "current-page": _ctx.currentPage,
@@ -34667,7 +34708,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Term = (0, vue_1.resolveComponent)("Term");
   return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [(0, vue_1.createElementVNode)("h2", _hoisted_2, "写真ID: " + (0, vue_1.toDisplayString)(_ctx.image.id), 1 /* TEXT */), (0, vue_1.createElementVNode)("div", _hoisted_3, [(0, vue_1.createElementVNode)("figure", _hoisted_4, [(0, vue_1.createElementVNode)("img", {
     src: _ctx.image.url,
-    alt: "Photo by ".concat(_ctx.image.owner.name)
+    alt: "Photo by ".concat(_ctx.image.owner.name),
+    oncontextmenu: "return false;",
+    onselectstart: "return false;",
+    onmousedown: "return false;"
   }, null, 8 /* PROPS */, _hoisted_5)]), (0, vue_1.createElementVNode)("aside", _hoisted_6, [(0, vue_1.createCommentVNode)(" <p class=\"photo_wrap_aside_word\">画像サイズ：0000 × 0000px</p> "), _hoisted_7, (0, vue_1.createElementVNode)("p", _hoisted_8, "価格：¥" + (0, vue_1.toDisplayString)(_ctx.pricePrefix(_ctx.image.price)), 1 /* TEXT */), (0, vue_1.createElementVNode)("p", _hoisted_9, [(0, vue_1.createVNode)(_component_ButtonOrange, {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return _ctx.toCart(_ctx.image);
@@ -38354,7 +38398,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header[data-v-1f42fb90] {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  position: fixed;\n  top: 0;\n  z-index: 999;\n}\n.header_logo[data-v-1f42fb90] {\n  width: 170px;\n  margin: 0 0 0 27px;\n}\n@media screen and (max-width: 576px) {\n.header_logo[data-v-1f42fb90] {\n    width: 100px;\n}\n}\n.header_logo a[data-v-1f42fb90] {\n  width: 100%;\n  height: 100%;\n}\n.header_logo a img[data-v-1f42fb90] {\n  width: 100%;\n}\n.header_nav[data-v-1f42fb90] {\n  height: 170px;\n  margin-right: 27px;\n  display: flex;\n  align-items: center;\n  font-size: 24px;\n}\n@media screen and (max-width: 1024px) {\n.header_nav[data-v-1f42fb90] {\n    display: block;\n    transform: translateX(100vw);\n    transition: all 0.3s linear;\n    position: absolute;\n    right: 0;\n    margin: 0;\n    z-index: 99999;\n}\n}\n.header_nav_menu[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  list-style-type: none;\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu[data-v-1f42fb90] {\n    display: block;\n    width: 60vw;\n    height: 100vh;\n    background-color: #ffffff;\n    flex-direction: column;\n    padding: 50px 0 0 0;\n}\n}\n@media screen and (max-width: 768px) {\n.header_nav_menu[data-v-1f42fb90] {\n    width: 100vw;\n}\n}\n.header_nav_menu_item[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  text-decoration: none;\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu_item[data-v-1f42fb90] {\n    margin: 0 0 30px 0;\n}\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu_item[data-v-1f42fb90]:first-child {\n    color: #000000;\n    margin: 0 0 30px 50px;\n}\n}\n@media screen and (max-width: 576px) {\n.header_nav_menu_item[data-v-1f42fb90]:first-child {\n    margin: 0 0 30px 25px;\n}\n}\n.header_nav_menu_item[data-v-1f42fb90]:not(:first-child) {\n  margin-left: 50px;\n}\n@media screen and (max-width: 576px) {\n.header_nav_menu_item[data-v-1f42fb90]:not(:first-child) {\n    margin-left: 25px;\n}\n}\n@media screen and (max-width: 1024px) {\n.header .iconActive[data-v-1f42fb90] {\n    transform: translateX(0);\n}\n}\n.overlay[data-v-1f42fb90] {\n  display: none;\n}\n@media screen and (max-width: 1024px) {\n.overlay[data-v-1f42fb90] {\n    position: absolute;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100vh;\n    background: rgba(100, 100, 100, 0.8);\n    z-index: 9999;\n}\n}\n@media screen and (max-width: 1024px) {\n.iconActive[data-v-1f42fb90] {\n    display: block;\n}\n}\n.wd_color_white[data-v-1f42fb90] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-1f42fb90] {\n  color: #000000;\n}\n.menu_wrap[data-v-1f42fb90] {\n  display: none;\n}\n@media screen and (max-width: 1024px) {\n.menu_wrap[data-v-1f42fb90] {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n}\n@media screen and (max-width: 1024px) {\n.menu-trigger[data-v-1f42fb90] {\n    display: inline-block;\n    transition: all 0.4s;\n    box-sizing: border-box;\n    position: relative;\n    z-index: 99999;\n    width: 50px;\n    height: 30px;\n    background: none;\n    border: none;\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n    cursor: pointer;\n    margin: 0 27px 0 0;\n}\n.menu-trigger span[data-v-1f42fb90] {\n    display: inline-block;\n    transition: all 0.4s;\n    box-sizing: border-box;\n    z-index: 100;\n    position: absolute;\n    left: 0;\n    width: 100%;\n    height: 4px;\n    background-color: #ffffff;\n    border-radius: 4px;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(1) {\n    top: 0;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(2) {\n    top: 13px;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(3) {\n    bottom: 0;\n}\n.menu-trigger .change_header[data-v-1f42fb90] {\n    background-color: #000000;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(1) {\n    transform: translateY(13px) rotate(-45deg);\n    background-color: #000000;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(2) {\n    opacity: 0;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(3) {\n    transform: translateY(-13px) rotate(45deg);\n    background-color: #000000;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".header[data-v-1f42fb90] {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n  position: fixed;\n  top: 0;\n  z-index: 999;\n}\n.header_logo[data-v-1f42fb90] {\n  width: 170px;\n  margin: 0 0 0 27px;\n}\n@media screen and (max-width: 576px) {\n.header_logo[data-v-1f42fb90] {\n    width: 100px;\n}\n}\n.header_logo a[data-v-1f42fb90] {\n  width: 100%;\n  height: 100%;\n}\n.header_logo a img[data-v-1f42fb90] {\n  width: 100%;\n}\n.header_nav[data-v-1f42fb90] {\n  height: 170px;\n  margin-right: 27px;\n  display: flex;\n  align-items: center;\n  font-size: 24px;\n}\n@media screen and (max-width: 1024px) {\n.header_nav[data-v-1f42fb90] {\n    display: block;\n    transform: translateX(100vw);\n    transition: all 0.3s linear;\n    position: absolute;\n    right: 0;\n    margin: 0;\n    z-index: 99999;\n}\n}\n.header_nav_menu[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  list-style-type: none;\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu[data-v-1f42fb90] {\n    display: block;\n    width: 60vw;\n    height: 100vh;\n    background-color: #ffffff;\n    flex-direction: column;\n    padding: 50px 0 0 0;\n}\n}\n@media screen and (max-width: 768px) {\n.header_nav_menu[data-v-1f42fb90] {\n    width: 100vw;\n}\n}\n.header_nav_menu_item[data-v-1f42fb90] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  text-decoration: none;\n  cursor: pointer;\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu_item[data-v-1f42fb90] {\n    margin: 0 0 30px 0;\n}\n}\n@media screen and (max-width: 1024px) {\n.header_nav_menu_item[data-v-1f42fb90]:first-child {\n    color: #000000;\n    margin: 0 0 30px 50px;\n}\n}\n@media screen and (max-width: 576px) {\n.header_nav_menu_item[data-v-1f42fb90]:first-child {\n    margin: 0 0 30px 25px;\n}\n}\n.header_nav_menu_item[data-v-1f42fb90]:not(:first-child) {\n  margin-left: 50px;\n}\n@media screen and (max-width: 576px) {\n.header_nav_menu_item[data-v-1f42fb90]:not(:first-child) {\n    margin-left: 25px;\n}\n}\n@media screen and (max-width: 1024px) {\n.header .iconActive[data-v-1f42fb90] {\n    transform: translateX(0);\n}\n}\n.overlay[data-v-1f42fb90] {\n  display: none;\n}\n@media screen and (max-width: 1024px) {\n.overlay[data-v-1f42fb90] {\n    position: absolute;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100vh;\n    background: rgba(100, 100, 100, 0.8);\n    z-index: 9999;\n}\n}\n@media screen and (max-width: 1024px) {\n.iconActive[data-v-1f42fb90] {\n    display: block;\n}\n}\n.wd_color_white[data-v-1f42fb90] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-1f42fb90] {\n  color: #000000;\n}\n.menu_wrap[data-v-1f42fb90] {\n  display: none;\n}\n@media screen and (max-width: 1024px) {\n.menu_wrap[data-v-1f42fb90] {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n}\n@media screen and (max-width: 1024px) {\n.menu-trigger[data-v-1f42fb90] {\n    display: inline-block;\n    transition: all 0.4s;\n    box-sizing: border-box;\n    position: relative;\n    z-index: 99999;\n    width: 50px;\n    height: 30px;\n    background: none;\n    border: none;\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n    cursor: pointer;\n    margin: 0 27px 0 0;\n}\n.menu-trigger span[data-v-1f42fb90] {\n    display: inline-block;\n    transition: all 0.4s;\n    box-sizing: border-box;\n    z-index: 100;\n    position: absolute;\n    left: 0;\n    width: 100%;\n    height: 4px;\n    background-color: #ffffff;\n    border-radius: 4px;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(1) {\n    top: 0;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(2) {\n    top: 13px;\n}\n.menu-trigger span[data-v-1f42fb90]:nth-of-type(3) {\n    bottom: 0;\n}\n.menu-trigger .change_header[data-v-1f42fb90] {\n    background-color: #000000;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(1) {\n    transform: translateY(13px) rotate(-45deg);\n    background-color: #000000;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(2) {\n    opacity: 0;\n}\n.iconActive span[data-v-1f42fb90]:nth-of-type(3) {\n    transform: translateY(-13px) rotate(45deg);\n    background-color: #000000;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38402,7 +38446,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".pagination_wrap[data-v-d7acf176] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.pagination[data-v-d7acf176] {\n  list-style-type: none;\n  display: flex;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n.pagination_item[data-v-d7acf176] {\n  border: 1px solid #000000;\n  padding: 10px;\n}\n.pagination_item[data-v-d7acf176]:first-child {\n  border-radius: 10px 0 0 10px;\n}\n.pagination_item[data-v-d7acf176]:last-child {\n  border-radius: 0 10px 10px 0;\n}\n.page-link[data-v-d7acf176] {\n  text-decoration: none;\n  color: #000000;\n}\n.disabled .page-link[data-v-d7acf176] {\n  color: #6c757d;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".pagination_wrap[data-v-d7acf176] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.pagination[data-v-d7acf176] {\n  list-style-type: none;\n  display: flex;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n.pagination_item[data-v-d7acf176] {\n  border: 1px solid #000000;\n  padding: 10px;\n}\n.pagination_item[data-v-d7acf176]:first-child {\n  border-radius: 10px 0 0 10px;\n}\n.pagination_item[data-v-d7acf176]:last-child {\n  border-radius: 0 10px 10px 0;\n}\n.page-link[data-v-d7acf176] {\n  text-decoration: none;\n  color: #000000;\n}\n.disabled .page-link[data-v-d7acf176] {\n  color: #6c757d;\n}\n@media screen and (max-width: 768px) {\n.mobile_pagination_disable[data-v-d7acf176] {\n    display: none;\n}\n}\n.mobile_pagination[data-v-d7acf176] {\n  display: none;\n}\n@media screen and (max-width: 768px) {\n.mobile_pagination[data-v-d7acf176] {\n    display: block;\n}\n}\n.prev[data-v-d7acf176], .next[data-v-d7acf176] {\n  width: 25px;\n  text-align: center;\n}\n.w_color[data-v-d7acf176] {\n  color: #6c757d;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38816,7 +38860,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button-black[data-v-c491e298] {\n  background-color: #000000;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  border: none;\n  outline: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".button-black[data-v-c491e298] {\n  background-color: #000000;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38840,7 +38884,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button-green[data-v-6cfda890] {\n  background-color: #3cb371;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  border: none;\n  outline: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".button-green[data-v-6cfda890] {\n  background-color: #3cb371;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38864,7 +38908,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button-orange[data-v-3c77a1c9] {\n  background-color: #F87D09;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  border: none;\n  outline: none;\n}\n@media screen and (max-width: 1024px) {\n.button-orange[data-v-3c77a1c9] {\n    padding: 20px 10px;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".button-orange[data-v-3c77a1c9] {\n  background-color: #F87D09;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  border: none;\n  outline: none;\n  cursor: pointer;\n}\n@media screen and (max-width: 1024px) {\n.button-orange[data-v-3c77a1c9] {\n    padding: 20px 10px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38888,7 +38932,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button-red[data-v-c4f63cf4] {\n  background-color: #F54335;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  outline: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".button-red[data-v-c4f63cf4] {\n  background-color: #F54335;\n  color: #ffffff;\n  font-weight: bold;\n  border-radius: 20px;\n  padding: 22px 10px;\n  outline: none;\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38912,7 +38956,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button-white[data-v-28a1b444] {\n  background-color: #ffffff;\n  color: #000000;\n  font-weight: bold;\n  border: 1px solid #000000;\n  border-radius: 20px;\n  padding: 22px 10px;\n  outline: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".button-white[data-v-28a1b444] {\n  background-color: #ffffff;\n  color: #000000;\n  font-weight: bold;\n  border: 1px solid #000000;\n  border-radius: 20px;\n  padding: 22px 10px;\n  outline: none;\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38984,7 +39028,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.gallery[data-v-3c14590c] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.gallery[data-v-3c14590c] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.gallery_title[data-v-3c14590c] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 20px;\n}\n.gallery_list[data-v-3c14590c] {\n  -moz-columns: 3;\n       columns: 3; /*段組みの数*/\n  list-style-type: none;\n}\n@media screen and (max-width: 576px) {\n.gallery_list[data-v-3c14590c] {\n    -moz-columns: 1;\n         columns: 1;\n}\n}\n.gallery_list_item[data-v-3c14590c] {\n  margin-bottom: 20px; /*各画像下に余白をつける*/\n}\n.gallery_list_item img[data-v-3c14590c] {\n  width: 100%;\n  height: auto;\n  vertical-align: bottom; /*画像の下にできる余白を削除*/\n}\n.pagination_component[data-v-3c14590c] {\n  margin: 100px 0 0 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.gallery[data-v-3c14590c] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.gallery[data-v-3c14590c] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.gallery_title[data-v-3c14590c] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 20px;\n}\n.gallery_list[data-v-3c14590c] {\n  -moz-columns: 3;\n       columns: 3; /*段組みの数*/\n  list-style-type: none;\n}\n@media screen and (max-width: 576px) {\n.gallery_list[data-v-3c14590c] {\n    -moz-columns: 1;\n         columns: 1;\n}\n}\n.gallery_list_item[data-v-3c14590c] {\n  margin-bottom: 20px; /*各画像下に余白をつける*/\n}\n.gallery_list_item img[data-v-3c14590c] {\n  width: 100%;\n  height: auto;\n  vertical-align: bottom; /*画像の下にできる余白を削除*/\n  cursor: pointer;\n}\n.pagination_component[data-v-3c14590c] {\n  margin: 100px 0 0 0;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

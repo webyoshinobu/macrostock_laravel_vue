@@ -15,37 +15,60 @@
     <ul class="pagination">
         <!-- Previous Page Link -->
         <li class="pagination_item disabled" v-if="isFirstPage">
-            <span class="page-link">&laquo; prev</span>
+            <!-- PC用 -->
+            <span class="page-link mobile_pagination_disable">&laquo; prev</span>
+            <!-- モバイル用 -->
+            <span class="page-link mobile_pagination prev">&laquo;</span>
         </li>
         <li v-if="! isFirstPage" class="pagination_item">
+            <!-- PC用 -->
             <router-link
             :to="`/gallery?page=${currentPage - 1}`"
-            class="page-link">
+            class="page-link mobile_pagination_disable">
             &laquo; prev
+            </router-link>
+            <!-- モバイル用 -->
+            <router-link
+            :to="`/gallery?page=${currentPage - 1}`"
+            class="page-link mobile_pagination prev">
+            &laquo;
             </router-link>
         </li>
 
         <!-- Pagination Elements -->
+        <!-- PC用 -->
         <li
-            class="pagination_item"
+            class="pagination_item mobile_pagination_disable"
             :class="{active: currentPage == page}"
             v-for="page in displayList"
             :key="page"
         >
             <router-link class="page-link" :to="`/gallery?page=${page}`" v-if="currentPage != page">{{page}}</router-link>
-            <span class="page-link" v-if="currentPage == page">{{ page }}</span>
+            <span class="page-link w_color" v-if="currentPage == page">{{ page }}</span>
         </li>
+        <!-- モバイル用 -->
+        <li class="pagination_item mobile_pagination">Page {{currentPage}} / {{lastPage}}</li>
 
          <!-- Next Page Link -->
         <li v-if="! isLastPage" class="pagination_item">
+            <!-- PC用 -->
             <router-link
             :to="`/gallery?page=${currentPage + 1}`"
-            class="page-link">
+            class="page-link mobile_pagination_disable">
             next &raquo;
+            </router-link>
+            <!-- モバイル用 -->
+            <router-link
+            :to="`/gallery?page=${currentPage + 1}`"
+            class="page-link mobile_pagination next">
+            &raquo;
             </router-link>
         </li>
         <li class="pagination_item disabled" v-if="isLastPage">
-            <span class="page-link">next &raquo;</span>
+            <!-- PC用 -->
+            <span class="page-link mobile_pagination_disable">next &raquo;</span>
+            <!-- モバイル用 -->
+            <span class="page-link mobile_pagination next">&raquo;</span>
         </li>
     </ul>
   </div>
@@ -144,5 +167,28 @@ export default defineComponent({
     .page-link {
         color: #6c757d;
     }
+}
+
+.mobile_pagination_disable {
+    @include tb {
+        display: none;
+    }
+}
+
+.mobile_pagination {
+    display: none;
+
+    @include tb {
+        display: block;
+    }
+}
+
+.prev, .next {
+    width: 25px;
+    text-align: center;
+}
+
+.w_color {
+    color: #6c757d;
 }
 </style>

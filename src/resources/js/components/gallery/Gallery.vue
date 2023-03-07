@@ -4,7 +4,7 @@
     <ul class="gallery_list">
         <li v-for="image in images" :key="image.index" :images="images" class="gallery_list_item">
             <!-- <img :src="image.src" :alt="image.alt" @click="pushImg(image)"> -->
-            <img :src="image.url" :alt="image.filename" @click="pushImg(image)">
+            <img :src="image.url" :alt="image.filename" @click="pushImg(image)" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
         </li>
     </ul>
     <Pagination :current-page="currentPage" :last-page="lastPage" class="pagination_component" />
@@ -128,6 +128,7 @@ export default defineComponent({
                 width:100%;
                 height:auto;
                 vertical-align: bottom;/*画像の下にできる余白を削除*/
+                cursor: pointer;
             }
         }
     }
