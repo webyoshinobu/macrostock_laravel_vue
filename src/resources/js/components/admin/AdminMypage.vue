@@ -461,14 +461,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../../sass/prepends.scss";
 .adminmypage {
     width: 80%;
     padding: 170px 10% 0 10%;
     margin: 0 0 100px 0;
 
+    @include sm {
+        padding: 107px 10% 100px 10%;
+    }
+
     &_title {
-        font-size: 70px;
+        // font-size: 70px;
+        @include f-80;
         margin-bottom: 50px;
+
+        @include sm {
+            @include f-33;
+            margin-bottom: 30px;
+        }
     }
 
     &_wrap{
@@ -476,7 +487,8 @@ export default defineComponent({
         &_title {
             background-color: #000000;
             color: #ffffff;
-            font-size: 36px;
+            // font-size: 36px;
+            @include f-36;
             font-weight: bold;
             padding: 18.5px 0 18.5px 10px;
         }
@@ -484,7 +496,8 @@ export default defineComponent({
         &_content {
             border: 2px solid #000000;
             padding: 20px;
-            font-size: 36px;
+            // font-size: 36px;
+            @include f-36;
             margin: 0 0 40px 0;
 
             &_list {
@@ -494,18 +507,38 @@ export default defineComponent({
                     display: flex;
                     padding: 20px 0;
 
+                    @include md {
+                        flex-direction: column;
+                    }
+
                     &_title{
                         width: 33.33%;
+                        overflow-wrap: break-word;
+
+                        @include md {
+                            width: 100%;
+                        }
                     }
 
                     &_info{
                         width: 46.33%;
+                        overflow-wrap: break-word;
+
+                        @include md {
+                            margin: 0 0 20px 5%;
+                            width: 95%;
+                        }
                     }
 
                     &_button{
                         width: 20.33%;
                         display: flex;
                         justify-content: center;
+
+                        @include md {
+                            width: 100%;
+                            justify-content: flex-end;
+                        }
 
                         &_word {
                             padding: 10px;
@@ -529,10 +562,12 @@ export default defineComponent({
 
         h3 {
             padding: 0 0 20px 0;
-            font-size: 24px;
+            // font-size: 24px;
+            @include f-24;
         }
 
         &_item {
+            width: 100%;
             margin: 0 0 20px 0;
         }
 
@@ -559,6 +594,18 @@ export default defineComponent({
             display: flex;
             flex-direction: column;
             margin: 0 0 20px 0;
+
+            @include md {
+                width: 30%;
+            }
+
+            @include tb {
+                width: 47%;
+            }
+
+            @include sm {
+                width: 100%;
+            }
 
             &_img {
                 width: 100%;
@@ -588,7 +635,8 @@ export default defineComponent({
 }
 
 .f-40 {
-    font-size: 40px;
+    // font-size: 40px;
+    @include f-40;
 }
 
 .panel {
@@ -618,7 +666,8 @@ export default defineComponent({
 // }
 .errors {
     margin: 0 0 20px 0;
-    font-size: 24px;
+    // font-size: 24px;
+    @include f-24;
     color: red;
     font-weight: bold;
 
@@ -655,23 +704,30 @@ export default defineComponent({
   padding: 1em;
   background:#fff;
   border-radius: 20px;
+
+  @include tb {
+    width: 80%;
+  }
 }
 
 .deletephoto_modal_content {
 
     h2 {
-        font-size: 36px;
+        // font-size: 36px;
+        @include f-36;
         margin: 20px 0;
     }
 
     &_word {
-        font-size: 24px;
+        // font-size: 24px;
+        @include f-24;
         text-align: left;
     }
 
     &_form {
         margin: 20px 0;
-        font-size: 24px;
+        // font-size: 24px;
+        @include f-24;
 
         &_label {
             margin: 0 0 0 20px;
@@ -681,7 +737,8 @@ export default defineComponent({
     &_button {
         display: flex;
         justify-content: flex-end;
-        font-size: 24px;
+        // font-size: 24px;
+        @include f-24;
 
         &_content {
             padding: 10px;
@@ -744,23 +801,30 @@ export default defineComponent({
   padding: 1em;
   background:#fff;
   border-radius: 20px;
+
+  @include tb {
+    width: 80%;
+  }
 }
 
 .deleteaccount_modal_content {
 
     h2 {
-        font-size: 36px;
+        // font-size: 36px;
+        @include f-36;
         margin: 20px 0;
     }
 
     &_word {
-        font-size: 24px;
+        // font-size: 24px;
+        @include f-24;
         text-align: left;
     }
 
     &_form {
         margin: 20px 0;
-        font-size: 24px;
+        // font-size: 24px;
+        @include f-24;
 
         &_label {
             margin: 0 0 0 20px;
@@ -770,7 +834,8 @@ export default defineComponent({
     &_button {
         display: flex;
         justify-content: flex-end;
-        font-size: 24px;
+        // font-size: 24px;
+        @include f-24;
 
         &_content {
             padding: 10px;

@@ -34,9 +34,9 @@
 
         </form>
 
-        <div class="admin_explain">
+        <!-- <div class="admin_explain">
             <p class="admin_explain_word">パスワードをお忘れですか？</p>
-        </div>
+        </div> -->
 
     </section>
 </template>
@@ -104,14 +104,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../../sass/prepends.scss";
 .admin {
     width: 80%;
     padding: 170px 10% 0 10%;
     margin: 0 0 100px 0;
 
+    @include sm {
+        padding: 107px 10% 100px 10%;
+    }
+
     &_title {
-        font-size: 70px;
+        // font-size: 70px;
+        @include f-80;
         margin-bottom: 50px;
+
+        @include sm {
+            @include f-33;
+            margin-bottom: 30px;
+        }
     }
 
     &_form {
@@ -119,7 +130,8 @@ export default defineComponent({
         flex-flow: column;
 
         &_line {
-            font-size: 36px;
+            // font-size: 36px;
+            @include f-36;
             border-bottom: solid 2px #000000;
 
             &:not(:last-child) {
@@ -136,27 +148,36 @@ export default defineComponent({
         &_submit {
             display: flex;
             justify-content: center;
+
+            &_button{
+                @include f-24;
+            }
         }
     }
 
     &_explain {
-        font-size: 24px;
+        // font-size: 24px;
+        @include f-24;
         padding: 0 10%;
 
         &_word {
-        display: flex;
-        justify-content: center;
-        padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
 
-        &:not(:last-child) {
-            border-bottom: solid 2px #000000;
+            &:not(:last-child) {
+                border-bottom: solid 2px #000000;
+            }
         }
-    }
     }
 
     &_toRegister {
         display: flex;
         justify-content: center;
+
+        &_button{
+            @include f-24;
+        }
     }
 }
 
@@ -165,7 +186,8 @@ export default defineComponent({
 
     ul {
         list-style: none;
-        font-size: 24px;
+        // font-size: 24px;
+        @include f-24;
         color: red;
         font-weight: bold;
     }

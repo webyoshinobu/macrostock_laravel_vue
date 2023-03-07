@@ -46,7 +46,7 @@
                     <ButtonRed @click="clickChangePassword">変更する</ButtonRed>
                 </div>
                 <router-link to="/mypage" class="userchangepassword_wrap_form_button_common">
-                    <ButtonWhite class="margin-left">マイページトップへ戻る</ButtonWhite>
+                    <ButtonWhite>マイページトップへ戻る</ButtonWhite>
                 </router-link>
             </div>
 
@@ -240,10 +240,6 @@ export default defineComponent({
         }
     }
 }
-
-// .margin-left {
-//     margin: 0 0 0 10px;
-// }
 
 .errors {
     margin: 0 0 20px 0;

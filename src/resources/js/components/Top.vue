@@ -62,7 +62,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-// @import "../../sass/_fontSize.scss";
 @import "../../sass/prepends.scss";
 .top {
     width: 100%;
