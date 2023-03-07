@@ -28496,10 +28496,12 @@ var pinia_1 = __webpack_require__(/*! pinia */ "./node_modules/pinia/index.js");
 var vue_router_1 = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/index.js");
 var auth_1 = __webpack_require__(/*! ../../../../store/auth */ "./store/auth.ts");
 var ButtonOrange_vue_1 = __importDefault(__webpack_require__(/*! ../common/ButtonOrange.vue */ "./resources/js/components/common/ButtonOrange.vue"));
+var term_vue_1 = __importDefault(__webpack_require__(/*! ../term.vue */ "./resources/js/components/term.vue"));
 exports["default"] = (0, vue_1.defineComponent)({
   name: 'Register',
   components: {
-    ButtonOrange: ButtonOrange_vue_1["default"]
+    ButtonOrange: ButtonOrange_vue_1["default"],
+    Term: term_vue_1["default"]
   },
   setup: function setup() {
     var _this = this;
@@ -28518,11 +28520,16 @@ exports["default"] = (0, vue_1.defineComponent)({
     var token = (0, auth_1.auth)().csrf;
     var _ref2 = (0, pinia_1.storeToRefs)((0, auth_1.auth)()),
       getApiStatus = _ref2.getApiStatus;
+    var term = (0, vue_1.ref)();
     //computed
     var registerErrors = (0, vue_1.computed)(function () {
       return (0, auth_1.auth)().registerErrorMessages;
     });
     // methods
+    var termOpen = function termOpen() {
+      term.value.openModal(); //子コンポーネント(term)の呼び出し
+    };
+
     var clickRegister = function clickRegister() {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var data, apiStatus;
@@ -28564,7 +28571,9 @@ exports["default"] = (0, vue_1.defineComponent)({
       clickRegister: clickRegister,
       register: register,
       registerErrors: registerErrors,
-      clearError: clearError
+      clearError: clearError,
+      termOpen: termOpen,
+      term: term
     };
   }
 });
@@ -33482,28 +33491,30 @@ var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
   }, "パスワード(確認)", -1 /* HOISTED */);
 });
 
-var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("div", {
-    "class": "register_form_term"
-  }, [/*#__PURE__*/(0, vue_1.createElementVNode)("input", {
+var _hoisted_16 = {
+  "class": "register_form_term"
+};
+var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0, vue_1.createElementVNode)("input", {
     "class": "register_form_term_checkbox",
     id: "register_form_checkbox",
     type: "checkbox"
-  }), /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
-    "class": "register_form_term_link",
-    "for": "register_form_checkbox"
-  }, "Macro Stock利用規約に同意する（ご登録前に必ずご確認ください。）")], -1 /* HOISTED */);
+  }, null, -1 /* HOISTED */);
 });
 
-var _hoisted_17 = {
+var _hoisted_18 = {
+  "class": "register_form_term_link"
+};
+var _hoisted_19 = {
   "class": "register_form_submit"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ButtonOrange = (0, vue_1.resolveComponent)("ButtonOrange");
+  var _component_Term = (0, vue_1.resolveComponent)("Term");
   return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createCommentVNode)(" <div class=\"\"> "), (0, vue_1.createElementVNode)("form", {
     method: "post",
     "class": "register_form",
-    onSubmit: _cache[4] || (_cache[4] = (0, vue_1.withModifiers)(
+    onSubmit: _cache[5] || (_cache[5] = (0, vue_1.withModifiers)(
     //@ts-ignore
     function () {
       return _ctx.clickRegister && _ctx.clickRegister.apply(_ctx, arguments);
@@ -33552,7 +33563,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return _ctx.registerForm.password_confirmation = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.password_confirmation]])]), _hoisted_16, (0, vue_1.createElementVNode)("div", _hoisted_17, [(0, vue_1.createVNode)(_component_ButtonOrange, {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.password_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0, vue_1.createCommentVNode)(" <label class=\"register_form_term_link\" for=\"register_form_checkbox\" >Macro Stock<span class=\"term\">利用規約</span>に同意する（ご登録前に必ずご確認ください。）</label> "), (0, vue_1.createElementVNode)("label", _hoisted_18, [(0, vue_1.createTextVNode)("Macro Stock"), (0, vue_1.createElementVNode)("span", {
+    "class": "term",
+    onClick: _cache[4] || (_cache[4] =
+    //@ts-ignore
+    function () {
+      return _ctx.termOpen && _ctx.termOpen.apply(_ctx, arguments);
+    })
+  }, "利用規約"), (0, vue_1.createTextVNode)("に同意する（ご登録前に必ずご確認ください。）")])]), (0, vue_1.createElementVNode)("div", _hoisted_19, [(0, vue_1.createVNode)(_component_ButtonOrange, {
     "class": "register_form_submit_button",
     type: "submit"
   }, {
@@ -33560,8 +33578,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0, vue_1.createTextVNode)("登録")];
     }),
     _: 1 /* STABLE */
-  })])], 32 /* HYDRATE_EVENTS */), (0, vue_1.createCommentVNode)(" </div> ")]);
+  })])], 32 /* HYDRATE_EVENTS */), (0, vue_1.createCommentVNode)(" </div> "), (0, vue_1.createCommentVNode)(" モーダルでTermで表示 "), (0, vue_1.createVNode)(_component_Term, {
+    ref: "term"
+  }, null, 512 /* NEED_PATCH */)]);
 }
+
 exports.render = render;
 
 /***/ }),
@@ -38668,7 +38689,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".register[data-v-d4f9cbe2] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.register[data-v-d4f9cbe2] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.register_title[data-v-d4f9cbe2] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 50px;\n}\n@media screen and (max-width: 576px) {\n.register_title[data-v-d4f9cbe2] {\n    font-size: clamp(1.688rem, 1vw + 1rem, 2.125rem);\n    margin-bottom: 30px;\n}\n}\n.register_form[data-v-d4f9cbe2] {\n  display: flex;\n  flex-flow: column;\n}\n.register_form_line[data-v-d4f9cbe2] {\n  display: flex;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n@media screen and (max-width: 1024px) {\n.register_form_line[data-v-d4f9cbe2] {\n    flex-direction: column;\n}\n}\n.register_form_line[data-v-d4f9cbe2]:not(:last-child) {\n  margin: 0 0 20px 0;\n}\n.register_form_line_label[data-v-d4f9cbe2] {\n  width: 30%;\n}\n@media screen and (max-width: 1024px) {\n.register_form_line_label[data-v-d4f9cbe2] {\n    width: 100%;\n}\n}\n.register_form_line_input[data-v-d4f9cbe2] {\n  width: 70%;\n}\n@media screen and (max-width: 1024px) {\n.register_form_line_input[data-v-d4f9cbe2] {\n    width: 100%;\n}\n}\n.register_form_term[data-v-d4f9cbe2] {\n  margin: 0 0 20px 30%;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n}\n@media screen and (max-width: 1024px) {\n.register_form_term[data-v-d4f9cbe2] {\n    margin: 0 0 20px 0;\n}\n}\n.register_form_term_checkbox[data-v-d4f9cbe2] {\n  transform: scale(2);\n}\n.register_form_term_link[data-v-d4f9cbe2] {\n  margin: 0 0 0 20px;\n}\n.register_form_submit[data-v-d4f9cbe2] {\n  display: flex;\n  justify-content: center;\n}\n.register_form_submit_button[data-v-d4f9cbe2] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  width: 150px;\n}\n.errors[data-v-d4f9cbe2] {\n  margin: 0 0 20px 0;\n}\n.errors ul[data-v-d4f9cbe2] {\n  list-style: none;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  color: red;\n  font-weight: bold;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".register[data-v-d4f9cbe2] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.register[data-v-d4f9cbe2] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.register_title[data-v-d4f9cbe2] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 50px;\n}\n@media screen and (max-width: 576px) {\n.register_title[data-v-d4f9cbe2] {\n    font-size: clamp(1.688rem, 1vw + 1rem, 2.125rem);\n    margin-bottom: 30px;\n}\n}\n.register_form[data-v-d4f9cbe2] {\n  display: flex;\n  flex-flow: column;\n}\n.register_form_line[data-v-d4f9cbe2] {\n  display: flex;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n@media screen and (max-width: 1024px) {\n.register_form_line[data-v-d4f9cbe2] {\n    flex-direction: column;\n}\n}\n.register_form_line[data-v-d4f9cbe2]:not(:last-child) {\n  margin: 0 0 20px 0;\n}\n.register_form_line_label[data-v-d4f9cbe2] {\n  width: 30%;\n}\n@media screen and (max-width: 1024px) {\n.register_form_line_label[data-v-d4f9cbe2] {\n    width: 100%;\n}\n}\n.register_form_line_input[data-v-d4f9cbe2] {\n  width: 70%;\n}\n@media screen and (max-width: 1024px) {\n.register_form_line_input[data-v-d4f9cbe2] {\n    width: 100%;\n}\n}\n.register_form_term[data-v-d4f9cbe2] {\n  margin: 0 0 20px 30%;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n}\n@media screen and (max-width: 1024px) {\n.register_form_term[data-v-d4f9cbe2] {\n    margin: 0 0 20px 0;\n}\n}\n.register_form_term_checkbox[data-v-d4f9cbe2] {\n  transform: scale(2);\n}\n.register_form_term_link[data-v-d4f9cbe2] {\n  margin: 0 0 0 20px;\n}\n.register_form_submit[data-v-d4f9cbe2] {\n  display: flex;\n  justify-content: center;\n}\n.register_form_submit_button[data-v-d4f9cbe2] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  width: 150px;\n}\n.errors[data-v-d4f9cbe2] {\n  margin: 0 0 20px 0;\n}\n.errors ul[data-v-d4f9cbe2] {\n  list-style: none;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  color: red;\n  font-weight: bold;\n}\n.term[data-v-d4f9cbe2] {\n  text-decoration: underline;\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
