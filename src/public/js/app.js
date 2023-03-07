@@ -28521,6 +28521,8 @@ exports["default"] = (0, vue_1.defineComponent)({
     var _ref2 = (0, pinia_1.storeToRefs)((0, auth_1.auth)()),
       getApiStatus = _ref2.getApiStatus;
     var term = (0, vue_1.ref)();
+    var term_checked = (0, vue_1.ref)(false);
+    var term_error = (0, vue_1.ref)('');
     //computed
     var registerErrors = (0, vue_1.computed)(function () {
       return (0, auth_1.auth)().registerErrorMessages;
@@ -28536,11 +28538,17 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              console.log('registerForm', registerForm);
+              if (!(term_checked.value == false)) {
+                _context.next = 3;
+                break;
+              }
+              term_error.value = '利用規約に同意をお願いいたします。';
+              return _context.abrupt("return", term_error);
+            case 3:
               data = registerForm; // authストアのresigterアクションを呼び出す
-              _context.next = 4;
+              _context.next = 6;
               return register(data);
-            case 4:
+            case 6:
               apiStatus = (0, auth_1.auth)().getApiStatus;
               console.log('register apiStatus', apiStatus);
               // トップページに移動する
@@ -28549,7 +28557,7 @@ exports["default"] = (0, vue_1.defineComponent)({
                   name: 'top'
                 });
               }
-            case 7:
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -28558,6 +28566,7 @@ exports["default"] = (0, vue_1.defineComponent)({
     };
     var clearError = function clearError() {
       setRegisterErrorMessages(null);
+      term_error.value = '';
       console.log('clearError');
     };
     (0, vue_1.onMounted)(function () {
@@ -28573,7 +28582,9 @@ exports["default"] = (0, vue_1.defineComponent)({
       registerErrors: registerErrors,
       clearError: clearError,
       termOpen: termOpen,
-      term: term
+      term: term,
+      term_checked: term_checked,
+      term_error: term_error
     };
   }
 });
@@ -33452,56 +33463,52 @@ var _hoisted_7 = {
   key: 2
 };
 var _hoisted_8 = {
+  key: 1,
+  "class": "errors"
+};
+var _hoisted_9 = {
   "class": "register_form_line"
 };
-var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
     "class": "register_form_line_label",
     "for": "register_form_username"
   }, "氏名", -1 /* HOISTED */);
 });
 
-var _hoisted_10 = {
+var _hoisted_11 = {
   "class": "register_form_line"
 };
-var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
     "class": "register_form_line_label",
     "for": "register_form_email"
   }, "メールアドレス", -1 /* HOISTED */);
 });
 
-var _hoisted_12 = {
+var _hoisted_13 = {
   "class": "register_form_line"
 };
-var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
     "class": "register_form_line_label",
     "for": "register_form_pass"
   }, "パスワード", -1 /* HOISTED */);
 });
 
-var _hoisted_14 = {
+var _hoisted_15 = {
   "class": "register_form_line"
 };
-var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0, vue_1.createElementVNode)("label", {
     "class": "register_form_line_label",
     "for": "register_form_passconfirmation"
   }, "パスワード(確認)", -1 /* HOISTED */);
 });
 
-var _hoisted_16 = {
+var _hoisted_17 = {
   "class": "register_form_term"
 };
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0, vue_1.createElementVNode)("input", {
-    "class": "register_form_term_checkbox",
-    id: "register_form_checkbox",
-    type: "checkbox"
-  }, null, -1 /* HOISTED */);
-});
-
 var _hoisted_18 = {
   "class": "register_form_term_link"
 };
@@ -33514,7 +33521,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("section", _hoisted_1, [_hoisted_2, (0, vue_1.createCommentVNode)(" <div class=\"\"> "), (0, vue_1.createElementVNode)("form", {
     method: "post",
     "class": "register_form",
-    onSubmit: _cache[5] || (_cache[5] = (0, vue_1.withModifiers)(
+    onSubmit: _cache[6] || (_cache[6] = (0, vue_1.withModifiers)(
     //@ts-ignore
     function () {
       return _ctx.clickRegister && _ctx.clickRegister.apply(_ctx, arguments);
@@ -33526,46 +33533,53 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8 /* PROPS */, _hoisted_3), _ctx.registerErrors ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_4, [_ctx.registerErrors.name ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_5, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.registerErrors.name, function (msg) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: msg
-    }, [(0, vue_1.createTextVNode)((0, vue_1.toDisplayString)(msg) + " ", 1 /* TEXT */), (0, vue_1.createCommentVNode)(" 氏名を入力してください。 ")]);
+    }, (0, vue_1.toDisplayString)(msg), 1 /* TEXT */);
   }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.registerErrors.email ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_6, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.registerErrors.email, function (msg) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: msg
-    }, [(0, vue_1.createTextVNode)((0, vue_1.toDisplayString)(msg) + " ", 1 /* TEXT */), (0, vue_1.createCommentVNode)(" メールアドレスを入力してください。 ")]);
+    }, (0, vue_1.toDisplayString)(msg), 1 /* TEXT */);
   }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.registerErrors.password ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("ul", _hoisted_7, [((0, vue_1.openBlock)(true), (0, vue_1.createElementBlock)(vue_1.Fragment, null, (0, vue_1.renderList)(_ctx.registerErrors.password, function (msg) {
     return (0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("li", {
       key: msg
-    }, [(0, vue_1.createTextVNode)((0, vue_1.toDisplayString)(msg) + " ", 1 /* TEXT */), (0, vue_1.createCommentVNode)(" パスワードを入力してください。 ")]);
-  }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true)])) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+    }, (0, vue_1.toDisplayString)(msg), 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))])) : (0, vue_1.createCommentVNode)("v-if", true)])) : (0, vue_1.createCommentVNode)("v-if", true), _ctx.term_error ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)("div", _hoisted_8, [(0, vue_1.createElementVNode)("ul", null, [(0, vue_1.createElementVNode)("li", null, (0, vue_1.toDisplayString)(_ctx.term_error), 1 /* TEXT */)])])) : (0, vue_1.createCommentVNode)("v-if", true), (0, vue_1.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "text",
     "class": "register_form_line_input",
     id: "register_form_username",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return _ctx.registerForm.name = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.name]])]), (0, vue_1.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.name]])]), (0, vue_1.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "text",
     "class": "register_form_line_input",
     id: "register_form_email",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return _ctx.registerForm.email = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.email]])]), (0, vue_1.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.email]])]), (0, vue_1.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "password",
     "class": "register_form_line_input",
     id: "register_form_pass",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return _ctx.registerForm.password = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.password]])]), (0, vue_1.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.password]])]), (0, vue_1.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
     type: "password",
     "class": "register_form_line_input",
     id: "register_form_passconfirmation",
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return _ctx.registerForm.password_confirmation = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.password_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0, vue_1.createCommentVNode)(" <label class=\"register_form_term_link\" for=\"register_form_checkbox\" >Macro Stock<span class=\"term\">利用規約</span>に同意する（ご登録前に必ずご確認ください。）</label> "), (0, vue_1.createElementVNode)("label", _hoisted_18, [(0, vue_1.createTextVNode)("Macro Stock"), (0, vue_1.createElementVNode)("span", {
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelText, _ctx.registerForm.password_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_17, [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+    "class": "register_form_term_checkbox",
+    id: "register_form_checkbox",
+    type: "checkbox",
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+      return _ctx.term_checked = $event;
+    })
+  }, null, 512 /* NEED_PATCH */), [[vue_1.vModelCheckbox, _ctx.term_checked]]), (0, vue_1.createCommentVNode)(" <label class=\"register_form_term_link\" for=\"register_form_checkbox\" >Macro Stock<span class=\"term\">利用規約</span>に同意する（ご登録前に必ずご確認ください。）</label> "), (0, vue_1.createElementVNode)("label", _hoisted_18, [(0, vue_1.createTextVNode)("Macro Stock"), (0, vue_1.createElementVNode)("span", {
     "class": "term",
-    onClick: _cache[4] || (_cache[4] =
+    onClick: _cache[5] || (_cache[5] =
     //@ts-ignore
     function () {
       return _ctx.termOpen && _ctx.termOpen.apply(_ctx, arguments);
