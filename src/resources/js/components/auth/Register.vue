@@ -49,7 +49,8 @@
 
                 <div class="register_form_term">
                     <input class="register_form_term_checkbox" id="register_form_checkbox" type="checkbox">
-                    <label class="register_form_term_link" for="register_form_checkbox" >Macro Stock利用規約に同意する（ご登録前に必ずご確認ください。）</label>
+                    <!-- <label class="register_form_term_link" for="register_form_checkbox" >Macro Stock<span class="term">利用規約</span>に同意する（ご登録前に必ずご確認ください。）</label> -->
+                    <label class="register_form_term_link">Macro Stock<span class="term" @click="termOpen">利用規約</span>に同意する（ご登録前に必ずご確認ください。）</label>
                 </div>
 
                 <div class="register_form_submit">
@@ -57,6 +58,8 @@
                 </div>
             </form>
         <!-- </div> -->
+        <!-- モーダルでTermで表示 -->
+        <Term ref="term" />
     </section>
 
 </template>
@@ -67,11 +70,13 @@ import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 import { auth } from '../../../../store/auth';
 import ButtonOrange from "../common/ButtonOrange.vue";
+import Term from "../term.vue";
 
 export default defineComponent({
     name: 'Register',
     components: {
         ButtonOrange,
+        Term,
     },
 
     setup() {
@@ -87,6 +92,7 @@ export default defineComponent({
         };
         const token = auth().csrf;
         const { getApiStatus } = storeToRefs(auth());
+        let term = ref();
 
         //computed
         const registerErrors = computed(() => {
@@ -94,6 +100,10 @@ export default defineComponent({
         })
 
         // methods
+        const termOpen = () => {
+            term.value.openModal(); //子コンポーネント(term)の呼び出し
+        }
+
         const clickRegister = async () => {
             console.log('registerForm', registerForm);
             const data = registerForm;
@@ -118,7 +128,7 @@ export default defineComponent({
             clearError();
         });
 
-        return { router, route, registerForm, token, clickRegister, register, registerErrors, clearError };
+        return { router, route, registerForm, token, clickRegister, register, registerErrors, clearError, termOpen, term };
     }
 
 });
@@ -220,6 +230,11 @@ export default defineComponent({
         color: red;
         font-weight: bold;
     }
+}
+
+.term {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 </style>
