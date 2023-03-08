@@ -180,9 +180,9 @@ export default defineComponent({
                 flex-direction: column;
             }
 
-            &:not(:last-child) {
-                margin: 0 0 20px 0;
-            }
+            // &:not(:last-child) {
+                margin: 20px 0 20px 0;
+            // }
 
             &_label {
                 width: 30%;
@@ -233,7 +233,7 @@ export default defineComponent({
 }
 
 .errors {
-    margin: 0 0 20px 0;
+    margin: 0 0 0 0;
 
     ul {
         list-style: none;

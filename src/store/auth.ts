@@ -277,13 +277,14 @@ export const auth = defineStore('auth', {
 
             this.apiStatus = false
             const response = await axios.get('/api/admin');
-            console.log('auth.ts currentUser response.data', response.data);
+            console.log('auth.ts currentAdmin response.data', response.data);
             const admin = response.data || null
-            console.log('auth.ts currentUser admin', admin);
+            console.log('auth.ts currentAdmin admin', admin);
 
             if (response.status === OK) {
                 this.apiStatus = true
                 this.adminUser = admin
+                this.adminFlag = response.data.admin_flag;
                 return false
             }
 
