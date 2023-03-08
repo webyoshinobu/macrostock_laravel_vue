@@ -24834,7 +24834,7 @@ exports["default"] = (0, vue_1.defineComponent)({
           while (1) switch (_context.prev = _context.next) {
             case 0:
               console.log('Header logout apiStatus', (0, auth_1.auth)().getApiStatus);
-              console.log('Header logout admin_flag', (0, auth_1.auth)().getAdminFlag);
+              console.log('Header logout admin_flag', authStore.getAdminFlag);
               if (!((0, auth_1.auth)().getAdminFlag == 1)) {
                 _context.next = 7;
                 break;
@@ -24870,6 +24870,7 @@ exports["default"] = (0, vue_1.defineComponent)({
     // computed
     // lifecycle hooks
     (0, vue_1.onMounted)(function () {
+      console.log('Header.vue onMounted()');
       addClass();
     });
     return {
@@ -36499,20 +36500,21 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].get('/api/admin');
             case 3:
               response = _context12.sent;
-              console.log('auth.ts currentUser response.data', response.data);
+              console.log('auth.ts currentAdmin response.data', response.data);
               admin = response.data || null;
-              console.log('auth.ts currentUser admin', admin);
+              console.log('auth.ts currentAdmin admin', admin);
               if (!(response.status === util_1.OK)) {
-                _context12.next = 11;
+                _context12.next = 12;
                 break;
               }
               this.apiStatus = true;
               this.adminUser = admin;
+              this.adminFlag = response.data.admin_flag;
               return _context12.abrupt("return", false);
-            case 11:
+            case 12:
               this.apiStatus = false;
               (0, error_1.error)().setCode(response.status);
-            case 13:
+            case 14:
             case "end":
               return _context12.stop();
           }
@@ -38703,7 +38705,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".register[data-v-d4f9cbe2] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.register[data-v-d4f9cbe2] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.register_title[data-v-d4f9cbe2] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 50px;\n}\n@media screen and (max-width: 576px) {\n.register_title[data-v-d4f9cbe2] {\n    font-size: clamp(1.688rem, 1vw + 1rem, 2.125rem);\n    margin-bottom: 30px;\n}\n}\n.register_form[data-v-d4f9cbe2] {\n  display: flex;\n  flex-flow: column;\n}\n.register_form_line[data-v-d4f9cbe2] {\n  display: flex;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n}\n@media screen and (max-width: 1024px) {\n.register_form_line[data-v-d4f9cbe2] {\n    flex-direction: column;\n}\n}\n.register_form_line[data-v-d4f9cbe2]:not(:last-child) {\n  margin: 0 0 20px 0;\n}\n.register_form_line_label[data-v-d4f9cbe2] {\n  width: 30%;\n}\n@media screen and (max-width: 1024px) {\n.register_form_line_label[data-v-d4f9cbe2] {\n    width: 100%;\n}\n}\n.register_form_line_input[data-v-d4f9cbe2] {\n  width: 70%;\n}\n@media screen and (max-width: 1024px) {\n.register_form_line_input[data-v-d4f9cbe2] {\n    width: 100%;\n}\n}\n.register_form_term[data-v-d4f9cbe2] {\n  margin: 0 0 20px 30%;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  display: flex;\n}\n@media screen and (max-width: 1024px) {\n.register_form_term[data-v-d4f9cbe2] {\n    margin: 0 0 20px 0;\n}\n}\n.register_form_term_checkbox[data-v-d4f9cbe2] {\n  transform: scale(2);\n}\n.register_form_term_link[data-v-d4f9cbe2] {\n  margin: 0 0 0 20px;\n}\n.register_form_submit[data-v-d4f9cbe2] {\n  display: flex;\n  justify-content: center;\n}\n.register_form_submit_button[data-v-d4f9cbe2] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  width: 150px;\n}\n.errors[data-v-d4f9cbe2] {\n  margin: 0 0 20px 0;\n}\n.errors ul[data-v-d4f9cbe2] {\n  list-style: none;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  color: red;\n  font-weight: bold;\n}\n.term[data-v-d4f9cbe2] {\n  text-decoration: underline;\n  cursor: pointer;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".register[data-v-d4f9cbe2] {\n  width: 80%;\n  padding: 170px 10% 0 10%;\n  margin: 0 0 100px 0;\n}\n@media screen and (max-width: 576px) {\n.register[data-v-d4f9cbe2] {\n    padding: 107px 10% 100px 10%;\n}\n}\n.register_title[data-v-d4f9cbe2] {\n  font-size: clamp(3.125rem, 1vw + 1rem, 5.625rem);\n  margin-bottom: 50px;\n}\n@media screen and (max-width: 576px) {\n.register_title[data-v-d4f9cbe2] {\n    font-size: clamp(1.688rem, 1vw + 1rem, 2.125rem);\n    margin-bottom: 30px;\n}\n}\n.register_form[data-v-d4f9cbe2] {\n  display: flex;\n  flex-flow: column;\n}\n.register_form_line[data-v-d4f9cbe2] {\n  display: flex;\n  font-size: clamp(0.875rem, 2vw + 1rem, 2.25rem);\n  margin: 20px 0 20px 0;\n}\n@media screen and (max-width: 1024px) {\n.register_form_line[data-v-d4f9cbe2] {\n    flex-direction: column;\n}\n}\n.register_form_line_label[data-v-d4f9cbe2] {\n  width: 30%;\n}\n@media screen and (max-width: 1024px) {\n.register_form_line_label[data-v-d4f9cbe2] {\n    width: 100%;\n}\n}\n.register_form_line_input[data-v-d4f9cbe2] {\n  width: 70%;\n}\n@media screen and (max-width: 1024px) {\n.register_form_line_input[data-v-d4f9cbe2] {\n    width: 100%;\n}\n}\n.register_form_term[data-v-d4f9cbe2] {\n  margin: 0 0 20px 30%;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  display: flex;\n}\n@media screen and (max-width: 1024px) {\n.register_form_term[data-v-d4f9cbe2] {\n    margin: 0 0 20px 0;\n}\n}\n.register_form_term_checkbox[data-v-d4f9cbe2] {\n  transform: scale(2);\n}\n.register_form_term_link[data-v-d4f9cbe2] {\n  margin: 0 0 0 20px;\n}\n.register_form_submit[data-v-d4f9cbe2] {\n  display: flex;\n  justify-content: center;\n}\n.register_form_submit_button[data-v-d4f9cbe2] {\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  width: 150px;\n}\n.errors[data-v-d4f9cbe2] {\n  margin: 0 0 0 0;\n}\n.errors ul[data-v-d4f9cbe2] {\n  list-style: none;\n  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);\n  color: red;\n  font-weight: bold;\n}\n.term[data-v-d4f9cbe2] {\n  text-decoration: underline;\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

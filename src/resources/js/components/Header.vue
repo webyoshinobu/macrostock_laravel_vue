@@ -90,7 +90,7 @@
 
             const clickLogout = async () => {
                 console.log('Header logout apiStatus', auth().getApiStatus);
-                console.log('Header logout admin_flag', auth().getAdminFlag);
+                console.log('Header logout admin_flag', authStore.getAdminFlag);
                 if(auth().getAdminFlag == 1){
                     await authStore.adminLogout();
                 }else{
@@ -119,6 +119,7 @@
 
             // lifecycle hooks
             onMounted(() => { //これがないとページ遷移後のヘッダーのスタイルが変わらない
+                console.log('Header.vue onMounted()')
                 addClass();
             });
 
