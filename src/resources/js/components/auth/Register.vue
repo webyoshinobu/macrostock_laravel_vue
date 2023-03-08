@@ -205,6 +205,7 @@ export default defineComponent({
             margin: 0 0 20px 30%;
             // font-size: 24px;
             @include f-24;
+            display: flex;
 
             @include md {
                 margin: 0 0 20px 0;
