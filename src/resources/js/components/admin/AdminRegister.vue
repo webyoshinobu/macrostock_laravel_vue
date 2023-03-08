@@ -92,8 +92,9 @@ export default defineComponent({
             // authストアのresigterアクションを呼び出す
             await adminRegister(data);
 
-            const apiStatus = auth().getApiStatus
+            const apiStatus = auth().getApiStatus;
             console.log('register apiStatus', apiStatus);
+            auth().currentAdmin();
 
             // トップページに移動する
             if (apiStatus == true) {
