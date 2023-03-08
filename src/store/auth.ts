@@ -204,6 +204,7 @@ export const auth = defineStore('auth', {
         async adminRegister (data:any) {
             this.adminUser = null;
             const response = await axios.post('/api/admin/register', data);
+            console.log('auth.ts adminRegister response.data', response.data);
             if (response.status === CREATED) {
                 this.apiStatus = true;
                 this.adminUser = response.data;

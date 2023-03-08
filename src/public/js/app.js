@@ -24879,6 +24879,7 @@ exports["default"] = (0, vue_1.defineComponent)({
       clickLogout: clickLogout,
       isChange: isChange,
       userInfo: userInfo,
+      getAdminFlag: getAdminFlag,
       token: token,
       isLoggedIn: isLoggedIn,
       onMounted: vue_1.onMounted,
@@ -27663,13 +27664,14 @@ exports["default"] = (0, vue_1.defineComponent)({
             case 4:
               apiStatus = (0, auth_1.auth)().getApiStatus;
               console.log('register apiStatus', apiStatus);
+              (0, auth_1.auth)().currentAdmin();
               // トップページに移動する
               if (apiStatus == true) {
                 router.push({
                   name: 'top'
                 });
               }
-            case 7:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -31915,8 +31917,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8 /* PROPS */, ["onClick"])];
     }),
     _: 1 /* STABLE */
-  })) : 'admin_flag' in _ctx.userInfo ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
-    key: 3,
+  })) : _ctx.getAdminFlag ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)(vue_1.Fragment, {
+    key: 3
+  }, [(0, vue_1.createCommentVNode)(" <router-link to=\"/admin/mypage\" v-else-if=\"'admin_flag' in userInfo\" class=\"header_nav_menu_item\"><ButtonBlack @click=\"resetIconActive\">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link> "), (0, vue_1.createVNode)(_component_router_link, {
     to: "/admin/mypage",
     "class": "header_nav_menu_item"
   }, {
@@ -31932,7 +31935,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, 8 /* PROPS */, ["onClick"])];
     }),
     _: 1 /* STABLE */
-  })) : ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
+  })], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */)) : ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
     key: 4,
     to: "/mypage",
     "class": "header_nav_menu_item"
@@ -36391,21 +36394,22 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].post('/api/admin/register', data);
             case 3:
               response = _context9.sent;
+              console.log('auth.ts adminRegister response.data', response.data);
               if (!(response.status === util_1.CREATED)) {
-                _context9.next = 8;
+                _context9.next = 9;
                 break;
               }
               this.apiStatus = true;
               this.adminUser = response.data;
               return _context9.abrupt("return", false);
-            case 8:
+            case 9:
               this.apiStatus = false;
               if (response.status === util_1.UNPROCESSABLE_ENTITY) {
                 this.registerErrorMessages = response.data.errors;
               } else {
                 (0, error_1.error)().setCode(response.status);
               }
-            case 10:
+            case 11:
             case "end":
               return _context9.stop();
           }
