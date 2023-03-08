@@ -31748,7 +31748,8 @@ var _hoisted_1 = {
 };
 var _hoisted_2 = {
   href: "https://instagram.com/macro.stock?igshid=YmMyMTA2M2Y=",
-  target: "_blank"
+  target: "_blank",
+  "class": "footer_instagram"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_fa = (0, vue_1.resolveComponent)("fa");
@@ -38406,7 +38407,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".footer[data-v-61a7c374] {\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 998;\n  display: flex;\n  justify-content: space-between;\n}\n.footer_admin[data-v-61a7c374] {\n  display: flex;\n  align-items: center;\n  margin: 0 27px 20px 0;\n  font-size: 24px;\n  text-decoration: none;\n}\n@media screen and (max-width: 1024px) {\n.footer_admin[data-v-61a7c374] {\n    display: none;\n}\n}\n.sns_logo[data-v-61a7c374] {\n  margin: 0 0 20px 27px;\n  color: #ffffff;\n}\n@media screen and (max-width: 414px) {\n.sns_logo[data-v-61a7c374] {\n    font-size: 50px;\n}\n}\n.wd_color_white[data-v-61a7c374] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-61a7c374] {\n  color: #000000;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".footer[data-v-61a7c374] {\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  z-index: 998;\n}\n.footer_instagram[data-v-61a7c374] {\n  position: absolute;\n  left: 0;\n  bottom: 0;\n}\n.footer_admin[data-v-61a7c374] {\n  display: flex;\n  align-items: center;\n  margin: 0 27px 20px 0;\n  font-size: 24px;\n  text-decoration: none;\n  position: absolute;\n  right: 0;\n  bottom: 0;\n}\n@media screen and (max-width: 1024px) {\n.footer_admin[data-v-61a7c374] {\n    display: none;\n}\n}\n.sns_logo[data-v-61a7c374] {\n  margin: 0 0 20px 27px;\n  color: #ffffff;\n}\n@media screen and (max-width: 414px) {\n.sns_logo[data-v-61a7c374] {\n    font-size: 50px;\n}\n}\n.wd_color_white[data-v-61a7c374] {\n  color: #ffffff;\n  font-weight: bold;\n}\n.change_header[data-v-61a7c374] {\n  color: #000000;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
