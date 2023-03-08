@@ -101,7 +101,8 @@
         <h3 class="f-40 margin-bottom">{{( userInfo || {} ).name}}様が販売中の写真一覧</h3>
 
         <ul class="adminmypage_list">
-            <li class="adminmypage_list_items" v-for="photo in photos" :key="photo.index">
+            <li v-if="photos.length == 0" class="adminmypage_list_no_photo">販売している写真はありません。</li>
+            <li v-else class="adminmypage_list_items" v-for="photo in photos" :key="photo.index">
             <!-- <li class="adminmypage_list_items" v-for="photo in photo_list" :key="photo.index"> -->
                 <div class="adminmypage_list_items_img">
                     <img class="adminmypage_list_items_img_content" :src="photo.img_url" :alt="photo.filename" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
@@ -587,6 +588,10 @@ export default defineComponent({
             content: "";
             display: block;
             width: 32%;
+        }
+
+        &_no_photo {
+            @include f-24;
         }
 
         &_items {
