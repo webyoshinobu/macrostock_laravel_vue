@@ -51,15 +51,15 @@ export default defineComponent({
         // data
         let { items } = storeToRefs(cartCounter());
         // const items = cartCounter().items;
-        console.log('Cart.vue', items);
+        // console.log('Cart.vue', items);
         const tax = 1.1
 
         // methods
         const removeImg = (item:any) => {
-            console.log('Cart.vue removeImg')
-            console.log('Cart.vue item', item)
+            // console.log('Cart.vue removeImg')
+            // console.log('Cart.vue item', item)
             cartCounter().removeItem(item)
-            console.log('Cart.vue removeImg', items)
+            // console.log('Cart.vue removeImg', items)
         }
 
         const pricePrefix = (price:number) => {

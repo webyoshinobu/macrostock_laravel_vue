@@ -87,13 +87,13 @@ export default defineComponent({
 
         // methods
         const clickRegister = async () => {
-            console.log('registerForm', registerForm);
+            // console.log('registerForm', registerForm);
             const data = registerForm;
             // authストアのresigterアクションを呼び出す
             await adminRegister(data);
 
             const apiStatus = auth().getApiStatus;
-            console.log('register apiStatus', apiStatus);
+            // console.log('register apiStatus', apiStatus);
             auth().currentAdmin();
 
             // トップページに移動する

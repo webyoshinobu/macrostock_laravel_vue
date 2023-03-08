@@ -97,7 +97,7 @@ export const auth = defineStore('auth', {
             // this.apiStatus = false
             const response = await axios.post('/api/login', data).
             catch(err => err.response || err);
-            console.log('auth.ts login response.status1', response.status);
+            // console.log('auth.ts login response.status1', response.status);
             if (response.status === OK) {
                 this.apiStatus = true;
                 this.user = response.data;
@@ -106,9 +106,9 @@ export const auth = defineStore('auth', {
 
             this.apiStatus = false;
             error().setCode(response.status);
-            console.log('auth.ts login response.data', response.data);
-            console.log('auth.ts login response.status2', response.status);
-            console.log('auth.ts login this.apiStatus', this.apiStatus);
+            // console.log('auth.ts login response.data', response.data);
+            // console.log('auth.ts login response.status2', response.status);
+            // console.log('auth.ts login this.apiStatus', this.apiStatus);
 
             if (response.status === UNPROCESSABLE_ENTITY) {
                 this.loginErrorMessages = response.data.errors
@@ -143,9 +143,9 @@ export const auth = defineStore('auth', {
 
             this.apiStatus = false
             const response = await axios.get('/api/user')
-            console.log('auth.ts currentUser response.data', response.data);
+            // console.log('auth.ts currentUser response.data', response.data);
             const user = response.data || null
-            console.log('auth.ts currentUser user', user);
+            // console.log('auth.ts currentUser user', user);
 
             if (response.status === OK) {
                 this.apiStatus = true
@@ -159,7 +159,7 @@ export const auth = defineStore('auth', {
 
         async changePassword (data:any) {
             const response = await axios.post('api/changePassword', data)
-            console.log('auth.ts changePassword response', response)
+            // console.log('auth.ts changePassword response', response)
             if(response.status == OK) {
                 this.changePasswordStatus = response.status
                 this.changePasswordSuccess = response.data.changeSuccess
@@ -175,7 +175,7 @@ export const auth = defineStore('auth', {
 
         async changeEmail (data:any) {
             const response = await axios.post('api/changeEmail', data)
-            console.log('auth.ts changeEmail response', response)
+            // console.log('auth.ts changeEmail response', response)
             if(response.status == OK) {
                 this.changeEmailStatus = response.status
                 this.changeEmailSuccess = response.data.changeSuccess
@@ -188,13 +188,13 @@ export const auth = defineStore('auth', {
 
         async confirmUserPass(currentPass:any) {
             const response = await axios.post('api/deleteAccountPasswordConfirm', currentPass)
-            console.log('auth.ts confirmUserPass response', response)
+            // console.log('auth.ts confirmUserPass response', response)
             return response
         },
 
         async deleteAccount (data:number) {
             const response = await axios.post('api/deleteAccount', data)
-            console.log('auth.ts deleteAccount response', response)
+            // console.log('auth.ts deleteAccount response', response)
             return response
         },
 
@@ -204,7 +204,7 @@ export const auth = defineStore('auth', {
         async adminRegister (data:any) {
             this.adminUser = null;
             const response = await axios.post('/api/admin/register', data);
-            console.log('auth.ts adminRegister response.data', response.data);
+            // console.log('auth.ts adminRegister response.data', response.data);
             if (response.status === CREATED) {
                 this.apiStatus = true;
                 this.adminUser = response.data;
@@ -227,21 +227,21 @@ export const auth = defineStore('auth', {
             // this.apiStatus = false
             const response = await axios.post('/api/admin/login', data).
             catch(err => err.response || err);
-            console.log('adminLogin data', data);
-            console.log('auth.ts login response.status1', response.status);
+            // console.log('adminLogin data', data);
+            // console.log('auth.ts login response.status1', response.status);
             if (response.status === OK) {
                 this.apiStatus = true;
                 this.adminUser = response.data;
                 this.adminFlag = response.data.admin_flag;
-                console.log('adminLogin this.adminFlag', this.adminFlag);
+                // console.log('adminLogin this.adminFlag', this.adminFlag);
                 return false;
             }
 
             this.apiStatus = false;
             error().setCode(response.status);
-            console.log('auth.ts login response.data', response.data);
-            console.log('auth.ts login response.status2', response.status);
-            console.log('auth.ts login this.apiStatus', this.apiStatus);
+            // console.log('auth.ts login response.data', response.data);
+            // console.log('auth.ts login response.status2', response.status);
+            // console.log('auth.ts login this.apiStatus', this.apiStatus);
 
             if (response.status === UNPROCESSABLE_ENTITY) {
                 this.loginErrorMessages = response.data.errors
@@ -278,9 +278,9 @@ export const auth = defineStore('auth', {
 
             this.apiStatus = false
             const response = await axios.get('/api/admin');
-            console.log('auth.ts currentAdmin response.data', response.data);
+            // console.log('auth.ts currentAdmin response.data', response.data);
             const admin = response.data || null
-            console.log('auth.ts currentAdmin admin', admin);
+            // console.log('auth.ts currentAdmin admin', admin);
 
             if (response.status === OK) {
                 this.apiStatus = true
@@ -295,13 +295,13 @@ export const auth = defineStore('auth', {
 
         async confirmAdminPass(currentPass:any) {
             const response = await axios.post('/api/admin/adminPassConfirm', currentPass)
-            console.log('auth.ts confirmUserPass response', response)
+            // console.log('auth.ts confirmUserPass response', response)
             return response
         },
 
         async changePasswordAdmin (data:any) {
             const response = await axios.post('/api/admin/changePassword', data)
-            console.log('auth.ts changePasswordAdmin response', response)
+            // console.log('auth.ts changePasswordAdmin response', response)
             if(response.status == OK) {
                 this.changePasswordStatus = response.status
                 this.changePasswordSuccess = response.data.changeSuccess
@@ -316,7 +316,7 @@ export const auth = defineStore('auth', {
         },
         async changeEmailAdmin (data:any) {
             const response = await axios.post('/api/admin/changeEmail', data)
-            console.log('auth.ts changeEmailAdmin response', response)
+            // console.log('auth.ts changeEmailAdmin response', response)
             if(response.status == OK) {
                 this.changeEmailStatus = response.status
                 this.changeEmailSuccess = response.data.changeSuccess
@@ -328,7 +328,7 @@ export const auth = defineStore('auth', {
         },
         async deleteAccountAdmin (admin:any, photos:any) {
             const response = await axios.post('/api/admin/deleteAccount', {admin, photos})
-            console.log('auth.ts deleteAccountAdmin response', response)
+            // console.log('auth.ts deleteAccountAdmin response', response)
             return response
         },
 

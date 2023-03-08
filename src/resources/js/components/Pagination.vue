@@ -126,8 +126,8 @@ export default defineComponent({
             return list;
         })
 
-        console.log('Pagination.vue isFirstPage', isFirstPage);
-        console.log('Pagination.vue isLastPage', isLastPage);
+        // console.log('Pagination.vue isFirstPage', isFirstPage);
+        // console.log('Pagination.vue isLastPage', isLastPage);
 
         return { router, route, isFirstPage, isLastPage, displayList }
     },

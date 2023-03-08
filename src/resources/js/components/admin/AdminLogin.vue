@@ -75,12 +75,12 @@ export default defineComponent({
 
         // methods
         const clickLogin = async () => {
-            console.log('admin loginForm', loginForm)
+            // console.log('admin loginForm', loginForm)
             const data = loginForm;
             await adminLogin(data);
 
             const apiStatus = auth().getApiStatus
-            console.log('login apiStatus', apiStatus);
+            // console.log('login apiStatus', apiStatus);
 
             // トップページに移動する
             if (apiStatus == true) {

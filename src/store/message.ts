@@ -22,7 +22,7 @@ export const message = defineStore('message', {
 
             setTimeout(() => (content = ''), timeout)
 
-            console.log('message.ts content', this.content, timeout);
+            // console.log('message.ts content', this.content, timeout);
         }
     },
 })

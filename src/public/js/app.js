@@ -24833,34 +24833,32 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              console.log('Header logout apiStatus', (0, auth_1.auth)().getApiStatus);
-              console.log('Header logout admin_flag', authStore.getAdminFlag);
               if (!((0, auth_1.auth)().getAdminFlag == 1)) {
-                _context.next = 7;
+                _context.next = 5;
                 break;
               }
-              _context.next = 5;
+              _context.next = 3;
               return authStore.adminLogout();
-            case 5:
-              _context.next = 9;
+            case 3:
+              _context.next = 7;
               break;
-            case 7:
-              _context.next = 9;
+            case 5:
+              _context.next = 7;
               return authStore.logout();
-            case 9:
+            case 7:
               if (!((0, auth_1.auth)().getApiStatus == false)) {
-                _context.next = 13;
+                _context.next = 11;
                 break;
               }
-              _context.next = 12;
+              _context.next = 10;
               return (0, cart_1.cartCounter)().resetItems();
-            case 12:
+            case 10:
               router.push({
                 name: 'top'
               });
-            case 13:
+            case 11:
               console.log('clickLogout');
-            case 14:
+            case 12:
             case "end":
               return _context.stop();
           }
@@ -24955,11 +24953,11 @@ exports["default"] = (0, vue_1.defineComponent)({
     });
     var setVisible = function setVisible() {
       isVisible.value = true;
-      console.log('Message.vue isVisible', isVisible.value);
-      console.log('Message.vue getMessage', getMessage.value);
+      // console.log('Message.vue isVisible', isVisible.value);
+      // console.log('Message.vue getMessage', getMessage.value)
       showMessage.value = getMessage.value;
-      console.log('Message.vue showMessage', showMessage);
-      console.log('Message.vue content', messageStore.content);
+      // console.log('Message.vue showMessage', showMessage)
+      // console.log('Message.vue content', messageStore.content)
     };
     // const setMessage = computed(() =>{
     //     return messageStore.content
@@ -25033,8 +25031,8 @@ exports["default"] = (0, vue_1.defineComponent)({
       }
       return list;
     });
-    console.log('Pagination.vue isFirstPage', isFirstPage);
-    console.log('Pagination.vue isLastPage', isLastPage);
+    // console.log('Pagination.vue isFirstPage', isFirstPage);
+    // console.log('Pagination.vue isLastPage', isLastPage);
     return {
       router: router,
       route: route,
@@ -25993,8 +25991,6 @@ exports["default"] = (0, vue_1.defineComponent)({
       new_password: '',
       new_password_confirmation: ''
     });
-    // const error_current = ref('')
-    // const error_newpass = ref('')
     var changePasswordErrorsCurrent = (0, vue_1.computed)(function () {
       return authStore.changePasswordErrorMessagesCurrent;
     });
@@ -26448,20 +26444,19 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              console.log('admin loginForm', loginForm);
+              // console.log('admin loginForm', loginForm)
               data = loginForm;
-              _context.next = 4;
+              _context.next = 3;
               return adminLogin(data);
-            case 4:
-              apiStatus = (0, auth_1.auth)().getApiStatus;
-              console.log('login apiStatus', apiStatus);
+            case 3:
+              apiStatus = (0, auth_1.auth)().getApiStatus; // console.log('login apiStatus', apiStatus);
               // トップページに移動する
               if (apiStatus == true) {
                 router.push({
                   name: 'top'
                 });
               }
-            case 7:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -26908,7 +26903,7 @@ exports["default"] = (0, vue_1.defineComponent)({
       current_password: ''
     });
     (0, vue_1.watch)(userInfo, function () {
-      console.log('watch userInfo', userInfo.value);
+      // console.log('watch userInfo', userInfo.value)
       photoList(userInfo.value);
     }, {
       // deep: true,
@@ -26920,14 +26915,11 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              console.log('AdminMypage.vue photoList()', data);
-              _context.next = 3;
+              _context.next = 2;
               return (0, gallery_1.galleryImgs)().getPhotoList(data);
-            case 3:
+            case 2:
               photos.value = _context.sent;
-              console.log('AdminMypage.vue photoList() photos', photos);
-            // console.log('AdminMypage.vue photoList() photo_list', photo_list)
-            case 5:
+            case 3:
             case "end":
               return _context.stop();
           }
@@ -26975,12 +26967,13 @@ exports["default"] = (0, vue_1.defineComponent)({
       preview = '';
       photo = null;
       input.value = false;
-      console.log('input2', input.value);
+      // console.log('input2', input.value);
       (0, vue_1.nextTick)(function () {
         input.value = true;
-        console.log('input3', input.value);
+        // console.log('input3', input.value);
       });
     };
+
     var submit = function submit() {
       return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var formData, response, code, content, timeout;
@@ -27025,10 +27018,11 @@ exports["default"] = (0, vue_1.defineComponent)({
     };
     var deleteModalOpen = function deleteModalOpen(photo) {
       delete_modal.value = true;
-      console.log('AdminMypage.vue deleModalOpen photo', photo);
+      // console.log('AdminMypage.vue deleModalOpen photo', photo)
       selectedDeletePhoto.value = photo;
-      console.log('AdminMypage.vue deleModalOpen selectedDeletePhoto', selectedDeletePhoto);
+      // console.log('AdminMypage.vue deleModalOpen selectedDeletePhoto', selectedDeletePhoto)
     };
+
     var deleteModalClose = function deleteModalClose() {
       delete_modal.value = false;
       // password_error.value = ''
@@ -27042,40 +27036,37 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              console.log('AdminMypage.vue deleteImg deleteForm', deleteForm.value);
-              _context3.prev = 1;
-              _context3.next = 4;
+              _context3.prev = 0;
+              _context3.next = 3;
               return authStore.confirmAdminPass(deleteForm.value);
-            case 4:
+            case 3:
               response = _context3.sent;
-              console.log('AdminMypage.vue deleteImg confirmAdminPass response', response);
-              confirm_pass_status = response.status;
-              console.log('AdminMypage.vue deleteImg confirm_pass_status', confirm_pass_status);
+              // console.log('AdminMypage.vue deleteImg confirmAdminPass response', response)
+              confirm_pass_status = response.status; // console.log('AdminMypage.vue deleteImg confirm_pass_status', confirm_pass_status)
               if (deleteForm.value.current_password) {
-                _context3.next = 12;
+                _context3.next = 9;
                 break;
               }
               password_error.value = 'パスワードを入力してください。';
-              _context3.next = 37;
+              _context3.next = 32;
               break;
-            case 12:
+            case 9:
               if (!(confirm_pass_status != util_2.OK)) {
-                _context3.next = 16;
+                _context3.next = 13;
                 break;
               }
               password_error.value = response.data.errorMessage;
               // throw new Error(error_mismatch_pass.value)
-              _context3.next = 37;
+              _context3.next = 32;
               break;
-            case 16:
-              _context3.prev = 16;
-              _context3.next = 19;
+            case 13:
+              _context3.prev = 13;
+              _context3.next = 16;
               return galleryStore.deletePhoto(selectedDeletePhoto.value);
-            case 19:
+            case 16:
               delete_photo_response = _context3.sent;
-              console.log('AdminMypage.vue deleteImg delete_photo_response.status', delete_photo_response.status);
               if (!(delete_photo_response.status == util_2.OK)) {
-                _context3.next = 30;
+                _context3.next = 25;
                 break;
               }
               // selectedDeletePhoto.value = []
@@ -27083,31 +27074,31 @@ exports["default"] = (0, vue_1.defineComponent)({
               // delete_modal.value = false
               resetVals();
               success.value = '写真が削除されました。';
-              console.log(success.value);
+              // console.log(success.value)
               success_flag.value = true;
               photoList(userInfo.value);
               return _context3.abrupt("return");
-            case 30:
+            case 25:
               password_error.value = 'アカウントの削除に失敗しました。';
               throw new Error(password_error.value);
-            case 32:
-              _context3.next = 37;
+            case 27:
+              _context3.next = 32;
               break;
-            case 34:
-              _context3.prev = 34;
-              _context3.t0 = _context3["catch"](16);
+            case 29:
+              _context3.prev = 29;
+              _context3.t0 = _context3["catch"](13);
               console.error("エラー：", _context3.t0.message);
-            case 37:
+            case 32:
               throw new Error(password_error.value);
-            case 40:
-              _context3.prev = 40;
-              _context3.t1 = _context3["catch"](1);
+            case 35:
+              _context3.prev = 35;
+              _context3.t1 = _context3["catch"](0);
               console.error("エラー：", _context3.t1.message);
-            case 43:
+            case 38:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, null, [[1, 40], [16, 34]]);
+        }, _callee3, null, [[0, 35], [13, 29]]);
       }));
     };
     var resetVals = function resetVals() {
@@ -27140,72 +27131,68 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              console.log('AdminMypage.vue deleteAccount data', admin);
-              console.log('AdminMypage.vue deleteAccount deleteForm', deleteAccountForm.value);
-              _context4.prev = 2;
-              _context4.next = 5;
+              _context4.prev = 0;
+              _context4.next = 3;
               return authStore.confirmAdminPass(deleteAccountForm.value);
-            case 5:
+            case 3:
               response = _context4.sent;
-              console.log('AdminMypage.vue confirmAdminPass response', response);
-              confirm_pass_status = response.status;
-              console.log('AdminMypage.vue deleteAccount confirm_pass_status', confirm_pass_status);
+              // console.log('AdminMypage.vue confirmAdminPass response', response)
+              confirm_pass_status = response.status; // console.log('AdminMypage.vue deleteAccount confirm_pass_status', confirm_pass_status)
               if (deleteAccountForm.value.current_password) {
-                _context4.next = 13;
+                _context4.next = 9;
                 break;
               }
               password_error.value = 'パスワードを入力してください。';
-              _context4.next = 37;
+              _context4.next = 31;
               break;
-            case 13:
+            case 9:
               if (!(confirm_pass_status != util_2.OK)) {
-                _context4.next = 17;
+                _context4.next = 13;
                 break;
               }
               password_error.value = response.data.errorMessage;
               // throw new Error(error_mismatch_pass.value)
-              _context4.next = 37;
+              _context4.next = 31;
               break;
-            case 17:
-              _context4.prev = 17;
-              console.log('AdminMypage.vue deleteAccount photos', photos.value);
+            case 13:
+              _context4.prev = 13;
+              // console.log('AdminMypage.vue deleteAccount photos', photos.value)
               delete_photos = photos.value;
-              _context4.next = 22;
+              _context4.next = 17;
               return authStore.deleteAccountAdmin(admin, delete_photos);
-            case 22:
+            case 17:
               delete_account_response = _context4.sent;
-              console.log('AdminMypage.vue deleteAccount response.status', delete_account_response.status);
               if (!(delete_account_response.status == util_2.OK)) {
-                _context4.next = 30;
+                _context4.next = 24;
                 break;
               }
-              _context4.next = 27;
+              _context4.next = 21;
               return authStore.adminLogout();
-            case 27:
+            case 21:
               return _context4.abrupt("return", router.push({
                 name: 'deleteAccount'
               }));
-            case 30:
+            case 24:
               password_error.value = 'アカウントの削除に失敗しました。';
               throw new Error(password_error.value);
-            case 32:
-              _context4.next = 37;
+            case 26:
+              _context4.next = 31;
               break;
+            case 28:
+              _context4.prev = 28;
+              _context4.t0 = _context4["catch"](13);
+              console.error("エラー：", _context4.t0.message);
+            case 31:
+              throw new Error(password_error.value);
             case 34:
               _context4.prev = 34;
-              _context4.t0 = _context4["catch"](17);
-              console.error("エラー：", _context4.t0.message);
-            case 37:
-              throw new Error(password_error.value);
-            case 40:
-              _context4.prev = 40;
-              _context4.t1 = _context4["catch"](2);
+              _context4.t1 = _context4["catch"](0);
               console.error("エラー：", _context4.t1.message);
-            case 43:
+            case 37:
             case "end":
               return _context4.stop();
           }
-        }, _callee4, null, [[2, 40], [17, 34]]);
+        }, _callee4, null, [[0, 34], [13, 28]]);
       }));
     };
     (0, vue_1.onMounted)(function () {
@@ -27213,10 +27200,10 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              console.log('onMounted');
-              console.log('watch userInfo', userInfo.value);
+              // console.log('onMounted');
+              // console.log('watch userInfo', userInfo.value)
               photoList(userInfo.value);
-            case 3:
+            case 1:
             case "end":
               return _context5.stop();
           }
@@ -27657,13 +27644,12 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              console.log('registerForm', registerForm);
+              // console.log('registerForm', registerForm);
               data = registerForm; // authストアのresigterアクションを呼び出す
-              _context.next = 4;
+              _context.next = 3;
               return adminRegister(data);
-            case 4:
-              apiStatus = (0, auth_1.auth)().getApiStatus;
-              console.log('register apiStatus', apiStatus);
+            case 3:
+              apiStatus = (0, auth_1.auth)().getApiStatus; // console.log('register apiStatus', apiStatus);
               (0, auth_1.auth)().currentAdmin();
               // トップページに移動する
               if (apiStatus == true) {
@@ -27671,7 +27657,7 @@ exports["default"] = (0, vue_1.defineComponent)({
                   name: 'top'
                 });
               }
-            case 8:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -29928,72 +29914,68 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              console.log('UserMypage.vue deleteAccount data', data);
-              console.log('UserMypage.vue deleteAccount deleteForm', deleteForm.value);
-              _context.prev = 2;
-              _context.next = 5;
+              _context.prev = 0;
+              _context.next = 3;
               return confirmUserPass(deleteForm.value);
-            case 5:
+            case 3:
               response = _context.sent;
-              console.log('UserMypage.vue deleteAccount response', response);
-              confirm_pass_status = response.status;
-              console.log('UserMypage.vue deleteAccount confirm_pass_status', confirm_pass_status);
+              // console.log('UserMypage.vue deleteAccount response', response)
+              confirm_pass_status = response.status; // console.log('UserMypage.vue deleteAccount confirm_pass_status', confirm_pass_status)
               if (deleteForm.value.current_password) {
-                _context.next = 13;
+                _context.next = 9;
                 break;
               }
               password_error.value = 'パスワードを入力してください。';
-              _context.next = 35;
+              _context.next = 30;
               break;
-            case 13:
+            case 9:
               if (!(confirm_pass_status != util_1.OK)) {
-                _context.next = 17;
+                _context.next = 13;
                 break;
               }
               password_error.value = response.data.errorMessage;
               // throw new Error(error_mismatch_pass.value)
-              _context.next = 35;
+              _context.next = 30;
               break;
-            case 17:
-              _context.prev = 17;
-              _context.next = 20;
+            case 13:
+              _context.prev = 13;
+              _context.next = 16;
               return authStore.deleteAccount(data);
-            case 20:
+            case 16:
               delete_account_response = _context.sent;
-              console.log('UserMypage.vue deleteAccount response.status', delete_account_response.status);
               if (!(delete_account_response.status == util_1.OK)) {
-                _context.next = 28;
+                _context.next = 23;
                 break;
               }
-              _context.next = 25;
+              _context.next = 20;
               return authStore.logout();
-            case 25:
+            case 20:
               router.push({
                 name: 'deleteAccount'
               });
-              _context.next = 30;
+              _context.next = 25;
               break;
-            case 28:
+            case 23:
               password_error.value = 'アカウントの削除に失敗しました。';
               throw new Error(password_error.value);
-            case 30:
-              _context.next = 35;
+            case 25:
+              _context.next = 30;
               break;
-            case 32:
-              _context.prev = 32;
-              _context.t0 = _context["catch"](17);
+            case 27:
+              _context.prev = 27;
+              _context.t0 = _context["catch"](13);
               console.error("エラー：", _context.t0.message);
-            case 35:
+            case 30:
               throw new Error(password_error.value);
-            case 38:
-              _context.prev = 38;
-              _context.t1 = _context["catch"](2);
+            case 33:
+              _context.prev = 33;
+              _context.t1 = _context["catch"](0);
               console.error("エラー：", _context.t1.message);
-            case 41:
+            case 36:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[2, 38], [17, 32]]);
+        }, _callee, null, [[0, 33], [13, 27]]);
       }));
     };
     // const clearError = () => {
@@ -30417,13 +30399,14 @@ exports["default"] = (0, vue_1.defineComponent)({
     // let groupedData:any = []
     var groupedData = (0, vue_1.ref)([]);
     var groupByOrderHistory = function groupByOrderHistory(data) {
-      console.log('UserOrderHistory.vue groupByOrderHistory()');
-      console.log('UserOrderHistory.vue groupByOrderHistory() data', data);
+      // console.log('UserOrderHistory.vue groupByOrderHistory()')
+      // console.log('UserOrderHistory.vue groupByOrderHistory() data', data)
       // const groupedData = _.groupBy(data, 'uuid')
       // groupedData = _.groupBy(data, 'uuid')
       groupedData.value = Object.values(lodash_1["default"].groupBy(data, 'uuid'));
-      console.log('UserOrderHistory.vue groupByOrderHistory() groupedData', groupedData.value);
+      // console.log('UserOrderHistory.vue groupByOrderHistory() groupedData', groupedData.value)
     };
+
     var orderDateFormat = function orderDateFormat(date) {
       var date_obj = new Date(date);
       var order_year = date_obj.getFullYear(); // 西暦年取得
@@ -30431,7 +30414,7 @@ exports["default"] = (0, vue_1.defineComponent)({
       var order_day = date_obj.getDate(); // 日取得
       // 文字列として連結
       var format_date = ('0000' + order_year).slice(-4) + '/' + ('00' + (order_month + 1)).slice(-2) + '/' + ('00' + order_day).slice(-2);
-      console.log('UserOrderHistory.vue orderDateFormat', format_date);
+      // console.log('UserOrderHistory.vue orderDateFormat', format_date)
       return format_date;
     };
     var outputPdf = function outputPdf(data) {
@@ -30443,14 +30426,13 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              console.log('UserOrderHistory.vue data', data);
-              _context.next = 3;
+              _context.next = 2;
               return (0, order_1.order)().orderHistory(data);
-            case 3:
+            case 2:
               response = _context.sent;
-              _context.next = 6;
+              _context.next = 5;
               return groupByOrderHistory(response);
-            case 6:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -30506,15 +30488,16 @@ exports["default"] = (0, vue_1.defineComponent)({
     var _ref = (0, pinia_1.storeToRefs)((0, cart_1.cartCounter)()),
       items = _ref.items;
     // const items = cartCounter().items;
-    console.log('Cart.vue', items);
+    // console.log('Cart.vue', items);
     var tax = 1.1;
     // methods
     var removeImg = function removeImg(item) {
-      console.log('Cart.vue removeImg');
-      console.log('Cart.vue item', item);
+      // console.log('Cart.vue removeImg')
+      // console.log('Cart.vue item', item)
       (0, cart_1.cartCounter)().removeItem(item);
-      console.log('Cart.vue removeImg', items);
+      // console.log('Cart.vue removeImg', items)
     };
+
     var pricePrefix = function pricePrefix(price) {
       price = price * tax;
       return Number(price).toLocaleString();
@@ -30916,12 +30899,11 @@ exports["default"] = (0, vue_1.defineComponent)({
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              downloadItems = (0, cart_1.cartCounter)().items;
-              console.log('CartLoginAside.vue download downloadItems', downloadItems);
-              _context.next = 4;
+              downloadItems = (0, cart_1.cartCounter)().items; // console.log('CartLoginAside.vue download downloadItems', downloadItems);
+              _context.next = 3;
               return registerOrderData(downloadItems);
-            case 4:
-              _context.next = 6;
+            case 3:
+              _context.next = 5;
               return axios_1["default"].post('api/photos/zipDownLoad', downloadItems, {
                 responseType: "blob"
               }).then(function (response) {
@@ -30937,15 +30919,15 @@ exports["default"] = (0, vue_1.defineComponent)({
               })["catch"](function (error) {
                 console.log(error.messagae);
               });
-            case 6:
-              _context.next = 8;
+            case 5:
+              _context.next = 7;
               return (0, cart_1.cartCounter)().resetItems();
-            case 8:
+            case 7:
               //Thanksページへ移動
               router.push({
                 name: 'thanks'
               });
-            case 9:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -30962,39 +30944,37 @@ exports["default"] = (0, vue_1.defineComponent)({
                 user_id: (0, auth_1.auth)().userInfo.id,
                 order_total_amount: Math.floor(totalPrice.value * 1.1),
                 order_total_number: downloadItems.length
-              };
-              console.log('CartLoginAside.vue download userInfo.id', (0, auth_1.auth)().userInfo.id);
-              console.log('CartLoginAside.vue download totalPrice', totalPrice.value);
-              console.log('CartLoginAside.vue download downloadItems.length', downloadItems.length);
-              console.log('CartLoginAside.vue download orderData', orderData);
+              }; // console.log('CartLoginAside.vue download userInfo.id',auth().userInfo!.id)
+              // console.log('CartLoginAside.vue download totalPrice', totalPrice.value)
+              // console.log('CartLoginAside.vue download downloadItems.length', downloadItems.length)
+              // console.log('CartLoginAside.vue download orderData', orderData)
               //注文履歴を残す
               //orderテーブルに情報を登録する。このidを取得して、order_detailのorder_idとして登録する
-              _context2.next = 7;
+              _context2.next = 3;
               return (0, cart_1.cartCounter)().makeOrder(orderData);
-            case 7:
+            case 3:
               orderDataResponse = _context2.sent;
               //order_idを追加してorder_detailテーブルに追加する
-              console.log('CartLoginAside.vue download makeOrder orderDataResponse.data', orderDataResponse);
+              // console.log('CartLoginAside.vue download makeOrder orderDataResponse.data', orderDataResponse)
               for (i = 0; i < downloadItems.length; i++) {
                 downloadItems[i]['order_id'] = orderDataResponse['uuid'];
                 downloadItems[i]['order_total_number'] = Number(1);
               }
-              orderDetails = downloadItems;
-              console.log('CartLoginAside.vue download downloadItems order_id追加', downloadItems);
-              console.log('CartLoginAside.vue download orderDetails', orderDetails);
+              orderDetails = downloadItems; // console.log('CartLoginAside.vue download downloadItems order_id追加', downloadItems)
+              // console.log('CartLoginAside.vue download orderDetails', orderDetails)
               j = 0;
-            case 14:
+            case 7:
               if (!(j < orderDetails.length)) {
-                _context2.next = 20;
+                _context2.next = 13;
                 break;
               }
-              _context2.next = 17;
+              _context2.next = 10;
               return (0, cart_1.cartCounter)().makeOrderDetail(orderDetails[j]);
-            case 17:
+            case 10:
               j++;
-              _context2.next = 14;
+              _context2.next = 7;
               break;
-            case 20:
+            case 13:
             case "end":
               return _context2.stop();
           }
@@ -36195,26 +36175,25 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               });
             case 2:
               response = _context2.sent;
-              console.log('auth.ts login response.status1', response.status);
               if (!(response.status === util_1.OK)) {
-                _context2.next = 8;
+                _context2.next = 7;
                 break;
               }
               this.apiStatus = true;
               this.user = response.data;
               return _context2.abrupt("return", false);
-            case 8:
+            case 7:
               this.apiStatus = false;
               (0, error_1.error)().setCode(response.status);
-              console.log('auth.ts login response.data', response.data);
-              console.log('auth.ts login response.status2', response.status);
-              console.log('auth.ts login this.apiStatus', this.apiStatus);
+              // console.log('auth.ts login response.data', response.data);
+              // console.log('auth.ts login response.status2', response.status);
+              // console.log('auth.ts login this.apiStatus', this.apiStatus);
               if (response.status === util_1.UNPROCESSABLE_ENTITY) {
                 this.loginErrorMessages = response.data.errors;
               } else {
                 (0, error_1.error)().setCode(response.status);
               }
-            case 14:
+            case 10:
             case "end":
               return _context2.stop();
           }
@@ -36266,20 +36245,19 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].get('/api/user');
             case 3:
               response = _context4.sent;
-              console.log('auth.ts currentUser response.data', response.data);
-              user = response.data || null;
-              console.log('auth.ts currentUser user', user);
+              // console.log('auth.ts currentUser response.data', response.data);
+              user = response.data || null; // console.log('auth.ts currentUser user', user);
               if (!(response.status === util_1.OK)) {
-                _context4.next = 11;
+                _context4.next = 9;
                 break;
               }
               this.apiStatus = true;
               this.user = user;
               return _context4.abrupt("return", false);
-            case 11:
+            case 9:
               this.apiStatus = false;
               (0, error_1.error)().setCode(response.status);
-            case 13:
+            case 11:
             case "end":
               return _context4.stop();
           }
@@ -36296,7 +36274,7 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].post('api/changePassword', data);
             case 2:
               response = _context5.sent;
-              console.log('auth.ts changePassword response', response);
+              // console.log('auth.ts changePassword response', response)
               if (response.status == util_1.OK) {
                 this.changePasswordStatus = response.status;
                 this.changePasswordSuccess = response.data.changeSuccess;
@@ -36309,7 +36287,7 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
                 // console.log('auth.ts changePassword changePasswordErrorMessagesNewpass', this.changePasswordErrorMessagesNewpass)
               }
 
-            case 5:
+            case 4:
             case "end":
               return _context5.stop();
           }
@@ -36326,22 +36304,21 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].post('api/changeEmail', data);
             case 2:
               response = _context6.sent;
-              console.log('auth.ts changeEmail response', response);
               if (!(response.status == util_1.OK)) {
-                _context6.next = 11;
+                _context6.next = 10;
                 break;
               }
               this.changeEmailStatus = response.status;
               this.changeEmailSuccess = response.data.changeSuccess;
-              _context6.next = 9;
+              _context6.next = 8;
               return this.currentUser();
-            case 9:
-              _context6.next = 13;
+            case 8:
+              _context6.next = 12;
               break;
-            case 11:
+            case 10:
               this.changeEmailErrorMessagesCurrentEmail = response.data.errorCurrent;
               this.changeEmailErrorMessagesNewemail = response.data.errors;
-            case 13:
+            case 12:
             case "end":
               return _context6.stop();
           }
@@ -36358,9 +36335,8 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].post('api/deleteAccountPasswordConfirm', currentPass);
             case 2:
               response = _context7.sent;
-              console.log('auth.ts confirmUserPass response', response);
               return _context7.abrupt("return", response);
-            case 5:
+            case 4:
             case "end":
               return _context7.stop();
           }
@@ -36377,9 +36353,8 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].post('api/deleteAccount', data);
             case 2:
               response = _context8.sent;
-              console.log('auth.ts deleteAccount response', response);
               return _context8.abrupt("return", response);
-            case 5:
+            case 4:
             case "end":
               return _context8.stop();
           }
@@ -36400,22 +36375,21 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].post('/api/admin/register', data);
             case 3:
               response = _context9.sent;
-              console.log('auth.ts adminRegister response.data', response.data);
               if (!(response.status === util_1.CREATED)) {
-                _context9.next = 9;
+                _context9.next = 8;
                 break;
               }
               this.apiStatus = true;
               this.adminUser = response.data;
               return _context9.abrupt("return", false);
-            case 9:
+            case 8:
               this.apiStatus = false;
               if (response.status === util_1.UNPROCESSABLE_ENTITY) {
                 this.registerErrorMessages = response.data.errors;
               } else {
                 (0, error_1.error)().setCode(response.status);
               }
-            case 11:
+            case 10:
             case "end":
               return _context9.stop();
           }
@@ -36434,29 +36408,27 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               });
             case 2:
               response = _context10.sent;
-              console.log('adminLogin data', data);
-              console.log('auth.ts login response.status1', response.status);
               if (!(response.status === util_1.OK)) {
-                _context10.next = 11;
+                _context10.next = 8;
                 break;
               }
               this.apiStatus = true;
               this.adminUser = response.data;
               this.adminFlag = response.data.admin_flag;
-              console.log('adminLogin this.adminFlag', this.adminFlag);
+              // console.log('adminLogin this.adminFlag', this.adminFlag);
               return _context10.abrupt("return", false);
-            case 11:
+            case 8:
               this.apiStatus = false;
               (0, error_1.error)().setCode(response.status);
-              console.log('auth.ts login response.data', response.data);
-              console.log('auth.ts login response.status2', response.status);
-              console.log('auth.ts login this.apiStatus', this.apiStatus);
+              // console.log('auth.ts login response.data', response.data);
+              // console.log('auth.ts login response.status2', response.status);
+              // console.log('auth.ts login this.apiStatus', this.apiStatus);
               if (response.status === util_1.UNPROCESSABLE_ENTITY) {
                 this.loginErrorMessages = response.data.errors;
               } else {
                 (0, error_1.error)().setCode(response.status);
               }
-            case 17:
+            case 11:
             case "end":
               return _context10.stop();
           }
@@ -36510,21 +36482,20 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].get('/api/admin');
             case 3:
               response = _context12.sent;
-              console.log('auth.ts currentAdmin response.data', response.data);
-              admin = response.data || null;
-              console.log('auth.ts currentAdmin admin', admin);
+              // console.log('auth.ts currentAdmin response.data', response.data);
+              admin = response.data || null; // console.log('auth.ts currentAdmin admin', admin);
               if (!(response.status === util_1.OK)) {
-                _context12.next = 12;
+                _context12.next = 10;
                 break;
               }
               this.apiStatus = true;
               this.adminUser = admin;
               this.adminFlag = response.data.admin_flag;
               return _context12.abrupt("return", false);
-            case 12:
+            case 10:
               this.apiStatus = false;
               (0, error_1.error)().setCode(response.status);
-            case 14:
+            case 12:
             case "end":
               return _context12.stop();
           }
@@ -36541,9 +36512,8 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].post('/api/admin/adminPassConfirm', currentPass);
             case 2:
               response = _context13.sent;
-              console.log('auth.ts confirmUserPass response', response);
               return _context13.abrupt("return", response);
-            case 5:
+            case 4:
             case "end":
               return _context13.stop();
           }
@@ -36560,7 +36530,7 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].post('/api/admin/changePassword', data);
             case 2:
               response = _context14.sent;
-              console.log('auth.ts changePasswordAdmin response', response);
+              // console.log('auth.ts changePasswordAdmin response', response)
               if (response.status == util_1.OK) {
                 this.changePasswordStatus = response.status;
                 this.changePasswordSuccess = response.data.changeSuccess;
@@ -36573,7 +36543,7 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
                 // console.log('auth.ts changePassword changePasswordErrorMessagesNewpass', this.changePasswordErrorMessagesNewpass)
               }
 
-            case 5:
+            case 4:
             case "end":
               return _context14.stop();
           }
@@ -36590,22 +36560,21 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               return axios_1["default"].post('/api/admin/changeEmail', data);
             case 2:
               response = _context15.sent;
-              console.log('auth.ts changeEmailAdmin response', response);
               if (!(response.status == util_1.OK)) {
-                _context15.next = 11;
+                _context15.next = 10;
                 break;
               }
               this.changeEmailStatus = response.status;
               this.changeEmailSuccess = response.data.changeSuccess;
-              _context15.next = 9;
+              _context15.next = 8;
               return this.currentAdmin();
-            case 9:
-              _context15.next = 13;
+            case 8:
+              _context15.next = 12;
               break;
-            case 11:
+            case 10:
               this.changeEmailErrorMessagesCurrentEmail = response.data.errorCurrent;
               this.changeEmailErrorMessagesNewemail = response.data.errors;
-            case 13:
+            case 12:
             case "end":
               return _context15.stop();
           }
@@ -36625,9 +36594,8 @@ exports.auth = (0, pinia_1.defineStore)('auth', {
               });
             case 2:
               response = _context16.sent;
-              console.log('auth.ts deleteAccountAdmin response', response);
               return _context16.abrupt("return", response);
-            case 5:
+            case 4:
             case "end":
               return _context16.stop();
           }
@@ -37042,8 +37010,9 @@ exports.cartCounter = (0, pinia_1.defineStore)('cart', {
     addCart: function addCart(image) {
       this.items.push(image);
       // this.items = image;
-      console.log('cart.ts action this.items', this.items);
+      // console.log('cart.ts action this.items', this.items);
     },
+
     makeOrder: function makeOrder(downloadItems) {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var response;
@@ -37054,9 +37023,8 @@ exports.cartCounter = (0, pinia_1.defineStore)('cart', {
               return axios_1["default"].post('api/order', downloadItems);
             case 2:
               response = _context.sent;
-              console.log('cart.ts makeOrder response', response);
               return _context.abrupt("return", response.data);
-            case 5:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -37073,9 +37041,7 @@ exports.cartCounter = (0, pinia_1.defineStore)('cart', {
               return axios_1["default"].post('api/orderDetail', orderDetails);
             case 2:
               response = _context2.sent;
-              console.log('cart.ts makeOrderDetail response', response);
-            // return response.data
-            case 4:
+            case 3:
             case "end":
               return _context2.stop();
           }
@@ -37514,11 +37480,11 @@ exports.galleryImgs = (0, pinia_1.defineStore)('gallery', {
               return axios_1["default"].get('/api/gallery');
             case 2:
               response = _context.sent;
-              console.log('gallery.ts response.data', response.data);
+              // console.log('gallery.ts response.data', response.data);
               product_ims = response.data || null;
               this.product_imgs = product_ims;
-              console.log('gallery.ts this.product_imgs', this.product_imgs);
-            case 7:
+            // console.log('gallery.ts this.product_imgs', this.product_imgs);
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -37535,11 +37501,11 @@ exports.galleryImgs = (0, pinia_1.defineStore)('gallery', {
               return axios_1["default"].post('/api/admin/photoList', data);
             case 2:
               response = _context2.sent;
-              console.log('gallery.ts getPhotoList response.data', response.data);
+              // console.log('gallery.ts getPhotoList response.data', response.data);
               this.photo_list = response.data;
-              console.log('gallery.ts getPhotoList this.photo_list', this.photo_list);
+              // console.log('gallery.ts getPhotoList this.photo_list', this.photo_list);
               return _context2.abrupt("return", response.data);
-            case 7:
+            case 5:
             case "end":
               return _context2.stop();
           }
@@ -37557,9 +37523,8 @@ exports.galleryImgs = (0, pinia_1.defineStore)('gallery', {
               return axios_1["default"].post('/api/admin/photoDelete', data);
             case 3:
               response = _context3.sent;
-              console.log('gallery.ts deletePhoto response', response);
               return _context3.abrupt("return", response);
-            case 6:
+            case 5:
             case "end":
               return _context3.stop();
           }
@@ -37606,7 +37571,7 @@ exports.message = (0, pinia_1.defineStore)('message', {
       setTimeout(function () {
         return content = '';
       }, timeout);
-      console.log('message.ts content', this.content, timeout);
+      // console.log('message.ts content', this.content, timeout);
     }
   }
 });
@@ -37992,10 +37957,10 @@ exports.order = (0, pinia_1.defineStore)('order', {
               return axios_1["default"].post('api/orderHistory', data);
             case 2:
               response = _context.sent;
-              console.log('order.ts orderHistory response', response);
+              // console.log('order.ts orderHistory response', response)
               this.order_history = response.data;
               return _context.abrupt("return", response.data);
-            case 6:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -38063,40 +38028,40 @@ exports.thanksItems = (0, pinia_1.defineStore)('thanks', {
   //保持したいデータ
   state: function state() {
     return {
-      // ordered_ims: [],
+      ordered_imgs: []
       //srcのパスは先頭に/がないとPhoto.vueへ遷移後にうまく表示されない
-      ordered_imgs: {
-        ordered_img1: {
-          index: 1,
-          src: "/images/product_imgs/dummy_img_horizontal1.jpg",
-          alt: "サンプル画像"
-        },
-        ordered_img2: {
-          index: 2,
-          src: "/images/product_imgs/dummy_img_vertical1.jpg",
-          alt: "サンプル画像"
-        },
-        ordered_img3: {
-          index: 3,
-          src: "/images/product_imgs/dummy_img_horizontal2.jpg",
-          alt: "サンプル画像"
-        },
-        ordered_img4: {
-          index: 4,
-          src: "/images/product_imgs/dummy_img_horizontal2.jpg",
-          alt: "サンプル画像"
-        },
-        ordered_img5: {
-          index: 5,
-          src: "/images/product_imgs/dummy_img_vertical2.jpg",
-          alt: "サンプル画像"
-        },
-        ordered_img6: {
-          index: 6,
-          src: "/images/product_imgs/dummy_img_horizontal3.jpg",
-          alt: "サンプル画像"
-        }
-      }
+      // ordered_imgs: {
+      //     ordered_img1: {
+      //         index: 1,
+      //         src: "/images/product_imgs/dummy_img_horizontal1.jpg",
+      //         alt: "サンプル画像"
+      //     },
+      //     ordered_img2: {
+      //         index: 2,
+      //         src: "/images/product_imgs/dummy_img_vertical1.jpg",
+      //         alt: "サンプル画像"
+      //     },
+      //     ordered_img3: {
+      //         index: 3,
+      //         src: "/images/product_imgs/dummy_img_horizontal2.jpg",
+      //         alt: "サンプル画像"
+      //     },
+      //     ordered_img4: {
+      //         index: 4,
+      //         src: "/images/product_imgs/dummy_img_horizontal2.jpg",
+      //         alt: "サンプル画像"
+      //     },
+      //     ordered_img5: {
+      //         index: 5,
+      //         src: "/images/product_imgs/dummy_img_vertical2.jpg",
+      //         alt: "サンプル画像"
+      //     },
+      //     ordered_img6: {
+      //         index: 6,
+      //         src: "/images/product_imgs/dummy_img_horizontal3.jpg",
+      //         alt: "サンプル画像"
+      //     },
+      // }
     };
   }
 });

@@ -89,8 +89,6 @@ export default defineComponent({
             new_password: '',
             new_password_confirmation: '',
         });
-        // const error_current = ref('')
-        // const error_newpass = ref('')
 
         const changePasswordErrorsCurrent = computed(() => {
             return authStore.changePasswordErrorMessagesCurrent
