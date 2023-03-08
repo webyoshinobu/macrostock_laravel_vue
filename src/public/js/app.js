@@ -24805,6 +24805,8 @@ exports["default"] = (0, vue_1.defineComponent)({
       getAdminFlag = _ref.getAdminFlag;
     var token = (0, auth_1.auth)().csrf;
     var iconActive = (0, vue_1.ref)(false);
+    var _ref2 = (0, pinia_1.storeToRefs)((0, cart_1.cartCounter)()),
+      items = _ref2.items;
     // methods
     var humburgerIcon = function humburgerIcon() {
       iconActive.value = !iconActive.value;
@@ -24883,7 +24885,8 @@ exports["default"] = (0, vue_1.defineComponent)({
       onMounted: vue_1.onMounted,
       humburgerIcon: humburgerIcon,
       iconActive: iconActive,
-      resetIconActive: resetIconActive
+      resetIconActive: resetIconActive,
+      items: items
     };
   }
 });
@@ -31881,8 +31884,25 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0, vue_1.createTextVNode)("Logout")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["onClick"])])), !_ctx.isLoggedIn ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
+  }, 8 /* PROPS */, ["onClick"])])), _ctx.isLoggedIn ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
     key: 2,
+    to: "/cart",
+    "class": "header_nav_menu_item"
+  }, {
+    "default": (0, vue_1.withCtx)(function () {
+      return [(0, vue_1.createVNode)(_component_ButtonWhite, {
+        onClick: _ctx.resetIconActive
+      }, {
+        "default": (0, vue_1.withCtx)(function () {
+          return [(0, vue_1.createTextVNode)("Cart（ " + (0, vue_1.toDisplayString)(_ctx.items.length) + " ）", 1 /* TEXT */)];
+        }),
+
+        _: 1 /* STABLE */
+      }, 8 /* PROPS */, ["onClick"])];
+    }),
+    _: 1 /* STABLE */
+  })) : (0, vue_1.createCommentVNode)("v-if", true), !_ctx.isLoggedIn ? ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
+    key: 3,
     to: "/register",
     "class": "header_nav_menu_item"
   }, {
@@ -31898,7 +31918,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     _: 1 /* STABLE */
   })) : _ctx.getAdminFlag ? ((0, vue_1.openBlock)(), (0, vue_1.createElementBlock)(vue_1.Fragment, {
-    key: 3
+    key: 4
   }, [(0, vue_1.createCommentVNode)(" <router-link to=\"/admin/mypage\" v-else-if=\"'admin_flag' in userInfo\" class=\"header_nav_menu_item\"><ButtonBlack @click=\"resetIconActive\">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link> "), (0, vue_1.createVNode)(_component_router_link, {
     to: "/admin/mypage",
     "class": "header_nav_menu_item"
@@ -31916,7 +31936,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     _: 1 /* STABLE */
   })], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */)) : ((0, vue_1.openBlock)(), (0, vue_1.createBlock)(_component_router_link, {
-    key: 4,
+    key: 5,
     to: "/mypage",
     "class": "header_nav_menu_item"
   }, {

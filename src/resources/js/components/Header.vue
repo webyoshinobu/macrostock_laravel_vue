@@ -17,6 +17,8 @@
             <router-link v-if="!isLoggedIn" to="/login" class="header_nav_menu_item"><ButtonWhite @click="resetIconActive">Login</ButtonWhite></router-link>
             <p v-else class="header_nav_menu_item" @click="clickLogout"><ButtonWhite @click="resetIconActive">Logout</ButtonWhite></p>
 
+            <router-link v-if="isLoggedIn" to="/cart" class="header_nav_menu_item"><ButtonWhite @click="resetIconActive">Cart（ {{items.length}} ）</ButtonWhite></router-link>
+
             <router-link v-if="!isLoggedIn" to="/register" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">Register</ButtonBlack></router-link>
             <!-- <router-link to="/admin/mypage" v-else-if="'admin_flag' in userInfo" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link> -->
             <router-link to="/admin/mypage" v-else-if="getAdminFlag" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
@@ -62,7 +64,8 @@
             const authStore = auth();
             const { userInfo, isLoggedIn, getAdminFlag } = storeToRefs(authStore);
             const token = auth().csrf;
-            const iconActive = ref(false)
+            const iconActive = ref(false);
+            const { items } = storeToRefs(cartCounter());
 
             // methods
             const humburgerIcon = () => {
@@ -124,7 +127,7 @@
                 addClass();
             });
 
-            return { router, addClass, clickLogout, isChange, userInfo, getAdminFlag, token, isLoggedIn, onMounted, humburgerIcon, iconActive, resetIconActive };
+            return { router, addClass, clickLogout, isChange, userInfo, getAdminFlag, token, isLoggedIn, onMounted, humburgerIcon, iconActive, resetIconActive, items };
         },
     });
 </script>
