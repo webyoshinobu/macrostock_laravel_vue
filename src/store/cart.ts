@@ -19,16 +19,16 @@ export const cartCounter = defineStore('cart', {
         addCart(image:any) {
             this.items.push(image);
             // this.items = image;
-            console.log('cart.ts action this.items', this.items);
+            // console.log('cart.ts action this.items', this.items);
         },
         async makeOrder(downloadItems:any) {
             const response = await axios.post('api/order', downloadItems)
-            console.log('cart.ts makeOrder response', response)
+            // console.log('cart.ts makeOrder response', response)
             return response.data
         },
         async makeOrderDetail(orderDetails:any) {
             const response = await axios.post('api/orderDetail', orderDetails)
-            console.log('cart.ts makeOrderDetail response', response)
+            // console.log('cart.ts makeOrderDetail response', response)
             // return response.data
         },
         removeItem(item:any) {

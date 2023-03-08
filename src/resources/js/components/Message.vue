@@ -23,11 +23,11 @@
 
         const setVisible = () => {
             isVisible.value = true
-            console.log('Message.vue isVisible', isVisible.value);
-            console.log('Message.vue getMessage', getMessage.value)
+            // console.log('Message.vue isVisible', isVisible.value);
+            // console.log('Message.vue getMessage', getMessage.value)
             showMessage.value = getMessage.value
-            console.log('Message.vue showMessage', showMessage)
-            console.log('Message.vue content', messageStore.content)
+            // console.log('Message.vue showMessage', showMessage)
+            // console.log('Message.vue content', messageStore.content)
         }
 
         // const setMessage = computed(() =>{

@@ -231,7 +231,7 @@ export default defineComponent({
         });
 
         watch(userInfo, () => {
-            console.log('watch userInfo', userInfo.value)
+            // console.log('watch userInfo', userInfo.value)
             photoList(userInfo.value)
         },
         {
@@ -241,9 +241,9 @@ export default defineComponent({
 
         //methods
         const photoList = async(data:any) => {
-            console.log('AdminMypage.vue photoList()', data)
+            // console.log('AdminMypage.vue photoList()', data)
             photos.value = await galleryImgs().getPhotoList(data)
-            console.log('AdminMypage.vue photoList() photos', photos)
+            // console.log('AdminMypage.vue photoList() photos', photos)
             // console.log('AdminMypage.vue photoList() photo_list', photo_list)
         }
 
@@ -298,10 +298,10 @@ export default defineComponent({
             preview = ''
             photo = null
             input.value = false
-            console.log('input2', input.value);
+            // console.log('input2', input.value);
             nextTick(() =>{
                 input.value = true
-                console.log('input3', input.value);
+                // console.log('input3', input.value);
             })
         }
 
@@ -337,9 +337,9 @@ export default defineComponent({
 
         const deleteModalOpen = (photo:any) => {
             delete_modal.value = true
-            console.log('AdminMypage.vue deleModalOpen photo', photo)
+            // console.log('AdminMypage.vue deleModalOpen photo', photo)
             selectedDeletePhoto.value = photo
-            console.log('AdminMypage.vue deleModalOpen selectedDeletePhoto', selectedDeletePhoto)
+            // console.log('AdminMypage.vue deleModalOpen selectedDeletePhoto', selectedDeletePhoto)
         }
         const deleteModalClose = () => {
             delete_modal.value = false;
@@ -350,13 +350,13 @@ export default defineComponent({
         }
 
         const deleteImg = async () => {
-            console.log('AdminMypage.vue deleteImg deleteForm', deleteForm.value)
+            // console.log('AdminMypage.vue deleteImg deleteForm', deleteForm.value)
 
             try {
                 const response = await authStore.confirmAdminPass(deleteForm.value)
-                console.log('AdminMypage.vue deleteImg confirmAdminPass response', response)
+                // console.log('AdminMypage.vue deleteImg confirmAdminPass response', response)
                 const confirm_pass_status = response.status
-                console.log('AdminMypage.vue deleteImg confirm_pass_status', confirm_pass_status)
+                // console.log('AdminMypage.vue deleteImg confirm_pass_status', confirm_pass_status)
                 if(!deleteForm.value.current_password) {
                         password_error.value = 'パスワードを入力してください。'
                 }else if(confirm_pass_status != OK) {
@@ -365,14 +365,14 @@ export default defineComponent({
                 }else{
                     try {
                         const delete_photo_response = await galleryStore.deletePhoto(selectedDeletePhoto.value)
-                        console.log('AdminMypage.vue deleteImg delete_photo_response.status', delete_photo_response.status)
+                        // console.log('AdminMypage.vue deleteImg delete_photo_response.status', delete_photo_response.status)
                         if(delete_photo_response.status == OK) {
                             // selectedDeletePhoto.value = []
                             // deleteForm.value = {current_password: ''}
                             // delete_modal.value = false
                             resetVals()
                             success.value = '写真が削除されました。'
-                            console.log(success.value)
+                            // console.log(success.value)
                             success_flag.value = true
                             photoList(userInfo.value)
                             return
@@ -411,14 +411,14 @@ export default defineComponent({
         }
 
         const deleteAccount = async(admin:any) => {
-            console.log('AdminMypage.vue deleteAccount data', admin)
-            console.log('AdminMypage.vue deleteAccount deleteForm', deleteAccountForm.value)
+            // console.log('AdminMypage.vue deleteAccount data', admin)
+            // console.log('AdminMypage.vue deleteAccount deleteForm', deleteAccountForm.value)
 
             try {
                 const response = await authStore.confirmAdminPass(deleteAccountForm.value)
-                console.log('AdminMypage.vue confirmAdminPass response', response)
+                // console.log('AdminMypage.vue confirmAdminPass response', response)
                 const confirm_pass_status = response.status
-                console.log('AdminMypage.vue deleteAccount confirm_pass_status', confirm_pass_status)
+                // console.log('AdminMypage.vue deleteAccount confirm_pass_status', confirm_pass_status)
                 if(!deleteAccountForm.value.current_password) {
                     password_error.value = 'パスワードを入力してください。'
                 }else if(confirm_pass_status != OK) {
@@ -427,10 +427,10 @@ export default defineComponent({
                 }else{
 
                     try {
-                        console.log('AdminMypage.vue deleteAccount photos', photos.value)
+                        // console.log('AdminMypage.vue deleteAccount photos', photos.value)
                         const delete_photos = photos.value
                         const delete_account_response = await authStore.deleteAccountAdmin(admin, delete_photos)
-                        console.log('AdminMypage.vue deleteAccount response.status', delete_account_response.status)
+                        // console.log('AdminMypage.vue deleteAccount response.status', delete_account_response.status)
                         if(delete_account_response.status == OK) {
                             await authStore.adminLogout()
                             return router.push({name: 'deleteAccount'})
@@ -450,8 +450,8 @@ export default defineComponent({
         }
 
         onMounted(async() => {
-            console.log('onMounted');
-            console.log('watch userInfo', userInfo.value)
+            // console.log('onMounted');
+            // console.log('watch userInfo', userInfo.value)
             photoList(userInfo.value)
         });
 

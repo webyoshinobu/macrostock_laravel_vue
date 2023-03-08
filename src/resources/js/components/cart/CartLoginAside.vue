@@ -44,7 +44,7 @@ export default defineComponent({
         // methods
         const download = async() => {
             const downloadItems = cartCounter().items;
-            console.log('CartLoginAside.vue download downloadItems', downloadItems);
+            // console.log('CartLoginAside.vue download downloadItems', downloadItems);
 
             await registerOrderData(downloadItems)
 
@@ -77,25 +77,25 @@ export default defineComponent({
                 order_total_number: downloadItems.length,
             }
 
-            console.log('CartLoginAside.vue download userInfo.id',auth().userInfo!.id)
-            console.log('CartLoginAside.vue download totalPrice', totalPrice.value)
-            console.log('CartLoginAside.vue download downloadItems.length', downloadItems.length)
-            console.log('CartLoginAside.vue download orderData', orderData)
+            // console.log('CartLoginAside.vue download userInfo.id',auth().userInfo!.id)
+            // console.log('CartLoginAside.vue download totalPrice', totalPrice.value)
+            // console.log('CartLoginAside.vue download downloadItems.length', downloadItems.length)
+            // console.log('CartLoginAside.vue download orderData', orderData)
 
 
             //注文履歴を残す
             //orderテーブルに情報を登録する。このidを取得して、order_detailのorder_idとして登録する
             const orderDataResponse = await cartCounter().makeOrder(orderData)
             //order_idを追加してorder_detailテーブルに追加する
-            console.log('CartLoginAside.vue download makeOrder orderDataResponse.data', orderDataResponse)
+            // console.log('CartLoginAside.vue download makeOrder orderDataResponse.data', orderDataResponse)
 
             for(let i=0; i<downloadItems.length; i++) {
                 downloadItems[i]['order_id'] = orderDataResponse['uuid']
                 downloadItems[i]['order_total_number'] = Number(1)
             }
             const orderDetails = downloadItems
-            console.log('CartLoginAside.vue download downloadItems order_id追加', downloadItems)
-            console.log('CartLoginAside.vue download orderDetails', orderDetails)
+            // console.log('CartLoginAside.vue download downloadItems order_id追加', downloadItems)
+            // console.log('CartLoginAside.vue download orderDetails', orderDetails)
             for(let j=0; j<orderDetails.length; j++) {
                 await cartCounter().makeOrderDetail(orderDetails[j])
             }

@@ -115,14 +115,14 @@ export default defineComponent({
         }
 
         const deleteAccount = async(data:any) => {
-            console.log('UserMypage.vue deleteAccount data', data)
-            console.log('UserMypage.vue deleteAccount deleteForm', deleteForm.value)
+            // console.log('UserMypage.vue deleteAccount data', data)
+            // console.log('UserMypage.vue deleteAccount deleteForm', deleteForm.value)
 
             try {
                 const response = await confirmUserPass(deleteForm.value)
-                console.log('UserMypage.vue deleteAccount response', response)
+                // console.log('UserMypage.vue deleteAccount response', response)
                 const confirm_pass_status = response.status
-                console.log('UserMypage.vue deleteAccount confirm_pass_status', confirm_pass_status)
+                // console.log('UserMypage.vue deleteAccount confirm_pass_status', confirm_pass_status)
                 if(!deleteForm.value.current_password) {
                     password_error.value = 'パスワードを入力してください。'
                 }else if(confirm_pass_status != OK) {
@@ -132,7 +132,7 @@ export default defineComponent({
 
                     try {
                         const delete_account_response = await authStore.deleteAccount(data)
-                        console.log('UserMypage.vue deleteAccount response.status', delete_account_response.status)
+                        // console.log('UserMypage.vue deleteAccount response.status', delete_account_response.status)
                         if(delete_account_response.status == OK) {
                             await authStore.logout()
                             router.push({name: 'deleteAccount'})

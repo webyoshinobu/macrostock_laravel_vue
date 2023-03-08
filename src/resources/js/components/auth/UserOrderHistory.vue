@@ -73,12 +73,12 @@ export default defineComponent({
         let groupedData = ref<any>([])
 
         const groupByOrderHistory = (data:any) => {
-            console.log('UserOrderHistory.vue groupByOrderHistory()')
-            console.log('UserOrderHistory.vue groupByOrderHistory() data', data)
+            // console.log('UserOrderHistory.vue groupByOrderHistory()')
+            // console.log('UserOrderHistory.vue groupByOrderHistory() data', data)
             // const groupedData = _.groupBy(data, 'uuid')
             // groupedData = _.groupBy(data, 'uuid')
             groupedData.value = Object.values(_.groupBy(data, 'uuid'))
-            console.log('UserOrderHistory.vue groupByOrderHistory() groupedData', groupedData.value)
+            // console.log('UserOrderHistory.vue groupByOrderHistory() groupedData', groupedData.value)
 
         }
 
@@ -93,7 +93,7 @@ export default defineComponent({
             + ('00' + (order_month + 1)).slice(-2)
             + '/'
             + ('00' + order_day).slice(-2);
-            console.log('UserOrderHistory.vue orderDateFormat', format_date)
+            // console.log('UserOrderHistory.vue orderDateFormat', format_date)
             return format_date
         }
 
@@ -102,7 +102,7 @@ export default defineComponent({
         }
 
         onMounted(async() => {
-            console.log('UserOrderHistory.vue data', data)
+            // console.log('UserOrderHistory.vue data', data)
             const response = await order().orderHistory(data)
             await groupByOrderHistory(response)
         });
