@@ -1,5 +1,8 @@
 <template>
     <section class="usermypage">
+
+        <Indicator :isLoading="isLoading"></Indicator>
+
         <!-- <h2 class="usermypage_title">{{ userInfo.name }}様マイページ</h2> -->
         <h2 class="usermypage_title">{{ ( userInfo || {} ).name }}様マイページ</h2>
         <div class="usermypage_wrap">
@@ -66,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, watch, ref } from "vue"
+import { defineComponent, onMounted, watch, ref, onUpdated } from "vue"
 import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { auth } from '../../../../store/auth'
@@ -80,6 +83,7 @@ import axios from "axios";
 import { OK } from '../../util'
 import { error } from '../../../../store/error'
 import { message } from '../../../../store/message'
+import Indicator from '../../Indicator.vue'
 
 export default defineComponent({
     name: 'UserMypage',
@@ -90,6 +94,7 @@ export default defineComponent({
         ButtonGreen,
         Loader,
         Message,
+        Indicator,
     },
 
     setup() {
@@ -113,8 +118,10 @@ export default defineComponent({
             password_error.value = ''
             deleteForm.value = {current_password: ''}
         }
+        let isLoading = ref(false)
 
         const deleteAccount = async(data:any) => {
+            isLoading.value = true
             // console.log('UserMypage.vue deleteAccount data', data)
             // console.log('UserMypage.vue deleteAccount deleteForm', deleteForm.value)
 
@@ -149,6 +156,9 @@ export default defineComponent({
             }catch(e:any){
                 console.error( "エラー：", e.message )
             }
+
+            isLoading.value = false
+
         }
 
         // const clearError = () => {
@@ -158,10 +168,16 @@ export default defineComponent({
         // }
 
         onMounted(() => {
+            // isLoading.value = true
             // clearError();
         });
 
-        return { router, route, onMounted, watch, userInfo, changePasswordSuccess, changeEmailSuccess, delete_modal, deleteModalOpen, deleteModalClose, deleteAccount, deleteForm, password_error, logout };
+        // onUpdated(() => {
+        //     isLoading.value = false
+        //     console.log("on update", isLoading.value)
+        // })
+
+        return { router, route, onMounted, watch, userInfo, changePasswordSuccess, changeEmailSuccess, delete_modal, deleteModalOpen, deleteModalClose, deleteAccount, deleteForm, password_error, logout, isLoading };
     },
 
 });

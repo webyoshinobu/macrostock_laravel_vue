@@ -1,5 +1,8 @@
 <template>
     <section class="register">
+
+        <Indicator :isLoading="isLoading"></Indicator>
+
         <h2 class="register_title">会員登録(無料)</h2>
         <!-- <div class=""> -->
             <form method="post" class="register_form" @submit.prevent="clickRegister">
@@ -73,12 +76,14 @@ import { useRoute, useRouter } from 'vue-router';
 import { auth } from '../../../../store/auth';
 import ButtonOrange from "../common/ButtonOrange.vue";
 import Term from "../term.vue";
+import Indicator from '../../Indicator.vue';
 
 export default defineComponent({
     name: 'Register',
     components: {
         ButtonOrange,
         Term,
+        Indicator,
     },
 
     setup() {
@@ -97,6 +102,7 @@ export default defineComponent({
         let term = ref();
         let term_checked = ref(false);
         let term_error = ref('');
+        let isLoading = ref(false);
 
         //computed
         const registerErrors = computed(() => {
@@ -109,10 +115,12 @@ export default defineComponent({
         }
 
         const clickRegister = async () => {
+            isLoading.value = true
             // console.log('term_checked', term_checked);
             // console.log('registerForm', registerForm);
             if(term_checked.value == false) {
                 term_error.value = '利用規約に同意をお願いいたします。'
+                isLoading.value = false
                 return term_error
             }
 
@@ -122,6 +130,8 @@ export default defineComponent({
 
             const apiStatus = auth().getApiStatus
             console.log('register apiStatus', apiStatus);
+
+            isLoading.value = false
 
             // トップページに移動する
             if (apiStatus == true) {
@@ -139,7 +149,7 @@ export default defineComponent({
             clearError();
         });
 
-        return { router, route, registerForm, token, clickRegister, register, registerErrors, clearError, termOpen, term, term_checked, term_error };
+        return { router, route, registerForm, token, clickRegister, register, registerErrors, clearError, termOpen, term, term_checked, term_error, isLoading };
     }
 
 });

@@ -1,5 +1,8 @@
 <template>
     <section class="admin">
+
+        <Indicator :isLoading="isLoading"></Indicator>
+
         <h2 class="admin_title">管理者ログイン</h2>
         <form method="post" class="admin_form" @submit.prevent="clickLogin">
             <!-- laravelのトークンを使用 -->
@@ -48,12 +51,14 @@ import { useRoute, useRouter } from 'vue-router';
 import { auth } from '../../../../store/auth';
 import ButtonWhite from "../common/ButtonWhite.vue";
 import ButtonBlack from "../common/ButtonBlack.vue";
+import Indicator from '../../Indicator.vue';
 
 export default defineComponent({
     name: 'Admin',
     components: {
         ButtonWhite,
         ButtonBlack,
+        Indicator,
     },
 
     setup() {
@@ -67,6 +72,7 @@ export default defineComponent({
         };
         const token = auth().csrf;
         const { getApiStatus } = storeToRefs(auth());
+        let isLoading = ref(false);
 
         //computed
         const loginErrors = computed(() => {
@@ -75,12 +81,15 @@ export default defineComponent({
 
         // methods
         const clickLogin = async () => {
+            isLoading.value = true
             // console.log('admin loginForm', loginForm)
             const data = loginForm;
             await adminLogin(data);
 
             const apiStatus = auth().getApiStatus
             // console.log('login apiStatus', apiStatus);
+
+            isLoading.value = false
 
             // トップページに移動する
             if (apiStatus == true) {
@@ -97,7 +106,7 @@ export default defineComponent({
             clearError();
         });
 
-        return { router, route, loginForm, clickLogin, token, loginErrors, clearError, onMounted };
+        return { router, route, loginForm, clickLogin, token, loginErrors, clearError, onMounted, isLoading };
     }
 
 });

@@ -1,43 +1,49 @@
 <template>
-  <header class="header">
+    <div>
+        <Indicator :isLoading="isLoading"></Indicator>
 
-    <h1 class="header_logo">
-        <router-link to="/">
-            <img src="../../../public/images/logo_transparent.png" alt="macrostockのロゴ" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
-        </router-link>
-    </h1>
+        <header class="header">
 
-    <nav class="header_nav" :class="{iconActive: iconActive}">
-        <div class="header_nav_menu">
+            <!-- <Indicator :isLoading="isLoading"></Indicator> -->
 
-            <router-link to="/gallery" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange, iconActive: iconActive}" @click="resetIconActive">Gallery</router-link>
+            <h1 class="header_logo">
+                <router-link to="/">
+                    <img src="../../../public/images/logo_transparent.png" alt="macrostockのロゴ" oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
+                </router-link>
+            </h1>
 
-            <!-- <router-link to="/contact" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange}">Contact</router-link> -->
+            <nav class="header_nav" :class="{iconActive: iconActive}">
+                <div class="header_nav_menu">
 
-            <router-link v-if="!isLoggedIn" to="/login" class="header_nav_menu_item"><ButtonWhite @click="resetIconActive">Login</ButtonWhite></router-link>
-            <p v-else class="header_nav_menu_item" @click="clickLogout"><ButtonWhite @click="resetIconActive">Logout</ButtonWhite></p>
+                    <router-link to="/gallery" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange, iconActive: iconActive}" @click="resetIconActive">Gallery</router-link>
 
-            <router-link v-if="isLoggedIn" to="/cart" class="header_nav_menu_item"><ButtonWhite @click="resetIconActive">Cart（ {{items.length}} ）</ButtonWhite></router-link>
+                    <!-- <router-link to="/contact" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange}">Contact</router-link> -->
 
-            <router-link v-if="!isLoggedIn" to="/register" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">Register</ButtonBlack></router-link>
-            <!-- <router-link to="/admin/mypage" v-else-if="'admin_flag' in userInfo" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link> -->
-            <router-link to="/admin/mypage" v-else-if="getAdminFlag" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
-            <router-link to="/mypage" v-else class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
+                    <router-link v-if="!isLoggedIn" to="/login" class="header_nav_menu_item"><ButtonWhite @click="resetIconActive">Login</ButtonWhite></router-link>
+                    <p v-else class="header_nav_menu_item" @click="clickLogout"><ButtonWhite @click="resetIconActive">Logout</ButtonWhite></p>
 
-        </div>
-    </nav>
+                    <router-link v-if="isLoggedIn && getAdminFlag == null" to="/cart" class="header_nav_menu_item"><ButtonWhite @click="resetIconActive">Cart（ {{items.length}} ）</ButtonWhite></router-link>
 
-    <div class="menu_wrap">
-        <button :class="{iconActive}" @click="humburgerIcon" class="menu-trigger">
-            <span :class="{change_header: isChange}"></span>
-            <span :class="{change_header: isChange}"></span>
-            <span :class="{change_header: isChange}"></span>
-        </button>
-    </div>
+                    <router-link v-if="!isLoggedIn" to="/register" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">Register</ButtonBlack></router-link>
+                    <!-- <router-link to="/admin/mypage" v-else-if="'admin_flag' in userInfo" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link> -->
+                    <router-link to="/admin/mypage" v-else-if="getAdminFlag" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
+                    <router-link to="/mypage" v-else class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
 
-    <div class="overlay" :class="{iconActive: iconActive}"></div>
+                </div>
+            </nav>
 
-  </header>
+            <div class="menu_wrap">
+                <button :class="{iconActive}" @click="humburgerIcon" class="menu-trigger">
+                    <span :class="{change_header: isChange}"></span>
+                    <span :class="{change_header: isChange}"></span>
+                    <span :class="{change_header: isChange}"></span>
+                </button>
+            </div>
+
+            <div class="overlay" :class="{iconActive: iconActive}"></div>
+
+        </header>
+  </div>
 </template>
 
 <script lang="ts">
@@ -48,12 +54,14 @@
     import ButtonWhite from "./common/ButtonWhite.vue";
     import ButtonBlack from "./common/ButtonBlack.vue";
     import { cartCounter } from '../../../store/cart';
+    import Indicator from '../Indicator.vue';
 
     export default defineComponent({
         name: 'Header',
         components: {
             ButtonWhite,
             ButtonBlack,
+            Indicator,
         },
 
         setup() {
@@ -66,6 +74,7 @@
             const token = auth().csrf;
             const iconActive = ref(false);
             const { items } = storeToRefs(cartCounter());
+            let isLoading = ref(false)
 
             // methods
             const humburgerIcon = () => {
@@ -93,6 +102,7 @@
             };
 
             const clickLogout = async () => {
+                isLoading.value = true
                 // console.log('Header logout apiStatus', auth().getApiStatus);
                 // console.log('Header logout admin_flag', authStore.getAdminFlag);
                 if(auth().getAdminFlag == 1){
@@ -116,6 +126,8 @@
                     router.push({ name: 'top' });
                 }
 
+                isLoading.value = false
+
                 console.log('clickLogout');
             };
 
@@ -127,7 +139,7 @@
                 addClass();
             });
 
-            return { router, addClass, clickLogout, isChange, userInfo, getAdminFlag, token, isLoggedIn, onMounted, humburgerIcon, iconActive, resetIconActive, items };
+            return { router, addClass, clickLogout, isChange, userInfo, getAdminFlag, token, isLoggedIn, onMounted, humburgerIcon, iconActive, resetIconActive, items, isLoading };
         },
     });
 </script>

@@ -1,5 +1,8 @@
 <template>
   <section class="top">
+
+    <Indicator :isLoading="isLoading"></Indicator>
+
     <p class="top_site_title wd_color_white">MacroStock</p>
     <p class="top_sub_site_title wd_color_white">マクロ写真専門ストックフォトサイト</p>
     <button class="top_what_macro_photo wd_color_white" v-on:click="openModal">マクロ写真とは？</button>
@@ -25,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onUpdated, onMounted } from "vue";
 import ButtonGreen from "./common/ButtonGreen.vue";
 // import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 // import 'swiper/swiper-bundle.css';
@@ -34,18 +37,21 @@ import Swiper, { Navigation, Pagination, Autoplay } from 'swiper'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import Indicator from '../Indicator.vue';
 
 export default defineComponent({
     name: 'Top',
     components: {
         ButtonGreen,
         Swiper,
+        Indicator,
         // SwiperSlide,
     },
 
     setup() {
         // data
         const whats_macro_photo = ref(false);
+        let isLoading = ref(true)
 
         // methods
         const openModal = () => {
@@ -55,7 +61,16 @@ export default defineComponent({
             whats_macro_photo.value = false;
         }
 
-        return { whats_macro_photo, openModal, closeModal };
+        onMounted(() => {
+            isLoading.value = false
+        })
+
+        // onUpdated(() => {
+        //     isLoading.value = false
+        //     // console.log("on update", isLoading.value)
+        // })
+
+        return { whats_macro_photo, openModal, closeModal, isLoading };
     }
 
 });

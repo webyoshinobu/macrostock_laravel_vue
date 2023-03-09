@@ -41,7 +41,7 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const image = route.params;
-        const { isLoggedIn } = storeToRefs(auth());
+        const { isLoggedIn, adminFlag } = storeToRefs(auth());
         const { product_imgs } = storeToRefs(galleryImgs());
         const { addCart } = cartCounter();
         const tax = 1.1
@@ -52,11 +52,15 @@ export default defineComponent({
         }
 
         const toCart = (image:any) => {
-            if(auth().isLoggedIn==true){
-                addCart(image);
-                router.push( {name: 'cart'} );
+            if(auth().adminFlag == null){
+                if(auth().isLoggedIn == true){
+                    addCart(image);
+                    router.push( {name: 'cart'} );
+                }else{
+                    router.push( {name: 'login'} );
+                }
             }else{
-                router.push( {name: 'login'} );
+                router.push( {name: 'top'} );
             }
 
         }

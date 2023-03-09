@@ -1,5 +1,8 @@
 <template>
     <section class="userchangepassword">
+
+        <Indicator :isLoading="isLoading"></Indicator>
+
         <h2 class="userchangepassword_title">{{ ( userInfo || {} ).name }}様マイページ</h2>
         <div class="userchangepassword_wrap">
             <div class="userchangepassword_wrap_title">パスワード変更</div>
@@ -66,7 +69,7 @@ import Message from "../Message.vue"
 import Loader from "../Loader.vue"
 import axios from "axios";
 import { OK, UNPROCESSABLE_ENTITY } from '../../util'
-
+import Indicator from '../../Indicator.vue'
 
 export default defineComponent({
     name: 'UserChangePassword',
@@ -75,6 +78,7 @@ export default defineComponent({
         ButtonRed,
         Loader,
         Message,
+        Indicator,
     },
 
     setup() {
@@ -91,7 +95,9 @@ export default defineComponent({
         });
         // const error_current = ref('')
         // const error_newpass = ref('')
+        let isLoading = ref(false);
 
+        // computed
         const changePasswordErrorsCurrent = computed(() => {
             return authStore.changePasswordErrorMessagesCurrent
         })
@@ -101,6 +107,7 @@ export default defineComponent({
         })
 
         const clickChangePassword = async() => {
+            isLoading.value = true
             // const response = await axios.post('api/changePassword', changeForm.value)
             // if(response.status == OK){
             //     router.push({ name: 'mypage' })
@@ -111,6 +118,8 @@ export default defineComponent({
             // }
 
             await changePassword(changeForm.value)
+
+            isLoading.value = false
 
             if(authStore.changePasswordStatus === OK){
                 router.push({ name: 'mypage' })
@@ -138,7 +147,7 @@ export default defineComponent({
             clearError();
         });
 
-        return { router, route, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass };
+        return { router, route, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass, isLoading };
     },
 
 });

@@ -1,5 +1,8 @@
 <template>
   <section class="logined">
+
+    <Indicator :isLoading="isLoading"></Indicator>
+
     <h2 class="logined_title">購入</h2>
     <div class="logined_detail">
         <p class="logined_detail_word">「購入する」ボタンを押すと写真がダウンロードされ、購入完了画面へ遷移します。</p>
@@ -27,12 +30,14 @@ import { auth } from '../../../../store/auth';
 import { storeToRefs } from 'pinia';
 import { cartCounter } from '../../../../store/cart';
 import { saveAs } from "file-saver";
+import Indicator from '../../Indicator.vue'
 
 export default defineComponent({
     name: 'CartLoginAside',
     components: {
         ButtonOrange,
         ButtonWhite,
+        Indicator,
     },
 
     setup() {
@@ -40,9 +45,12 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const { totalPrice } = storeToRefs(cartCounter());
+        let isLoading = ref(false);
 
         // methods
         const download = async() => {
+            isLoading.value = true
+
             const downloadItems = cartCounter().items;
             // console.log('CartLoginAside.vue download downloadItems', downloadItems);
 
@@ -64,6 +72,8 @@ export default defineComponent({
 
             //カート内のデータをリセット
             await cartCounter().resetItems()
+
+            isLoading.value = false
 
             //Thanksページへ移動
             router.push({ name: 'thanks'})
@@ -113,7 +123,7 @@ export default defineComponent({
             return fileName;
         }
 
-        return { router, route, download, getFileName, registerOrderData }
+        return { router, route, download, getFileName, registerOrderData, isLoading }
     },
 
 });

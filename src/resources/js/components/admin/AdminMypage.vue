@@ -1,5 +1,8 @@
 <template>
     <section class="adminmypage">
+
+        <Indicator :isLoading="isLoading"></Indicator>
+
         <h2 class="adminmypage_title">管理者マイページ</h2>
 
         <!-- 登録情報エリア -->
@@ -189,6 +192,7 @@ import { error } from '../../../../store/error'
 import { message } from '../../../../store/message'
 import { galleryImgs } from '../../../../store/gallery'
 import { OK } from '../../util'
+import Indicator from '../../Indicator.vue'
 
 export default defineComponent({
     name: 'AdminMypage',
@@ -199,6 +203,7 @@ export default defineComponent({
         ButtonGreen,
         Loader,
         Message,
+        Indicator
     },
 
     setup() {
@@ -229,6 +234,7 @@ export default defineComponent({
         let deleteAccountForm = ref({
             current_password: '',
         });
+        let isLoading = ref(false);
 
         watch(userInfo, () => {
             // console.log('watch userInfo', userInfo.value)
@@ -245,6 +251,7 @@ export default defineComponent({
             photos.value = await galleryImgs().getPhotoList(data)
             // console.log('AdminMypage.vue photoList() photos', photos)
             // console.log('AdminMypage.vue photoList() photo_list', photo_list)
+            isLoading.value = false
         }
 
         // フォームでファイルが選択されたら実行される
@@ -411,6 +418,7 @@ export default defineComponent({
         }
 
         const deleteAccount = async(admin:any) => {
+            isLoading.value = true
             // console.log('AdminMypage.vue deleteAccount data', admin)
             // console.log('AdminMypage.vue deleteAccount deleteForm', deleteAccountForm.value)
 
@@ -447,15 +455,19 @@ export default defineComponent({
             }catch(e:any){
                 console.error( "エラー：", e.message )
             }
+
+            isLoading.value = false
+
         }
 
         onMounted(async() => {
+            isLoading.value = true
             // console.log('onMounted');
             // console.log('watch userInfo', userInfo.value)
             photoList(userInfo.value)
         });
 
-        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals, success_flag, userInfo, changePasswordSuccess, changeEmailSuccess, deleteAccount, deleteAccountModalOpen, delete_account_modal, deleteAccountModalClose, deleteAccountForm };
+        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals, success_flag, userInfo, changePasswordSuccess, changeEmailSuccess, deleteAccount, deleteAccountModalOpen, delete_account_modal, deleteAccountModalClose, deleteAccountForm, isLoading };
     },
 
 });

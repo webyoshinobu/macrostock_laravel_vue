@@ -14,6 +14,7 @@ import axios from '../../plugins/axios';
 import bootstrap from './bootstrap';
 import { error } from '../../store/error';
 import { message } from '../../store/message';
+import VueElementLoading from "vue-element-loading";
 // import '../../public/css/mediaQuery.css';
 // import '../sass/prepends.scss';
 
@@ -40,6 +41,9 @@ app.use(currentAdmin)
 
 app.component('fa', FontAwesomeIcon );
 // app.use(VueAwesomeSwiper, /* { default options with global component } */);
+
+app.component("VueElementLoading", VueElementLoading);
+
 app.use(axios, {
     baseUrl: 'https://localhost:8001/',
 });
