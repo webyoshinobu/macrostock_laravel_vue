@@ -1,5 +1,8 @@
 <template>
     <section class="adminchangepassword">
+
+        <Indicator :isLoading="isLoading"></Indicator>
+
         <h2 class="adminchangepassword_title">{{ ( userInfo || {} ).name }}様マイページ</h2>
         <div class="adminchangepassword_wrap">
             <div class="adminchangepassword_wrap_title">パスワード変更</div>
@@ -66,7 +69,7 @@ import Message from "../Message.vue"
 import Loader from "../Loader.vue"
 import axios from "axios";
 import { OK, UNPROCESSABLE_ENTITY } from '../../util'
-
+import Indicator from '../../Indicator.vue'
 
 export default defineComponent({
     name: 'UserChangePassword',
@@ -75,6 +78,7 @@ export default defineComponent({
         ButtonRed,
         Loader,
         Message,
+        Indicator,
     },
 
     setup() {
@@ -89,7 +93,9 @@ export default defineComponent({
             new_password: '',
             new_password_confirmation: '',
         });
+        let isLoading = ref(false);
 
+        // computed
         const changePasswordErrorsCurrent = computed(() => {
             return authStore.changePasswordErrorMessagesCurrent
         })
@@ -99,8 +105,11 @@ export default defineComponent({
         })
 
         const clickChangePassword = async() => {
+            isLoading.value = true
 
             await changePasswordAdmin(changeForm.value)
+
+            isLoading.value = false
 
             if(authStore.changePasswordStatus === OK){
                 router.push({ name: 'admin/mypage' })
@@ -126,7 +135,7 @@ export default defineComponent({
             clearError();
         });
 
-        return { router, route, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass };
+        return { router, route, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass, isLoading };
     },
 
 });

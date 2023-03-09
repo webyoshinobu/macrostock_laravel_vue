@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import 'normalize.css';
-import { onMounted, watch } from "vue";
+import { onMounted, watch, ref, onUpdated } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import axios from "axios"

@@ -1,5 +1,8 @@
 <template>
   <section class="gallery">
+
+    <Indicator :isLoading="isLoading"></Indicator>
+
     <h2 class="gallery_title">Gallery</h2>
     <ul class="gallery_list">
         <li v-for="image in images" :key="image.index" :images="images" class="gallery_list_item">
@@ -12,29 +15,32 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, reactive, watch, toRefs, computed } from "vue";
+import { defineComponent, ref, onMounted, reactive, watch, toRefs, computed, onUpdated } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 // import { galleryImgs } from '../../../../store/gallery';
 import axios from "axios"
 import { OK } from '../../util'
 import { error } from "../../../../store/error";
-import Pagination from '../Pagination.vue'
+import Pagination from '../Pagination.vue';
+import Indicator from '../../Indicator.vue';
 
 export default defineComponent({
     name: 'Gallery',
     components: {
         Pagination,
+        Indicator,
     },
 
     setup() {
         //data
         const router = useRouter()
-        const route = useRoute();
+        const route = useRoute()
         let images = ref({})
         let currentPage = ref(0)
         let lastPage = ref(0)
         const selectImg = ref()
+        let isLoading = ref(true)
 
         console.log('Gallery.vue setup route', route)
 
@@ -82,7 +88,12 @@ export default defineComponent({
 
         });
 
-        return { router, selectImg, pushImg, galleryList, images, currentPage, lastPage };
+        onUpdated(() => {
+            isLoading.value = false
+            // console.log("on update", isLoading.value)
+        })
+
+        return { router, selectImg, pushImg, galleryList, images, currentPage, lastPage, isLoading };
     },
 
     // watch: {

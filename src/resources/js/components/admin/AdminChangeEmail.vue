@@ -1,5 +1,8 @@
 <template>
     <section class="adminchangeemail">
+
+        <Indicator :isLoading="isLoading"></Indicator>
+
         <h2 class="adminchangeemail_title">{{ ( userInfo || {} ).name }}様マイページ</h2>
         <div class="adminchangeemail_wrap">
             <div class="adminchangeemail_wrap_title">メールアドレス変更</div>
@@ -55,6 +58,7 @@ import Message from "../Message.vue"
 import Loader from "../Loader.vue"
 import axios from "axios";
 import { OK, UNPROCESSABLE_ENTITY } from '../../util'
+import Indicator from '../../Indicator.vue'
 
 export default defineComponent({
     name: 'UserChangeEmail',
@@ -63,6 +67,7 @@ export default defineComponent({
         ButtonRed,
         Loader,
         Message,
+        Indicator,
     },
 
     setup() {
@@ -77,7 +82,9 @@ export default defineComponent({
             new_email: '',
             new_email_confirmation: '',
         });
+        let isLoading = ref(false);
 
+        // computed
         const changeEmailErrorsCurrentEmail = computed(() => {
             return authStore.changeEmailErrorMessagesCurrentEmail
         })
@@ -87,8 +94,11 @@ export default defineComponent({
         })
 
         const clickChangeEmail = async() => {
+            isLoading.value = true
 
             await changeEmailAdmin(changeForm.value)
+
+            isLoading.value = false
 
             if(authStore.changeEmailStatus === OK){
                 router.push({ name: 'admin/mypage' })
@@ -114,7 +124,7 @@ export default defineComponent({
             clearError();
         });
 
-        return { router, route, onMounted, watch, userInfo, changeForm, clickChangeEmail, changeEmailErrorsCurrentEmail, changeEmailErrorsNewemail };
+        return { router, route, onMounted, watch, userInfo, changeForm, clickChangeEmail, changeEmailErrorsCurrentEmail, changeEmailErrorsNewemail, isLoading };
     },
 
 });

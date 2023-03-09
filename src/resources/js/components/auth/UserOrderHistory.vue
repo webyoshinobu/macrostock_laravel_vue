@@ -1,5 +1,8 @@
 <template>
     <section class="userorderhistory">
+
+        <Indicator :isLoading="isLoading"></Indicator>
+
         <h2 class="userorderhistory_title">{{ ( userInfo || {} ).name }}様マイページ</h2>
         <div class="userorderhistory_wrap">
             <div class="userorderhistory_wrap_title">注文履歴一覧</div>
@@ -11,7 +14,8 @@
                 </div>
                 <div class="userorderhistory_wrap_content_body">
                     <ul class="userorderhistory_wrap_content_body_list">
-                        <li class="userorderhistory_wrap_content_body_list_item" v-for="data in groupedData" :key="data">
+                        <li v-if="groupedData.length == 0">注文履歴はありません。</li>
+                        <li v-else class="userorderhistory_wrap_content_body_list_item" v-for="data in groupedData" :key="data">
                             <p class="userorderhistory_wrap_content_body_list_item_title">注文日時</p>
                             <p class="userorderhistory_wrap_content_body_list_item_p">{{ orderDateFormat(data[0].created_at) }}</p>
                             <p class="userorderhistory_wrap_content_body_list_item_title">注文No.</p>
@@ -36,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, watch, ref, computed } from "vue"
+import { defineComponent, onMounted, watch, ref, computed, onUpdated } from "vue"
 import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { auth } from '../../../../store/auth'
@@ -50,6 +54,7 @@ import { error } from '../../../../store/error'
 import { message } from '../../../../store/message'
 import { order } from '../../../../store/order'
 import _ from 'lodash'
+import Indicator from '../../Indicator.vue'
 
 export default defineComponent({
     name: 'UserOrderHistory',
@@ -58,6 +63,7 @@ export default defineComponent({
         ButtonBlack,
         Loader,
         Message,
+        Indicator,
     },
 
     setup() {
@@ -71,6 +77,7 @@ export default defineComponent({
         const order_history = order().order_history;
         // let groupedData:any = []
         let groupedData = ref<any>([])
+        let isLoading = ref(true);
 
         const groupByOrderHistory = (data:any) => {
             // console.log('UserOrderHistory.vue groupByOrderHistory()')
@@ -107,7 +114,12 @@ export default defineComponent({
             await groupByOrderHistory(response)
         });
 
-        return { router, route, onMounted, watch, userInfo, groupByOrderHistory, groupedData, orderDateFormat, outputPdf };
+        onUpdated(() => {
+            isLoading.value = false
+            // console.log("on update", isLoading.value)
+        })
+
+        return { router, route, onMounted, watch, userInfo, groupByOrderHistory, groupedData, orderDateFormat, outputPdf, isLoading };
     },
 
 });

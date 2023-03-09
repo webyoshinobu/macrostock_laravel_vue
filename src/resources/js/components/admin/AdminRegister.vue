@@ -1,5 +1,8 @@
 <template>
     <section class="adminRegister">
+
+        <Indicator :isLoading="isLoading"></Indicator>
+
         <h2 class="adminRegister_title">管理者登録</h2>
         <!-- <div class=""> -->
             <form method="post" class="adminRegister_form" @submit.prevent="clickRegister">
@@ -59,11 +62,13 @@ import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 import { auth } from '../../../../store/auth';
 import ButtonOrange from "../common/ButtonOrange.vue";
+import Indicator from '../../Indicator.vue';
 
 export default defineComponent({
     name: 'AdminRegister',
     components: {
         ButtonOrange,
+        Indicator,
     },
 
     setup() {
@@ -79,6 +84,7 @@ export default defineComponent({
         };
         const token = auth().csrf;
         const { getApiStatus } = storeToRefs(auth());
+        let isLoading = ref(false);
 
         //computed
         const registerErrors = computed(() => {
@@ -87,6 +93,7 @@ export default defineComponent({
 
         // methods
         const clickRegister = async () => {
+            isLoading.value = true
             // console.log('registerForm', registerForm);
             const data = registerForm;
             // authストアのresigterアクションを呼び出す
@@ -95,6 +102,8 @@ export default defineComponent({
             const apiStatus = auth().getApiStatus;
             // console.log('register apiStatus', apiStatus);
             auth().currentAdmin();
+
+            isLoading.value = false
 
             // トップページに移動する
             if (apiStatus == true) {
