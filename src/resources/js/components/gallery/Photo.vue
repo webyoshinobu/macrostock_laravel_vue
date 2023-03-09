@@ -13,8 +13,23 @@
             <p ref="term" @click="termOpen" class="photo_wrap_aside_term">利用可能な用途と禁止事項について</p>
         </aside>
     </div>
+
     <!-- モーダルでTermで表示 -->
     <Term ref="term" />
+
+    <!-- 管理者で「カートに追加」を押下場合のモーダル -->
+    <transition name="modal">
+        <div id="photo_overlay" v-show="caution_to_admin">
+            <div class="photo_modal_content" id="photo_modal_content">
+                <h2>管理者でログイン中の場合</h2>
+                <p class="photo_modal_content_word">管理者でログイン中の場合、画像を購入できません。</p>
+                <p class="photo_modal_content_word">お客様用アカウントを作成してください。</p>
+                <div class="photo_modal_content_button">
+                    <ButtonGreen @click="closeModal">Close</ButtonGreen>
+                </div>
+            </div>
+        </div>
+    </transition>
   </section>
 </template>
 
@@ -27,11 +42,13 @@ import { useRoute, useRouter } from 'vue-router';
 import { auth } from '../../../../store/auth';
 import { cartCounter } from '../../../../store/cart';
 import { galleryImgs } from '../../../../store/gallery';
+import ButtonGreen from "../common/ButtonGreen.vue";
 
 export default defineComponent({
     name: 'Photo',
     components: {
         ButtonOrange,
+        ButtonGreen,
         Term,
     },
 
@@ -45,10 +62,20 @@ export default defineComponent({
         const { product_imgs } = storeToRefs(galleryImgs());
         const { addCart } = cartCounter();
         const tax = 1.1
+        const caution_to_admin = ref(false);
 
         // methods
+        // 利用規約用モーダル
         const termOpen = () => {
             term.value.openModal(); //子コンポーネント(term)の呼び出し
+        }
+
+        // 管理者で「カートに追加」を押下場合のモーダル
+        const openModal = () => {
+            caution_to_admin.value = true;
+        }
+        const closeModal = () => {
+            caution_to_admin.value = false;
         }
 
         const toCart = (image:any) => {
@@ -60,7 +87,8 @@ export default defineComponent({
                     router.push( {name: 'login'} );
                 }
             }else{
-                router.push( {name: 'top'} );
+                openModal()
+                // router.push( {name: 'top'} );
             }
 
         }
@@ -74,7 +102,7 @@ export default defineComponent({
 
         })
 
-        return { term, router, route, image, termOpen, addCart, toCart, pricePrefix }
+        return { term, router, route, image, termOpen, addCart, toCart, pricePrefix, openModal, closeModal, caution_to_admin }
     },
 
 });
@@ -162,5 +190,89 @@ export default defineComponent({
     }
 
 }
+// -------------------------------------
+// 管理者で「カートに追加」を押下場合のモーダル
+//--------------------------------------
+#photo_overlay{
+  /*　要素を重ねた時の順番　*/
+  z-index:999;
 
+  /*　画面全体を覆う設定　*/
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,0.5);
+
+  /*　画面の中央に要素を表示させる設定　*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#photo_modal_content{
+  z-index:2;
+  width:50%;
+  padding: 1em;
+  background:#fff;
+  border-radius: 20px;
+
+  @include tb {
+    width: 80%;
+  }
+}
+
+.photo_modal_content {
+
+    h2 {
+        // font-size: 36px;
+        @include f-36;
+        margin: 20px 0;
+    }
+
+    &_word {
+        // font-size: 24px;
+        @include f-24;
+        text-align: left;
+    }
+
+    &_button {
+        display: flex;
+        justify-content: flex-end;
+        margin: 10px 0 0 0;
+
+        &_content {
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #3cb371;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+    }
+
+}
+
+.modal-enter-active, .modal-leave-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s;
+
+  .modal-content{
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
+}
+
+.modal-enter, .modal-leave-to {
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.5s, transform 0s 0.5s;
+
+  .modal-content{
+    transform: scale(1);
+  }
+}
 </style>
