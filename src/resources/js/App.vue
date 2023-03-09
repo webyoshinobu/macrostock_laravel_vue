@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import 'normalize.css';
-import { onMounted, watch, ref, onUpdated } from "vue";
+import { onMounted, watch, ref, onUpdated, onUnmounted } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import axios from "axios"
@@ -51,10 +51,16 @@ export default {
     })
 
     onMounted(() => {
-
+        window.onbeforeunload = function () {
+            return '保存されていないデータは破棄されます。'
+        }
     });
 
-    return { onMounted };
+    onUnmounted(() => {
+        window.onbeforeunload = null
+    });
+
+    return { onMounted, onUnmounted };
   }
 };
 </script>
