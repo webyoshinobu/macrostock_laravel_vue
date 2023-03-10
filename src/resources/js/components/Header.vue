@@ -15,17 +15,22 @@
             <nav class="header_nav" :class="{iconActive: iconActive}">
                 <div class="header_nav_menu">
 
+                    <!-- Gallery -->
                     <router-link to="/gallery" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange, iconActive: iconActive}" @click="resetIconActive">Gallery</router-link>
 
+                    <!-- Contact -->
                     <!-- <router-link to="/contact" class="header_nav_menu_item wd_color_white" :class="{change_header: isChange}">Contact</router-link> -->
 
+                    <!-- Login/Logout -->
                     <router-link v-if="!isLoggedIn" to="/login" class="header_nav_menu_item"><ButtonWhite @click="resetIconActive">Login</ButtonWhite></router-link>
                     <p v-else class="header_nav_menu_item" @click="clickLogout"><ButtonWhite @click="resetIconActive">Logout</ButtonWhite></p>
 
+                    <!-- Cart -->
                     <router-link v-if="isLoggedIn && getAdminFlag == null" to="/cart" class="header_nav_menu_item"><ButtonWhite @click="resetIconActive">Cart（ {{items.length}} ）</ButtonWhite></router-link>
 
+
+                    <!-- Register/マイページ -->
                     <router-link v-if="!isLoggedIn" to="/register" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">Register</ButtonBlack></router-link>
-                    <!-- <router-link to="/admin/mypage" v-else-if="'admin_flag' in userInfo" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link> -->
                     <router-link to="/admin/mypage" v-else-if="getAdminFlag" class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
                     <router-link to="/mypage" v-else class="header_nav_menu_item"><ButtonBlack @click="resetIconActive">{{ userInfo.name }} 様 マイページ</ButtonBlack></router-link>
 
