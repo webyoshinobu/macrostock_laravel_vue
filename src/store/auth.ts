@@ -32,7 +32,6 @@ export const auth = defineStore('auth', {
         //ユーザー関連
         //-------------------
         user: null as USER|null,
-        csrf: document.querySelector('meta[name="csrf-token"]')!.getAttribute('content'),
         apiStatus: false,
         loginErrorMessages: null,
         registerErrorMessages: null,
@@ -47,6 +46,7 @@ export const auth = defineStore('auth', {
         //-------------------
         //ユーザー、管理者共通
         //-------------------
+        csrf: document.querySelector('meta[name="csrf-token"]')!.getAttribute('content'),
         changePasswordStatus: null as number|null,
         changePasswordErrorMessagesCurrent: '',
         changePasswordErrorMessagesNewpass: '',

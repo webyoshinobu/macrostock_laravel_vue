@@ -53,6 +53,10 @@
                     <p class="deleteaccount_modal_content_word">アカウント削除を実行しますか？</p>
 
                     <form class="deleteaccount_modal_content_form" method="post">
+
+                        <!-- laravelのトークンを使用 -->
+                        <input type="hidden" name="_token" :value="token">
+
                         <p v-if="password_error" class="errors">{{password_error}}</p>
                         <label for="deleteaccount_modal_content_form_label">パスワード確認</label>
                         <input type="password" class="deleteaccount_modal_content_form_label" id="deleteaccount_modal_content_form_label" v-model="deleteForm.current_password">
@@ -109,6 +113,7 @@ export default defineComponent({
             current_password: '',
         });
         let password_error = ref('');
+        const token = auth().csrf;
 
         const deleteModalOpen = () => {
             delete_modal.value = true
@@ -143,6 +148,7 @@ export default defineComponent({
                         if(delete_account_response.status == OK) {
                             await authStore.logout()
                             router.push({name: 'deleteAccount'})
+                            return
                         }else{
                             password_error.value = 'アカウントの削除に失敗しました。'
                             throw new Error(password_error.value)
@@ -177,7 +183,7 @@ export default defineComponent({
         //     console.log("on update", isLoading.value)
         // })
 
-        return { router, route, onMounted, watch, userInfo, changePasswordSuccess, changeEmailSuccess, delete_modal, deleteModalOpen, deleteModalClose, deleteAccount, deleteForm, password_error, logout, isLoading };
+        return { router, route, token, onMounted, watch, userInfo, changePasswordSuccess, changeEmailSuccess, delete_modal, deleteModalOpen, deleteModalClose, deleteAccount, deleteForm, password_error, logout, isLoading };
     },
 
 });

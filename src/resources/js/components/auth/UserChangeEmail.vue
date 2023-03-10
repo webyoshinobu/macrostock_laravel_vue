@@ -8,7 +8,7 @@
             <div class="userchangeemail_wrap_title">メールアドレス変更</div>
             <form method="post" class="userchangeemail_wrap_form" @submit.prevent="clickRegister">
                 <!-- laravelのトークンを使用 -->
-                <!-- <input type="hidden" name="_token" :value="token"> -->
+                <input type="hidden" name="_token" :value="token">
 
                 <!-- エラーメッセージ -->
                 <div v-if="changeEmailErrorsCurrentEmail" class="errors">{{changeEmailErrorsCurrentEmail}}</div>
@@ -85,6 +85,7 @@ export default defineComponent({
             new_email_confirmation: '',
         });
         let isLoading = ref(false);
+        const token = auth().csrf;
 
         // computed
         const changeEmailErrorsCurrentEmail = computed(() => {
@@ -126,7 +127,7 @@ export default defineComponent({
             clearError();
         });
 
-        return { router, route, onMounted, watch, userInfo, changeForm, clickChangeEmail, changeEmailErrorsCurrentEmail, changeEmailErrorsNewemail, isLoading };
+        return { router, route, token, onMounted, watch, userInfo, changeForm, clickChangeEmail, changeEmailErrorsCurrentEmail, changeEmailErrorsNewemail, isLoading };
     },
 
 });

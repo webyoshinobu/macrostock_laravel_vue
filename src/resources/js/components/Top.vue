@@ -118,6 +118,9 @@ export default defineComponent({
     }
 }
 
+//--------------
+//モーダル関連
+//--------------
 #top_overlay{
   /*　要素を重ねた時の順番　*/
   z-index:999;

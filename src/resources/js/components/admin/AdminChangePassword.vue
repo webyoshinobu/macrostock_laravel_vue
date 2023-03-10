@@ -8,7 +8,7 @@
             <div class="adminchangepassword_wrap_title">パスワード変更</div>
             <form method="post" class="adminchangepassword_wrap_form" @submit.prevent="clickRegister">
             <!-- laravelのトークンを使用 -->
-            <!-- <input type="hidden" name="_token" :value="token"> -->
+            <input type="hidden" name="_token" :value="token">
 
             <!-- <div v-if="error_current" class="errors">{{error_current}}</div> -->
             <!-- <div v-if="error_newpass" class="errors">
@@ -94,6 +94,7 @@ export default defineComponent({
             new_password_confirmation: '',
         });
         let isLoading = ref(false);
+        const token = auth().csrf;
 
         // computed
         const changePasswordErrorsCurrent = computed(() => {
@@ -135,7 +136,7 @@ export default defineComponent({
             clearError();
         });
 
-        return { router, route, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass, isLoading };
+        return { router, route, token, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass, isLoading };
     },
 
 });
