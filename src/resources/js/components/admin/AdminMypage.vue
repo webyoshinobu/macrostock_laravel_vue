@@ -43,7 +43,8 @@
 
             <form v-show="! loading" class="adminmypage_form" @submit.prevent="submit">
 
-                <!-- <input type="hidden" name="_token" :value="token"> -->
+                <!-- laravelのトークンを使用 -->
+                <input type="hidden" name="_token" :value="token">
 
                 <!-- エラーメッセージ -->
                 <div class="errors" v-if="errors">
@@ -70,36 +71,6 @@
                 <ButtonWhite @click="deleteAccountModalOpen" class="margin-left">退会</ButtonWhite>
             </div>
         </div>
-
-        <!-- ローディング -->
-        <!-- <div v-show="loading" class="panel">
-            <Loader>Sending your photo...</Loader>
-        </div> -->
-
-        <!-- <form v-show="! loading" class="adminmypage_form" @submit.prevent="submit"> -->
-
-            <!-- <input type="hidden" name="_token" :value="token"> -->
-
-            <!-- エラーメッセージ -->
-            <!-- <div class="errors" v-if="errors">
-                <ul v-if="errors.photo">
-                    <li v-for="msg in errors.photo" :key="msg">{{ msg }}</li>
-                </ul>
-            </div>
-
-            <h3>写真のアップロード</h3>
-
-            <Message></Message>
-
-            <input class="adminmypage_form_item" id="photo_upload" type="file" v-if="input" @change="onFileChange">
-            <output class="form_output" v-show="preview">
-                <img :src="preview" alt="">
-            </output>
-            <div class="adminmypage_form_button">
-                <button type="submit" class="button button--inverse">submit</button>
-            </div> -->
-
-        <!-- </form> -->
 
         <h3 class="f-40 margin-bottom">{{( userInfo || {} ).name}}様が販売中の写真一覧</h3>
 
@@ -130,6 +101,9 @@
                     <p class="deletephoto_modal_content_word">写真の削除を実行しますか？</p>
 
                     <form class="deletephoto_modal_content_form" method="post">
+                        <!-- laravelのトークンを使用 -->
+                        <input type="hidden" name="_token" :value="token">
+
                         <p v-if="password_error" class="errors">{{password_error}}</p>
                         <label for="deletephoto_modal_content_form_label">パスワード確認</label>
                         <input type="password" class="deletephoto_modal_content_form_label" id="deletephoto_modal_content_form_label" v-model="deleteForm.current_password">
@@ -160,6 +134,9 @@
                     <p class="deleteaccount_modal_content_word">アカウント削除を実行しますか？</p>
 
                     <form class="deleteaccount_modal_content_form" method="post">
+                        <!-- laravelのトークンを使用 -->
+                        <input type="hidden" name="_token" :value="token">
+
                         <p v-if="password_error" class="errors">{{password_error}}</p>
                         <label for="deleteaccount_modal_content_form_label">パスワード確認</label>
                         <input type="password" class="deleteaccount_modal_content_form_label" id="deleteaccount_modal_content_form_label" v-model="deleteAccountForm.current_password">
@@ -235,6 +212,7 @@ export default defineComponent({
             current_password: '',
         });
         let isLoading = ref(false);
+        const token = auth().csrf;
 
         watch(userInfo, () => {
             // console.log('watch userInfo', userInfo.value)
@@ -358,6 +336,7 @@ export default defineComponent({
 
         const deleteImg = async () => {
             // console.log('AdminMypage.vue deleteImg deleteForm', deleteForm.value)
+            isLoading.value = true
 
             try {
                 const response = await authStore.confirmAdminPass(deleteForm.value)
@@ -366,9 +345,12 @@ export default defineComponent({
                 // console.log('AdminMypage.vue deleteImg confirm_pass_status', confirm_pass_status)
                 if(!deleteForm.value.current_password) {
                         password_error.value = 'パスワードを入力してください。'
+                        isLoading.value = false
                 }else if(confirm_pass_status != OK) {
                     password_error.value = response.data.errorMessage
                     // throw new Error(error_mismatch_pass.value)
+                    deleteForm.value = {current_password: ''}
+                    isLoading.value = false
                 }else{
                     try {
                         const delete_photo_response = await galleryStore.deletePhoto(selectedDeletePhoto.value)
@@ -378,6 +360,7 @@ export default defineComponent({
                             // deleteForm.value = {current_password: ''}
                             // delete_modal.value = false
                             resetVals()
+                            isLoading.value = false
                             success.value = '写真が削除されました。'
                             // console.log(success.value)
                             success_flag.value = true
@@ -385,14 +368,18 @@ export default defineComponent({
                             return
                         }else{
                             password_error.value = 'アカウントの削除に失敗しました。'
+                            isLoading.value = false
                             throw new Error(password_error.value)
                         }
                     }catch(e:any){
                         console.error( "エラー：", e.message )
+                        isLoading.value = false
                     }
                 }
+                isLoading.value = false
                 throw new Error(password_error.value)
             }catch(e:any){
+                isLoading.value = false
                 console.error( "エラー：", e.message )
             }
         }
@@ -402,7 +389,7 @@ export default defineComponent({
             deleteForm.value = {current_password: ''}
             // delete_modal.value = false
             password_error.value = ''
-            deleteForm.value = {current_password: ''}
+            deleteAccountForm.value = {current_password: ''}
             selectedDeletePhoto.value = []
             success_flag.value = false
             console.log('resetVals')
@@ -431,6 +418,7 @@ export default defineComponent({
                     password_error.value = 'パスワードを入力してください。'
                 }else if(confirm_pass_status != OK) {
                     password_error.value = response.data.errorMessage
+                    deleteAccountForm.value = {current_password: ''}
                     // throw new Error(error_mismatch_pass.value)
                 }else{
 
@@ -441,6 +429,7 @@ export default defineComponent({
                         // console.log('AdminMypage.vue deleteAccount response.status', delete_account_response.status)
                         if(delete_account_response.status == OK) {
                             await authStore.adminLogout()
+                            isLoading.value = false
                             return router.push({name: 'deleteAccount'})
                         }else{
                             password_error.value = 'アカウントの削除に失敗しました。'
@@ -467,7 +456,7 @@ export default defineComponent({
             photoList(userInfo.value)
         });
 
-        return { router, route, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals, success_flag, userInfo, changePasswordSuccess, changeEmailSuccess, deleteAccount, deleteAccountModalOpen, delete_account_modal, deleteAccountModalClose, deleteAccountForm, isLoading };
+        return { router, route, token, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals, success_flag, userInfo, changePasswordSuccess, changeEmailSuccess, deleteAccount, deleteAccountModalOpen, delete_account_modal, deleteAccountModalClose, deleteAccountForm, isLoading };
     },
 
 });

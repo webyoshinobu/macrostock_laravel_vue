@@ -17,6 +17,20 @@
             <!-- </router-link> -->
         </div>
     </div>
+
+    <!-- モーダル -->
+    <transition name="modal">
+        <div id="no_item_overlay" v-show="no_item">
+            <div class="no_item_modal_content" id="no_item_modal_content">
+                <h2>画像が選択されていません。</h2>
+                <p class="no_item_modal_content_word">画像が選択されていません。画像を選択してください。</p>
+                <div class="no_item_modal_content_button">
+                    <ButtonGreen @click="closeModal">Close</ButtonGreen>
+                </div>
+            </div>
+        </div>
+    </transition>
+
   </section>
 </template>
 
@@ -31,6 +45,7 @@ import { storeToRefs } from 'pinia';
 import { cartCounter } from '../../../../store/cart';
 import { saveAs } from "file-saver";
 import Indicator from '../../Indicator.vue'
+import ButtonGreen from "../common/ButtonGreen.vue";
 
 export default defineComponent({
     name: 'CartLoginAside',
@@ -38,6 +53,7 @@ export default defineComponent({
         ButtonOrange,
         ButtonWhite,
         Indicator,
+        ButtonGreen,
     },
 
     setup() {
@@ -46,9 +62,20 @@ export default defineComponent({
         const route = useRoute();
         const { totalPrice } = storeToRefs(cartCounter());
         let isLoading = ref(false);
+        const no_item = ref(false);
 
         // methods
+        const closeModal = () => {
+            no_item.value = false;
+        }
+
         const download = async() => {
+
+            if(cartCounter().items.length == 0) {
+                no_item.value = true
+                return
+            }
+
             isLoading.value = true
 
             const downloadItems = cartCounter().items;
@@ -123,7 +150,7 @@ export default defineComponent({
             return fileName;
         }
 
-        return { router, route, download, getFileName, registerOrderData, isLoading }
+        return { router, route, download, getFileName, registerOrderData, isLoading, closeModal, no_item }
     },
 
 });
@@ -167,6 +194,92 @@ export default defineComponent({
             }
         }
     }
+}
+
+//--------------
+//モーダル関連
+//--------------
+#no_item_overlay{
+  /*　要素を重ねた時の順番　*/
+  z-index:999;
+
+  /*　画面全体を覆う設定　*/
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,0.5);
+
+  /*　画面の中央に要素を表示させる設定　*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#no_item_modal_content{
+  z-index:2;
+  width:50%;
+  padding: 1em;
+  background:#fff;
+  border-radius: 20px;
+
+  @include tb {
+    width: 80%;
+  }
+}
+
+.no_item_modal_content {
+
+    h2 {
+        // font-size: 36px;
+        @include f-36;
+        margin: 20px 0;
+    }
+
+    &_word {
+        // font-size: 24px;
+        @include f-24;
+        text-align: left;
+    }
+
+    &_button {
+        display: flex;
+        justify-content: flex-end;
+        margin: 10px 0 0 0;
+
+        &_content {
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #3cb371;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+    }
+
+}
+
+.modal-enter-active, .modal-leave-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s;
+
+  .modal-content{
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
+}
+
+.modal-enter, .modal-leave-to {
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.5s, transform 0s 0.5s;
+
+  .modal-content{
+    transform: scale(1);
+  }
 }
 
 </style>

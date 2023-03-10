@@ -42,7 +42,7 @@ export default defineComponent({
         const selectImg = ref()
         let isLoading = ref(true)
 
-        console.log('Gallery.vue setup route', route)
+        // console.log('Gallery.vue setup route', route)
 
         // methods
         const pushImg = (image:any) => {

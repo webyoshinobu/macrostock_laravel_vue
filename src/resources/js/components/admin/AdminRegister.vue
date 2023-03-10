@@ -120,7 +120,7 @@ export default defineComponent({
             clearError();
         });
 
-        return { router, route, registerForm, token, clickRegister, adminRegister, registerErrors, clearError };
+        return { router, route, registerForm, token, clickRegister, adminRegister, registerErrors, clearError, isLoading };
     }
 
 });
