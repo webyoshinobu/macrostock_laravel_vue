@@ -3,9 +3,28 @@
 
     <Indicator :isLoading="isLoading"></Indicator>
 
-    <p class="top_site_title wd_color_white">MacroStock</p>
-    <p class="top_sub_site_title wd_color_white">マクロ写真専門ストックフォトサイト</p>
-    <button class="top_what_macro_photo wd_color_white" v-on:click="openModal">マクロ写真とは？</button>
+    <!-- <div class="story-visuals"> -->
+        <swiper
+        :modules="modules"
+        :autoplay="{ loop: true }"
+        :effect="'coverflow'"
+        @swiper="onSwiper"
+        @slideChange="onSlideChange"
+        >
+        <!-- <swiperSlide v-for="(image, index) in images" :key="`slide-${index}`">
+            <img :src="image" />
+        </swiperSlide> -->
+        <swiper-slide><img src="../../../public/images/top_slide1.jpg" ></swiper-slide>
+        <swiper-slide><img src="../../../public/images/top_slide2.jpg" ></swiper-slide>
+        <swiper-slide><img src="../../../public/images/top_slide3.jpg" ></swiper-slide>
+        </swiper>
+    <!-- </div> -->
+
+    <section class="top_content">
+        <p class="top_site_title wd_color_white">MacroStock</p>
+        <p class="top_sub_site_title wd_color_white">マクロ写真専門ストックフォトサイト</p>
+        <button class="top_what_macro_photo wd_color_white" v-on:click="openModal">マクロ写真とは？</button>
+    </section>
 
     <!-- モーダル -->
     <transition name="modal">
@@ -30,28 +49,33 @@
 <script lang="ts">
 import { defineComponent, ref, onUpdated, onMounted } from "vue";
 import ButtonGreen from "./common/ButtonGreen.vue";
-// import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
-// import 'swiper/swiper-bundle.css';
-// import { Swiper, SwiperSlide } from 'swiper/vue';
-import Swiper, { Navigation, Pagination, Autoplay } from 'swiper'
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import Indicator from '../Indicator.vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay, A11y, EffectCoverflow, EffectCube } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/bundle';
+// import 'swiper/css/navigation';
+// import 'swiper/css/pagination';
+// import 'swiper/css/autoplay';
 
 export default defineComponent({
     name: 'Top',
     components: {
         ButtonGreen,
-        Swiper,
         Indicator,
-        // SwiperSlide,
+        Swiper,
+        SwiperSlide,
     },
 
     setup() {
         // data
         const whats_macro_photo = ref(false);
         let isLoading = ref(true)
+        const images = [
+            '../../public/images/top_slide1.jpg',
+            '../../public/images/top_slide2.jpg',
+            '../../public/images/top_slide3.jpg',
+        ];
 
         // methods
         const openModal = () => {
@@ -60,6 +84,15 @@ export default defineComponent({
         const closeModal = () => {
             whats_macro_photo.value = false;
         }
+
+        // Swiperのインスタンスが返ってくる
+        const onSwiper = (swiper:any) => {
+            console.log('swiper', swiper);
+        };
+        // スライド位置が変更された時に呼ばれる
+        const onSlideChange = () => {
+            console.log('slide change');
+        };
 
         onMounted(() => {
             isLoading.value = false
@@ -70,7 +103,7 @@ export default defineComponent({
         //     // console.log("on update", isLoading.value)
         // })
 
-        return { whats_macro_photo, openModal, closeModal, isLoading };
+        return { whats_macro_photo, openModal, closeModal, isLoading, onSwiper, onSlideChange, images, modules: [Autoplay, A11y, EffectCoverflow], };
     }
 
 });
@@ -81,7 +114,7 @@ export default defineComponent({
 .top {
     width: 100%;
     height: 100vh;
-    background-image: url('../../../public/images/top_slide1.jpg');
+    // background-image: url('../../../public/images/top_slide1.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -89,6 +122,13 @@ export default defineComponent({
     align-items: center;
     text-align: center;
     flex-flow: column;
+
+    &_content {
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 2;
+    }
 }
 
 .top_site_title {
@@ -207,5 +247,31 @@ export default defineComponent({
 .wd_color_white {
     color: #ffffff;
     font-weight: bold;
+}
+
+//-------------
+// swiper.js
+//-------------
+.swiper {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+
+    &-wrapper {
+        height: auto;
+    }
+
+    &-slide {
+        height: auto;
+
+        img {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+    }
 }
 </style>

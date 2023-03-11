@@ -45,7 +45,7 @@
         "eslint-webpack-plugin": "^3.2.0",
         "file-saver": "^2.0.5",
         "pinia": "^2.0.29",
-        "swiper": "^8.4.5",
+        "swiper": "^8.4.7",
         "vue-awesome-swiper": "^5.0.1",
         "vue-axios": "^3.5.2",
         "vue-element-loading": "^3.0.1",
