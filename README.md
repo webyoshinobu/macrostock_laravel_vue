@@ -9,7 +9,7 @@ MacroStock(マクロストック)はマクロ写真を専門としたフォト�
 普段、ブライダル写真を中心にプロのフォトグラファーとして仕事をしています。
 
 あまり撮影することのないマクロ写真という領域の作品を残したいと思いこのサイトを作成しました。
-![](https://github.com/webyoshinobu/macrostock_laravel_vue/blob/a002210f9a57b60112178ec69c8ffa8a9dd987ba/top_screeshot.png)
+![](https://github.com/webyoshinobu/macrostock_laravel_vue/blob/5a769de6d02711b8a0ae4adfd5d0cbcad267ec21/top_screenshot.png)
 
 # 使用技術
 
