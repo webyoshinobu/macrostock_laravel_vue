@@ -73,7 +73,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, watch, ref, onUpdated } from "vue"
+import { defineComponent, onMounted, watch, ref, onUpdated, watchEffect, onUnmounted } from "vue"
 import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { auth } from '../../../../store/auth'
@@ -107,7 +107,7 @@ export default defineComponent({
         const route = useRoute();
         const authStore = auth();
         const { confirmUserPass, logout } = authStore;
-        const { userInfo, changePasswordSuccess, changeEmailSuccess } = storeToRefs(authStore);
+        const { userInfo, changePasswordSuccess, changeEmailSuccess, isLoggedIn, } = storeToRefs(authStore);
         let delete_modal = ref<boolean>(false);
         let deleteForm = ref({
             current_password: '',
@@ -124,6 +124,13 @@ export default defineComponent({
             deleteForm.value = {current_password: ''}
         }
         let isLoading = ref(false)
+
+        // methods
+        const checkLoggedIn = () => {
+            if(!isLoggedIn.value) {
+                router.push({ name:'login' })
+            }
+        }
 
         const deleteAccount = async(data:any) => {
             isLoading.value = true
@@ -176,6 +183,7 @@ export default defineComponent({
         onMounted(() => {
             // isLoading.value = true
             // clearError();
+            checkLoggedIn()
         });
 
         // onUpdated(() => {

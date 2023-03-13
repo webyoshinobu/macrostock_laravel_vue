@@ -87,7 +87,7 @@ export default defineComponent({
         const route = useRoute();
         const authStore = auth();
         const { changePassword, resetChangePasswordMessage } = authStore;
-        const { userInfo, changePasswordStatus, changePasswordErrorMessagesCurrent, changePasswordErrorMessagesNewpass } = storeToRefs(authStore);
+        const { userInfo, changePasswordStatus, changePasswordErrorMessagesCurrent, changePasswordErrorMessagesNewpass, isLoggedIn, } = storeToRefs(authStore);
         let changeForm = ref({
             current_password: '',
             new_password: '',
@@ -104,6 +104,13 @@ export default defineComponent({
         const changePasswordErrorsNewpass = computed(() => {
             return authStore.changePasswordErrorMessagesNewpass
         })
+
+        // methods
+        const checkLoggedIn = () => {
+            if(!isLoggedIn.value) {
+                router.push({ name:'login' })
+            }
+        }
 
         const clickChangePassword = async() => {
             isLoading.value = true
@@ -144,6 +151,7 @@ export default defineComponent({
 
         onMounted(() => {
             clearError();
+            checkLoggedIn();
         });
 
         return { router, route, token, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass, isLoading };
