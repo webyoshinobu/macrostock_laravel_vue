@@ -58,37 +58,6 @@ const routes = [
         path: '/login',
         name: 'login',
         component: login,
-        // meta: {
-        //     requiresAuth: true
-        // },
-
-        // beforeEnter (to:any, from:any, next:any) {
-        //     console.log('beforeEnter');
-        //     const authStore = auth();
-        //     const { isLoggedIn } = storeToRefs(authStore);
-        //     if (!authStore.isLoggedIn) {
-        //     // if (to.meta.requiresAuth && !authStore.isLoggedIn) {
-        //         console.log(authStore.isLoggedIn);
-        //         next();
-        //     } else {
-        //         console.log(authStore.isLoggedIn);
-        //         next('/');
-        //     }
-        // }
-
-        // beforeEnter: (to:any, from:any, next:any) => {
-        //     console.log('beforeEnter');
-        //     const authStore = auth();
-        //     const { isLoggedIn } = storeToRefs(authStore);
-        //     if (!authStore.isLoggedIn) {
-        //         console.log('beforeEnter false')
-        //         next();
-        //     }else{
-        //         console.log('beforeEnter true')
-        //         next('/');
-        //     }
-        // },
-
     },
     {
         path: '/register',
@@ -168,51 +137,9 @@ const routes = [
     },
 ]
 
-// function isLogin() {
-//     const authStore = auth();
-//     const { isLoggedIn } = storeToRefs(authStore);
-//     console.log('isLogin', authStore.isLoggedIn);
-//     return authStore.isLoggedIn;
-// }
-
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes,
 })
-
-// router.beforeEach(async(to, from, next) => {
-//     if (to.matched.some(record => record.meta.requiresAuth)) {
-//       if (isLogin()) {
-//         console.log('authStore.isLoggedIn1',isLogin());
-//         // next({
-//         //   path: '/',
-//         //   query: {
-//         //     redirect: to.fullPath
-//         //   }
-//         // })
-//         // next('/login')
-//         next({name: 'top'});
-//       } else {
-//         console.log('authStore.isLoggedIn2',isLogin());
-//         next();
-//       }
-//     } else {
-//         console.log('authStore.isLoggedIn3',isLogin());
-//         next();
-//     }
-//     console.log('authStore.isLoggedIn4',isLogin());
-// });
-
-// router.beforeEach(async (to, from) => {
-//     const authStore = auth();
-//     const { isLoggedIn } = storeToRefs(authStore);
-//     // canUserAccess() returns `true` or `false`
-//     const canAccess = await authStore.isLoggedIn
-//     if (!canAccess) {
-//         return '/'
-//     }else{
-//         return '/login'
-//     }
-// })
 
 export default router;

@@ -49,9 +49,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from "vue";
+import { defineComponent, ref, computed, onMounted, watch } from "vue";
 import { storeToRefs } from 'pinia';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
 import { auth } from '../../../../store/auth';
 import ButtonWhite from "../common/ButtonWhite.vue";
 import ButtonBlack from "../common/ButtonBlack.vue";
@@ -75,7 +75,7 @@ export default defineComponent({
             password: ''
         };
         const token = auth().csrf;
-        const { getApiStatus } = storeToRefs(auth());
+        const { getApiStatus, isLoggedIn } = storeToRefs(auth());
         let isLoading = ref(false)
 
         //computed
@@ -84,6 +84,12 @@ export default defineComponent({
         })
 
         // methods
+        const checkLoggedIn = () => {
+            if(isLoggedIn.value) {
+                router.push({ name:'top' })
+            }
+        }
+
         const clickLogin = async () => {
             isLoading.value = true
             // console.log('loginForm', loginForm)
@@ -106,11 +112,16 @@ export default defineComponent({
             console.log('clearError');
         }
 
+        watch(isLoggedIn, () => {
+            console.log(isLoggedIn.value)
+            checkLoggedIn()
+        })
+
         onMounted(() => {
-            clearError();
+            clearError()
         });
 
-        return { router, route, loginForm, clickLogin, token, loginErrors, clearError, onMounted, isLoading };
+        return { router, route, loginForm, clickLogin, token, loginErrors, clearError, onMounted, isLoading, onBeforeRouteUpdate, };
     }
 
 });
