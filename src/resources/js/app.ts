@@ -7,7 +7,7 @@ import App from './App.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import VueAwesomeSwiper from 'vue-awesome-swiper';
+// import VueAwesomeSwiper from 'vue-awesome-swiper';
 import 'swiper/swiper-bundle.css';
 import '../css/swiper.css'; //swiper専用スタイル
 import axios from '../../plugins/axios';
@@ -40,7 +40,6 @@ const currentAdmin = async () => {
 app.use(currentAdmin)
 
 app.component('fa', FontAwesomeIcon );
-// app.use(VueAwesomeSwiper, /* { default options with global component } */);
 
 app.component("VueElementLoading", VueElementLoading);
 

@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, computed } from "vue";
+import { defineComponent, ref, onMounted, computed, watch } from "vue";
 import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 import { auth } from '../../../../store/auth';
@@ -98,7 +98,7 @@ export default defineComponent({
             password_confirmation: ''
         };
         const token = auth().csrf;
-        const { getApiStatus } = storeToRefs(auth());
+        const { getApiStatus, isLoggedIn } = storeToRefs(auth());
         let term = ref();
         let term_checked = ref(false);
         let term_error = ref('');
@@ -110,6 +110,12 @@ export default defineComponent({
         })
 
         // methods
+        const checkLoggedIn = () => {
+            if(isLoggedIn.value) {
+                router.push({ name:'top' })
+            }
+        }
+
         const termOpen = () => {
             term.value.openModal(); //子コンポーネント(term)の呼び出し
         }
@@ -144,6 +150,11 @@ export default defineComponent({
             term_error.value = ''
             console.log('clearError');
         }
+
+        watch(isLoggedIn, () => {
+            console.log(isLoggedIn.value)
+            checkLoggedIn()
+        } )
 
         onMounted(() => {
             clearError();

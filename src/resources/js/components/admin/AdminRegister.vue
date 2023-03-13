@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, computed } from "vue";
+import { defineComponent, ref, onMounted, computed, watch } from "vue";
 import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 import { auth } from '../../../../store/auth';
@@ -83,7 +83,7 @@ export default defineComponent({
             password_confirmation: ''
         };
         const token = auth().csrf;
-        const { getApiStatus } = storeToRefs(auth());
+        const { getApiStatus, isLoggedIn } = storeToRefs(auth());
         let isLoading = ref(false);
 
         //computed
@@ -92,6 +92,12 @@ export default defineComponent({
         })
 
         // methods
+        const checkLoggedIn = () => {
+            if(isLoggedIn.value) {
+                router.push({ name:'top' })
+            }
+        }
+
         const clickRegister = async () => {
             isLoading.value = true
             // console.log('registerForm', registerForm);
@@ -115,6 +121,11 @@ export default defineComponent({
             setRegisterErrorMessages(null)
             console.log('clearError');
         }
+
+        watch(isLoggedIn, () => {
+            console.log(isLoggedIn.value)
+            checkLoggedIn()
+        })
 
         onMounted(() => {
             clearError();
