@@ -72,12 +72,19 @@ export default defineComponent({
         const route = useRoute();
         const authStore = auth();
         const {  } = authStore;
-        const { userInfo } = storeToRefs(authStore);
+        const { userInfo, isLoggedIn, } = storeToRefs(authStore);
         const data = userInfo.value;
         const order_history = order().order_history;
         // let groupedData:any = []
         let groupedData = ref<any>([])
         let isLoading = ref(true);
+
+        // methods
+        const checkLoggedIn = () => {
+            if(!isLoggedIn.value) {
+                router.push({ name:'login' })
+            }
+        }
 
         const groupByOrderHistory = (data:any) => {
             // console.log('UserOrderHistory.vue groupByOrderHistory()')
@@ -109,6 +116,7 @@ export default defineComponent({
         }
 
         onMounted(async() => {
+            checkLoggedIn()
             // console.log('UserOrderHistory.vue data', data)
             const response = await order().orderHistory(data)
             await groupByOrderHistory(response)

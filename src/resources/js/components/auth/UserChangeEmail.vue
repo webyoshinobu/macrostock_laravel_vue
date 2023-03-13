@@ -78,7 +78,7 @@ export default defineComponent({
         const route = useRoute();
         const authStore = auth();
         const { changeEmail, resetChangeEmailMessage } = authStore;
-        const { userInfo, changeEmailStatus, changeEmailErrorMessagesCurrentEmail, changeEmailErrorMessagesNewemail } = storeToRefs(authStore);
+        const { userInfo, changeEmailStatus, changeEmailErrorMessagesCurrentEmail, changeEmailErrorMessagesNewemail, isLoggedIn } = storeToRefs(authStore);
         const changeForm = ref({
             current_email: '',
             new_email: '',
@@ -95,6 +95,13 @@ export default defineComponent({
         const changeEmailErrorsNewemail = computed(() => {
             return authStore.changeEmailErrorMessagesNewemail
         })
+
+        // methods
+        const checkLoggedIn = () => {
+            if(!isLoggedIn.value) {
+                router.push({ name:'login' })
+            }
+        }
 
         const clickChangeEmail = async() => {
             isLoading.value = true
@@ -125,6 +132,7 @@ export default defineComponent({
 
         onMounted(() => {
             clearError();
+            checkLoggedIn();
         });
 
         return { router, route, token, onMounted, watch, userInfo, changeForm, clickChangeEmail, changeEmailErrorsCurrentEmail, changeEmailErrorsNewemail, isLoading };

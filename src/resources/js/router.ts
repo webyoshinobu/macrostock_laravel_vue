@@ -1,7 +1,7 @@
 import { storeToRefs } from 'pinia';
 import { auth } from '../../store/auth';
 import { createRouter, createWebHistory } from 'vue-router';
-import {  } from "vue"
+import { watch } from "vue"
 import top from "./components/Top.vue";
 import gallery from "./components/gallery/Gallery.vue";
 import photo from "./components/gallery/Photo.vue";

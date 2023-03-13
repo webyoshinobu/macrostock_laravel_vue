@@ -196,7 +196,7 @@ export default defineComponent({
         let loading = ref<boolean>(false)
         let input = ref<boolean>(true)
         const { deleteAccountAdmin, adminLogout } = authStore;
-        const { userInfo, changePasswordSuccess, changeEmailSuccess } = storeToRefs(authStore) as any|null;
+        const { userInfo, changePasswordSuccess, changeEmailSuccess, isLoggedIn, } = storeToRefs(authStore) as any|null;
         const { photo_list } = storeToRefs(galleryStore) as any|null;
         let photos = ref([]);
         let delete_modal = ref<boolean>(false);
@@ -224,6 +224,12 @@ export default defineComponent({
         })
 
         //methods
+        const checkLoggedIn = () => {
+            if(!isLoggedIn.value) {
+                router.push({ name:'admin/login' })
+            }
+        }
+
         const photoList = async(data:any) => {
             // console.log('AdminMypage.vue photoList()', data)
             photos.value = await galleryImgs().getPhotoList(data)
@@ -454,6 +460,7 @@ export default defineComponent({
             // console.log('onMounted');
             // console.log('watch userInfo', userInfo.value)
             photoList(userInfo.value)
+            checkLoggedIn()
         });
 
         return { router, route, token, onMounted, watch, onFileChange, preview, reset, submit, errors, loading, input, nextTick, photoList, photos, photo_list, deleteImg, deleteModalOpen, deleteModalClose, delete_modal, deleteForm, password_error, success, resetVals, success_flag, userInfo, changePasswordSuccess, changeEmailSuccess, deleteAccount, deleteAccountModalOpen, delete_account_modal, deleteAccountModalClose, deleteAccountForm, isLoading };
