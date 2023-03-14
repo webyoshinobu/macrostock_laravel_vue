@@ -35,9 +35,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, onMounted } from "vue";
 import { storeToRefs } from 'pinia';
+import { useRoute, useRouter } from 'vue-router'
 import { cartCounter } from '../../../../store/cart';
+import { auth } from '../../../../store/auth'
 import ButtonOrange from "../common/ButtonOrange.vue";
 import CartLoginAside from "./CartLoginAside.vue";
 export default defineComponent({
@@ -49,10 +51,19 @@ export default defineComponent({
 
     setup() {
         // data
+        const router = useRouter();
+        const route = useRoute();
         let { items } = storeToRefs(cartCounter());
         // const items = cartCounter().items;
         // console.log('Cart.vue', items);
         const tax = 1.1
+        const { isLoggedIn, } = storeToRefs(auth());
+
+        const checkLoggedIn = () => {
+            if(!isLoggedIn.value) {
+                router.push({ name:'login' })
+            }
+        }
 
         // methods
         const removeImg = (item:any) => {
@@ -67,7 +78,11 @@ export default defineComponent({
             return Number(price).toLocaleString()
         }
 
-        return { items, removeImg, pricePrefix, cartCounter }
+        onMounted(async() => {
+            checkLoggedIn()
+        })
+
+        return { router, route, items, removeImg, pricePrefix, cartCounter }
     },
 
 });
