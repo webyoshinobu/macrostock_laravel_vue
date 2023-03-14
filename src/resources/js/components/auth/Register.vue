@@ -47,10 +47,14 @@
                     <input type="password" class="register_form_line_input" id="register_form_pass" v-model="registerForm.password">
                 </div>
 
+                <p class="password_condition">※半角英数字8桁以上で入力してください。</p>
+
                 <div class="register_form_line">
                     <label class="register_form_line_label" for="register_form_passconfirmation">パスワード(確認)</label>
                     <input type="password" class="register_form_line_input" id="register_form_passconfirmation" v-model="registerForm.password_confirmation">
                 </div>
+
+                <p class="password_condition">※上記と同じパスワードを入力してください。</p>
 
                 <div class="register_form_term">
                     <input class="register_form_term_checkbox" id="register_form_checkbox" type="checkbox" v-model="term_checked">
@@ -223,13 +227,13 @@ export default defineComponent({
         }
 
         &_term {
-            margin: 0 0 20px 30%;
+            margin: 20px 0 20px 30%;
             // font-size: 24px;
             @include f-24;
             display: flex;
 
             @include md {
-                margin: 0 0 20px 0;
+                margin: 20px 0 20px 0;
             }
 
             &_checkbox {
@@ -250,6 +254,14 @@ export default defineComponent({
                 width: 150px;
             }
         }
+    }
+}
+
+.password_condition {
+    padding: 0 0 0 30%;
+
+    @include md {
+        padding: 0;
     }
 }
 
