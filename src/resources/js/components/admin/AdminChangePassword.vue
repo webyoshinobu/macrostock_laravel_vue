@@ -39,10 +39,14 @@
                 <input type="password" class="adminchangepassword_wrap_form_line_input" id="adminchangepassword_form_newpassword" v-model="changeForm.new_password">
             </div>
 
+            <p class="password_condition">※半角英数字8桁以上で入力してください。</p>
+
             <div class="adminchangepassword_wrap_form_line">
                 <label class="adminchangepassword_wrap_form_line_label" for="adminchangepassword_form_newpassword_confirmation">新しいパスワード(確認)</label>
                 <input type="password" class="adminchangepassword_wrap_form_line_input" id="adminchangepassword_form_newpassword_confirmation" v-model="changeForm.new_password_confirmation">
             </div>
+
+            <p class="password_condition">※上記と同じパスワードを入力してください。</p>
 
             <div class="adminchangepassword_wrap_form_button">
                 <div class="adminchangepassword_wrap_form_button_common">
@@ -244,6 +248,15 @@ export default defineComponent({
                 }
             }
         }
+    }
+}
+
+.password_condition {
+    padding: 0 0 0 40%;
+    font-size: 16px;
+
+    @include md {
+        padding: 0 0 20px 0;
     }
 }
 
