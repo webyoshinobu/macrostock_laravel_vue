@@ -656,6 +656,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "transform": () => (/* binding */ transform),
 /* harmony export */   "transition": () => (/* binding */ transition),
 /* harmony export */   "transitionEnd": () => (/* binding */ transitionEnd),
+/* harmony export */   "transitionStart": () => (/* binding */ transitionStart),
 /* harmony export */   "trigger": () => (/* binding */ trigger),
 /* harmony export */   "val": () => (/* binding */ val),
 /* harmony export */   "value": () => (/* binding */ value),
@@ -663,15 +664,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var ssr_window__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ssr-window */ "./node_modules/ssr-window/ssr-window.esm.js");
 /**
- * Dom7 4.0.4
+ * Dom7 4.0.6
  * Minimalistic JavaScript library for DOM manipulation, with a jQuery-compatible API
  * https://framework7.io/docs/dom7.html
  *
- * Copyright 2022, Vladimir Kharlampidi
+ * Copyright 2023, Vladimir Kharlampidi
  *
  * Licensed under MIT
  *
- * Released on: January 11, 2022
+ * Released on: February 2, 2023
  */
 
 
@@ -1167,6 +1168,22 @@ function trigger(...args) {
         delete el.dom7EventData;
       }
     }
+  }
+
+  return this;
+}
+
+function transitionStart(callback) {
+  const dom = this;
+
+  function fireCallBack(e) {
+    if (e.target !== this) return;
+    callback.call(this, e);
+    dom.off('transitionstart', fireCallBack);
+  }
+
+  if (callback) {
+    dom.on('transitionstart', fireCallBack);
   }
 
   return this;
