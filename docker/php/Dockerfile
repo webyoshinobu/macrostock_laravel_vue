@@ -1,4 +1,5 @@
-FROM php:7.4.1-fpm
+# FROM php:7.4.1-fpm
+FROM 923613491438.dkr.ecr.ap-northeast-1.amazonaws.com/macrostock_php:v_1.0
 
 # COPY php.ini
 # COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
