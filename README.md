@@ -49,7 +49,9 @@ MacroStock(マクロストック)はマクロ写真を専門としたフォト�
 
 ・GitHub
 
-# インフラ構造図
+# インフラ構成図
+
+![](https://github.com/webyoshinobu/macrostock_laravel_vue/blob/753c7e01dc20de7369e185c1899fbc77b67e4f13/aws_diagram.png)
 
 # ER 図
 
