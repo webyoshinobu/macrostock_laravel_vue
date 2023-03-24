@@ -87,11 +87,11 @@ export default defineComponent({
 
         // Swiperのインスタンスが返ってくる
         const onSwiper = (swiper:any) => {
-            console.log('swiper', swiper);
+            // console.log('swiper', swiper);
         };
         // スライド位置が変更された時に呼ばれる
         const onSlideChange = () => {
-            console.log('slide change');
+            // console.log('slide change');
         };
 
         onMounted(() => {
