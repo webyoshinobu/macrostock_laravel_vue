@@ -6,6 +6,7 @@
     <h2 class="logined_title">購入</h2>
     <div class="logined_detail">
         <p class="logined_detail_word">「購入する」ボタンを押すと写真がダウンロードされ、購入完了画面へ遷移します。</p>
+        <p class="logined_detail_word">※ポートフォリオのため実際に決済されることはありません。</p>
         <div class="logined_detail_button">
             <router-link to="/gallery">
                 <ButtonWhite class="logined_detail_button_component">Galleryへ</ButtonWhite>
