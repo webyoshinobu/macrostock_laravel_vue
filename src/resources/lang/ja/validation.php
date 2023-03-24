@@ -148,8 +148,10 @@ return [
 
     'attributes' => [
         'email' => 'メールアドレス',
+        'new_email' => '新しいメールアドレス',
         'name' => '氏名',
-        'password' => 'パスワード'
+        'password' => 'パスワード',
+        'new_password' => '新しいパスワード',
     ],
 
 ];
