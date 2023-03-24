@@ -20,6 +20,9 @@
                     </ul>
                 </div>
 
+                <!-- メールアドレス変更成功メッセージ -->
+                <div v-if="changeEmailSuccess" class="errors">{{changeEmailSuccess}}</div>
+
                 <div class="userchangeemail_wrap_form_line">
                     <label class="userchangeemail_wrap_form_line_label" for="userchangeemail_form_email">現在のメールアドレス</label>
                     <input type="text" class="userchangeemail_wrap_form_line_input" id="userchangeemail_form_email" v-model="changeForm.current_email">
@@ -78,7 +81,7 @@ export default defineComponent({
         const route = useRoute();
         const authStore = auth();
         const { changeEmail, resetChangeEmailMessage } = authStore;
-        const { userInfo, changeEmailStatus, changeEmailErrorMessagesCurrentEmail, changeEmailErrorMessagesNewemail, isLoggedIn } = storeToRefs(authStore);
+        const { userInfo, changeEmailStatus, changeEmailErrorMessagesCurrentEmail, changeEmailErrorMessagesNewemail, isLoggedIn, changeEmailSuccess } = storeToRefs(authStore);
         const changeForm = ref({
             current_email: '',
             new_email: '',
@@ -104,17 +107,18 @@ export default defineComponent({
         }
 
         const clickChangeEmail = async() => {
+            clearError();
             isLoading.value = true
 
             await changeEmail(changeForm.value)
 
             isLoading.value = false
 
-            if(authStore.changeEmailStatus === OK){
-                router.push({ name: 'mypage' })
-            }else{
+            // if(authStore.changeEmailStatus === OK){
+            //     router.push({ name: 'mypage' })
+            // }else{
                 resetInputs()
-            }
+            // }
         }
 
         const resetInputs = () => {
@@ -135,7 +139,7 @@ export default defineComponent({
             checkLoggedIn();
         });
 
-        return { router, route, token, onMounted, watch, userInfo, changeForm, clickChangeEmail, changeEmailErrorsCurrentEmail, changeEmailErrorsNewemail, isLoading };
+        return { router, route, token, onMounted, watch, userInfo, changeForm, clickChangeEmail, changeEmailErrorsCurrentEmail, changeEmailErrorsNewemail, isLoading, changeEmailSuccess };
     },
 
 });

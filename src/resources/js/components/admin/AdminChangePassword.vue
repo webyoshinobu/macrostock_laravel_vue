@@ -29,6 +29,11 @@
                 </ul>
             </div>
 
+            <!-- パスワード変更成功メッセージ -->
+            <div v-if="changePasswordSuccess" class="errors">
+                {{changePasswordSuccess}}
+            </div>
+
             <div class="adminchangepassword_wrap_form_line">
                 <label class="adminchangepassword_wrap_form_line_label" for="adminchangepassword_form_current_password">現在のパスワード</label>
                 <input type="password" class="adminchangepassword_wrap_form_line_input" id="adminchangepassword_form_current_password" v-model="changeForm.current_password">
@@ -91,7 +96,7 @@ export default defineComponent({
         const route = useRoute();
         const authStore = auth();
         const { changePasswordAdmin, resetChangePasswordMessage } = authStore;
-        const { userInfo, changePasswordStatus, changePasswordErrorMessagesCurrent, changePasswordErrorMessagesNewpass, isLoggedIn, } = storeToRefs(authStore);
+        const { userInfo, changePasswordStatus, changePasswordErrorMessagesCurrent, changePasswordErrorMessagesNewpass, isLoggedIn, changePasswordSuccess } = storeToRefs(authStore);
         let changeForm = ref({
             current_password: '',
             new_password: '',
@@ -117,17 +122,18 @@ export default defineComponent({
         }
 
         const clickChangePassword = async() => {
+            clearError()
             isLoading.value = true
 
             await changePasswordAdmin(changeForm.value)
 
             isLoading.value = false
 
-            if(authStore.changePasswordStatus === OK){
-                router.push({ name: 'admin/mypage' })
-            }else{
+            // if(authStore.changePasswordStatus === OK){
+            //     router.push({ name: 'admin/mypage' })
+            // }else{
                 resetInputs()
-            }
+            // }
         }
 
         const resetInputs = () => {
@@ -148,7 +154,7 @@ export default defineComponent({
             checkLoggedIn();
         });
 
-        return { router, route, token, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass, isLoading };
+        return { router, route, token, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass, isLoading, changePasswordSuccess };
     },
 
 });

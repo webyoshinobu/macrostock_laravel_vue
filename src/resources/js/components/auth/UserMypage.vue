@@ -9,8 +9,8 @@
             <div class="usermypage_wrap_title">登録情報</div>
             <div class="usermypage_wrap_content">
 
-                <div v-if="changePasswordSuccess" class="errors">{{changePasswordSuccess}}</div>
-                <div v-if="changeEmailSuccess" class="errors">{{changeEmailSuccess}}</div>
+                <!-- <div v-if="changePasswordSuccess" class="errors">{{changePasswordSuccess}}</div>
+                <div v-if="changeEmailSuccess" class="errors">{{changeEmailSuccess}}</div> -->
 
                 <ul class="usermypage_wrap_content_list">
                     <li class="usermypage_wrap_content_list_items">
@@ -106,7 +106,7 @@ export default defineComponent({
         const router = useRouter();
         const route = useRoute();
         const authStore = auth();
-        const { confirmUserPass, logout } = authStore;
+        const { confirmUserPass, logout, resetChangeEmailMessage, resetChangePasswordMessage } = authStore;
         const { userInfo, changePasswordSuccess, changeEmailSuccess, isLoggedIn, } = storeToRefs(authStore);
         let delete_modal = ref<boolean>(false);
         let deleteForm = ref({
@@ -182,7 +182,7 @@ export default defineComponent({
 
         onMounted(() => {
             // isLoading.value = true
-            // clearError();
+            // clearError()
             checkLoggedIn()
         });
 
@@ -279,6 +279,7 @@ export default defineComponent({
                         &_word {
                             padding: 10px;
                             border-radius: 10px;
+                            cursor: pointer;
                         }
                     }
                 }
