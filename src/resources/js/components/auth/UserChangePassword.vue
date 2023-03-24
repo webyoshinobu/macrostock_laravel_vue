@@ -10,15 +10,6 @@
             <!-- laravelのトークンを使用 -->
             <input type="hidden" name="_token" :value="token">
 
-            <!-- <div v-if="error_current" class="errors">{{error_current}}</div> -->
-            <!-- <div v-if="error_newpass" class="errors">
-                <ul v-if="error_newpass.new_password">
-                    <li v-for="msg in error_newpass.new_password" :key="msg">
-                        {{ msg }}
-                    </li>
-                </ul>
-            </div> -->
-
             <!-- エラーメッセージ -->
             <div v-if="changePasswordErrorsCurrent" class="errors">{{changePasswordErrorsCurrent}}</div>
             <div v-if="changePasswordErrorsNewpass" class="errors">
@@ -27,6 +18,11 @@
                         {{ msg }}
                     </li>
                 </ul>
+            </div>
+
+            <!-- パスワード変更成功メッセージ -->
+            <div v-if="changePasswordSuccess" class="errors">
+                {{changePasswordSuccess}}
             </div>
 
             <div class="userchangepassword_wrap_form_line">
@@ -91,7 +87,7 @@ export default defineComponent({
         const route = useRoute();
         const authStore = auth();
         const { changePassword, resetChangePasswordMessage } = authStore;
-        const { userInfo, changePasswordStatus, changePasswordErrorMessagesCurrent, changePasswordErrorMessagesNewpass, isLoggedIn, } = storeToRefs(authStore);
+        const { userInfo, changePasswordStatus, changePasswordErrorMessagesCurrent, changePasswordErrorMessagesNewpass, isLoggedIn, changePasswordSuccess } = storeToRefs(authStore);
         let changeForm = ref({
             current_password: '',
             new_password: '',
@@ -117,6 +113,7 @@ export default defineComponent({
         }
 
         const clickChangePassword = async() => {
+            clearError()
             isLoading.value = true
             // const response = await axios.post('api/changePassword', changeForm.value)
             // if(response.status == OK){
@@ -131,13 +128,13 @@ export default defineComponent({
 
             isLoading.value = false
 
-            if(authStore.changePasswordStatus === OK){
-                router.push({ name: 'mypage' })
-            }else{
+            // if(authStore.changePasswordStatus === OK){
+            //     router.push({ name: 'mypage' })
+            // }else{
                 // error_current.value = authStore.changePasswordErrorMessagesCurrent
                 // error_newpass.value = authStore.changePasswordErrorMessagesNewpass
                 resetInputs()
-            }
+            // }
         }
 
         const resetInputs = () => {
@@ -158,7 +155,7 @@ export default defineComponent({
             checkLoggedIn();
         });
 
-        return { router, route, token, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass, isLoading };
+        return { router, route, token, onMounted, watch, userInfo, changeForm, clickChangePassword, changePasswordErrorsCurrent, changePasswordErrorsNewpass, isLoading, changePasswordSuccess };
     },
 
 });

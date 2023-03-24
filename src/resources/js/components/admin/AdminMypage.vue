@@ -8,8 +8,8 @@
         <!-- 登録情報エリア -->
         <div class="adminmypage_wrap_content">
 
-            <div v-if="changePasswordSuccess" class="errors">{{changePasswordSuccess}}</div>
-            <div v-if="changeEmailSuccess" class="errors">{{changeEmailSuccess}}</div>
+            <!-- <div v-if="changePasswordSuccess" class="errors">{{changePasswordSuccess}}</div>
+            <div v-if="changeEmailSuccess" class="errors">{{changeEmailSuccess}}</div> -->
 
             <ul class="adminmypage_wrap_content_list">
                 <li class="adminmypage_wrap_content_list_items">
@@ -552,6 +552,7 @@ export default defineComponent({
                         &_word {
                             padding: 10px;
                             border-radius: 10px;
+                            cursor: pointer;
                         }
                     }
                 }
@@ -583,6 +584,7 @@ export default defineComponent({
         button {
             padding: 10px;
             border-radius: 10px;
+            cursor: pointer;
         }
     }
 
@@ -641,6 +643,7 @@ export default defineComponent({
                 button {
                     padding: 10px;
                     border-radius: 10px;
+                    cursor: pointer;
                 }
             }
         }
