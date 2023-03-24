@@ -1,6 +1,6 @@
 # サイト概要
 
-MacroStock：ここに URL
+MacroStock：http://ec2-54-250-176-179.ap-northeast-1.compute.amazonaws.com
 
 MacroStock(マクロストック)はマクロ写真を専門としたフォトストックサイトです。
 
