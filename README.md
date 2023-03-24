@@ -20,35 +20,43 @@ MacroStock(マクロストック)はマクロ写真を専門としたフォト�
 
 ・CSS
 
-・SCSS
+・SCSS 1.58.3
 
 ・JavaScript
 
-・Vue.js
+・Vue.js 3.2.45
 
-・TypeScript
+・TypeScript 4.9.4
 
-・Pinia
+・Pinia 2.0.29
+
+・vue-router 4.1.6
 
 ## バックエンド
 
-・PHP
+・PHP 7.4.1
 
-・Laravel
+・Laravel 8.83.27
 
 ・SQL
 
-・MySQL
+・MySQL 　 8.0.32
 
 ## インフラ
 
 ・AWS
+\_VPC
+\_EC2
+\_RDS
+\_S3
 
 ## 開発環境
 
 ・Docker/Docker-compose
 
 ・GitHub
+
+・Table Plus
 
 # インフラ構成図
 
