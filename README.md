@@ -1,6 +1,6 @@
 # サイト概要
 
-MacroStock：http://ec2-54-250-176-179.ap-northeast-1.compute.amazonaws.com
+MacroStock：https://macrostock.net/
 
 MacroStock(マクロストック)はマクロ写真を専門としたフォトストックサイトです。
 
@@ -24,7 +24,7 @@ MacroStock(マクロストック)はマクロ写真を専門としたフォト�
 
 - JavaScript
 
-- Vue.js 3.2.45
+- Vue.js 3.2.45 (コンポーネントスタイル：Composition API)
 
 - TypeScript 4.9.4
 
@@ -64,7 +64,7 @@ MacroStock(マクロストック)はマクロ写真を専門としたフォト�
 
 # インフラ構成図
 
-![](https://github.com/webyoshinobu/macrostock_laravel_vue/blob/753c7e01dc20de7369e185c1899fbc77b67e4f13/aws_diagram.png)
+![](https://github.com/webyoshinobu/macrostock_laravel_vue/blob/ad8a24717b3ad22333fc23245e0b5663e372fee6/aws-diagram.png)
 
 # ER 図
 
