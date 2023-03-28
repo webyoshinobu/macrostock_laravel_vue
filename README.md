@@ -62,6 +62,10 @@ MacroStock(マクロストック)はマクロ写真を専門としたフォト�
 
 - Table Plus
 
+- Figma
+
+- diagrams.net
+
 # インフラ構成図
 
 ![](https://github.com/webyoshinobu/macrostock_laravel_vue/blob/ad8a24717b3ad22333fc23245e0b5663e372fee6/aws-diagram.png)
